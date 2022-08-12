@@ -134,7 +134,7 @@ export function renderButtons({
   createButtonStyleSheet(style);
 
   const targets = [
-    ...document.getElementsByClassName(targetClass || "topsort-target-product"),
+    ...document.getElementsByClassName(targetClass || "topsort-promote-target"),
   ];
   targets.forEach((target) => {
     if (!(target instanceof HTMLElement)) return;

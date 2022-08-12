@@ -25,7 +25,7 @@ function createProductElement(num) {
   img.height = imgSize;
   const info = product.querySelector(".product-info");
   info.dataset.topsortProductId = `product-${num}`;
-  info.classList.add("topsort-target-product");
+  info.classList.add("topsort-promote-target");
   product.querySelector(".product-name").innerText = `Product ${num}`;
   product.querySelector(".product-vendor").innerText = `Vendor ${num}`;
   product.querySelector(".product-price").innerText = `$${num}.99`;
