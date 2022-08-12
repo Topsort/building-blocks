@@ -30,7 +30,7 @@ JS
 
 TopsortElements.init
 
-TopsortElements.renderButtons
+TopsortElements.initProductPromotion
 
 Setep [#setup]
 
