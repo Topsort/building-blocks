@@ -19,7 +19,7 @@ HTML
 
 ```html
 <div
-  class="my-custom-class topsort-target-product"
+  class="my-custom-class topsort-promote-target"
   data-topsort-product-id="[product-id-here]"
 >
   ...
