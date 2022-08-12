@@ -28,10 +28,9 @@ type CustomClassName = {
   replace?: boolean;
 };
 
-type Style = {
-  button: CustomClassName;
-  buttonText: CustomClassName;
-};
+type Style = Partial<
+  Record<"button" | "buttonText" | "modal", CustomClassName>
+>;
 
 const buttonClassName = "topsort-product-promote-button";
 const defaultButtonStyles = [
@@ -52,13 +51,13 @@ function formatStyleContent(className: string, styles: string[]) {
 function createButtonStyleSheet(style?: Style) {
   const styleSheet = document.createElement("style");
   styleSheet.textContent = "";
-  if (!style?.button.replace) {
+  if (!style?.button?.replace) {
     styleSheet.textContent += formatStyleContent(
       buttonClassName,
       defaultButtonStyles
     );
   }
-  if (!style?.buttonText.replace) {
+  if (!style?.buttonText?.replace) {
     styleSheet.textContent += formatStyleContent(
       buttonTextClassName,
       defaultButtonTextStyles
@@ -77,19 +76,19 @@ function createButtonStyleSheet(style?: Style) {
 
 function createButton({
   productId,
-  text,
   style,
+  text,
 }: {
   productId: string;
-  text: string;
   style?: Style;
+  text: string;
 }) {
   const button = document.createElement("button");
 
   if (style?.button) {
     button.classList.add(style.button.className);
   }
-  if (!style?.button.replace) {
+  if (!style?.button?.replace) {
     button.classList.add(buttonClassName);
   }
 
@@ -98,7 +97,7 @@ function createButton({
   if (style?.buttonText) {
     buttonText.classList.add(style.buttonText.className);
   }
-  if (!style?.buttonText.replace) {
+  if (!style?.buttonText?.replace) {
     buttonText.classList.add(buttonTextClassName);
   }
 
@@ -131,6 +130,8 @@ export function renderButtons({
     return;
   }
 
+  // TODO(christopherbot) validate API key
+
   createButtonStyleSheet(style);
 
   const targets = [
@@ -141,12 +142,17 @@ export function renderButtons({
 
     const productId = target.dataset.topsortProductId;
 
-    if (!productId) return;
+    if (!productId) {
+      console.warn(
+        "[Topsort Elements] Skipping button on element with no data-topsort-product-id."
+      );
+      return;
+    }
 
     const button = createButton({
       productId,
-      text: buttonText || "Promote",
       style,
+      text: buttonText || "Promote",
     });
     target.appendChild(button);
   });
