@@ -17,12 +17,6 @@ export function init(params: InitParams) {
   return `Hello, welcome to ${projectName}!`;
 }
 
-function createAndAppendStyleSheet(content: string) {
-  const style = document.createElement("style");
-  style.textContent = content;
-  document.head.appendChild(style);
-}
-
 type CustomClassName = {
   className: string;
   replace?: boolean;

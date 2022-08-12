@@ -1,3 +1,5 @@
+/* global TopsortElements */
+
 // Demo config
 const imgSize = 160;
 const numProducts = 20;
