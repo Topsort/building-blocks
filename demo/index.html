@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Topsort Elements Demo</title>
+  <script async id="topsort-elements" src="../dist/topsort-elements.js"></script>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    main {
+      padding: 1rem;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .product {
+      display: flex;
+      border: 1px solid black;
+    }
+
+    #product-proto {
+      display: none;
+    }
+
+    .product-info {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 10rem;
+      padding: 0.5rem;
+    }
+
+    .my-custom-button {
+      background-color: #5E3BDD;
+      border-radius: 0.5rem;
+      height: 2rem;
+    }
+
+    .my-custom-button-text {
+      font-style: italic;
+      font-weight: 900;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="wrapper">
+
+      <!-- REUSABLE ELEMENT DEFINITIONS -->
+      <div hidden id="product-proto" class="product">
+        <img class="product-img" />
+        <div class="product-info">
+          <span class="product-name"></span>
+          <span class="product-vendor"></span>
+          <span class="product-price"></span>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="./index.js"></script>
+</body>
+</html>
