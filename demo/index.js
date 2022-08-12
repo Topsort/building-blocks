@@ -25,7 +25,9 @@ function createProductElement(num) {
   img.height = imgSize;
   const info = product.querySelector(".product-info");
   info.dataset.topsortProductId = `product-${num}`;
-  info.classList.add("topsort-promote-target");
+  info.classList.add(
+    isUsingCustomProps ? "my-custom-promote-target" : "topsort-promote-target"
+  );
   product.querySelector(".product-name").innerText = `Product ${num}`;
   product.querySelector(".product-vendor").innerText = `Vendor ${num}`;
   product.querySelector(".product-price").innerText = `$${num}.99`;
@@ -52,8 +54,10 @@ document.querySelector("#topsort-elements").addEventListener("load", () => {
   TopsortElements.init({
     apiKey: "abc123",
   });
+
   if (isUsingCustomProps) {
-    TopsortElements.renderButtons({
+    TopsortElements.initProductPromotion({
+      buttonText: "Create Campaign",
       style: {
         button: {
           className: "my-custom-button",
@@ -63,9 +67,9 @@ document.querySelector("#topsort-elements").addEventListener("load", () => {
           replace: true,
         },
       },
-      buttonText: "Create Campaign",
+      targetClass: "my-custom-promote-target",
     });
   } else {
-    TopsortElements.renderButtons();
+    TopsortElements.initProductPromotion();
   }
 });

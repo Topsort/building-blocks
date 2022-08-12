@@ -112,20 +112,20 @@ function createButton({
   return button;
 }
 
-type RenderButtons = {
-  targetClass?: string;
-  style?: Style;
+type InitProductPromotion = {
   buttonText?: string;
+  style?: Style;
+  targetClass?: string;
 };
 
-export function renderButtons({
-  targetClass,
-  style,
+export function initProductPromotion({
   buttonText,
-}: RenderButtons = {}) {
+  style,
+  targetClass,
+}: InitProductPromotion = {}) {
   if (!apiKey) {
     console.warn(
-      '[Topsort Elements] Cannot call "renderButtons" before calling "init" with the apiKey.'
+      '[Topsort Elements] Cannot call "initProductPromotion" before calling "init" with the apiKey.'
     );
     return;
   }
