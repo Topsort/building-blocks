@@ -60,6 +60,8 @@ document.querySelector("#topsort-elements").addEventListener("load", () => {
   if (isUsingCustomProps) {
     TopsortElements.initProductPromotion({
       buttonText: "Create Campaign",
+      modalTargetClass: "my-custom-modal-target",
+      promoteTargetClass: "my-custom-promote-target",
       style: {
         button: {
           className: "my-custom-button",
@@ -69,7 +71,6 @@ document.querySelector("#topsort-elements").addEventListener("load", () => {
           replace: true,
         },
       },
-      targetClass: "my-custom-promote-target",
     });
   } else {
     TopsortElements.initProductPromotion();
