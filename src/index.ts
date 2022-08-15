@@ -74,12 +74,12 @@ const defaultModalStyles = [
   "box-shadow: 0px 5px 8px rgb(0 0 0 / 10%);",
   "z-index: 1;",
 ];
-const modalClassNameShow = "topsort-promote-modal--show";
+const modalShowClassName = "topsort-promote-modal--show";
 const modalShowStyles = ["display: flex;"];
-const modalClassNameHide = "topsort-promote-modal--hide";
+const modalHideClassName = "topsort-promote-modal--hide";
 const modalHideStyles = ["display: none;"];
 
-const modalCloseButtonClass = "topsort-promote-modal__close-button";
+const modalCloseButtonClassName = "topsort-promote-modal__close-button";
 const modalCloseButtonStyles = [
   "position: absolute;",
   "top: 0.5rem;",
@@ -111,7 +111,7 @@ function formatStyleContent(className: string, styles: string[]) {
 function createModal({ style, text }: { style?: Style; text?: CustomText }) {
   const modal = document.createElement("div");
 
-  modal.classList.add(modalClassNameHide);
+  modal.classList.add(modalHideClassName);
   modal.setAttribute("role", "dialog");
   modal.setAttribute("aria-modal", "true");
 
@@ -124,10 +124,10 @@ function createModal({ style, text }: { style?: Style; text?: CustomText }) {
 
   const closeButton = document.createElement("button");
   closeButton.innerText = "✕";
-  closeButton.classList.add(modalCloseButtonClass);
+  closeButton.classList.add(modalCloseButtonClassName);
   closeButton.addEventListener("click", () => {
-    modal.classList.remove(modalClassNameShow);
-    modal.classList.add(modalClassNameHide);
+    modal.classList.remove(modalShowClassName);
+    modal.classList.add(modalHideClassName);
     delete modal.dataset.topsortProductId;
   });
 
@@ -156,17 +156,17 @@ function createStyleSheet(style?: Style) {
   styleSheet.textContent = "";
 
   styleSheet.textContent += formatStyleContent(
-    modalClassNameShow,
+    modalShowClassName,
     modalShowStyles
   );
 
   styleSheet.textContent += formatStyleContent(
-    modalClassNameHide,
+    modalHideClassName,
     modalHideStyles
   );
 
   styleSheet.textContent += formatStyleContent(
-    modalCloseButtonClass,
+    modalCloseButtonClassName,
     modalCloseButtonStyles
   );
 
@@ -237,23 +237,23 @@ function createButton({
     if (productIdTarget instanceof HTMLElement) {
       productIdTarget.innerText = productId;
     }
-    modal.classList.remove(modalClassNameHide);
-    modal.classList.add(modalClassNameShow);
+    modal.classList.remove(modalHideClassName);
+    modal.classList.add(modalShowClassName);
   });
 
   return button;
 }
 
 type InitProductPromotion = {
-  modalTargetClass?: string;
+  modalTargetClassName?: string;
+  promoteTargetClassName?: string;
   style?: Style;
-  promoteTargetClass?: string;
   text?: CustomText;
 };
 
 export function initProductPromotion({
-  modalTargetClass,
-  promoteTargetClass,
+  modalTargetClassName,
+  promoteTargetClassName,
   style,
   text,
 }: InitProductPromotion = {}) {
@@ -265,7 +265,8 @@ export function initProductPromotion({
   }
 
   const modalTarget =
-    (modalTargetClass && document.querySelector(`.${modalTargetClass}`)) ||
+    (modalTargetClassName &&
+      document.querySelector(`.${modalTargetClassName}`)) ||
     document.body;
 
   const modal = createModal({
@@ -279,7 +280,7 @@ export function initProductPromotion({
 
   const promoteTargets = [
     ...document.getElementsByClassName(
-      promoteTargetClass || defaultPromoteTargetClassName
+      promoteTargetClassName || defaultPromoteTargetClassName
     ),
   ];
 
