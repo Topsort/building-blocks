@@ -69,6 +69,7 @@ const defaultModalStyles = [
   "border-radius: 0.5rem;",
   "background-color: white;",
   "box-shadow: 0px 5px 8px rgb(0 0 0 / 10%);",
+  "z-index: 1;",
 ];
 const modalClassNameShow = "topsort-promote-modal--show";
 const modalShowStyles = ["display: flex;"];
@@ -280,6 +281,7 @@ export function initProductPromotion({
       promoteTargetClass || defaultPromoteTargetClassName
     ),
   ];
+
   promoteTargets.forEach((target) => {
     if (!(target instanceof HTMLElement)) return;
 
@@ -300,4 +302,12 @@ export function initProductPromotion({
     });
     target.appendChild(button);
   });
+
+  if (promoteTargets.length === 0) {
+    logger.warn(
+      "No promote targets found. Did you add the right className to the promote targets?"
+    );
+  }
 }
+
+export const promoteTargetClassName = defaultPromoteTargetClassName;
