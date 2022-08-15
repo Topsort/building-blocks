@@ -305,7 +305,8 @@ export function initProductPromotion({
 
   if (promoteTargets.length === 0) {
     logger.warn(
-      "No promote targets found. Did you add the right className to the promote targets?"
+      "No promote targets found. Did you add the right className to the promote targets?\n\n" +
+        "If you are using a custom className, make sure to pass it in the `initProductPromotion` options."
     );
   }
 }
