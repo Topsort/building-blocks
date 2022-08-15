@@ -108,6 +108,8 @@ function createModal({ style, text }: { style?: Style; text?: CustomText }) {
   const modal = document.createElement("div");
 
   modal.classList.add(modalClassNameHide);
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
 
   if (style?.modal) {
     modal.classList.add(style.modal.className);
