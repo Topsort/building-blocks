@@ -38,7 +38,7 @@ Correct:
 
 ```js
 {
-  promoteTargetClass: "my-custom-class",
+  promoteTargetClassName: "my-custom-class",
 }
 ```
 
@@ -46,7 +46,7 @@ Incorrect: ".my-custom-class"
 
 ```js
 {
-  promoteTargetClass: ".my-custom-class",
+  promoteTargetClassName: ".my-custom-class",
 }
 ```
 
