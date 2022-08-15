@@ -1,7 +1,5 @@
 import { ApiKey } from "@types";
 
-const projectName = "Topsort Elements";
-
 const defaultText = {
   button: "Promote",
   modalTitle: "Create Campaign",
@@ -28,14 +26,19 @@ type InitParams = {
 export function init(params: InitParams) {
   if (typeof params !== "object") {
     logger.error('Method "init" is missing the required params object.');
+    return;
   }
+
   if (!params.apiKey) {
     logger.error(
       'Method "init" is missing the required apiKey in the params object.'
     );
+    return;
   }
+
+  // TODO(christopherbot) validate API key
+
   apiKey = params.apiKey;
-  return `Hello, welcome to ${projectName}!`;
 }
 
 type CustomClassName = {
@@ -260,8 +263,6 @@ export function initProductPromotion({
     );
     return;
   }
-
-  // TODO(christopherbot) validate API key
 
   const modalTarget =
     (modalTargetClass && document.querySelector(`.${modalTargetClass}`)) ||
