@@ -28,7 +28,9 @@ function createProductElement(num) {
   const info = product.querySelector(".product-info");
   info.dataset.topsortProductId = `product-${num}`;
   info.classList.add(
-    isUsingCustomProps ? "my-custom-promote-target" : "topsort-promote-target"
+    isUsingCustomProps
+      ? "my-custom-promote-target"
+      : TopsortElements.promoteTargetClassName
   );
   product.querySelector(".product-name").innerText = `Product ${num}`;
   product.querySelector(".product-vendor").innerText = `Vendor ${num}`;
@@ -46,6 +48,13 @@ document.querySelector("#topsort-elements").addEventListener("load", () => {
   }
 
   const wrapper = document.querySelector(".wrapper");
+
+  if (isUsingCustomProps) {
+    const customModalTarget = document.createElement("div");
+    customModalTarget.classList.add("my-custom-modal-target");
+    wrapper.appendChild(customModalTarget);
+  }
+
   for (let i = 1; i < numProducts + 1; i++) {
     const product = createProductElement(i);
     wrapper.appendChild(product);
