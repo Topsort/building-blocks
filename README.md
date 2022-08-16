@@ -76,4 +76,3 @@ TODOs
 - extract types to @types
 - extract defaults/css classes to @defaults or @constants or something
 - finalize all public classNames before shipping so we can minimize the number of changes we make to them
-- use "className" instead of "class" everywhere
