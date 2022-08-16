@@ -1,6 +1,6 @@
 {
   "name": "@topsort/elements",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.0",
   "description": "Topsort's JS elements and widgets library.",
   "main": "dist/topsort-elements.js",
   "types": "dist/index.d.ts",
