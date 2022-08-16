@@ -1,6 +1,8 @@
 // const HtmlWebpackPlugin = require("html-webpack-plugin");
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
+/* eslint-enable @typescript-eslint/no-var-requires */
 
 module.exports = {
   entry: "./src/index.ts",
