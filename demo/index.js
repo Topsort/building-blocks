@@ -62,12 +62,12 @@ document.querySelector("#topsort-elements").addEventListener("load", () => {
 
   if (!isUsingTopsortElements) return;
 
-  TopsortElements.init({
+  const tsElements = new TopsortElements({
     apiKey: "abc123",
   });
 
   if (isUsingCustomProps) {
-    TopsortElements.initProductPromotion({
+    tsElements.initProductPromotion({
       modalTargetClassName: "my-custom-modal-target",
       promoteTargetClassName: "my-custom-promote-target",
       style: {
@@ -84,6 +84,6 @@ document.querySelector("#topsort-elements").addEventListener("load", () => {
       },
     });
   } else {
-    TopsortElements.initProductPromotion();
+    tsElements.initProductPromotion();
   }
 });

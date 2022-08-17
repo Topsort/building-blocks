@@ -28,6 +28,7 @@ module.exports = {
     library: {
       name: "TopsortElements",
       type: "umd",
+      export: "default",
     },
     clean: true,
   },

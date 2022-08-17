@@ -17,29 +17,9 @@ const logger = {
   error: (...msg: any[]) => console.error(logPrefix, ...msg),
 };
 
-let apiKey: ApiKey;
-
 type InitParams = {
   apiKey: ApiKey;
 };
-
-export function init(params: InitParams) {
-  if (typeof params !== "object") {
-    logger.error('Method "init" is missing the required params object.');
-    return;
-  }
-
-  if (!params.apiKey) {
-    logger.error(
-      'Method "init" is missing the required apiKey in the params object.'
-    );
-    return;
-  }
-
-  // TODO(christopherbot) validate API key
-
-  apiKey = params.apiKey;
-}
 
 type CustomClassName = {
   className: string;
@@ -251,66 +231,90 @@ type InitProductPromotion = {
   text?: CustomText;
 };
 
-export function initProductPromotion({
-  modalTargetClassName,
-  promoteTargetClassName,
-  style,
-  text,
-}: InitProductPromotion = {}) {
-  if (!apiKey) {
-    logger.warn(
-      'Cannot call "initProductPromotion" before calling "init" with the apiKey.'
-    );
-    return;
-  }
+export default class TopsortElements {
+  private apiToken?: string;
 
-  const modalTarget =
-    (modalTargetClassName &&
-      document.querySelector(`.${modalTargetClassName}`)) ||
-    document.body;
+  static promoteTargetClassName = defaultPromoteTargetClassName;
 
-  const modal = createModal({
-    style,
-    text,
-  });
+  constructor(params: InitParams) {
+    if (typeof params !== "object") {
+      logger.error('Method "init" is missing the required params object.');
+      return;
+    }
 
-  modalTarget.appendChild(modal);
-
-  createStyleSheet(style);
-
-  const promoteTargets = [
-    ...document.getElementsByClassName(
-      promoteTargetClassName || defaultPromoteTargetClassName
-    ),
-  ];
-
-  promoteTargets.forEach((target) => {
-    if (!(target instanceof HTMLElement)) return;
-
-    const productId = target.dataset.topsortProductId;
-
-    if (!productId) {
-      logger.warn(
-        "Skipping button on element with no data-topsort-product-id."
+    if (!params.apiKey) {
+      logger.error(
+        'Method "init" is missing the required apiKey in the params object.'
       );
       return;
     }
 
-    const button = createButton({
-      productId,
-      modal,
+    // TODO(christopherbot) server-side validation
+    const validate = (a) => a;
+    const apiToken = validate(params.apiKey);
+
+    this.apiToken = apiToken;
+  }
+
+  initProductPromotion({
+    modalTargetClassName,
+    promoteTargetClassName,
+    style,
+    text,
+  }: InitProductPromotion = {}) {
+    if (!this.apiToken) {
+      logger.warn(
+        'Cannot call "initProductPromotion" before calling "init" with the apiKey.'
+      );
+      return;
+    }
+
+    const modalTarget =
+      (modalTargetClassName &&
+        document.querySelector(`.${modalTargetClassName}`)) ||
+      document.body;
+
+    const modal = createModal({
       style,
       text,
     });
-    target.appendChild(button);
-  });
 
-  if (promoteTargets.length === 0) {
-    logger.warn(
-      "No promote targets found. Did you add the right className to the promote targets?\n\n" +
-        "If you are using a custom className, make sure to pass it in the `initProductPromotion` options."
-    );
+    modalTarget.appendChild(modal);
+
+    createStyleSheet(style);
+
+    const promoteTargets = [
+      ...document.getElementsByClassName(
+        promoteTargetClassName || defaultPromoteTargetClassName
+      ),
+    ];
+
+    promoteTargets.forEach((target) => {
+      if (!(target instanceof HTMLElement)) return;
+
+      const productId = target.dataset.topsortProductId;
+
+      if (!productId) {
+        logger.warn(
+          "Skipping button on element with no data-topsort-product-id."
+        );
+        return;
+      }
+
+      const button = createButton({
+        productId,
+        modal,
+        style,
+        text,
+      });
+      target.appendChild(button);
+    });
+
+    if (promoteTargets.length === 0) {
+      logger.warn(
+        "No promote targets found. Did you add the right className to the promote targets?\n\n" +
+          "If you are using a custom className, make sure to pass it in the `initProductPromotion` options."
+      );
+    }
   }
 }
-
-export const promoteTargetClassName = defaultPromoteTargetClassName;

@@ -76,3 +76,7 @@ TODOs
 - extract types to @types
 - extract defaults/css classes to @defaults or @constants or something
 - finalize all public classNames before shipping so we can minimize the number of changes we make to them
+- expose method to just re-attach buttons incase of virtualized lists
+- publish to s3 instead of unpkg so that marketplaces don't have to whitelist unpkg
+
+call an endpoint in CC with apiKey and vendorId, which would auth them
