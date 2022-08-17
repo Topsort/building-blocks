@@ -1,5 +1,10 @@
 import { ApiKey } from "@types";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// import { html, render } from "https://unpkg.com/htm/preact/index.mjs?module";
+import { html, h, render } from "preact";
 
+console.log("~~", html, render);
 const defaultText = {
   button: "Promote",
   modalTitle: "Create Campaign",
@@ -210,6 +215,8 @@ function createButton({
   }
 
   button.appendChild(buttonText);
+  const blah = h("h1", null, "Hello World!");
+  render(blah, button);
 
   button.addEventListener("click", () => {
     const productIdTarget = modal.querySelector(`#${modalProductIdTargetId}`);
@@ -250,7 +257,7 @@ export default class TopsortElements {
     }
 
     // TODO(christopherbot) server-side validation
-    const validate = (a) => a;
+    const validate = (a: any) => a;
     const apiToken = validate(params.apiKey);
 
     this.apiToken = apiToken;
