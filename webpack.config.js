@@ -24,7 +24,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "topsort-elements.js",
+    filename: "index.js",
     library: {
       name: "TopsortElements",
       type: "umd",

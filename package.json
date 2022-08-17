@@ -2,13 +2,13 @@
   "name": "@topsort/elements",
   "version": "1.0.0-alpha.0",
   "description": "Topsort's JS elements and widgets library.",
-  "main": "dist/topsort-elements.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "webpack",
     "demo": "webpack && http-server . -o /demo",
     "dev": "webpack serve",
-    "lint": "eslint . --max-warnings 0",
+    "lint": "eslint . --cache --cache-strategy content --max-warnings 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
