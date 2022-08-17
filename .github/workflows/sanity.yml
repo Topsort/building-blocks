@@ -1,4 +1,4 @@
-name: ci-workflows
+name: sanity
 
 on:
   workflow_call:
