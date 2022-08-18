@@ -6,20 +6,26 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": false,
+    // "jsx": "react",
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
     "lib": ["ES2016", "DOM", "DOM.Iterable"],
-    // "module": "commonjs",
     "module": "UMD",
     "moduleResolution": "node",
-    "noEmit": false,
+    // "noEmit": false,
+    "noEmit": true,
     "paths": {
+      "@components/*": ["src/components/*"],
       "@types": ["src/types"]
     },
     // "resolveJsonModule": true, // doesn't work with UMD
     "skipLibCheck": true,
     "strict": true,
     "target": "es2016",
+    // "target": "ES5",
     // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "./dist/**/*"]
 }
