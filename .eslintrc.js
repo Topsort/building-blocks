@@ -8,6 +8,7 @@ module.exports = {
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
+    "preact",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -31,4 +32,11 @@ module.exports = {
   //     },
   //   },
   // ],
+  settings: {
+    react: {
+      // eslint-plugin-preact interprets this as "h.createElement",
+      // however we only care about marking h() as being a used variable.
+      pragma: "h",
+    },
+  },
 };
