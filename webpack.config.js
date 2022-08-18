@@ -5,7 +5,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 module.exports = {
-  entry: "./src/index.ts",
+  entry: "./src/index.tsx",
   mode: "production",
   // entry: "./",
   // mode: "development",
@@ -13,14 +13,29 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        use: "ts-loader",
+        test: /\.tsx?$/,
+        use: "babel-loader",
+        // use: "ts-loader",
         exclude: /node_modules/,
       },
     ],
   },
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: [".ts", ".tsx", ".js"],
+    // modules: [
+    //   path.resolve(__dirname, "node_modules"),
+    //   "node_modules",
+    //   path.resolve(__dirname, "src/lib"),
+    // ],
+    // MAYBE?
+    // alias: {
+    //   react: "preact/compat",
+    //   "react-dom/test-utils": "preact/test-utils",
+    //   "react-dom": "preact/compat",
+    // },
+    alias: {
+      "@components": path.resolve(__dirname, "src/components/"),
+    },
   },
   output: {
     path: path.resolve(__dirname, "dist"),
