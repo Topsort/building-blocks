@@ -107,9 +107,9 @@ const App: FunctionalComponent<InitProductPromotion> = ({
   text,
 }) => {
   const [productId, setProductId] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => {            
+
     initStyles(style);
 
     const promoteTargets = [
@@ -144,7 +144,6 @@ const App: FunctionalComponent<InitProductPromotion> = ({
           onClick={() => {
             console.log("promote button clicked");
             setProductId(productId);
-            setIsModalOpen(true);
           }}
         />,
         target
@@ -158,10 +157,9 @@ const App: FunctionalComponent<InitProductPromotion> = ({
         style={style}
         text={text}
         onClose={() => {
-          console.log("X button clicked");
-          setIsModalOpen(false);
+          setProductId(null);
         }}
-        isOpen={isModalOpen}
+        isOpen={!!productId}
       >
         <CampaignCreation style={style} text={text} productId={productId} />
       </Modal>
