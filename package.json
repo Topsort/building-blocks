@@ -2,8 +2,8 @@
   "name": "@topsort/elements",
   "version": "1.0.0-alpha.0",
   "description": "Topsort's JS elements and widgets library.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "webpack",
     "demo": "webpack && http-server . -o /demo",
@@ -45,6 +45,7 @@
     "eslint-config-preact": "^1.3.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "html-webpack-plugin": "^5.5.0",
     "prettier": "^2.7.1",
     "terser-webpack-plugin": "^5.3.3",
     "ts-loader": "^9.3.1",
