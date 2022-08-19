@@ -1,0 +1,8 @@
+.topsort-product-promote-button {
+  cursor: pointer;
+  border-radius: 0.25rem;
+  background-color: #ddd6ff;
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+}

@@ -1,16 +1,32 @@
+import { CampaignCreation } from "@components/CampaignCreation";
+import { Modal } from "@components/Modal";
+import Portal from "@components/Portal";
 import { PromoteButton } from "@components/PromoteButton";
-import { ApiKey } from "@types";
-import { h, render } from "preact";
+import {
+  buttonClassName,
+  buttonTextClassName,
+  campaignCreationClassName,
+  campaignCreationStyles,
+  defaultButtonStyles,
+  defaultButtonTextStyles,
+  defaultModalStyles,
+  defaultPromoteTargetClassName,
+  modalClassName,
+  modalCloseButtonClassName,
+  modalCloseButtonStyles,
+  modalHideClassName,
+  modalHideStyles,
+  modalShowClassName,
+  modalShowStyles,
+  portalRootId,
+} from "@defaults";
+import { ApiKey, CustomText, Style } from "@types";
+import { FunctionalComponent, h, render } from "preact";
+import { useEffect, useState } from "preact/hooks";
 
-const defaultText = {
-  button: "Promote",
-  modalTitle: "Create Campaign",
-  modalSubtitle: "Quickly launch a campaign for this product.",
-  modalCampaignNamePlaceholder: "Enter your campaign name",
-};
-
-const defaultPromoteTargetClassName = "topsort-promote-target";
-const modalProductIdTargetId = "topsort-modal-product-id";
+// TODO(christopherbot) figure out if we should import css file or
+// continue building a stylesheet ourselves to prepend.
+// import "./app.css";
 
 const logPrefix = "[Topsort Elements]";
 const logger = {
@@ -23,65 +39,6 @@ type InitParams = {
   apiKey: ApiKey;
 };
 
-type CustomClassName = {
-  className: string;
-  replace?: boolean;
-};
-
-type Style = Partial<
-  Record<"button" | "buttonText" | "modal", CustomClassName>
->;
-
-type CustomText = Partial<
-  Record<
-    "button" | "modalTitle" | "modalSubtitle" | "modalCampaignNamePlaceholder",
-    string
-  >
->;
-
-const modalClassName = "topsort-promote-modal";
-const defaultModalStyles = [
-  "position: fixed;",
-  "flex-direction: column;",
-  "align-items: center;",
-  "top: 50%;",
-  "left: 50%;",
-  "transform: translate(-50%, -50%);",
-  "height: 20rem;",
-  "max-height: 85vh;",
-  "padding: 1rem;",
-  "border: 1px solid black;",
-  "border-radius: 0.5rem;",
-  "background-color: white;",
-  "box-shadow: 0px 5px 8px rgb(0 0 0 / 10%);",
-  "z-index: 1;",
-];
-const modalShowClassName = "topsort-promote-modal--show";
-const modalShowStyles = ["display: flex;"];
-const modalHideClassName = "topsort-promote-modal--hide";
-const modalHideStyles = ["display: none;"];
-
-const modalCloseButtonClassName = "topsort-promote-modal__close-button";
-const modalCloseButtonStyles = [
-  "position: absolute;",
-  "top: 0.5rem;",
-  "right: 0.5rem;",
-  "cursor: pointer;",
-];
-
-const buttonClassName = "topsort-product-promote-button";
-const defaultButtonStyles = [
-  "cursor: pointer;",
-  "border-radius: 0.25rem;",
-  "background-color: #DDD6FF;",
-  "position: absolute;",
-  "bottom: 0.5rem;",
-  "right: 0.5rem;",
-];
-
-const buttonTextClassName = "topsort-product-promote-button-text";
-const defaultButtonTextStyles = ["color: #00042A;", "font-weight: 600;"];
-
 function ensureSemiColons(lines: string[]) {
   return lines.map((line) => (line.endsWith(";") ? line : `${line};`));
 }
@@ -90,50 +47,7 @@ function formatStyleContent(className: string, styles: string[]) {
   return `.${className} {\n  ${ensureSemiColons(styles).join("\n  ")}\n}\n\n`;
 }
 
-function createModal({ style, text }: { style?: Style; text?: CustomText }) {
-  const modal = document.createElement("div");
-
-  modal.classList.add(modalHideClassName);
-  modal.setAttribute("role", "dialog");
-  modal.setAttribute("aria-modal", "true");
-
-  if (style?.modal) {
-    modal.classList.add(style.modal.className);
-  }
-  if (!style?.modal?.replace) {
-    modal.classList.add(modalClassName);
-  }
-
-  const closeButton = document.createElement("button");
-  closeButton.innerText = "✕";
-  closeButton.classList.add(modalCloseButtonClassName);
-  closeButton.addEventListener("click", () => {
-    modal.classList.remove(modalShowClassName);
-    modal.classList.add(modalHideClassName);
-    delete modal.dataset.topsortProductId;
-  });
-
-  const title = document.createElement("h2");
-  title.innerText = text?.modalTitle || defaultText.modalTitle;
-  const subtitle = document.createElement("h3");
-  subtitle.innerText = text?.modalSubtitle || defaultText.modalSubtitle;
-
-  const productIdTarget = document.createElement("span");
-  productIdTarget.setAttribute("id", modalProductIdTargetId);
-
-  const campaignNameInput = document.createElement("input");
-  campaignNameInput.placeholder =
-    text?.modalCampaignNamePlaceholder ||
-    defaultText.modalCampaignNamePlaceholder;
-
-  [closeButton, title, subtitle, productIdTarget, campaignNameInput].forEach(
-    (element) => modal.appendChild(element)
-  );
-
-  return modal;
-}
-
-function createStyleSheet(style?: Style) {
+function initStyles(style?: Style) {
   const styleSheet = document.createElement("style");
   styleSheet.textContent = "";
 
@@ -150,6 +64,11 @@ function createStyleSheet(style?: Style) {
   styleSheet.textContent += formatStyleContent(
     modalCloseButtonClassName,
     modalCloseButtonStyles
+  );
+
+  styleSheet.textContent += formatStyleContent(
+    campaignCreationClassName,
+    campaignCreationStyles
   );
 
   if (!style?.button?.replace) {
@@ -182,52 +101,75 @@ function createStyleSheet(style?: Style) {
   document.head.prepend(styleSheet);
 }
 
-function createButton({
-  productId,
-  modal,
+const App: FunctionalComponent<InitProductPromotion> = ({
+  promoteTargetClassName,
   style,
   text,
-}: {
-  productId: string;
-  modal: HTMLElement;
-  style?: Style;
-  text?: CustomText;
-}) {
-  const button = document.createElement("button");
+}) => {
+  const [productId, setProductId] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  if (style?.button) {
-    button.classList.add(style.button.className);
-  }
-  if (!style?.button?.replace) {
-    button.classList.add(buttonClassName);
-  }
+  useEffect(() => {
+    initStyles(style);
 
-  const buttonText = document.createElement("span");
-  buttonText.innerText = text?.button || defaultText.button;
-  if (style?.buttonText) {
-    buttonText.classList.add(style.buttonText.className);
-  }
-  if (!style?.buttonText?.replace) {
-    buttonText.classList.add(buttonTextClassName);
-  }
+    const promoteTargets = [
+      ...document.getElementsByClassName(
+        promoteTargetClassName || defaultPromoteTargetClassName
+      ),
+    ];
 
-  button.appendChild(buttonText);
-
-  button.addEventListener("click", () => {
-    const productIdTarget = modal.querySelector(`#${modalProductIdTargetId}`);
-    modal.dataset.topsortProductId = productId;
-    if (productIdTarget instanceof HTMLElement) {
-      productIdTarget.innerText = productId;
+    if (promoteTargets.length === 0) {
+      logger.warn(
+        "No promote targets found. Did you add the right className to the promote targets?\n\n" +
+          "If you are using a custom className, make sure to pass it in the `initProductPromotion` options."
+      );
     }
-    modal.classList.remove(modalHideClassName);
-    modal.classList.add(modalShowClassName);
-  });
 
-  return button;
-}
+    promoteTargets.forEach((target) => {
+      if (!(target instanceof HTMLElement)) return;
+
+      const productId = target.dataset.topsortProductId;
+
+      if (!productId) {
+        logger.warn(
+          "Skipping button on element with no data-topsort-product-id."
+        );
+        return;
+      }
+
+      render(
+        <PromoteButton
+          style={style}
+          text={text}
+          onClick={() => {
+            console.log("promote button clicked");
+            setProductId(productId);
+            setIsModalOpen(true);
+          }}
+        />,
+        target
+      );
+    });
+  }, [promoteTargetClassName, style, text]);
+
+  return (
+    <Portal>
+      <Modal
+        style={style}
+        text={text}
+        onClose={() => {
+          console.log("X button clicked");
+          setIsModalOpen(false);
+        }}
+        isOpen={isModalOpen}
+      >
+        <CampaignCreation style={style} text={text} productId={productId} />
+      </Modal>
+    </Portal>
+  );
+};
 
 type InitProductPromotion = {
-  modalTargetClassName?: string;
   promoteTargetClassName?: string;
   style?: Style;
   text?: CustomText;
@@ -261,7 +203,6 @@ export default class TopsortElements {
   }
 
   initProductPromotion({
-    modalTargetClassName,
     promoteTargetClassName,
     style,
     text,
@@ -273,61 +214,19 @@ export default class TopsortElements {
       return;
     }
 
-    const modalTarget =
-      (modalTargetClassName &&
-        document.querySelector(`.${modalTargetClassName}`)) ||
-      document.body;
+    const portalRoot = document.createElement("div");
+    portalRoot.setAttribute("id", portalRootId);
+    document.body.appendChild(portalRoot);
 
-    const modal = createModal({
-      style,
-      text,
-    });
-
-    modalTarget.appendChild(modal);
-
-    createStyleSheet(style);
-
-    const promoteTargets = [
-      ...document.getElementsByClassName(
-        promoteTargetClassName || defaultPromoteTargetClassName
-      ),
-    ];
-
-    promoteTargets.forEach((target) => {
-      if (!(target instanceof HTMLElement)) return;
-
-      const productId = target.dataset.topsortProductId;
-
-      if (!productId) {
-        logger.warn(
-          "Skipping button on element with no data-topsort-product-id."
-        );
-        return;
-      }
-
-      const button = createButton({
-        productId,
-        modal,
-        style,
-        text,
-      });
-      target.appendChild(button);
-
-      // target.attachShadow({
-      //   mode: "open",
-      // });
-
-      // if (target.shadowRoot) {
-      //   render(<PromoteButton />, target.shadowRoot);
-      // }
-      render(<PromoteButton />, target);
-    });
-
-    if (promoteTargets.length === 0) {
-      logger.warn(
-        "No promote targets found. Did you add the right className to the promote targets?\n\n" +
-          "If you are using a custom className, make sure to pass it in the `initProductPromotion` options."
-      );
-    }
+    // const appTarget = document.createElement("div");
+    // document.body.appendChild(appTarget);
+    render(
+      <App
+        promoteTargetClassName={promoteTargetClassName}
+        style={style}
+        text={text}
+      />,
+      document.body
+    );
   }
 }
