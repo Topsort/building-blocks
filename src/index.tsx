@@ -108,7 +108,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
 }) => {
   const [productId, setProductId] = useState<string | null>(null);
 
-  useEffect(() => {            setProductId(productId);
+  useEffect(() => {            
 
     initStyles(style);
 
