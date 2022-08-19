@@ -7,8 +7,8 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "lint": "eslint . --cache --cache-strategy content --max-warnings 0",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack serve --config webpack.dev.js"
+    "start": "webpack serve --config webpack.dev.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
