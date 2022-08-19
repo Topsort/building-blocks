@@ -1,7 +1,8 @@
 module.exports = {
   presets: [
     "@babel/preset-env",
-    // @babel/preset-react // ?
+    // TODO(christopherbot) confirm if we need preset-react
+    // @babel/preset-react
     ["@babel/preset-typescript", { jsxPragma: "h" }],
   ],
   plugins: [
