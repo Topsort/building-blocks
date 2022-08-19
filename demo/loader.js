@@ -39,7 +39,7 @@ function createProductElement(num) {
   return product;
 }
 
-document.querySelector("#topsort-elements").addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
   console.log("TopsortElements loaded:", window.TopsortElements);
 
   if (!window.TopsortElements) {
