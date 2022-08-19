@@ -1,4 +1,3 @@
-// const HtmlWebpackPlugin = require("html-webpack-plugin");
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
@@ -7,27 +6,19 @@ const TerserPlugin = require("terser-webpack-plugin");
 module.exports = {
   entry: "./src/index.tsx",
   mode: "production",
-  // entry: "./",
-  // mode: "development",
   devtool: "source-map",
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: "babel-loader",
-        // use: "ts-loader",
         exclude: /node_modules/,
       },
     ],
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
-    // modules: [
-    //   path.resolve(__dirname, "node_modules"),
-    //   "node_modules",
-    //   path.resolve(__dirname, "src/lib"),
-    // ],
-    // MAYBE?
+    // TODO(christophberbot) confirm if we need these?
     // alias: {
     //   react: "preact/compat",
     //   "react-dom/test-utils": "preact/test-utils",
@@ -47,11 +38,6 @@ module.exports = {
     },
     clean: true,
   },
-  // plugins: [
-  //   new HtmlWebpackPlugin({
-  //     title: "Topsort Elements",
-  //   }),
-  // ],
   optimization: {
     minimize: true,
     minimizer: [new TerserPlugin()],
