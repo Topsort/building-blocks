@@ -1,76 +1,73 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Topsort Elements Demo</title>
-  <script async id="topsort-elements" src="../dist/index.js"></script>
-  <style>
-    body {
-      margin: 0;
-    }
+  <head>
+    <title>Topsort Elements Demo</title>
+    <style>
+      body {
+        margin: 0;
+      }
 
-    main {
-      padding: 1rem;
-    }
+      main {
+        padding: 1rem;
+      }
 
-    .wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
+      .wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
 
-    .product {
-      display: flex;
-      border: 1px solid black;
-    }
+      .product {
+        display: flex;
+        border: 1px solid black;
+      }
 
-    #product-proto {
-      display: none;
-    }
+      #product-proto {
+        display: none;
+      }
 
-    .product-info {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      width: 10rem;
-      padding: 0.5rem;
-    }
+      .product-info {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 10rem;
+        padding: 0.5rem;
+      }
 
-    .my-custom-button {
-      background-color: #5E3BDD;
-      border-radius: 0.5rem;
-      height: 2rem;
-    }
+      .my-custom-button {
+        background-color: #5e3bdd;
+        border-radius: 0.5rem;
+        height: 2rem;
+      }
 
-    .my-custom-button-text {
-      font-style: italic;
-      font-weight: 900;
-      color: #ffffff;
-    }
+      .my-custom-button-text {
+        font-style: italic;
+        font-weight: 900;
+        color: #ffffff;
+      }
 
-    .my-custom-modal-target {
-      position: absolute;
-      z-index: 1;
-    }
-  </style>
-</head>
-<body>
-  <main>
-    <div class="wrapper">
-
-      <!-- REUSABLE ELEMENTS -->
-      <div hidden id="product-proto" class="product">
-        <img class="product-img" />
-        <div class="product-info">
-          <span class="product-name"></span>
-          <span class="product-vendor"></span>
-          <span class="product-price"></span>
+      .my-custom-modal-target {
+        position: absolute;
+        z-index: 1;
+      }
+    </style>
+    <!-- html-webpack-plugin will automatically append bundle file after this line -->
+  </head>
+  <body>
+    <main>
+      <div class="wrapper">
+        <!-- REUSABLE ELEMENTS -->
+        <div hidden id="product-proto" class="product">
+          <img class="product-img" />
+          <div class="product-info">
+            <span class="product-name"></span>
+            <span class="product-vendor"></span>
+            <span class="product-price"></span>
+          </div>
         </div>
+        <!-- END REUSABLE ELEMENTS -->
       </div>
-      <!-- END REUSABLE ELEMENTS -->
-
-    </div>
-  </main>
-  <script src="./index.js"></script>
-  <!-- <script type="module" src="./index.js"></script> -->
-</body>
+    </main>
+    <script src="./loader.js"></script>
+  </body>
 </html>

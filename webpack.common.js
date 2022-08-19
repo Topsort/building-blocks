@@ -4,8 +4,6 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.tsx",
-  mode: "production",
-  devtool: "source-map",
   module: {
     rules: [
       {
@@ -42,18 +40,5 @@ module.exports = {
   optimization: {
     minimize: true,
     minimizer: [new TerserPlugin()],
-  },
-  devServer: {
-    host: "localhost",
-    port: 8080,
-    open: true,
-    // https: true,
-    // static: {
-    //   directory: path.join(__dirname, "dist"),
-    // },
-    static: {
-      directory: path.resolve(__dirname, "./dist"),
-      publicPath: "/dist",
-    },
   },
 };

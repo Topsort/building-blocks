@@ -1,19 +1,19 @@
-# elements
+# @topsort/elements
 
-Topsort's JS elements and widgets library.
+> Topsort's JS elements and widgets library.
 
-Table of Contents
+## Table of Contents
 
-1. Installation
-1. Usage
-1. Development
-1. demo
+1. [Installation](#installation)
+1. [Integration](#integration)
+1. [Development](#development)
+   1. [TODOs](#todos)
 
-Installation
+## Installation
 
 TODO script with cdn link
 
-Usage
+## Integration
 
 HTML
 
@@ -50,27 +50,23 @@ Incorrect: ".my-custom-class"
 }
 ```
 
-Development [#development]
+## Development
 
-Install http-server globally:
+1. Install dependencies:
 
-```zsh
-npm install --global http-server
-```
+   ```zsh
+   npm install
+   ```
 
-Demo [#demo]
+1. Start development server to run the demo on http://localhost:8080/:
 
-To launch the demo, run:
+   ```zsh
+   npm run start
+   ```
 
-```zsh
-npm run demo
-```
+### TODOs
 
-TODOs
-
-- Use webpack-dev-server instead of http-server for hot reloading
 - write documentation for methods and props
-- fix build so that the cache doesn't need to be emptied before seeing changes after restarting http-server
 - sanitize custom text
 - i18n
 - extract types to @types
