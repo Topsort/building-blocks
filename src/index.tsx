@@ -252,6 +252,8 @@ export default class TopsortElements {
     }
 
     // TODO(christopherbot) server-side validation
+    // Call an endpoint in CC with apiKey and vendorId, which would auth them and return an apiToken.
+    // This code will have to be moved out of the ctor and into an async init method.
     const validate = (a: any) => a;
     const apiToken = validate(params.apiKey);
 
