@@ -4,7 +4,7 @@
 const imgSize = 160;
 const numProducts = 20;
 const isUsingTopsortElements = true;
-const isUsingCustomProps = false;
+const isUsingCustomProps = true;
 const customPromoteTargetClassName = "my-custom-promote-target";
 
 function getNewElement(selector) {
