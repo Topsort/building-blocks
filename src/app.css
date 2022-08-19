@@ -1,4 +1,4 @@
-.topsort-promote-modal {
+.ts-promote-modal {
   position: fixed;
   flex-direction: column;
   align-items: center;
@@ -15,22 +15,22 @@
   z-index: 1;
 }
 
-.topsort-promote-modal--show {
+.ts-promote-modal--show {
   display: flex;
 }
 
-.topsort-promote-modal--hide {
+.ts-promote-modal--hide {
   display: none;
 }
 
-.topsort-promote-modal__close-button {
+.ts-promote-modal__close-button {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
   cursor: pointer;
 }
 
-.topsort-product-promote-button {
+.ts-product-promote-button {
   cursor: pointer;
   border-radius: 0.25rem;
   background-color: #ddd6ff;
@@ -39,7 +39,7 @@
   right: 0.5rem;
 }
 
-.topsort-product-promote-button-text {
+.ts-product-promote-button-text {
   color: #00042a;
   font-weight: 600;
 }

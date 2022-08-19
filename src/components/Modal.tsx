@@ -2,19 +2,19 @@ import {
   modalClassName,
   modalCloseButtonClassName,
   modalHideClassName,
-  modalShowClassName, // modalShowClassName,
+  modalShowClassName,
 } from "@defaults";
 import { CustomText, Style } from "@types";
 import cx from "classnames";
 import { h, FunctionalComponent } from "preact";
 
+// TODO(christopherbot) add overlay behind modal and focus trap
 export const Modal: FunctionalComponent<{
   style?: Style;
   text?: CustomText;
   onClose: () => void;
   isOpen: boolean;
 }> = ({ style, children, onClose, isOpen }) => {
-  console.log("~~~is open", isOpen);
   return (
     <div
       role="dialog"

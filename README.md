@@ -19,8 +19,8 @@ HTML
 
 ```html
 <div
-  class="my-custom-class topsort-promote-target"
-  data-topsort-product-id="[product-id-here]"
+  class="my-custom-class ts-promote-target"
+  data-ts-product-id="[product-id-here]"
 >
   ...
 </div>
@@ -78,3 +78,4 @@ Incorrect: ".my-custom-class"
     https://stackoverflow.com/questions/69781031/inserting-dom-elements-using-content-script-in-chrome-extension
 - publish to s3 instead of unpkg so that marketplaces don't have to whitelist unpkg
 - put common props (text, style etc) into a context
+- use typescript for demo/loader.js

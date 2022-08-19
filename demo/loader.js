@@ -4,7 +4,8 @@
 const imgSize = 160;
 const numProducts = 20;
 const isUsingTopsortElements = true;
-const isUsingCustomProps = true;
+const isUsingCustomProps = false;
+const customPromoteTargetClassName = "my-custom-promote-target";
 
 function getNewElement(selector) {
   const proto = document.querySelector(selector);
@@ -25,25 +26,28 @@ function createProductElement(num) {
   img.src = `https://picsum.photos/${imgSize}?random=${num}`;
   img.width = imgSize;
   img.height = imgSize;
-  const info = product.querySelector(".product-info");
-  info.dataset.topsortProductId = `product-${num}`;
-  info.classList.add(
-    isUsingCustomProps
-      ? "my-custom-promote-target"
-      : TopsortElements.promoteTargetClassName
-  );
+
   product.querySelector(".product-name").innerText = `Product ${num}`;
   product.querySelector(".product-vendor").innerText = `Vendor ${num}`;
   product.querySelector(".product-price").innerText = `$${num}.99`;
+
+  const target = product.querySelector(".promote-target-placeholder");
+  target.classList.remove("promote-target-placeholder");
+  target.classList.add(
+    isUsingCustomProps
+      ? customPromoteTargetClassName
+      : TopsortElements.promoteTargetClassName
+  );
+  target.dataset.tsProductId = `product-${num}`;
 
   return product;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("TopsortElements loaded:", window.TopsortElements);
-
-  if (!window.TopsortElements) {
-    console.error("[Topsort Elements] Module did not load correctly.");
+  if (window.TopsortElements) {
+    console.log("[TopsortElements] Module loaded:", window.TopsortElements);
+  } else {
+    console.error("[TopsortElements] Module did not load correctly.");
     return;
   }
 
@@ -68,8 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (isUsingCustomProps) {
     tsElements.initProductPromotion({
-      // modalTargetClassName: "my-custom-modal-target",
-      promoteTargetClassName: "my-custom-promote-target",
+      promoteTargetClassName: customPromoteTargetClassName,
       style: {
         button: {
           className: "my-custom-button",

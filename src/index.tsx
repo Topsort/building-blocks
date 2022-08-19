@@ -20,7 +20,7 @@ import {
   modalShowStyles,
   portalRootId,
 } from "@defaults";
-import { ApiKey, CustomText, Style } from "@types";
+import { CustomText, Style } from "@types";
 import { FunctionalComponent, h, render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
@@ -33,10 +33,6 @@ const logger = {
   info: (...msg: any[]) => console.log(logPrefix, ...msg),
   warn: (...msg: any[]) => console.warn(logPrefix, ...msg),
   error: (...msg: any[]) => console.error(logPrefix, ...msg),
-};
-
-type InitParams = {
-  apiKey: ApiKey;
 };
 
 function ensureSemiColons(lines: string[]) {
@@ -127,12 +123,10 @@ const App: FunctionalComponent<InitProductPromotion> = ({
     promoteTargets.forEach((target, index) => {
       if (!(target instanceof HTMLElement)) return;
 
-      const productId = target.dataset.topsortProductId;
+      const productId = target.dataset.tsProductId;
 
       if (!productId) {
-        logger.warn(
-          "Skipping button on element with no data-topsort-product-id."
-        );
+        logger.warn("Skipping button on element with no data-ts-product-id.");
         return;
       }
 
@@ -164,6 +158,10 @@ const App: FunctionalComponent<InitProductPromotion> = ({
       </Modal>
     </Portal>
   );
+};
+
+type InitParams = {
+  apiKey: string;
 };
 
 type InitProductPromotion = {
