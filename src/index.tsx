@@ -108,8 +108,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
 }) => {
   const [productId, setProductId] = useState<string | null>(null);
 
-  useEffect(() => {            
-
+  useEffect(() => {
     initStyles(style);
 
     const promoteTargets = [
@@ -125,7 +124,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
       );
     }
 
-    promoteTargets.forEach((target) => {
+    promoteTargets.forEach((target, index) => {
       if (!(target instanceof HTMLElement)) return;
 
       const productId = target.dataset.topsortProductId;
@@ -139,10 +138,10 @@ const App: FunctionalComponent<InitProductPromotion> = ({
 
       render(
         <PromoteButton
+          key={index}
           style={style}
           text={text}
           onClick={() => {
-            console.log("promote button clicked");
             setProductId(productId);
           }}
         />,
