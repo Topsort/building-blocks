@@ -69,6 +69,7 @@ Incorrect: ".my-custom-class"
 - write documentation for methods and props
 - sanitize custom text
 - i18n
+  - do we allow custom text at all? Or require them to translate? Otherwise it won't be consistent with translations that our app does.
 - extract types to @types
 - extract defaults/css classes to @defaults or @constants or something
 - finalize all public classNames before shipping so we can minimize the number of changes we make to them
@@ -76,3 +77,4 @@ Incorrect: ".my-custom-class"
   - or use a MutationObserver and do it ourselves:
     https://stackoverflow.com/questions/69781031/inserting-dom-elements-using-content-script-in-chrome-extension
 - publish to s3 instead of unpkg so that marketplaces don't have to whitelist unpkg
+- put common props (text, style etc) into a context

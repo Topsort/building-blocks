@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (isUsingCustomProps) {
     tsElements.initProductPromotion({
-      modalTargetClassName: "my-custom-modal-target",
+      // modalTargetClassName: "my-custom-modal-target",
       promoteTargetClassName: "my-custom-promote-target",
       style: {
         button: {
