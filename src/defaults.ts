@@ -8,10 +8,10 @@ export const defaultText = {
 
 // Targets
 export const portalRootId = "ts-elements-portal-root";
-export const defaultPromoteTargetClassName = "topsort-promote-target";
+export const defaultPromoteTargetClassName = "ts-promote-target";
 
 // Styles
-export const modalClassName = "topsort-promote-modal";
+export const modalClassName = "ts-promote-modal";
 export const defaultModalStyles = [
   "position: fixed;",
   "top: 50%;",
@@ -26,12 +26,12 @@ export const defaultModalStyles = [
   "box-shadow: 0px 5px 8px rgb(0 0 0 / 10%);",
   "z-index: 1;",
 ];
-export const modalShowClassName = "topsort-promote-modal--show";
+export const modalShowClassName = "ts-promote-modal--show";
 export const modalShowStyles = ["display: block;"];
-export const modalHideClassName = "topsort-promote-modal--hide";
+export const modalHideClassName = "ts-promote-modal--hide";
 export const modalHideStyles = ["display: none;"];
 
-export const modalCloseButtonClassName = "topsort-promote-modal__close-button";
+export const modalCloseButtonClassName = "ts-promote-modal__close-button";
 export const modalCloseButtonStyles = [
   "position: absolute;",
   "top: 0.5rem;",
@@ -39,14 +39,14 @@ export const modalCloseButtonStyles = [
   "cursor: pointer;",
 ];
 
-export const campaignCreationClassName = "topsort-campaign-creation";
+export const campaignCreationClassName = "ts-campaign-creation";
 export const campaignCreationStyles = [
   "display: flex;",
   "flex-direction: column;",
   "align-items: center;",
 ];
 
-export const buttonClassName = "topsort-product-promote-button";
+export const buttonClassName = "ts-product-promote-button";
 export const defaultButtonStyles = [
   "cursor: pointer;",
   "border-radius: 0.25rem;",
@@ -56,5 +56,5 @@ export const defaultButtonStyles = [
   "right: 0.5rem;",
 ];
 
-export const buttonTextClassName = "topsort-product-promote-button-text";
+export const buttonTextClassName = "ts-product-promote-button-text";
 export const defaultButtonTextStyles = ["color: #00042A;", "font-weight: 600;"];

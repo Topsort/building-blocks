@@ -1,5 +1,3 @@
-export type ApiKey = string;
-
 type CustomClassName = {
   className: string;
   replace?: boolean;
