@@ -77,6 +77,6 @@ TODOs
 - extract defaults/css classes to @defaults or @constants or something
 - finalize all public classNames before shipping so we can minimize the number of changes we make to them
 - expose method to just re-attach buttons incase of virtualized lists
+  - or use a MutationObserver and do it ourselves:
+    https://stackoverflow.com/questions/69781031/inserting-dom-elements-using-content-script-in-chrome-extension
 - publish to s3 instead of unpkg so that marketplaces don't have to whitelist unpkg
-
-call an endpoint in CC with apiKey and vendorId, which would auth them
