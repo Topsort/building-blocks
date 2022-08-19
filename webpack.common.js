@@ -12,10 +12,10 @@ module.exports = {
         exclude: /node_modules/,
       },
       // TODO(christopherbot) remove if we don't end up importing css
-      {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-      },
+      // {
+      //   test: /\.css$/i,
+      //   use: ["style-loader", "css-loader"],
+      // },
     ],
   },
   resolve: {
