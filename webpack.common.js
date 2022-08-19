@@ -1,13 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
-/* eslint-enable @typescript-eslint/no-var-requires */
 
 module.exports = {
   entry: "./src/index.tsx",
-  mode: "production",
-  devtool: "source-map",
   module: {
     rules: [
       {
@@ -39,33 +35,8 @@ module.exports = {
     },
     clean: true,
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "./demo/index.html"),
-    }),
-  ],
   optimization: {
     minimize: true,
     minimizer: [new TerserPlugin()],
-  },
-  devServer: {
-    host: "localhost",
-    port: 8080,
-    open: true,
-    watchFiles: ["src/**/*", "demo/**/*"],
-    // https: true,
-    // static: {
-    //   directory: path.join(__dirname, "dist"),
-    // },
-    static: [
-      {
-        directory: path.resolve(__dirname, "./demo"),
-        publicPath: "/",
-      },
-      {
-        directory: path.resolve(__dirname, "./dist"),
-        publicPath: "/dist",
-      },
-    ],
   },
 };
