@@ -16,6 +16,8 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
     // TODO(christophberbot) confirm if we need these?
+    // https://preactjs.com/guide/v10/typescript#typescript-preactcompat-configuration
+    // also would need similar "paths" in tsconfig.json
     // alias: {
     //   react: "preact/compat",
     //   "react-dom/test-utils": "preact/test-utils",
