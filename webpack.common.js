@@ -11,6 +11,11 @@ module.exports = {
         use: "babel-loader",
         exclude: /node_modules/,
       },
+      // TODO(christopherbot) remove if we don't end up importing css
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
   resolve: {
@@ -25,6 +30,7 @@ module.exports = {
     // },
     alias: {
       "@components": path.resolve(__dirname, "src/components/"),
+      "@defaults": path.resolve(__dirname, "src/defaults"),
     },
   },
   output: {
