@@ -1,0 +1,15 @@
+// See: https://github.com/babel/babel/issues/9668#issuecomment-474628509
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "outDir": "dist/types",
+    "declaration": true,
+    "declarationMap": false,
+    "isolatedModules": false,
+    "noEmit": false,
+    "allowJs": false,
+    "emitDeclarationOnly": true
+  },
+  "include": ["src/index.tsx", "src/types.ts"],
+  "exclude": ["src/components/*.tsx", "**/*.test.ts"]
+}
