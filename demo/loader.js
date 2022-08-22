@@ -45,7 +45,7 @@ function createProductElement(num) {
 
 document.addEventListener("DOMContentLoaded", () => {
   if (window.TopsortElements) {
-    console.log("[TopsortElements] Module loaded:", window.TopsortElements);
+    console.log("[TopsortElements] Module loaded");
   } else {
     console.error("[TopsortElements] Module did not load correctly.");
     return;

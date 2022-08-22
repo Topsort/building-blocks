@@ -1,4 +1,4 @@
-import { campaignCreationClassName, defaultText } from "@defaults";
+import { campaignCreationClassName, defaultText } from "@constants";
 import { CustomText, Style } from "@types";
 import { h, FunctionalComponent } from "preact";
 
