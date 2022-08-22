@@ -9,7 +9,11 @@ export type Style = Partial<
 
 export type CustomText = Partial<
   Record<
-    "button" | "modalTitle" | "modalSubtitle" | "modalCampaignNamePlaceholder",
+    | "button"
+    | "modalTitle"
+    | "modalSubtitle"
+    | "modalCampaignNamePlaceholder"
+    | "detailButton",
     string
   >
 >;

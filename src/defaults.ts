@@ -1,6 +1,7 @@
 // Text
 export const defaultText = {
   button: "Promote",
+  detailButton: "Details",
   modalTitle: "Create Campaign",
   modalSubtitle: "Quickly launch a campaign for this product.",
   modalCampaignNamePlaceholder: "Enter your campaign name",
@@ -40,6 +41,7 @@ export const modalCloseButtonStyles = [
 ];
 
 export const campaignCreationClassName = "ts-campaign-creation";
+export const campaignDetailsClassName = "ts-campaign-details";
 export const campaignCreationStyles = [
   "display: flex;",
   "flex-direction: column;",

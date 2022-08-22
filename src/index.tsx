@@ -1,4 +1,5 @@
 import { CampaignCreation } from "@components/CampaignCreation";
+import { CampaignDetails } from "@components/CampaignDetails";
 import { Modal } from "@components/Modal";
 import Portal from "@components/Portal";
 import { PromoteButton } from "@components/PromoteButton";
@@ -96,6 +97,11 @@ function initStyles(style?: Style) {
    */
   document.head.prepend(styleSheet);
 }
+export type Campaign = {
+  budget: number;
+  name: string;
+  //TODO (sofia): add campaign data
+};
 
 const App: FunctionalComponent<InitProductPromotion> = ({
   promoteTargetClassName,
@@ -103,6 +109,10 @@ const App: FunctionalComponent<InitProductPromotion> = ({
   text,
 }) => {
   const [productId, setProductId] = useState<string | null>(null);
+  const [productCampaigns, setProductCampaigns] = useState<{
+    [productId: string]: Campaign;
+  }>({});
+  const campaignDetails = productId ? productCampaigns[productId] : null;
 
   useEffect(() => {
     initStyles(style);
@@ -129,12 +139,22 @@ const App: FunctionalComponent<InitProductPromotion> = ({
         logger.warn("Skipping button on element with no data-ts-product-id.");
         return;
       }
-
+      const productCampaign = { budget: 2, name: productId }; //TODO (sofia): getProductCampaign(productId);
+      const hasCampaign = !!productCampaign;
+      if (hasCampaign) {
+        setProductCampaigns((prev) => {
+          return {
+            ...prev,
+            [productId]: productCampaign,
+          };
+        });
+      }
       render(
         <PromoteButton
           key={index}
           style={style}
           text={text}
+          hasCampaign={hasCampaign}
           onClick={() => {
             setProductId(productId);
           }}
@@ -154,7 +174,15 @@ const App: FunctionalComponent<InitProductPromotion> = ({
         }}
         isOpen={!!productId}
       >
-        <CampaignCreation style={style} text={text} productId={productId} />
+        {campaignDetails ? (
+          <CampaignDetails
+            style={style}
+            productId={productId}
+            campaignDetails={campaignDetails}
+          />
+        ) : (
+          <CampaignCreation style={style} text={text} productId={productId} />
+        )}
       </Modal>
     </Portal>
   );

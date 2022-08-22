@@ -7,7 +7,8 @@ export const PromoteButton: FunctionalComponent<{
   style?: Style;
   text?: CustomText;
   onClick: () => void;
-}> = ({ style, text, onClick }) => {
+  hasCampaign?: boolean;
+}> = ({ style, text, onClick, hasCampaign = false }) => {
   return (
     <button
       className={cx(style?.button?.className, {
@@ -20,7 +21,9 @@ export const PromoteButton: FunctionalComponent<{
           [buttonTextClassName]: !style?.buttonText?.replace,
         })}
       >
-        {text?.button || defaultText.button}
+        {hasCampaign
+          ? text?.detailButton || defaultText.detailButton
+          : text?.button || defaultText.button}
       </span>
     </button>
   );
