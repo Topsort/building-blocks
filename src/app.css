@@ -1,3 +1,19 @@
+/* Promote button */
+.ts-product-promote-button {
+  cursor: pointer;
+  border-radius: 0.25rem;
+  background-color: #ddd6ff;
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+}
+
+.ts-product-promote-button__text {
+  color: #00042a;
+  font-weight: 600;
+}
+
+/* Modal */
 .ts-promote-modal {
   position: fixed;
   flex-direction: column;
@@ -30,16 +46,9 @@
   cursor: pointer;
 }
 
-.ts-product-promote-button {
-  cursor: pointer;
-  border-radius: 0.25rem;
-  background-color: #ddd6ff;
-  position: absolute;
-  bottom: 0.5rem;
-  right: 0.5rem;
-}
-
-.ts-product-promote-button__text {
-  color: #00042a;
-  font-weight: 600;
+/* Campaign Creation */
+.ts-campaign-creation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -1,4 +1,4 @@
-import { portalRootId } from "@defaults";
+import { portalRootId } from "@constants";
 import { h, Fragment, FunctionalComponent } from "preact";
 import { createPortal } from "preact/compat";
 import { useEffect, useLayoutEffect, useRef } from "preact/hooks";

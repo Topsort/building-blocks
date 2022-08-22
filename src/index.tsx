@@ -2,31 +2,12 @@ import { CampaignCreation } from "@components/CampaignCreation";
 import { Modal } from "@components/Modal";
 import Portal from "@components/Portal";
 import { PromoteButton } from "@components/PromoteButton";
-import {
-  buttonClassName,
-  buttonTextClassName,
-  campaignCreationClassName,
-  campaignCreationStyles,
-  defaultButtonStyles,
-  defaultButtonTextStyles,
-  defaultModalStyles,
-  defaultPromoteTargetClassName,
-  modalClassName,
-  modalCloseButtonClassName,
-  modalCloseButtonStyles,
-  modalHideClassName,
-  modalHideStyles,
-  modalShowClassName,
-  modalShowStyles,
-  portalRootId,
-} from "@defaults";
+import { defaultPromoteTargetClassName, portalRootId } from "@constants";
 import { CustomText, Style } from "@types";
 import { FunctionalComponent, h, render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
-// TODO(christopherbot) figure out if we should import css file or
-// continue building a stylesheet ourselves to prepend.
-// import "./app.css";
+import "./app.css";
 
 const logPrefix = "[Topsort Elements]";
 const logger = {
@@ -34,68 +15,6 @@ const logger = {
   warn: (...msg: any[]) => console.warn(logPrefix, ...msg),
   error: (...msg: any[]) => console.error(logPrefix, ...msg),
 };
-
-function ensureSemiColons(lines: string[]) {
-  return lines.map((line) => (line.endsWith(";") ? line : `${line};`));
-}
-
-function formatStyleContent(className: string, styles: string[]) {
-  return `.${className} {\n  ${ensureSemiColons(styles).join("\n  ")}\n}\n\n`;
-}
-
-function initStyles(style?: Style) {
-  const styleSheet = document.createElement("style");
-  styleSheet.textContent = "";
-
-  styleSheet.textContent += formatStyleContent(
-    modalShowClassName,
-    modalShowStyles
-  );
-
-  styleSheet.textContent += formatStyleContent(
-    modalHideClassName,
-    modalHideStyles
-  );
-
-  styleSheet.textContent += formatStyleContent(
-    modalCloseButtonClassName,
-    modalCloseButtonStyles
-  );
-
-  styleSheet.textContent += formatStyleContent(
-    campaignCreationClassName,
-    campaignCreationStyles
-  );
-
-  if (!style?.button?.replace) {
-    styleSheet.textContent += formatStyleContent(
-      buttonClassName,
-      defaultButtonStyles
-    );
-  }
-
-  if (!style?.buttonText?.replace) {
-    styleSheet.textContent += formatStyleContent(
-      buttonTextClassName,
-      defaultButtonTextStyles
-    );
-  }
-
-  if (!style?.modal?.replace) {
-    styleSheet.textContent += formatStyleContent(
-      modalClassName,
-      defaultModalStyles
-    );
-  }
-
-  /*
-   * NOTE(christopherbot)
-   * To support consumers extending our default styles, this style sheet is
-   * prepended instead of appended so it comes before other style sheets so
-   * other style sheets take higher priority.
-   */
-  document.head.prepend(styleSheet);
-}
 
 const App: FunctionalComponent<InitProductPromotion> = ({
   promoteTargetClassName,
@@ -105,8 +24,6 @@ const App: FunctionalComponent<InitProductPromotion> = ({
   const [productId, setProductId] = useState<string | null>(null);
 
   useEffect(() => {
-    initStyles(style);
-
     const promoteTargets = [
       ...document.getElementsByClassName(
         promoteTargetClassName || defaultPromoteTargetClassName
