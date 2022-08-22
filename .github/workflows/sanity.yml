@@ -33,3 +33,5 @@ jobs:
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
       - name: ESLint
         run: npm run lint
+      - name: Run type checks
+        run: npx tsc
