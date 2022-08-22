@@ -1,4 +1,3 @@
-# FIXME(christopherbot) use as reusable workflow in PR/main pushes and npm publish
 name: sanity
 
 on:
@@ -34,5 +33,3 @@ jobs:
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
       - name: ESLint
         run: npm run lint
-      # - name: Chris Test
-      #   run: echo "hello from sanity.yml"
