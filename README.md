@@ -105,6 +105,8 @@
 - sanitize custom text
 - i18n
   - do we allow custom text at all? Or require them to translate? Otherwise it won't be consistent with translations that our app does.
+  - We can use the JS I18n API
+  - We can detect the browser's locale (https://stackoverflow.com/a/31135571/9717640) but it might be better to allow the marketplace to pass in their preferred locale to the `new TopsortElements()` call so each marketplace user has a consistent experience. Not sure if that would be better because then if one user has a different preferred locale that their browser is set to, it won't be used.
 - finalize all public classNames before shipping so we can minimize the number of changes we make to them
   - promoteButton instead of button?
   - promoteButtonText instead of buttonText?
