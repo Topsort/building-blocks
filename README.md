@@ -70,8 +70,6 @@ Incorrect: ".my-custom-class"
 - sanitize custom text
 - i18n
   - do we allow custom text at all? Or require them to translate? Otherwise it won't be consistent with translations that our app does.
-- extract types to @types
-- extract defaults/css classes to @defaults or @constants or something
 - finalize all public classNames before shipping so we can minimize the number of changes we make to them
 - expose method to just re-attach buttons incase of virtualized lists
   - or use a MutationObserver and do it ourselves:
