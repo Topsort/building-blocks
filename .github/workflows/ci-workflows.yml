@@ -49,5 +49,7 @@ jobs:
     #     run: npx tsc
     #   - uses: ./.github/workflows/sanity.yml
   final:
-    - name: Chris Final Test
-      run: echo "hello after reusable sanity.yml"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Chris Final Test
+        run: echo "hello after reusable sanity.yml"
