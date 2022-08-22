@@ -56,5 +56,5 @@ export const defaultButtonStyles = [
   "right: 0.5rem;",
 ];
 
-export const buttonTextClassName = "ts-product-promote-button-text";
+export const buttonTextClassName = "ts-product-promote-button__text";
 export const defaultButtonTextStyles = ["color: #00042A;", "font-weight: 600;"];
