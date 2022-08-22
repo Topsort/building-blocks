@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   sanity:
-    - uses: ./.github/workflows/sanity.yml
+    uses: ./.github/workflows/sanity.yml
     # runs-on: ubuntu-latest
     # steps:
     #   - name: Checkout repository
