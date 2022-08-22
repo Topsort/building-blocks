@@ -76,7 +76,7 @@
 
    If you are using a custom promote target class name, use it instead:
 
-   ```jsx
+   ```html
    <div
      class="my-custom-promote-target my-custom-class"
      data-ts-product-id="product-id-123"
