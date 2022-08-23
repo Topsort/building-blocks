@@ -130,8 +130,6 @@ export default class TopsortElements {
     portalRoot.setAttribute("id", portalRootId);
     document.body.appendChild(portalRoot);
 
-    // const appTarget = document.createElement("div");
-    // document.body.appendChild(appTarget);
     render(
       <App
         promoteTargetClassName={promoteTargetClassName}
