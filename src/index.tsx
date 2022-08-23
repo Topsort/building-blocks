@@ -120,9 +120,7 @@ export default class TopsortElements {
     text,
   }: InitProductPromotion = {}) {
     if (!this.apiToken) {
-      logger.warn(
-        'Cannot call "initProductPromotion" before calling "init" with the apiKey.'
-      );
+      logger.warn('Cannot call "initProductPromotion" without an apiToken.');
       return;
     }
 
