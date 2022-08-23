@@ -16,36 +16,4 @@ concurrency:
 
 jobs:
   sanity:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16.14.2
-      - name: Cache node modules
-        id: cache-node-modules
-        uses: actions/cache@v3.0.5
-        with:
-          path: node_modules
-          key: v1-npm-deps-sanity-${{ hashFiles('package-lock.json') }}-${{ hashFiles('prisma/schema.prisma') }}
-          restore-keys: |
-            v1-npm-deps-sanity-${{ hashFiles('package-lock.json') }}-
-            v1-npm-deps-sanity-
-            v1-npm-deps-
-      - name: Cache eslint
-        uses: actions/cache@v3.0.5
-        with:
-          path: .eslintcache
-          key: v1-eslint-${{ github.sha }}
-          restore-keys: v1-eslint-
-      - name: Install dependencies
-        run: npm ci
-      - name: ESLint
-        run: npm run lint
-      # - name: Run tests
-      #   run: npm run test
-      # - uses: JS-DevTools/npm-publish@v1
-      #   with:
-      #     token: ${{ secrets.NPM_TOKEN }}
-      #     dry-run: True
-      # - uses: ./sanity.yml
+    uses: ./.github/workflows/sanity.yml

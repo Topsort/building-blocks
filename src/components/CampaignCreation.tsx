@@ -1,9 +1,8 @@
-import { campaignCreationClassName, defaultText } from "@defaults";
-import { CustomText, Style } from "@types";
+import { campaignCreationClassName, defaultText } from "@constants";
+import { CustomText } from "@types";
 import { h, FunctionalComponent } from "preact";
 
 export const CampaignCreation: FunctionalComponent<{
-  style?: Style;
   text?: CustomText;
   productId: string | null;
 }> = ({ text, productId }) => {

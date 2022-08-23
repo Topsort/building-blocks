@@ -3,7 +3,7 @@ import {
   modalCloseButtonClassName,
   modalHideClassName,
   modalShowClassName,
-} from "@defaults";
+} from "@constants";
 import { CustomText, Style } from "@types";
 import cx from "classnames";
 import { h, FunctionalComponent } from "preact";

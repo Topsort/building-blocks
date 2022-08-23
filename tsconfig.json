@@ -15,7 +15,7 @@
     "noEmit": true,
     "paths": {
       "@components/*": ["src/components/*"],
-      "@defaults": ["src/defaults"],
+      "@constants": ["src/constants"],
       "@types": ["src/types"]
     },
     "skipLibCheck": true,

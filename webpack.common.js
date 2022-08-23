@@ -11,11 +11,40 @@ module.exports = {
         use: "babel-loader",
         exclude: /node_modules/,
       },
-      // TODO(christopherbot) remove if we don't end up importing css
-      // {
-      //   test: /\.css$/i,
-      //   use: ["style-loader", "css-loader"],
-      // },
+      {
+        test: /\.css$/i,
+        use: [
+          {
+            loader: "style-loader",
+            options: {
+              /*
+               * NOTE(christopherbot) Insert our stylesheets at the top to
+               * ensure our styles can be extended by consumers. See:
+               * https://webpack.js.org/loaders/style-loader/#insert-styles-at-top
+               */
+              /* eslint-disable no-var */
+              insert: function insertAtTop(element) {
+                var parent = document.querySelector("head");
+
+                var lastInsertedElement =
+                  window._lastElementInsertedByStyleLoader;
+
+                if (!lastInsertedElement) {
+                  parent.insertBefore(element, parent.firstChild);
+                } else if (lastInsertedElement.nextSibling) {
+                  parent.insertBefore(element, lastInsertedElement.nextSibling);
+                } else {
+                  parent.appendChild(element);
+                }
+
+                window._lastElementInsertedByStyleLoader = element;
+              },
+              /* eslint-enable no-var */
+            },
+          },
+          "css-loader",
+        ],
+      },
     ],
   },
   resolve: {
@@ -30,7 +59,7 @@ module.exports = {
     // },
     alias: {
       "@components": path.resolve(__dirname, "src/components/"),
-      "@defaults": path.resolve(__dirname, "src/defaults"),
+      "@constants": path.resolve(__dirname, "src/constants"),
     },
   },
   output: {

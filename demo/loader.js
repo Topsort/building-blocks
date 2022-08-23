@@ -45,19 +45,13 @@ function createProductElement(num) {
 
 document.addEventListener("DOMContentLoaded", () => {
   if (window.TopsortElements) {
-    console.log("[TopsortElements] Module loaded:", window.TopsortElements);
+    console.log("[TopsortElements] Module loaded");
   } else {
     console.error("[TopsortElements] Module did not load correctly.");
     return;
   }
 
   const wrapper = document.querySelector(".wrapper");
-
-  if (isUsingCustomProps) {
-    const customModalTarget = document.createElement("div");
-    customModalTarget.classList.add("my-custom-modal-target");
-    wrapper.appendChild(customModalTarget);
-  }
 
   for (let i = 1; i < numProducts + 1; i++) {
     const product = createProductElement(i);

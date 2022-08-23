@@ -1,4 +1,4 @@
-import { buttonClassName, buttonTextClassName, defaultText } from "@defaults";
+import { buttonClassName, buttonTextClassName, defaultText } from "@constants";
 import { CustomText, Style } from "@types";
 import cx from "classnames";
 import { h, FunctionalComponent } from "preact";
