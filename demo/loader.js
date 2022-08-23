@@ -53,12 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const wrapper = document.querySelector(".wrapper");
 
-  if (isUsingCustomProps) {
-    const customModalTarget = document.createElement("div");
-    customModalTarget.classList.add("my-custom-modal-target");
-    wrapper.appendChild(customModalTarget);
-  }
-
   for (let i = 1; i < numProducts + 1; i++) {
     const product = createProductElement(i);
     wrapper.appendChild(product);
