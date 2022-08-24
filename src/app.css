@@ -66,7 +66,7 @@
   display: none;
 }
 
-.ts-promote-modal__close-button {
+.ts-close-button {
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
@@ -78,12 +78,12 @@
   border-radius: var(--ts-radius);
 }
 
-.ts-promote-modal__close-button span {
+.ts-close-button span {
   color: var(--ts-primary-color);
   font-size: 1rem;
 }
 
-.ts-promote-modal__close-button:hover {
+.ts-close-button:hover {
   background-color: var(--ts-primary-color-5);
 }
 
