@@ -1,7 +1,16 @@
 /* Default variable values */
 :root {
-  --ts-primary-color: #00042a;
-  --ts-secondary-color: #ddd6ff;
+  --ts-primary-rgb: 0, 4, 42;
+  --ts-primary-color: rgb(var(--ts-primary-rgb));
+  --ts-primary-color-60: rgba(var(--ts-primary-rgb), 0.6);
+  --ts-primary-color-40: rgba(var(--ts-primary-rgb), 0.4);
+  --ts-primary-color-5: rgba(var(--ts-primary-rgb), 0.05);
+
+  --ts-secondary-rgb: 221, 214, 255;
+  --ts-secondary-color: rgb(var(--ts-secondary-rgb));
+  --ts-secondary-color-30: rgba(var(--ts-secondary-rgb), 0.3);
+  --ts-secondary-color-10: rgba(var(--ts-secondary-rgb), 0.1);
+
   --ts-border: 0.0625rem solid var(--ts-primary-color);
   --ts-radius: 0.25rem;
 }
