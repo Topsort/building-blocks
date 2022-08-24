@@ -64,14 +64,13 @@ const App: FunctionalComponent<InitProductPromotion> = ({
   return (
     <Portal>
       <Modal
-        style={style}
         text={text}
         onClose={() => {
           setProductId(null);
         }}
         isOpen={!!productId}
       >
-        <CampaignCreation text={text} productId={productId} />
+        <CampaignCreation text={text} productId={productId} style={style} />
       </Modal>
     </Portal>
   );

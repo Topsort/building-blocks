@@ -4,7 +4,7 @@
 const imgSize = 160;
 const numProducts = 20;
 const isUsingTopsortElements = true;
-const isUsingCustomProps = false;
+const isUsingCustomProps = true;
 const customPromoteTargetClassName = "my-custom-promote-target";
 
 function getNewElement(selector) {
@@ -65,15 +65,19 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   if (isUsingCustomProps) {
+    document.documentElement.style.setProperty(
+      "--ts-primary-rgb",
+      "15, 67, 94"
+    );
+    document.documentElement.style.setProperty(
+      "--ts-secondary-rgb",
+      "255, 255, 255"
+    );
     tsElements.initProductPromotion({
       promoteTargetClassName: customPromoteTargetClassName,
       style: {
         button: {
-          className: "my-custom-button",
-        },
-        buttonText: {
-          className: "my-custom-button-text",
-          replace: true,
+          borderRadius: "none",
         },
       },
       text: {
