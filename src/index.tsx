@@ -20,6 +20,9 @@ export type Campaign = {
   budget: number;
   name: string;
   productImageUrl: string;
+  totalSpend: string;
+  totalSales: string;
+  roas: string;
   //TODO (sofia): add campaign data
 };
 const App: FunctionalComponent<InitProductPromotion> = ({
@@ -57,9 +60,12 @@ const App: FunctionalComponent<InitProductPromotion> = ({
         return;
       }
       const productCampaign = {
-        budget: 2,
+        budget: 200,
         name: "Too FacedHangover " + productId,
         productImageUrl: "//www.html.am/images/image-codes/milford_sound_t.jpg",
+        totalSpend: "$99,698",
+        totalSales: "$123,99",
+        roas: "24%",
       }; //TODO (sofia): getProductCampaign(productId);
 
       const hasCampaign = !!productCampaign;

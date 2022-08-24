@@ -55,29 +55,33 @@
   align-items: center;
 }
 
-.ts-border-box {
+.border-gray {
   box-sizing: border-box;
   border: 1px solid #F0F0F0;
+}
+
+.rounded-xl {
   border-radius: 0.75rem;
 }
 
 .space-y-3-5>*:not(:first-child) {
-  display: block;
   margin-top: 0.875rem;
 }
 
 .space-x-4>*:not(:first-child) {
-  display: block;
   margin-left: 1rem;
 }
 
 .space-y-4>*:not(:first-child) {
-  display: block;
-  margin-left: 1rem;
+  margin-top: 1rem;
 }
 
-.p-1 {
+.p-4 {
   padding: 1rem;
+}
+
+.p-3-5 {
+  padding: 0.875rem;
 }
 
 .h-17 {
@@ -108,9 +112,17 @@
   color: #6B7280;
 }
 
+.text-purple {
+  color: #5E3BDD;
+}
+
 .text-xs {
-  font-size: 12px;
+  font-size: 0.75rem;
   line-height: 150%
+}
+
+.text-sm {
+  font-size: 0.875rem;
 }
 
 .font-medium {
