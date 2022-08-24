@@ -1,0 +1,3354 @@
+components:
+  schemas:
+    AdFormat:
+      description: An enumeration.
+      enum:
+      - listing
+      - banner
+      - video
+      title: AdFormat
+      type: string
+    ApiKey:
+      properties:
+        key:
+          title: Key
+          type: string
+      required:
+      - key
+      title: ApiKey
+      type: object
+    AspectRatio:
+      properties:
+        xAxis:
+          title: Xaxis
+          type: integer
+        yAxis:
+          title: Yaxis
+          type: integer
+      required:
+      - xAxis
+      - yAxis
+      title: AspectRatio
+      type: object
+    BannerAsset:
+      properties:
+        contentType:
+          title: Contenttype
+          type: string
+        dimensions:
+          $ref: '#/components/schemas/Dimensions'
+        size:
+          title: Size
+          type: integer
+        url:
+          title: Url
+          type: string
+      required:
+      - url
+      - contentType
+      - dimensions
+      - size
+      title: BannerAsset
+      type: object
+    Bid:
+      properties:
+        amount:
+          title: Amount
+          type: integer
+        bidId:
+          format: uuid
+          title: Bidid
+          type: string
+        bidsBehaviorData:
+          $ref: '#/components/schemas/CampaignBidsBehaviorData'
+        isActive:
+          title: Isactive
+          type: boolean
+        location:
+          items:
+            type: string
+          title: Location
+          type: array
+        target:
+          $ref: '#/components/schemas/app__campaign_service__api_models__Entity'
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+      required:
+      - bidId
+      - target
+      - isActive
+      - trigger
+      title: Bid
+      type: object
+    BidCreate:
+      properties:
+        amount:
+          title: Amount
+          type: integer
+        isActive:
+          default: true
+          title: Isactive
+          type: boolean
+        isDeleted:
+          default: false
+          title: Isdeleted
+          type: boolean
+        location:
+          default: []
+          items:
+            type: string
+          title: Location
+          type: array
+        target:
+          $ref: '#/components/schemas/app__campaign_service__api_models__Entity'
+        trigger:
+          $ref: '#/components/schemas/Trigger'
+      required:
+      - target
+      - trigger
+      title: BidCreate
+      type: object
+    BidCreateRequest:
+      properties:
+        bids:
+          items:
+            $ref: '#/components/schemas/BidCreate'
+          title: Bids
+          type: array
+      required:
+      - bids
+      title: BidCreateRequest
+      type: object
+    BidUpdateRequest:
+      properties:
+        amount:
+          title: Amount
+          type: integer
+        bannerAssets:
+          items:
+            $ref: '#/components/schemas/UpdateBannerAsset'
+          title: Bannerassets
+          type: array
+        isActive:
+          title: Isactive
+          type: boolean
+      title: BidUpdateRequest
+      type: object
+    BidsResponse:
+      properties:
+        bids:
+          items:
+            $ref: '#/components/schemas/Bid'
+          title: Bids
+          type: array
+        hasMore:
+          description: Whether this is the last page of results or not.
+          title: Hasmore
+          type: boolean
+        next:
+          allOf:
+          - $ref: '#/components/schemas/Next'
+          description: The parameters that should be used to fetch the next page.
+          title: Next
+      required:
+      - hasMore
+      - bids
+      title: BidsResponse
+      type: object
+    Body_upload_categories_file_catalog_search_service_upload__marketplace_id__categories_post:
+      properties:
+        file:
+          format: binary
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_upload_categories_file_catalog_search_service_upload__marketplace_id__categories_post
+      type: object
+    Body_upload_products_file_catalog_search_service_upload__marketplace_id__products_post:
+      properties:
+        file:
+          format: binary
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_upload_products_file_catalog_search_service_upload__marketplace_id__products_post
+      type: object
+    Body_upload_vendors_file_catalog_search_service_upload__marketplace_id__vendors_post:
+      properties:
+        file:
+          format: binary
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_upload_vendors_file_catalog_search_service_upload__marketplace_id__vendors_post
+      type: object
+    Brand:
+      properties:
+        id:
+          description: The brand ID.
+          example: es5086vyV
+          minLength: 1
+          title: Id
+          type: string
+        name:
+          description: The brand name.
+          example: Delirium
+          minLength: 1
+          title: Name
+          type: string
+      required:
+      - id
+      - name
+      title: Brand
+      type: object
+    BrandTrigger:
+      properties:
+        brandId:
+          title: Brandid
+          type: string
+      required:
+      - brandId
+      title: BrandTrigger
+      type: object
+    Budget:
+      properties:
+        amount:
+          title: Amount
+          type: integer
+        amountCarryover:
+          title: Amountcarryover
+          type: integer
+        amountRemaining:
+          title: Amountremaining
+          type: integer
+        amountUsed:
+          title: Amountused
+          type: integer
+        type:
+          $ref: '#/components/schemas/Type'
+      required:
+      - amount
+      - amountRemaining
+      - amountCarryover
+      - amountUsed
+      - type
+      title: Budget
+      type: object
+    BudgetCreate:
+      properties:
+        amount:
+          title: Amount
+          type: integer
+        type:
+          $ref: '#/components/schemas/Type'
+      required:
+      - amount
+      - type
+      title: BudgetCreate
+      type: object
+    BudgetUpdate:
+      properties:
+        amount:
+          title: Amount
+          type: integer
+        type:
+          $ref: '#/components/schemas/Type'
+      title: BudgetUpdate
+      type: object
+    Campaign:
+      properties:
+        budget:
+          $ref: '#/components/schemas/Budget'
+        campaignBehaviorData:
+          $ref: '#/components/schemas/CampaignBehaviorData'
+        campaignBehaviorDataByDay:
+          items:
+            $ref: '#/components/schemas/CampaignBehaviorDataByDay'
+          title: Campaignbehaviordatabyday
+          type: array
+        campaignId:
+          format: uuid
+          title: Campaignid
+          type: string
+        campaignType:
+          $ref: '#/components/schemas/CampaignType'
+        createdAt:
+          format: date-time
+          title: Createdat
+          type: string
+        endDate:
+          format: date-time
+          title: Enddate
+          type: string
+        externalVendorId:
+          title: Externalvendorid
+          type: string
+        isActive:
+          title: Isactive
+          type: boolean
+        isSmart:
+          title: Issmart
+          type: boolean
+        marketplaceId:
+          format: uuid
+          title: Marketplaceid
+          type: string
+        name:
+          title: Name
+          type: string
+        promotionType:
+          $ref: '#/components/schemas/PromotionType'
+        startDate:
+          format: date-time
+          title: Startdate
+          type: string
+        status:
+          $ref: '#/components/schemas/CampaignStatus'
+        statusUpdatedBy:
+          format: uuid
+          title: Statusupdatedby
+          type: string
+        usesTopsortCreditLine:
+          default: false
+          title: Usestopsortcreditline
+          type: boolean
+        vendorId:
+          format: uuid
+          title: Vendorid
+          type: string
+      required:
+      - campaignId
+      - marketplaceId
+      - name
+      - startDate
+      - endDate
+      - isActive
+      - isSmart
+      - campaignType
+      - status
+      - promotionType
+      - createdAt
+      - externalVendorId
+      - vendorId
+      title: Campaign
+      type: object
+    CampaignBehaviorData:
+      properties:
+        clicks:
+          $ref: '#/components/schemas/Events'
+        impressions:
+          $ref: '#/components/schemas/Events'
+        purchases:
+          $ref: '#/components/schemas/Purchases'
+      required:
+      - clicks
+      - impressions
+      - purchases
+      title: CampaignBehaviorData
+      type: object
+    CampaignBehaviorDataByDay:
+      properties:
+        clicks:
+          $ref: '#/components/schemas/Events'
+        impressions:
+          $ref: '#/components/schemas/Events'
+        purchases:
+          $ref: '#/components/schemas/Purchases'
+        timeGroup:
+          format: date-time
+          title: Timegroup
+          type: string
+      required:
+      - clicks
+      - impressions
+      - purchases
+      - timeGroup
+      title: CampaignBehaviorDataByDay
+      type: object
+    CampaignBidsBehaviorData:
+      properties:
+        bidId:
+          format: uuid
+          title: Bidid
+          type: string
+        clicks:
+          $ref: '#/components/schemas/Events'
+        impressions:
+          $ref: '#/components/schemas/Events'
+        purchases:
+          $ref: '#/components/schemas/Purchases'
+      required:
+      - clicks
+      - impressions
+      - purchases
+      - bidId
+      title: CampaignBidsBehaviorData
+      type: object
+    CampaignCreateRequest:
+      properties:
+        bids:
+          items:
+            $ref: '#/components/schemas/BidCreate'
+          title: Bids
+          type: array
+        budget:
+          $ref: '#/components/schemas/BudgetCreate'
+        campaignType:
+          $ref: '#/components/schemas/CampaignType'
+        endDate:
+          default: '9999-12-31T23:59:59.999999+00:00'
+          format: date-time
+          title: Enddate
+          type: string
+        isActive:
+          default: true
+          title: Isactive
+          type: boolean
+        isSmart:
+          default: false
+          title: Issmart
+          type: boolean
+        name:
+          title: Name
+          type: string
+        promotionType:
+          $ref: '#/components/schemas/PromotionType'
+        startDate:
+          default: '2022-08-06T20:50:24.438304+00:00'
+          format: date-time
+          title: Startdate
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/CampaignStatus'
+          default: pending
+        usesTopsortCreditLine:
+          default: false
+          title: Usestopsortcreditline
+          type: boolean
+      required:
+      - name
+      - budget
+      - campaignType
+      - promotionType
+      - bids
+      title: CampaignCreateRequest
+      type: object
+    CampaignStatus:
+      description: An enumeration.
+      enum:
+      - approved
+      - pending
+      - rejected
+      title: CampaignStatus
+      type: string
+    CampaignType:
+      description: An enumeration.
+      enum:
+      - manual
+      - autobidding
+      title: CampaignType
+      type: string
+    CampaignUpdateRequest:
+      properties:
+        budget:
+          $ref: '#/components/schemas/BudgetUpdate'
+        campaignType:
+          $ref: '#/components/schemas/CampaignType'
+        endDate:
+          format: date-time
+          title: Enddate
+          type: string
+        isActive:
+          title: Isactive
+          type: boolean
+        isSmart:
+          title: Issmart
+          type: boolean
+        name:
+          title: Name
+          type: string
+        startDate:
+          format: date-time
+          title: Startdate
+          type: string
+        status:
+          $ref: '#/components/schemas/CampaignStatus'
+        statusUpdatedBy:
+          format: uuid
+          title: Statusupdatedby
+          type: string
+        usesTopsortCreditLine:
+          title: Usestopsortcreditline
+          type: boolean
+      title: CampaignUpdateRequest
+      type: object
+    CampaignsBehaviorDataByDayResponse:
+      properties:
+        campaignsBehaviorDataByDay:
+          items:
+            $ref: '#/components/schemas/CampaignBehaviorDataByDay'
+          title: Campaignsbehaviordatabyday
+          type: array
+        hasMore:
+          description: Whether this is the last page of results or not.
+          title: Hasmore
+          type: boolean
+        next:
+          allOf:
+          - $ref: '#/components/schemas/Next'
+          description: The parameters that should be used to fetch the next page.
+          title: Next
+      required:
+      - hasMore
+      - campaignsBehaviorDataByDay
+      title: CampaignsBehaviorDataByDayResponse
+      type: object
+    CampaignsResponse:
+      properties:
+        campaigns:
+          items:
+            $ref: '#/components/schemas/Campaign'
+          title: Campaigns
+          type: array
+        hasMore:
+          description: Whether this is the last page of results or not.
+          title: Hasmore
+          type: boolean
+        next:
+          allOf:
+          - $ref: '#/components/schemas/Next'
+          description: The parameters that should be used to fetch the next page.
+          title: Next
+      required:
+      - hasMore
+      - campaigns
+      title: CampaignsResponse
+      type: object
+    CatalogConfiguration:
+      properties:
+        currency_code:
+          title: Currency Code
+          type: string
+        is_manual:
+          title: Is Manual
+          type: boolean
+        language_code:
+          title: Language Code
+          type: string
+        last_pull_cache:
+          $ref: '#/components/schemas/PullCache'
+        marketplace_id:
+          format: uuid
+          title: Marketplace Id
+          type: string
+        marketplace_legacy_id:
+          title: Marketplace Legacy Id
+          type: integer
+        marketplace_slug:
+          title: Marketplace Slug
+          type: string
+        pull:
+          title: Pull
+          type: object
+        push:
+          title: Push
+          type: boolean
+        status:
+          title: Status
+          type: string
+      required:
+      - marketplace_id
+      - marketplace_slug
+      - push
+      - pull
+      - is_manual
+      - currency_code
+      - language_code
+      - status
+      title: CatalogConfiguration
+      type: object
+    CategoriesByIdRequest:
+      properties:
+        ids:
+          description: The IDs of the categories to delete.
+          example:
+          - cat_dairy
+          - cat_yoghurt
+          items:
+            type: string
+          minItems: 1
+          title: Ids
+          type: array
+      required:
+      - ids
+      title: CategoriesByIdRequest
+      type: object
+    CategoriesRequest:
+      properties:
+        categories:
+          description: The categories to create or substitute.
+          items:
+            $ref: '#/components/schemas/Category'
+          minItems: 1
+          title: Categories
+          type: array
+      required:
+      - categories
+      title: CategoriesRequest
+      type: object
+    CategoriesResponse:
+      properties:
+        hasMore:
+          description: Whether this is the last page of results or not.
+          title: Hasmore
+          type: boolean
+        next:
+          allOf:
+          - $ref: '#/components/schemas/Next'
+          description: The parameters that should be used to fetch the next page.
+          title: Next
+        response:
+          description: Array of categories.
+          items:
+            $ref: '#/components/schemas/Category'
+          title: Response
+          type: array
+      required:
+      - hasMore
+      - response
+      title: CategoriesResponse
+      type: object
+    Category:
+      description: An IndexModel subclass is any BaseModel that contains an index_name
+        field
+      properties:
+        id:
+          description: The category ID. If there is no ID for categories in the marketplace,
+            this can be the category name as long as it is unique.
+          example: ahEDqV5uhjj8
+          minLength: 1
+          title: Id
+          type: string
+        name:
+          description: The category name.
+          example: Beers/Belgian
+          minLength: 1
+          title: Name
+          type: string
+        parentId:
+          description: The ID of the parent category. This model assumes each category
+            can at most one parent category. In this example, `bneEmHKG2yUe` could
+            be a reference to the `Beers` category.
+          example: bneEmHKG2yUe
+          minLength: 1
+          title: Parentid
+          type: string
+      required:
+      - id
+      - name
+      title: Category
+      type: object
+    CategoryTrigger:
+      properties:
+        categoryId:
+          title: Categoryid
+          type: string
+      required:
+      - categoryId
+      title: CategoryTrigger
+      type: object
+    CreateInviteRequest:
+      properties:
+        createdBy:
+          format: uuid
+          title: Createdby
+          type: string
+        invitee:
+          $ref: '#/components/schemas/Invitee'
+        inviterName:
+          title: Invitername
+          type: string
+        locale:
+          $ref: '#/components/schemas/Locale'
+        origin:
+          $ref: '#/components/schemas/app__invitation_service__api_models__Entity'
+        sendEmail:
+          default: true
+          title: Sendemail
+          type: boolean
+        target:
+          $ref: '#/components/schemas/app__invitation_service__api_models__Entity'
+        topsortUrl:
+          format: uri
+          maxLength: 65536
+          minLength: 1
+          title: Topsorturl
+          type: string
+      required:
+      - origin
+      - target
+      - inviterName
+      - topsortUrl
+      - locale
+      - invitee
+      - createdBy
+      title: CreateInviteRequest
+      type: object
+    DeviceType:
+      description: An enumeration.
+      enum:
+      - mobile
+      - desktop
+      title: DeviceType
+      type: string
+    Dimensions:
+      properties:
+        height:
+          title: Height
+          type: integer
+        width:
+          title: Width
+          type: integer
+      required:
+      - width
+      - height
+      title: Dimensions
+      type: object
+    Events:
+      properties:
+        adSpent:
+          title: Adspent
+          type: integer
+        charged:
+          title: Charged
+          type: integer
+        total:
+          title: Total
+          type: integer
+      required:
+      - total
+      - charged
+      - adSpent
+      title: Events
+      type: object
+    GetApiKeyResponse:
+      properties:
+        keys:
+          items:
+            $ref: '#/components/schemas/ApiKey'
+          title: Keys
+          type: array
+      required:
+      - keys
+      title: GetApiKeyResponse
+      type: object
+    HTTPStatus:
+      description: "HTTP status codes and reason phrases\n\nStatus codes from the\
+        \ following RFCs are all observed:\n\n    * RFC 7231: Hypertext Transfer Protocol\
+        \ (HTTP/1.1), obsoletes 2616\n    * RFC 6585: Additional HTTP Status Codes\n\
+        \    * RFC 3229: Delta encoding in HTTP\n    * RFC 4918: HTTP Extensions for\
+        \ WebDAV, obsoletes 2518\n    * RFC 5842: Binding Extensions to WebDAV\n \
+        \   * RFC 7238: Permanent Redirect\n    * RFC 2295: Transparent Content Negotiation\
+        \ in HTTP\n    * RFC 2774: An HTTP Extension Framework\n    * RFC 7725: An\
+        \ HTTP Status Code to Report Legal Obstacles\n    * RFC 7540: Hypertext Transfer\
+        \ Protocol Version 2 (HTTP/2)\n    * RFC 2324: Hyper Text Coffee Pot Control\
+        \ Protocol (HTCPCP/1.0)\n    * RFC 8297: An HTTP Status Code for Indicating\
+        \ Hints\n    * RFC 8470: Using Early Data in HTTP"
+      enum:
+      - 100
+      - 101
+      - 102
+      - 103
+      - 200
+      - 201
+      - 202
+      - 203
+      - 204
+      - 205
+      - 206
+      - 207
+      - 208
+      - 226
+      - 300
+      - 301
+      - 302
+      - 303
+      - 304
+      - 305
+      - 307
+      - 308
+      - 400
+      - 401
+      - 402
+      - 403
+      - 404
+      - 405
+      - 406
+      - 407
+      - 408
+      - 409
+      - 410
+      - 411
+      - 412
+      - 413
+      - 414
+      - 415
+      - 416
+      - 417
+      - 418
+      - 421
+      - 422
+      - 423
+      - 424
+      - 425
+      - 426
+      - 428
+      - 429
+      - 431
+      - 451
+      - 500
+      - 501
+      - 502
+      - 503
+      - 504
+      - 505
+      - 506
+      - 507
+      - 508
+      - 510
+      - 511
+      title: HTTPStatus
+      type: integer
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Invitee:
+      properties:
+        email:
+          format: email
+          title: Email
+          type: string
+        familyName:
+          title: Familyname
+          type: string
+        givenName:
+          title: Givenname
+          type: string
+      required:
+      - email
+      title: Invitee
+      type: object
+    InvitesResponse:
+      properties:
+        createdAt:
+          format: date-time
+          title: Createdat
+          type: string
+        createdBy:
+          format: uuid
+          title: Createdby
+          type: string
+        id:
+          format: uuid
+          title: Id
+          type: string
+        invitee:
+          $ref: '#/components/schemas/Invitee'
+        key:
+          title: Key
+          type: string
+        origin:
+          $ref: '#/components/schemas/app__invitation_service__api_models__Entity'
+        target:
+          $ref: '#/components/schemas/app__invitation_service__api_models__Entity'
+        updatedAt:
+          format: date-time
+          title: Updatedat
+          type: string
+        used:
+          title: Used
+          type: boolean
+      required:
+      - id
+      - origin
+      - target
+      - invitee
+      - createdAt
+      - updatedAt
+      - createdBy
+      - used
+      - key
+      title: InvitesResponse
+      type: object
+    KeywordTrigger:
+      properties:
+        matchType:
+          title: Matchtype
+          type: string
+        words:
+          items:
+            type: string
+          title: Words
+          type: array
+      required:
+      - words
+      - matchType
+      title: KeywordTrigger
+      type: object
+    Locale:
+      description: An enumeration.
+      enum:
+      - en
+      - es
+      - pt
+      - fr
+      title: Locale
+      type: string
+    Log:
+      description: A log entry. The request and response body are not included when
+        obtaining paginated results.
+      properties:
+        id:
+          title: Id
+          type: string
+        method:
+          title: Method
+          type: string
+        path:
+          title: Path
+          type: string
+        status:
+          $ref: '#/components/schemas/HTTPStatus'
+        timestamp:
+          format: date-time
+          title: Timestamp
+          type: string
+      required:
+      - id
+      - method
+      - path
+      - timestamp
+      - status
+      title: Log
+      type: object
+    LogDetail:
+      description: A log entry. The request and response body are included when retrieving
+        a single log.
+      properties:
+        id:
+          title: Id
+          type: string
+        method:
+          title: Method
+          type: string
+        path:
+          title: Path
+          type: string
+        requestBody:
+          title: Requestbody
+          type: string
+        responseBody:
+          title: Responsebody
+          type: string
+        status:
+          $ref: '#/components/schemas/HTTPStatus'
+        timestamp:
+          format: date-time
+          title: Timestamp
+          type: string
+      required:
+      - id
+      - method
+      - path
+      - timestamp
+      - status
+      title: LogDetail
+      type: object
+    LogsResponse:
+      description: A wrapper for a list of logs and pagination fields as the result
+        of a logs request.
+      properties:
+        hasMore:
+          description: Whether this is the last page of results or not.
+          title: Hasmore
+          type: boolean
+        next:
+          allOf:
+          - $ref: '#/components/schemas/Next'
+          description: The parameters that should be used to fetch the next page.
+          title: Next
+        response:
+          items:
+            $ref: '#/components/schemas/Log'
+          title: Response
+          type: array
+      required:
+      - hasMore
+      - response
+      title: LogsResponse
+      type: object
+    LogsSummary:
+      description: A log summary as a structure of arrays. This only includes request
+        counts according to different criteria.
+      properties:
+        byOperation:
+          additionalProperties:
+            items:
+              type: integer
+            type: array
+          description: Mapping of HTTP request paths to the counts for the response
+            time series specified by `dates`.
+          minProperties: 1
+          title: Byoperation
+          type: object
+        byStatus:
+          additionalProperties:
+            items:
+              type: integer
+            type: array
+          description: Mapping of HTTP status codes to the counts for the response
+            time series specified by `dates`.
+          minProperties: 1
+          title: Bystatus
+          type: object
+        dates:
+          description: Timestamps describing the start of the period of time covered
+            by each data point.
+          items:
+            format: date-time
+            type: string
+          minItems: 1
+          title: Dates
+          type: array
+      required:
+      - dates
+      - byStatus
+      - byOperation
+      title: LogsSummary
+      type: object
+    MarketplaceBehaviorData:
+      properties:
+        clicks:
+          title: Clicks
+          type: integer
+        cpc:
+          title: Cpc
+          type: number
+        cr:
+          title: Cr
+          type: number
+        ctr:
+          title: Ctr
+          type: number
+        date:
+          format: date-time
+          title: Date
+          type: string
+        impressions:
+          title: Impressions
+          type: integer
+        quantity:
+          title: Quantity
+          type: integer
+        sales:
+          title: Sales
+          type: integer
+        spend:
+          title: Spend
+          type: integer
+      required:
+      - date
+      - spend
+      - sales
+      - cpc
+      - ctr
+      - cr
+      - clicks
+      - impressions
+      - quantity
+      title: MarketplaceBehaviorData
+      type: object
+    MarketplaceReportResponse:
+      properties:
+        dailyReports:
+          items:
+            $ref: '#/components/schemas/MarketplaceBehaviorData'
+          title: Dailyreports
+          type: array
+        hasMore:
+          description: Whether this is the last page of results or not.
+          title: Hasmore
+          type: boolean
+        next:
+          allOf:
+          - $ref: '#/components/schemas/Next'
+          description: The parameters that should be used to fetch the next page.
+          title: Next
+      required:
+      - hasMore
+      - dailyReports
+      title: MarketplaceReportResponse
+      type: object
+    Next:
+      properties:
+        limit:
+          description: How many items to return.
+          format: int32
+          title: Limit
+          type: integer
+        offset:
+          description: How many items to skip from the beginning of the list.
+          format: int32
+          title: Offset
+          type: integer
+      required:
+      - offset
+      - limit
+      title: Next
+      type: object
+    PartialConfiguration:
+      description: To be used by Updates and Creations
+      properties:
+        currency_code:
+          title: Currency Code
+          type: string
+        is_manual:
+          title: Is Manual
+          type: boolean
+        language_code:
+          title: Language Code
+          type: string
+        last_pull_cache:
+          $ref: '#/components/schemas/PullCache'
+        marketplace_legacy_id:
+          title: Marketplace Legacy Id
+          type: integer
+        marketplace_slug:
+          title: Marketplace Slug
+          type: string
+        pull:
+          title: Pull
+          type: object
+        push:
+          title: Push
+          type: boolean
+        status:
+          title: Status
+          type: string
+      title: PartialConfiguration
+      type: object
+    Product:
+      description: An IndexModel subclass is any BaseModel that contains an index_name
+        field
+      properties:
+        brand:
+          allOf:
+          - $ref: '#/components/schemas/Brand'
+          description: The product brand information.
+          title: Brand
+        categories:
+          description: The category IDs.
+          example:
+          - ahEDqV5uhjj8
+          items:
+            minLength: 1
+            type: string
+          minLength: 1
+          title: Categories
+          type: array
+        description:
+          description: The product description.
+          example: Named as "Best Beer in the World" in 2008 at the World Beer Championships
+            in Chicago, Illinois.
+          minLength: 1
+          title: Description
+          type: string
+        id:
+          description: The product ID.
+          example: eyGqR4YQgBJa
+          minLength: 1
+          title: Id
+          type: string
+        imageURL:
+          description: The product image URL. Its size should be between 250x250 and
+            600x600 pixels. This is recommended in case the Topsort UI will be used
+            to manage campaigns.
+          example: https://cdn.yourbrand.com/products/eyGqR4YQgBJa.jpg
+          format: uri
+          minLength: 1
+          title: Imageurl
+          type: string
+        name:
+          description: The product name.
+          example: Delirium Tremens Beer Bottle 330cc x6
+          minLength: 1
+          title: Name
+          type: string
+        price:
+          description: The product price in the configured currency.
+          example: 18.99
+          exclusiveMinimum: 0.0
+          title: Price
+          type: number
+        vendors:
+          description: The vendor IDs.
+          example:
+          - 9SiwYqqL8vdG
+          items:
+            minLength: 1
+            type: string
+          minLength: 1
+          title: Vendors
+          type: array
+      required:
+      - id
+      - name
+      - vendors
+      - categories
+      - price
+      title: Product
+      type: object
+    ProductTrigger:
+      properties:
+        productId:
+          title: Productid
+          type: string
+      required:
+      - productId
+      title: ProductTrigger
+      type: object
+    ProductsByIdRequest:
+      properties:
+        ids:
+          description: The IDs of the products to delete.
+          example:
+          - 9UrUtEsUzLGL
+          - zhhGqczsuGHx
+          items:
+            type: string
+          minItems: 1
+          title: Ids
+          type: array
+      required:
+      - ids
+      title: ProductsByIdRequest
+      type: object
+    ProductsRequest:
+      properties:
+        products:
+          description: The products to create or substitute.
+          items:
+            $ref: '#/components/schemas/Product'
+          minItems: 1
+          title: Products
+          type: array
+      required:
+      - products
+      title: ProductsRequest
+      type: object
+    ProductsResponse:
+      properties:
+        hasMore:
+          description: Whether this is the last page of results or not.
+          title: Hasmore
+          type: boolean
+        next:
+          allOf:
+          - $ref: '#/components/schemas/Next'
+          description: The parameters that should be used to fetch the next page.
+          title: Next
+        response:
+          description: Array of products.
+          items:
+            $ref: '#/components/schemas/Product'
+          title: Response
+          type: array
+      required:
+      - hasMore
+      - response
+      title: ProductsResponse
+      type: object
+    PromotionType:
+      properties:
+        adFormat:
+          $ref: '#/components/schemas/AdFormat'
+        aspectRatio:
+          $ref: '#/components/schemas/AspectRatio'
+        bannerAssets:
+          items:
+            $ref: '#/components/schemas/BannerAsset'
+          title: Bannerassets
+          type: array
+        deviceType:
+          allOf:
+          - $ref: '#/components/schemas/DeviceType'
+          default: desktop
+      required:
+      - adFormat
+      title: PromotionType
+      type: object
+    PullCache:
+      properties:
+        etag:
+          title: Etag
+          type: string
+        last_modified:
+          format: date-time
+          title: Last Modified
+          type: string
+      title: PullCache
+      type: object
+    Purchases:
+      properties:
+        amount:
+          title: Amount
+          type: integer
+        count:
+          title: Count
+          type: integer
+        quantity:
+          title: Quantity
+          type: integer
+      required:
+      - amount
+      - count
+      - quantity
+      title: Purchases
+      type: object
+    Trigger:
+      properties:
+        type:
+          $ref: '#/components/schemas/TriggerType'
+        value:
+          oneOf:
+          - $ref: '#/components/schemas/CategoryTrigger'
+          - $ref: '#/components/schemas/KeywordTrigger'
+          - $ref: '#/components/schemas/BrandTrigger'
+          - $ref: '#/components/schemas/VendorTrigger'
+          - $ref: '#/components/schemas/ProductTrigger'
+          title: Value
+      required:
+      - type
+      title: Trigger
+      type: object
+    TriggerType:
+      description: An enumeration.
+      enum:
+      - category
+      - brand
+      - vendor
+      - product
+      - keyword
+      - homepage
+      title: TriggerType
+      type: string
+    Type:
+      description: An enumeration.
+      enum:
+      - daily
+      - weekly
+      - monthly
+      - fixed
+      title: Type
+      type: string
+    UpdateBannerAsset:
+      properties:
+        url:
+          title: Url
+          type: string
+      required:
+      - url
+      title: UpdateBannerAsset
+      type: object
+    ValidationError:
+      properties:
+        loc:
+          items:
+            oneOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Vendor:
+      description: An IndexModel subclass is any BaseModel that contains an index_name
+        field
+      properties:
+        id:
+          description: The vendor ID. If there is no ID for vendors in the marketplace,
+            this can be the vendor name as long as it is unique.
+          example: 9SiwYqqL8vdG
+          minLength: 1
+          title: Id
+          type: string
+        imageURL:
+          description: The vendor logo. Its size should be between 250x250 and 600x600
+            pixels. This is recommended in case the Topsort UI will be used to manage
+            campaigns.
+          example: https://cdn.yourbrand.com/logos/9SiwYqqL8vdG.jpg
+          format: uri
+          minLength: 1
+          title: Imageurl
+          type: string
+        name:
+          description: The vendor name.
+          example: Huyghe Brewery
+          minLength: 1
+          title: Name
+          type: string
+      required:
+      - id
+      - name
+      title: Vendor
+      type: object
+    VendorTrigger:
+      properties:
+        vendorId:
+          title: Vendorid
+          type: string
+      required:
+      - vendorId
+      title: VendorTrigger
+      type: object
+    VendorsByIdRequest:
+      properties:
+        ids:
+          description: The IDs of the vendors to delete.
+          example:
+          - XljzxWf8sfqF
+          - eBbIYS16vZV3
+          items:
+            type: string
+          minItems: 1
+          title: Ids
+          type: array
+      required:
+      - ids
+      title: VendorsByIdRequest
+      type: object
+    VendorsRequest:
+      properties:
+        vendors:
+          description: The vendors to create or substitute.
+          items:
+            $ref: '#/components/schemas/Vendor'
+          minItems: 1
+          title: Vendors
+          type: array
+      required:
+      - vendors
+      title: VendorsRequest
+      type: object
+    VendorsResponse:
+      properties:
+        hasMore:
+          description: Whether this is the last page of results or not.
+          title: Hasmore
+          type: boolean
+        next:
+          allOf:
+          - $ref: '#/components/schemas/Next'
+          description: The parameters that should be used to fetch the next page.
+          title: Next
+        response:
+          description: Array of vendors.
+          items:
+            $ref: '#/components/schemas/Vendor'
+          title: Response
+          type: array
+      required:
+      - hasMore
+      - response
+      title: VendorsResponse
+      type: object
+    app__campaign_service__api_models__Entity:
+      properties:
+        id:
+          title: Id
+          type: string
+        type:
+          $ref: '#/components/schemas/app__campaign_service__api_models__EntityType'
+      required:
+      - id
+      - type
+      title: Entity
+      type: object
+    app__campaign_service__api_models__EntityType:
+      description: An enumeration.
+      enum:
+      - product
+      - brand
+      - vendor
+      - url
+      title: EntityType
+      type: string
+    app__invitation_service__api_models__Entity:
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        name:
+          title: Name
+          type: string
+        type:
+          $ref: '#/components/schemas/app__invitation_service__api_models__EntityType'
+      required:
+      - type
+      - id
+      - name
+      title: Entity
+      type: object
+    app__invitation_service__api_models__EntityType:
+      description: An enumeration.
+      enum:
+      - Marketplace
+      - Vendor
+      title: EntityType
+      type: string
+  securitySchemes:
+    HTTPBearer:
+      scheme: bearer
+      type: http
+info:
+  title: FastAPI
+  version: 0.1.0
+openapi: 3.0.2
+paths:
+  /:
+    get:
+      operationId: check
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                title: Response Check
+                type: string
+          description: Successful Response
+      summary: Index
+      tags:
+      - health
+  /campaign-service/campaign:
+    post:
+      description: 'Endpoint to create campaign, campaign''s budget and campaign''s
+        bids.
+
+        It is expected to use at all types of campaign creations.'
+      operationId: create_campaign
+      parameters:
+      - in: query
+        name: vendor_id
+        required: true
+        schema:
+          format: uuid
+          title: Vendor Id
+          type: string
+      - in: query
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      - in: query
+        name: external_vendor_id
+        required: true
+        schema:
+          title: External Vendor Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignCreateRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Create Campaign
+      tags:
+      - campaign-service
+  /campaign-service/campaign/{campaign_id}:
+    delete:
+      description: 'Endpoint to delete specific campaign by campaign_id.
+
+        It is soft delete.'
+      operationId: delete_campaign
+      parameters:
+      - in: path
+        name: campaign_id
+        required: true
+        schema:
+          format: uuid
+          title: Campaign Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Delete Campaign By Id
+      tags:
+      - campaign-service
+    get:
+      description: 'Endpoint to retrieve specific campaign by campaign_id.
+
+        It is expected to use at Campaign Page'
+      operationId: get_campaign
+      parameters:
+      - in: path
+        name: campaign_id
+        required: true
+        schema:
+          format: uuid
+          title: Campaign Id
+          type: string
+      - in: query
+        name: behavior_summary_start_date
+        required: false
+        schema:
+          format: date-time
+          title: Behavior Summary Start Date
+          type: string
+      - in: query
+        name: behavior_summary_end_date
+        required: false
+        schema:
+          format: date-time
+          title: Behavior Summary End Date
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Campaign By Id
+      tags:
+      - campaign-service
+    patch:
+      description: 'Endpoint to update specific campaign''s fields by campaign_id
+        some.
+
+        Notice that: this is PATCH endpoint, not needed all fields at request,
+
+        fields to be updated is enough at request.
+
+        It is expected to use for updating campaign''s data at campaign page'
+      operationId: update_campaign
+      parameters:
+      - in: path
+        name: campaign_id
+        required: true
+        schema:
+          format: uuid
+          title: Campaign Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CampaignUpdateRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Update Campaign By Id
+      tags:
+      - campaign-service
+  /campaign-service/campaign/{campaign_id}/bid/{bid_id}:
+    delete:
+      operationId: delete_bid
+      parameters:
+      - in: path
+        name: campaign_id
+        required: true
+        schema:
+          format: uuid
+          title: Campaign Id
+          type: string
+      - in: path
+        name: bid_id
+        required: true
+        schema:
+          format: uuid
+          title: Bid Id
+          type: string
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Delete Campaign Bid By Id
+      tags:
+      - campaign-service
+    patch:
+      operationId: update_bid
+      parameters:
+      - in: path
+        name: campaign_id
+        required: true
+        schema:
+          format: uuid
+          title: Campaign Id
+          type: string
+      - in: path
+        name: bid_id
+        required: true
+        schema:
+          format: uuid
+          title: Bid Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BidUpdateRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bid'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Update Campaign Bid By Id
+      tags:
+      - campaign-service
+  /campaign-service/campaign/{campaign_id}/bids:
+    get:
+      operationId: get_bids
+      parameters:
+      - in: path
+        name: campaign_id
+        required: true
+        schema:
+          format: uuid
+          title: Campaign Id
+          type: string
+      - in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          title: Offset
+          type: integer
+      - in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          title: Limit
+          type: integer
+      - in: query
+        name: behavior_summary_start_date
+        required: false
+        schema:
+          format: date-time
+          title: Behavior Summary Start Date
+          type: string
+      - in: query
+        name: behavior_summary_end_date
+        required: false
+        schema:
+          format: date-time
+          title: Behavior Summary End Date
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BidsResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Campaign Bids
+      tags:
+      - campaign-service
+    post:
+      operationId: create_bid
+      parameters:
+      - in: path
+        name: campaign_id
+        required: true
+        schema:
+          format: uuid
+          title: Campaign Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BidCreateRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BidsResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Create Campaign Bids
+      tags:
+      - campaign-service
+  /campaign-service/campaigns:
+    get:
+      description: 'Endpoint to retrieve campaigns, campaigns could be filtered by
+        marketplace_id, vendor_id and status.
+
+        It is expected to use for getting all campaigns of a marketplace & all campaigns
+        of a vendor in dashboards.
+
+        Filtering by status is expected to use at review page getting campaigns approved,
+        pending tabs'
+      operationId: get_campaigns
+      parameters:
+      - in: query
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      - in: query
+        name: vendor_id
+        required: false
+        schema:
+          format: uuid
+          title: Vendor Id
+          type: string
+      - in: query
+        name: status
+        required: false
+        schema:
+          $ref: '#/components/schemas/CampaignStatus'
+      - in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          title: Offset
+          type: integer
+      - in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          title: Limit
+          type: integer
+      - in: query
+        name: behavior_summary_start_date
+        required: false
+        schema:
+          format: date-time
+          title: Behavior Summary Start Date
+          type: string
+      - in: query
+        name: behavior_summary_end_date
+        required: false
+        schema:
+          format: date-time
+          title: Behavior Summary End Date
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignsResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Campaigns
+      tags:
+      - campaign-service
+  /campaign-service/campaigns/bids:
+    post:
+      operationId: get_bids_for_multiple_campaigns
+      parameters:
+      - in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          title: Offset
+          type: integer
+      - in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          title: Limit
+          type: integer
+      - in: query
+        name: behavior_summary_start_date
+        required: false
+        schema:
+          format: date-time
+          title: Behavior Summary Start Date
+          type: string
+      - in: query
+        name: behavior_summary_end_date
+        required: false
+        schema:
+          format: date-time
+          title: Behavior Summary End Date
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                format: uuid
+                type: string
+              title: Body
+              type: array
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BidsResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Campaigns Bids
+      tags:
+      - campaign-service
+  /campaign-service/campaigns/daily-reports:
+    post:
+      operationId: get_campaigns_daily_reports
+      parameters:
+      - in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          title: Offset
+          type: integer
+      - in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          title: Limit
+          type: integer
+      - in: query
+        name: behavior_summary_start_date
+        required: false
+        schema:
+          format: date-time
+          title: Behavior Summary Start Date
+          type: string
+      - in: query
+        name: behavior_summary_end_date
+        required: false
+        schema:
+          format: date-time
+          title: Behavior Summary End Date
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                format: uuid
+                type: string
+              title: Campaign Ids
+              type: array
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignsBehaviorDataByDayResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Campaigns Daily Summaries
+      tags:
+      - campaign-service
+  /campaign-service/campaigns/marketplace-report:
+    get:
+      operationId: get_marketplace_report
+      parameters:
+      - in: query
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      - in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          title: Offset
+          type: integer
+      - in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          title: Limit
+          type: integer
+      - in: query
+        name: behavior_summary_start_date
+        required: false
+        schema:
+          format: date-time
+          title: Behavior Summary Start Date
+          type: string
+      - in: query
+        name: behavior_summary_end_date
+        required: false
+        schema:
+          format: date-time
+          title: Behavior Summary End Date
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceReportResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Marketplace Report
+      tags:
+      - campaign-service
+  /campaign-service/marketplaces/{api_key}/api_keys:
+    delete:
+      operationId: delete_api_key
+      parameters:
+      - in: path
+        name: api_key
+        required: true
+        schema:
+          title: Api Key
+          type: string
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Delete Api Key
+      tags:
+      - campaign-service
+  /campaign-service/marketplaces/{marketplace_id}/api_keys:
+    get:
+      operationId: get_api_keys
+      parameters:
+      - in: path
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetApiKeyResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Api Keys
+      tags:
+      - campaign-service
+    post:
+      operationId: create_api_key
+      parameters:
+      - in: path
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKey'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Create Api Key
+      tags:
+      - campaign-service
+  /catalog-search-service/catalogs/categories:
+    delete:
+      description: Delete categories by ID.
+      operationId: delete_categories
+      parameters:
+      - in: query
+        name: marketplaceId
+        required: true
+        schema:
+          format: uuid
+          title: Marketplaceid
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoriesByIdRequest'
+        required: true
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Delete Categories
+      tags:
+      - catalog-search-service
+    get:
+      description: Get categories.
+      operationId: get_categories
+      parameters:
+      - in: query
+        name: marketplaceId
+        required: true
+        schema:
+          format: uuid
+          title: Marketplaceid
+          type: string
+      - in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          title: Offset
+          type: integer
+      - in: query
+        name: limit
+        required: false
+        schema:
+          default: 50
+          title: Limit
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoriesResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Categories
+      tags:
+      - catalog-search-service
+    put:
+      description: Upsert categories.
+      operationId: upsert_categories
+      parameters:
+      - in: query
+        name: marketplaceId
+        required: true
+        schema:
+          format: uuid
+          title: Marketplaceid
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoriesRequest'
+        required: true
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Upsert Categories
+      tags:
+      - catalog-search-service
+  /catalog-search-service/catalogs/products:
+    delete:
+      description: Delete products by ID.
+      operationId: delete_products
+      parameters:
+      - in: query
+        name: marketplaceId
+        required: true
+        schema:
+          format: uuid
+          title: Marketplaceid
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductsByIdRequest'
+        required: true
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Delete Products
+      tags:
+      - catalog-search-service
+    get:
+      description: Get products by ID.
+      operationId: get_products
+      parameters:
+      - in: query
+        name: id
+        required: true
+        schema:
+          items:
+            type: string
+          maxItems: 50
+          minItems: 1
+          title: Id
+          type: array
+      - in: query
+        name: marketplaceId
+        required: true
+        schema:
+          format: uuid
+          title: Marketplaceid
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Product'
+                title: Response Get Products
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Products
+      tags:
+      - catalog-search-service
+    put:
+      description: Upsert products.
+      operationId: upsert_products
+      parameters:
+      - in: query
+        name: marketplaceId
+        required: true
+        schema:
+          format: uuid
+          title: Marketplaceid
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductsRequest'
+        required: true
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Upsert Products
+      tags:
+      - catalog-search-service
+  /catalog-search-service/catalogs/products/search:
+    get:
+      description: Search products
+      operationId: search_products
+      parameters:
+      - in: query
+        name: search
+        required: true
+        schema:
+          title: Search
+          type: string
+      - in: query
+        name: marketplaceId
+        required: true
+        schema:
+          format: uuid
+          title: Marketplaceid
+          type: string
+      - in: query
+        name: vendorId
+        required: false
+        schema:
+          title: Vendorid
+          type: string
+      - in: query
+        name: categoryId
+        required: false
+        schema:
+          title: Categoryid
+          type: string
+      - in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          title: Offset
+          type: integer
+      - in: query
+        name: limit
+        required: false
+        schema:
+          default: 50
+          title: Limit
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductsResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Search Products
+      tags:
+      - catalog-search-service
+  /catalog-search-service/catalogs/vendors:
+    delete:
+      description: Delete vendors by ID.
+      operationId: delete_vendors
+      parameters:
+      - in: query
+        name: marketplaceId
+        required: true
+        schema:
+          format: uuid
+          title: Marketplaceid
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VendorsByIdRequest'
+        required: true
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Delete Vendors
+      tags:
+      - catalog-search-service
+    get:
+      description: Get vendors.
+      operationId: get_vendors
+      parameters:
+      - in: query
+        name: marketplaceId
+        required: true
+        schema:
+          format: uuid
+          title: Marketplaceid
+          type: string
+      - in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          title: Offset
+          type: integer
+      - in: query
+        name: limit
+        required: false
+        schema:
+          default: 50
+          title: Limit
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VendorsResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Vendors
+      tags:
+      - catalog-search-service
+    put:
+      description: Upsert vendors.
+      operationId: upsert_vendors
+      parameters:
+      - in: query
+        name: marketplaceId
+        required: true
+        schema:
+          format: uuid
+          title: Marketplaceid
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VendorsRequest'
+        required: true
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Upsert Vendors
+      tags:
+      - catalog-search-service
+  /catalog-search-service/configuration/indices/{marketplace_id}:
+    delete:
+      operationId: delete_indices_catalog_search_service_configuration_indices__marketplace_id__delete
+      parameters:
+      - in: path
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      - in: query
+        name: suffix
+        required: false
+        schema:
+          default: initial
+          title: Suffix
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Delete Indices
+      tags:
+      - catalog-search-service
+    post:
+      operationId: create_indices_catalog_search_service_configuration_indices__marketplace_id__post
+      parameters:
+      - in: path
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      - in: query
+        name: suffix
+        required: false
+        schema:
+          default: initial
+          title: Suffix
+          type: string
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Create Indices
+      tags:
+      - catalog-search-service
+  /catalog-search-service/configuration/migrate-indices/{marketplace_id}:
+    post:
+      operationId: migrate_indices_catalog_search_service_configuration_migrate_indices__marketplace_id__post
+      parameters:
+      - in: path
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      - in: query
+        name: index_name
+        required: false
+        schema:
+          title: Index Name
+          type: string
+      - in: query
+        name: suffix
+        required: false
+        schema:
+          default: initial
+          title: Suffix
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Migrate Indices
+      tags:
+      - catalog-search-service
+  /catalog-search-service/configuration/{marketplace_id}:
+    delete:
+      operationId: delete_configuration_catalog_search_service_configuration__marketplace_id__delete
+      parameters:
+      - in: path
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Delete Configuration
+      tags:
+      - catalog-search-service
+    get:
+      operationId: get_configuration_catalog_search_service_configuration__marketplace_id__get
+      parameters:
+      - in: path
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogConfiguration'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Configuration
+      tags:
+      - catalog-search-service
+    patch:
+      operationId: update_configuration_catalog_search_service_configuration__marketplace_id__patch
+      parameters:
+      - in: path
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartialConfiguration'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogConfiguration'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Update Configuration
+      tags:
+      - catalog-search-service
+    post:
+      operationId: create_configuration_catalog_search_service_configuration__marketplace_id__post
+      parameters:
+      - in: path
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PartialConfiguration'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogConfiguration'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Create Configuration
+      tags:
+      - catalog-search-service
+  /catalog-search-service/triggers/run-catalog-v1-retriever/all:
+    post:
+      description: For each pull configuration, retrieves the catalog and updates
+        the index
+      operationId: retrieve_all_catalog_search_service_triggers_run_catalog_v1_retriever_all_post
+      responses:
+        '202':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      security:
+      - HTTPBearer: []
+      summary: Retrieve All
+      tags:
+      - catalog-search-service
+  /catalog-search-service/triggers/run-catalog-v1-retriever/marketplace/{marketplace_id}:
+    post:
+      operationId: retrieve_for_marketplace_catalog_search_service_triggers_run_catalog_v1_retriever_marketplace__marketplace_id__post
+      parameters:
+      - in: path
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      - in: query
+        name: marketplace_legacy_id
+        required: false
+        schema:
+          title: Marketplace Legacy Id
+          type: integer
+      responses:
+        '202':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Retrieve For Marketplace
+      tags:
+      - catalog-search-service
+  /catalog-search-service/upload/{marketplace_id}/categories:
+    post:
+      operationId: upload_categories_file_catalog_search_service_upload__marketplace_id__categories_post
+      parameters:
+      - in: path
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_categories_file_catalog_search_service_upload__marketplace_id__categories_post'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Upload Categories File
+      tags:
+      - catalog-search-service
+  /catalog-search-service/upload/{marketplace_id}/products:
+    post:
+      operationId: upload_products_file_catalog_search_service_upload__marketplace_id__products_post
+      parameters:
+      - in: path
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_products_file_catalog_search_service_upload__marketplace_id__products_post'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Upload Products File
+      tags:
+      - catalog-search-service
+  /catalog-search-service/upload/{marketplace_id}/vendors:
+    post:
+      operationId: upload_vendors_file_catalog_search_service_upload__marketplace_id__vendors_post
+      parameters:
+      - in: path
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_vendors_file_catalog_search_service_upload__marketplace_id__vendors_post'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Upload Vendors File
+      tags:
+      - catalog-search-service
+  /invite-service/invite:
+    post:
+      description: Endpoint to create and send an invitation. The invitation is sent
+        via email.
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInviteRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvitesResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Create Invite
+      tags:
+      - invite-service
+  /invite-service/invite/{invite_key}:
+    get:
+      description: Endpoint to retrieve invite by key. Its expected usage is to prefill
+        a signup form.
+      operationId: get_by_id
+      parameters:
+      - in: path
+        name: invite_key
+        required: true
+        schema:
+          title: Invite Key
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvitesResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Invite By Key
+      tags:
+      - invite-service
+  /invite-service/invite/{invite_key}/invalidate:
+    delete:
+      description: Endpoint to mark an invitation as invalid
+      operationId: invalidate
+      parameters:
+      - in: path
+        name: invite_key
+        required: true
+        schema:
+          title: Invite Key
+          type: string
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Invalidate Invite By Key
+      tags:
+      - invite-service
+  /invite-service/invite/{invite_key}/used:
+    post:
+      description: Endpoint to mark an invitation as used. The invitee should mark
+        it as used when signing up to Topsort.
+      operationId: mark_as_used
+      parameters:
+      - in: path
+        name: invite_key
+        required: true
+        schema:
+          title: Invite Key
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvitesResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Update Invite By Key
+      tags:
+      - invite-service
+  /invite-service/invites:
+    get:
+      description: 'Endpoint to retrieve all the invites that target to an specific
+        entity.
+
+        Its expected usage is to display the active invites of vendors or marketplaces.
+
+        Email filtering is available to get the invites to an specific email address.'
+      operationId: get_by_target
+      parameters:
+      - in: query
+        name: target_type
+        required: true
+        schema:
+          $ref: '#/components/schemas/app__invitation_service__api_models__EntityType'
+      - in: query
+        name: target_id
+        required: true
+        schema:
+          format: uuid
+          title: Target Id
+          type: string
+      - in: query
+        name: email
+        required: false
+        schema:
+          format: email
+          title: Email
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/InvitesResponse'
+                title: Response Get By Target
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Invites
+      tags:
+      - invite-service
+  /logs-service/{marketplace_id}/logs:
+    get:
+      description: "Endpoint to retrieve a list of logs sorted by timestamp in descending\
+        \ order.\nIt is expected to be called from the logs page with all defaults,\
+        \ and then more\ncalls should be received as the user scrolls or sets filters.\n\
+        \n    Path Params:\n        marketplaceId -- The ID of the marketplace to\
+        \ fetch logs for.\n\n    Query Params:\n        method -- The HTTP request\
+        \ method(s). If none are set, no filtering by method will be done.\n     \
+        \   path -- The HTTP request path(s). If none are set, no filtering by path\
+        \ will be done.\n        status -- The returned HTTP status code(s). If none\
+        \ are set, no filtering by method will be done.\n        start -- The start\
+        \ of the time range to query. If unset, no lower bound will be used.\n   \
+        \     end -- The end of the time range to query. If unset, no upper bound\
+        \ will be used.\n        offset -- The number of log entries to skip.\n  \
+        \      limit -- The number of log entries to fetch.\n\n    Returns:\n    \
+        \    200 with the paginated list of logs.\n        404 if no region info is\
+        \ found for the provided marketplace ID."
+      operationId: get_logs_from_marketplace
+      parameters:
+      - in: path
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      - in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          title: Offset
+          type: integer
+      - in: query
+        name: limit
+        required: false
+        schema:
+          default: 50
+          title: Limit
+          type: integer
+      - in: query
+        name: status
+        required: false
+        schema:
+          items:
+            type: integer
+          title: Status
+          type: array
+      - in: query
+        name: path
+        required: false
+        schema:
+          items:
+            type: string
+          title: Path
+          type: array
+      - in: query
+        name: method
+        required: false
+        schema:
+          items:
+            type: string
+          title: Method
+          type: array
+      - in: query
+        name: start
+        required: false
+        schema:
+          format: date-time
+          title: Start
+          type: string
+      - in: query
+        name: end
+        required: false
+        schema:
+          format: date-time
+          title: End
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogsResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Logs From Marketplace
+      tags:
+      - logs-service
+  /logs-service/{marketplace_id}/logs-summary:
+    get:
+      description: 'Retrieves a summary of how many requests occurred during a given
+        period of time.
+
+        The response comes as a structure of arrays to reduce the payload size.'
+      operationId: get_log_summary_from_marketplace
+      parameters:
+      - description: The ID of the marketplace to search for.
+        in: path
+        name: marketplace_id
+        required: true
+        schema:
+          description: The ID of the marketplace to search for.
+          format: uuid
+          title: Marketplace Id
+          type: string
+      - description: The start of the period to be queried. Defaults to now - 2 weeks.
+        in: query
+        name: start
+        required: false
+        schema:
+          description: The start of the period to be queried. Defaults to now - 2
+            weeks.
+          format: date-time
+          title: Start
+          type: string
+      - description: The end of the period to be queried. Defaults to now.
+        in: query
+        name: end
+        required: false
+        schema:
+          description: The end of the period to be queried. Defaults to now.
+          format: date-time
+          title: End
+          type: string
+      - description: The period of time each data point will aggregate, in minutes.
+        in: query
+        name: interval
+        required: false
+        schema:
+          default: 30
+          description: The period of time each data point will aggregate, in minutes.
+          minimum: 1.0
+          title: Interval
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogsSummary'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Log Summary From Marketplace
+      tags:
+      - logs-service
+  /logs-service/{marketplace_id}/logs/{log_id}:
+    get:
+      description: "Endpoint to retrieve the details for a specific log.\nIt is expected\
+        \ to be called from the logs page when the user clicks\non a specific log\
+        \ entry, though those values could be prefetched.\n\n    Path Params:\n  \
+        \      marketplaceId -- The ID of the marketplace to fetch logs for.\n   \
+        \     logId -- The ID of the log to fetch.\n\n    Returns:\n        200 with\
+        \ the log entry and its details.\n        404 If no region info is found for\
+        \ the provided marketplace ID, or if no log is found for the provided marketplace\
+        \ ID/log ID."
+      operationId: get_log_detail_from_marketplace
+      parameters:
+      - in: path
+        name: marketplace_id
+        required: true
+        schema:
+          format: uuid
+          title: Marketplace Id
+          type: string
+      - in: path
+        name: log_id
+        required: true
+        schema:
+          format: uuid
+          title: Log Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogDetail'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - HTTPBearer: []
+      summary: Get Log Detail From Marketplace
+      tags:
+      - logs-service
