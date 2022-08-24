@@ -1,16 +1,43 @@
+/* Default variable values */
+:root {
+  --ts-primary-rgb: 0, 4, 42;
+  --ts-primary-color: rgb(var(--ts-primary-rgb));
+  --ts-primary-color-60: rgba(var(--ts-primary-rgb), 0.6);
+  --ts-primary-color-40: rgba(var(--ts-primary-rgb), 0.4);
+  --ts-primary-color-5: rgba(var(--ts-primary-rgb), 0.05);
+
+  --ts-secondary-rgb: 221, 214, 255;
+  --ts-secondary-color: rgb(var(--ts-secondary-rgb));
+  --ts-secondary-color-30: rgba(var(--ts-secondary-rgb), 0.3);
+  --ts-secondary-color-10: rgba(var(--ts-secondary-rgb), 0.1);
+
+  --ts-border: 0.0625rem solid var(--ts-primary-color);
+  --ts-radius: 0.25rem;
+}
+
 /* Promote button */
 .ts-product-promote-button {
   cursor: pointer;
-  border-radius: 0.25rem;
-  background-color: #ddd6ff;
+  border-radius: var(--ts-radius);
+  background-color: var(--ts-secondary-color);
+  border: var(--ts-border);
   position: absolute;
   bottom: 0.5rem;
   right: 0.5rem;
+  font-family: inherit;
 }
 
 .ts-product-promote-button__text {
-  color: #00042a;
   font-weight: 600;
+  color: var(--ts-primary-color);
+}
+
+.ts-product-promote-button:hover {
+  background-color: var(--ts-primary-color);
+}
+
+.ts-product-promote-button:hover .ts-product-promote-button__text {
+  color: var(--ts-secondary-color);
 }
 
 /* Modal */
@@ -44,6 +71,21 @@
   top: 0.5rem;
   right: 0.5rem;
   cursor: pointer;
+  border: var(--ts-border);
+  border-radius: var(--ts-radius);
+  background-color: var(--ts-secondary-color);
+}
+
+.ts-promote-modal__close-button span {
+  color: var(--ts-primary-color);
+}
+
+.ts-promote-modal__close-button:hover {
+  background-color: var(--ts-primary-color);
+}
+
+.ts-promote-modal__close-button:hover span {
+  color: var(--ts-secondary-color);
 }
 
 /* Campaign Creation */

@@ -120,9 +120,7 @@ export default class TopsortElements {
     text,
   }: InitProductPromotion = {}) {
     if (!TopsortElements.apiToken) {
-      logger.warn(
-        'Cannot call "initProductPromotion" before calling "init" with the apiKey.'
-      );
+      logger.warn('Cannot call "initProductPromotion" without an apiToken.');
       return;
     }
 
@@ -130,8 +128,6 @@ export default class TopsortElements {
     portalRoot.setAttribute("id", portalRootId);
     document.body.appendChild(portalRoot);
 
-    // const appTarget = document.createElement("div");
-    // document.body.appendChild(appTarget);
     render(
       <App
         promoteTargetClassName={promoteTargetClassName}

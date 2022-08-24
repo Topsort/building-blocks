@@ -85,6 +85,30 @@
    </div>
    ```
 
+1. You can set a primary and secondary theme color.
+
+   With CSS:
+
+   ```css
+   :root {
+     --ts-primary-rgb: 18, 58, 188;
+     --ts-secondary-rgb: 222, 222, 222;
+   }
+   ```
+
+   With JavaScript:
+
+   ```js
+   document.documentElement.style.setProperty(
+     "--ts-primary-rgb",
+     "18, 58, 188"
+   );
+   document.documentElement.style.setProperty(
+     "--ts-secondary-rgb",
+     "222, 222, 222"
+   );
+   ```
+
 ## Development
 
 1. Install dependencies:
@@ -112,6 +136,7 @@
   - promoteButtonText instead of buttonText?
   - etc.
   - since these names live as options inside an already-specific method (`initProductPromotion`), is it better to keep them simple, or are the more specific names clearer?
+  - prefix is currently `ts`, should it be `tse`?
 - expose method to just re-attach buttons incase of virtualized lists
   - or use a MutationObserver and do it ourselves:
     https://stackoverflow.com/questions/69781031/inserting-dom-elements-using-content-script-in-chrome-extension
