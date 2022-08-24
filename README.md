@@ -37,11 +37,8 @@
     promoteTargetClassName: "my-custom-promote-target",
       style: {
         button: {
-          className: "my-custom-button",
-        },
-        buttonText: {
-          className: "my-custom-button-text",
-          replace: true,
+          // defaults to "sm"
+          borderRadius: "none" | "sm" | "full"
         },
       },
       text: {
@@ -49,8 +46,6 @@
       },
    );
    ```
-
-   By default, styles applied via custom class names will extend the TopsortElements styles. Use `replace: true` to replace the TopsortElements styles.
 
 1. In your markup, add the following HTML class and data attributes to the element(s) you want a Promote button appended to:
 
@@ -144,3 +139,4 @@
 - put common props (text, style etc) into a context
 - use typescript for demo/loader.js
 - consider not storing apiToken on TopsortElements instance
+- consider accepting `primaryRgb` and `secondaryRgb` as props and set the css vars on our side. Or maybe multiple ways of setting it (consumer in css, consumer in JS, us in JS using props)
