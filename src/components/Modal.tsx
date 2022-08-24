@@ -26,7 +26,7 @@ export const Modal: FunctionalComponent<{
       })}
     >
       <button className={modalCloseButtonClassName} onClick={onClose}>
-        ✕
+        <span>✕</span>
       </button>
       {children}
     </div>
