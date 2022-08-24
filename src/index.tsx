@@ -71,7 +71,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
         }}
         isOpen={!!productId}
       >
-        <CampaignCreation style={style} text={text} productId={productId} />
+        <CampaignCreation text={text} productId={productId} />
       </Modal>
     </Portal>
   );
