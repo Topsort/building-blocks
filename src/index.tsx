@@ -88,7 +88,7 @@ type InitProductPromotion = {
 };
 
 export default class TopsortElements {
-  private apiToken?: string;
+  public static apiToken?: string;
 
   static promoteTargetClassName = defaultPromoteTargetClassName;
 
@@ -111,7 +111,7 @@ export default class TopsortElements {
     const validate = (a: any) => a;
     const apiToken = validate(params.apiKey);
 
-    this.apiToken = apiToken;
+    TopsortElements.apiToken = apiToken;
   }
 
   initProductPromotion({
@@ -119,7 +119,7 @@ export default class TopsortElements {
     style,
     text,
   }: InitProductPromotion = {}) {
-    if (!this.apiToken) {
+    if (!TopsortElements.apiToken) {
       logger.warn(
         'Cannot call "initProductPromotion" before calling "init" with the apiKey.'
       );
