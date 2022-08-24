@@ -21,6 +21,7 @@ export const buttonTextClassName = "ts-product-promote-button__text";
 export const modalClassName = "ts-promote-modal";
 export const modalShowClassName = "ts-promote-modal--show";
 export const modalHideClassName = "ts-promote-modal--hide";
-export const modalCloseButtonClassName = "ts-promote-modal__close-button";
+// Common
+export const closeButtonClassName = "ts-close-button";
 // Campaign Creation
 export const campaignCreationClassName = "ts-campaign-creation";

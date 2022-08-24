@@ -1,6 +1,6 @@
+import { CloseButton } from "@components/CloseButton";
 import {
   modalClassName,
-  modalCloseButtonClassName,
   modalHideClassName,
   modalShowClassName,
 } from "@constants";
@@ -25,9 +25,7 @@ export const Modal: FunctionalComponent<{
         [modalShowClassName]: isOpen,
       })}
     >
-      <button className={modalCloseButtonClassName} onClick={onClose}>
-        <span>✕</span>
-      </button>
+      <CloseButton onClick={onClose} />
       {children}
     </div>
   );
