@@ -91,18 +91,21 @@
 
    ```css
    :root {
-     --ts-primary-color: #123abc;
-     --ts-secondary-color: #dedede;
+     --ts-primary-rgb: 18, 58, 188;
+     --ts-secondary-rgb: 222, 222, 222;
    }
    ```
 
    With JavaScript:
 
    ```js
-   document.documentElement.style.setProperty("--ts-primary-color", "#123abc");
    document.documentElement.style.setProperty(
-     "--ts-secondary-color",
-     "#dedede"
+     "--ts-primary-rgb",
+     "18, 58, 188"
+   );
+   document.documentElement.style.setProperty(
+     "--ts-secondary-rgb",
+     "222, 222, 222"
    );
    ```
 
