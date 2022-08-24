@@ -61,7 +61,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
       }
       const productCampaign = {
         budget: 200,
-        name: "Too FacedHangover " + productId,
+        name: `Too FacedHangover ${productId}`,
         productImageUrl: "//www.html.am/images/image-codes/milford_sound_t.jpg",
         totalSpend: "$99,698",
         totalSales: "$123,99",

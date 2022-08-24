@@ -50,9 +50,7 @@ const CampaignData: FunctionalComponent<{
             class="border-gray rounded-xl w-17 h-17"
             src={campaignDetails.productImageUrl}
           />
-          <div className="text-lg">
-            {campaignDetails.name}
-          </div>
+          <div className="text-lg">{campaignDetails.name}</div>
           <div class="flex flex-col">
             <div style="text-align: right;">{campaignDetails.budget}</div>
             <div
@@ -67,9 +65,15 @@ const CampaignData: FunctionalComponent<{
           className="flex rounded-xl p-3-5"
           style="background: rgba(94, 59, 221, 0.03);justify-content: space-around;"
         >
-          <CampaignTotal title="Total Spend" value={campaignDetails.totalSpend}/>
-          <CampaignTotal title="Total Sales" value={campaignDetails.totalSales}/>
-          <CampaignTotal title="ROAS" value={campaignDetails.roas}/>
+          <CampaignTotal
+            title="Total Spend"
+            value={campaignDetails.totalSpend}
+          />
+          <CampaignTotal
+            title="Total Sales"
+            value={campaignDetails.totalSales}
+          />
+          <CampaignTotal title="ROAS" value={campaignDetails.roas} />
         </div>
       </div>
     </CampaignDataBox>
