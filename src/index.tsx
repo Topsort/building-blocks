@@ -19,6 +19,7 @@ const logger = {
 export type Campaign = {
   budget: number;
   name: string;
+  productImageUrl: string;
   //TODO (sofia): add campaign data
 };
 const App: FunctionalComponent<InitProductPromotion> = ({
@@ -55,7 +56,12 @@ const App: FunctionalComponent<InitProductPromotion> = ({
         logger.warn("Skipping button on element with no data-ts-product-id.");
         return;
       }
-      const productCampaign = { budget: 2, name: "campaign for " + productId }; //TODO (sofia): getProductCampaign(productId);
+      const productCampaign = {
+        budget: 2,
+        name: "Too FacedHangover " + productId,
+        productImageUrl: "//www.html.am/images/image-codes/milford_sound_t.jpg",
+      }; //TODO (sofia): getProductCampaign(productId);
+
       const hasCampaign = !!productCampaign;
       if (hasCampaign) {
         setProductCampaigns((prev) => {
