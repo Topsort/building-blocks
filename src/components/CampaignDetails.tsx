@@ -1,18 +1,20 @@
-import { campaignDetailsClassName } from "@defaults";
-import { Style } from "@types";
+import { campaignCreationClassName } from "@constants";
+import { CustomText } from "@types";
 import { h, FunctionalComponent } from "preact";
 import { Campaign } from "src";
 
+
+
 export const CampaignDetails: FunctionalComponent<{
-  style?: Style;
+  text?: CustomText;
   productId: string | null;
   campaignDetails: Campaign;
-}> = ({ productId, campaignDetails }) => {
+}> = ({ text, productId,campaignDetails }) => {
   return (
-    <div className={campaignDetailsClassName}>
+    <div className={campaignCreationClassName}>
       <h2>{campaignDetails.name}</h2>
-      <h3>budget{campaignDetails.budget}</h3>
       <span>{productId}</span>
+      
     </div>
   );
 };

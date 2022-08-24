@@ -55,7 +55,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
         logger.warn("Skipping button on element with no data-ts-product-id.");
         return;
       }
-      const productCampaign = { budget: 2, name: productId }; //TODO (sofia): getProductCampaign(productId);
+      const productCampaign = { budget: 2, name: "campaign for " + productId }; //TODO (sofia): getProductCampaign(productId);
       const hasCampaign = !!productCampaign;
       if (hasCampaign) {
         setProductCampaigns((prev) => {
@@ -92,7 +92,6 @@ const App: FunctionalComponent<InitProductPromotion> = ({
       >
         {campaignDetails ? (
           <CampaignDetails
-            style={style}
             productId={productId}
             campaignDetails={campaignDetails}
           />
