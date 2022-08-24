@@ -48,9 +48,9 @@ const CampaignData: FunctionalComponent<{
         <div className="flex flex-row space-x-4">
           <img
             class="border-gray rounded-xl w-17 h-17"
-            src="//www.html.am/images/image-codes/milford_sound_t.jpg" //src={campaignDetails.productImageUrl}
+            src={campaignDetails.productImageUrl}
           />
-          <div style="font-size: 18px;line-height: 1.4375rem;">
+          <div className="text-lg">
             {campaignDetails.name}
           </div>
           <div class="flex flex-col">
