@@ -67,7 +67,6 @@ const App: FunctionalComponent<InitProductPromotion> = ({
         totalSales: "$123,99",
         roas: "24%",
       }; //TODO (sofia): getProductCampaign(productId);
-
       const hasCampaign = !!productCampaign;
       if (hasCampaign) {
         setProductCampaigns((prev) => {
@@ -77,6 +76,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
           };
         });
       }
+
       render(
         <PromoteButton
           key={index}
@@ -109,7 +109,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
           />
         ) : (
           <CampaignCreation text={text} productId={productId} />
-        )}
+        )}{" "}
       </Modal>
     </Portal>
   );
@@ -158,9 +158,7 @@ export default class TopsortElements {
     text,
   }: InitProductPromotion = {}) {
     if (!this.apiToken) {
-      logger.warn(
-        'Cannot call "initProductPromotion" before calling "init" with the apiKey.'
-      );
+      logger.warn('Cannot call "initProductPromotion" without an apiToken.');
       return;
     }
 
@@ -168,8 +166,6 @@ export default class TopsortElements {
     portalRoot.setAttribute("id", portalRootId);
     document.body.appendChild(portalRoot);
 
-    // const appTarget = document.createElement("div");
-    // document.body.appendChild(appTarget);
     render(
       <App
         promoteTargetClassName={promoteTargetClassName}
