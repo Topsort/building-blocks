@@ -17,6 +17,7 @@ export const CampaignDetails: FunctionalComponent<{
         <CampaignSummary campaignDetails={campaignDetails} />
         <CampaignBudget campaignDetails={campaignDetails} />
         <CampaignMetrics campaignDetails={campaignDetails} />
+        <ManageCampaignStatus campaignDetails={campaignDetails} />
       </div>
     </div>
   );
@@ -177,5 +178,18 @@ const CampaignMetrics: FunctionalComponent<{
         </div>
       </div>
     </CampaignDataBox>
+  );
+};
+
+const ManageCampaignStatus: FunctionalComponent<{
+  campaignDetails: Campaign;
+}> = ({ campaignDetails }) => {
+  return (
+    <div style="text-align: right;padding-top:0.875rem">
+      <Button variant="outlined">Pause Campaign</Button>
+      <Button variant="contained" style="margin-left:0.5rem;">
+        End Campaign
+      </Button>
+    </div>
   );
 };
