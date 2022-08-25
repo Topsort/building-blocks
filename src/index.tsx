@@ -23,6 +23,8 @@ export type Campaign = {
   totalSpend: string;
   totalSales: string;
   roas: string;
+  days: number;
+  minRoas: string;
   //TODO (sofia): add campaign data
 };
 const App: FunctionalComponent<InitProductPromotion> = ({
@@ -66,6 +68,8 @@ const App: FunctionalComponent<InitProductPromotion> = ({
         totalSpend: "$99,698",
         totalSales: "$123,99",
         roas: "24%",
+        days: 4,
+        minRoas: "4x"
       }; //TODO (sofia): getProductCampaign(productId);
       const hasCampaign = !!productCampaign;
       if (hasCampaign) {
@@ -109,7 +113,6 @@ const App: FunctionalComponent<InitProductPromotion> = ({
         ) : (
           <CampaignCreation text={text} productId={productId} style={style} />
         )}
-        <CampaignCreation text={text} productId={productId} style={style} />
       </Modal>
     </Portal>
   );

@@ -3,6 +3,8 @@ import { CustomText } from "@types";
 import { h, FunctionalComponent } from "preact";
 import { Campaign } from "src";
 
+import { Button } from "./Button";
+
 export const CampaignDetails: FunctionalComponent<{
   text?: CustomText;
   productId: string | null;
@@ -12,7 +14,7 @@ export const CampaignDetails: FunctionalComponent<{
     <div className={campaignDetailsClassName}>
       <h2>Campaign Details</h2>
       <div className="space-y-3-5">
-        <CampaignData campaignDetails={campaignDetails} />
+        <CampaignSummary campaignDetails={campaignDetails} />
         <CampaignBudget campaignDetails={campaignDetails} />
         <CampaignMetrics campaignDetails={campaignDetails} />
       </div>
@@ -39,7 +41,7 @@ const CampaignTotal: FunctionalComponent<{ title: string; value: string }> = ({
   );
 };
 
-const CampaignData: FunctionalComponent<{
+const CampaignSummary: FunctionalComponent<{
   campaignDetails: Campaign;
 }> = ({ campaignDetails }) => {
   return (
@@ -50,7 +52,9 @@ const CampaignData: FunctionalComponent<{
             class="border-gray rounded-xl w-17 h-17"
             src={campaignDetails.productImageUrl}
           />
-          <div className="text-lg">{campaignDetails.name}</div>
+          <div className="text-lg" style="margin-right:1rem;">
+            {campaignDetails.name}
+          </div>
           <div class="flex flex-col">
             <div style="text-align: right;">{campaignDetails.budget}</div>
             <div
@@ -83,7 +87,39 @@ const CampaignData: FunctionalComponent<{
 const CampaignBudget: FunctionalComponent<{
   campaignDetails: Campaign;
 }> = ({ campaignDetails }) => {
-  return <CampaignDataBox> budget {campaignDetails.budget}</CampaignDataBox>;
+  return (
+    <CampaignDataBox>
+      <div className="flex flex-col">
+        <div
+          className="flex flex-row"
+          style="justify-content: space-between;align-items: center;margin-bottom:0.5rem;"
+        >
+          <div className="text-lg">Budget & Duration</div>
+          <Button
+            onClick={() => {
+              console.log("click");
+            }}
+            variant="text"
+          >
+            Edit
+          </Button>
+        </div>
+        <hr className="ts-gray-hr" />
+        <div style="margin-top:0.875rem;">
+          <div>
+            <span className="font-medium">{campaignDetails.budget} </span>over
+            <span className="font-medium"> {campaignDetails.days} </span>days.
+          </div>
+          <div style="margin-top:0.25rem;" className="text-sm">
+            <span className="text-gray" style="font-style: italic;">
+              Your minimun return on ad spend is
+            </span>
+            <span className="font-medium"> {campaignDetails.minRoas}</span>.
+          </div>
+        </div>
+      </div>
+    </CampaignDataBox>
+  );
 };
 
 const CampaignMetrics: FunctionalComponent<{
