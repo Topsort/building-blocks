@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const tsElements = new TopsortElements({
     apiKey: "abc123",
+    vendorId: "vendor-id",
   });
 
   if (isUsingCustomProps) {

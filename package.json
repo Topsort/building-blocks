@@ -59,6 +59,7 @@
   },
   "dependencies": {
     "classnames": "^2.3.1",
-    "preact": "^10.10.3"
+    "preact": "^10.10.3",
+    "zod": "^3.18.0"
   }
 }
