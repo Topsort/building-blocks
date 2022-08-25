@@ -1,18 +1,22 @@
+import { enhancedApi } from "@api/index";
 import paths from "@api/paths";
 import * as schemas from "@api/schemas";
-import { enhancedApi } from "src/api";
 
-export const validateApiKey = async (
+function getAuthorizationHeader(apiKey: string) {
+  return { authorization: `Bearer ${apiKey}` };
+}
+
+export async function validateApiKey(
   apiKey: string,
   vendorId: string
-): Promise<string> => {
+): Promise<string> {
   const { authToken } = await enhancedApi(
     schemas.validateApiKeyResponseSchema,
     paths.validate(vendorId),
     {
       method: "GET",
-      headers: { apiKey },
+      headers: getAuthorizationHeader(apiKey),
     }
   );
   return authToken;
-};
+}

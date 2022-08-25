@@ -112,7 +112,7 @@ export default class TopsortElements {
     services
       .validateApiKey(params.apiKey, params.vendorId)
       .then((apiToken) => (this.apiToken = apiToken))
-      .catch((err) => console.error(`[validate] Something went wrong`, err));
+      .catch((err) => console.error("[validateApiKey]", err));
   }
 
   initProductPromotion({
