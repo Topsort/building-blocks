@@ -5,17 +5,11 @@ import { PromoteButton } from "@components/PromoteButton";
 import { defaultPromoteTargetClassName, portalRootId } from "@constants";
 import * as services from "@services/central-services";
 import { CustomText, Style } from "@types";
+import { logger } from "@utils/logger";
 import { Fragment, FunctionalComponent, h, render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
 import "./app.css";
-
-const logPrefix = "[Topsort Elements]";
-const logger = {
-  info: (...msg: any[]) => console.log(logPrefix, ...msg),
-  warn: (...msg: any[]) => console.warn(logPrefix, ...msg),
-  error: (...msg: any[]) => console.error(logPrefix, ...msg),
-};
 
 const App: FunctionalComponent<InitProductPromotion> = ({
   promoteTargetClassName,

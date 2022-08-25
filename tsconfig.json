@@ -18,7 +18,8 @@
       "@components/*": ["src/components/*"],
       "@constants": ["src/constants"],
       "@services/*": ["src/services/*"],
-      "@types": ["src/types"]
+      "@types": ["src/types"],
+      "@utils/*": ["src/utils/*"]
     },
     "skipLibCheck": true,
     "strict": true,
