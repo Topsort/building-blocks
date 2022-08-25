@@ -95,7 +95,6 @@ const App: FunctionalComponent<InitProductPromotion> = ({
   return (
     <Portal>
       <Modal
-        style={style}
         text={text}
         onClose={() => {
           setProductId(null);
@@ -108,8 +107,9 @@ const App: FunctionalComponent<InitProductPromotion> = ({
             campaignDetails={campaignDetails}
           />
         ) : (
-          <CampaignCreation text={text} productId={productId} />
-        )}{" "}
+          <CampaignCreation text={text} productId={productId} style={style} />
+        )}
+        <CampaignCreation text={text} productId={productId} style={style} />
       </Modal>
     </Portal>
   );

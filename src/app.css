@@ -1,47 +1,75 @@
-/* Default variable values */
 :root {
-  --ts-primary-rgb: 0, 4, 42;
+  /* Default primary rgb: */
+  --ts-primary-rgb: 94, 59, 221;
   --ts-primary-color: rgb(var(--ts-primary-rgb));
+  --ts-primary-color-90: rgba(var(--ts-primary-rgb), 0.9);
   --ts-primary-color-60: rgba(var(--ts-primary-rgb), 0.6);
   --ts-primary-color-40: rgba(var(--ts-primary-rgb), 0.4);
   --ts-primary-color-5: rgba(var(--ts-primary-rgb), 0.05);
 
+  /* Default secondary rgb: */
   --ts-secondary-rgb: 221, 214, 255;
   --ts-secondary-color: rgb(var(--ts-secondary-rgb));
   --ts-secondary-color-30: rgba(var(--ts-secondary-rgb), 0.3);
   --ts-secondary-color-10: rgba(var(--ts-secondary-rgb), 0.1);
 
   --ts-border: 0.0625rem solid var(--ts-primary-color);
-  --ts-radius: 0.25rem;
+  --ts-radius: 0.5rem;
 }
 
-/* Promote button */
-.ts-product-promote-button {
-  cursor: pointer;
-  border-radius: var(--ts-radius);
-  background-color: var(--ts-secondary-color);
-  border: var(--ts-border);
-  position: absolute;
-  bottom: 0.5rem;
-  right: 0.5rem;
+.ts-button {
   font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  border: var(--ts-border);
+  padding: 0.5rem 0.75rem;
 }
 
-.ts-product-promote-button__text {
-  font-weight: 600;
+.ts-button--text {
+  border-color: transparent;
+  background-color: transparent;
   color: var(--ts-primary-color);
 }
 
-.ts-product-promote-button:hover {
+.ts-button--text:hover {
+  background-color: var(--ts-primary-color-5);
+}
+
+.ts-button--contained {
   background-color: var(--ts-primary-color);
+  color: #fff;
 }
 
-.ts-product-promote-button:hover .ts-product-promote-button__text {
-  color: var(--ts-secondary-color);
+.ts-button--contained:hover {
+  background-color: var(--ts-primary-color-90);
+  border-color: transparent;
 }
 
-/* Modal */
-.ts-promote-modal {
+.ts-button--outlined {
+  background-color: #fff;
+  color: var(--ts-primary-color);
+}
+
+.ts-button--outlined:hover {
+  background-color: var(--ts-primary-color-5);
+}
+
+.ts-button--rounded-sm {
+  border-radius: var(--ts-radius);
+}
+
+.ts-button--rounded-full {
+  border-radius: 9999px;
+}
+
+.ts-promote-button {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  font-weight: 600;
+}
+
+.ts-modal {
   position: fixed;
   flex-direction: column;
   align-items: center;
@@ -58,37 +86,35 @@
   z-index: 1;
 }
 
-.ts-promote-modal--show {
+.ts-modal--show {
   display: flex;
 }
 
-.ts-promote-modal--hide {
+.ts-modal--hide {
   display: none;
 }
 
-.ts-promote-modal__close-button {
+.ts-close-button {
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 1.75rem;
+  height: 1.75rem;
   cursor: pointer;
-  border: var(--ts-border);
+  border: none;
+  background-color: unset;
   border-radius: var(--ts-radius);
-  background-color: var(--ts-secondary-color);
 }
 
-.ts-promote-modal__close-button span {
+.ts-close-button span {
   color: var(--ts-primary-color);
+  font-size: 1rem;
 }
 
-.ts-promote-modal__close-button:hover {
-  background-color: var(--ts-primary-color);
+.ts-close-button:hover {
+  background-color: var(--ts-primary-color-5);
 }
 
-.ts-promote-modal__close-button:hover span {
-  color: var(--ts-secondary-color);
-}
-
-/* Campaign Creation */
 .ts-campaign-creation {
   display: flex;
   flex-direction: column;

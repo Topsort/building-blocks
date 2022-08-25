@@ -1,30 +1,24 @@
-import { buttonClassName, buttonTextClassName, defaultText } from "@constants";
+import { Button } from "@components/Button";
+import { promoteButtonClassName, defaultText } from "@constants";
 import { CustomText, Style } from "@types";
-import cx from "classnames";
 import { h, FunctionalComponent } from "preact";
 
 export const PromoteButton: FunctionalComponent<{
+  onClick: () => void;
   style?: Style;
   text?: CustomText;
-  onClick: () => void;
   hasCampaign?: boolean;
 }> = ({ style, text, onClick, hasCampaign = false }) => {
   return (
-    <button
-      className={cx(style?.button?.className, {
-        [buttonClassName]: !style?.button?.replace,
-      })}
+    <Button
+      className={promoteButtonClassName}
+      variant="outlined"
       onClick={onClick}
+      _style={style}
     >
-      <span
-        className={cx(style?.buttonText?.className, {
-          [buttonTextClassName]: !style?.buttonText?.replace,
-        })}
-      >
-        {hasCampaign
-          ? text?.detailButton || defaultText.detailButton
-          : text?.button || defaultText.button}
-      </span>
-    </button>
+      {hasCampaign
+        ? text?.detailButton || defaultText.detailButton
+        : text?.button || defaultText.promoteButton}
+    </Button>
   );
 };

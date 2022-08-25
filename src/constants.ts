@@ -1,6 +1,6 @@
 /* Text */
 export const defaultText = {
-  button: "Promote",
+  promoteButton: "Promote",
   modalTitle: "Create Campaign",
   modalSubtitle: "Quickly launch a campaign for this product.",
   modalCampaignNamePlaceholder: "Enter your campaign name",
@@ -15,14 +15,11 @@ export const defaultPromoteTargetClassName = "ts-promote-target";
  * CSS Class Names
  * These should match the classes in app.css
  */
-// Promote button
-export const buttonClassName = "ts-product-promote-button";
-export const buttonTextClassName = "ts-product-promote-button__text";
-// Modal
-export const modalClassName = "ts-promote-modal";
-export const modalShowClassName = "ts-promote-modal--show";
-export const modalHideClassName = "ts-promote-modal--hide";
-export const modalCloseButtonClassName = "ts-promote-modal__close-button";
-// Campaign Creation
+export const buttonClassName = "ts-button";
+export const promoteButtonClassName = "ts-promote-button";
+export const modalClassName = "ts-modal";
+export const modalShowClassName = "ts-modal--show";
+export const modalHideClassName = "ts-modal--hide";
+export const closeButtonClassName = "ts-close-button";
 export const campaignCreationClassName = "ts-campaign-creation";
 export const campaignDetailsClassName = "ts-campaign-details";
