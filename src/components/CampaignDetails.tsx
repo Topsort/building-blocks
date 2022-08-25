@@ -41,6 +41,29 @@ const CampaignTotal: FunctionalComponent<{ title: string; value: string }> = ({
   );
 };
 
+const CampaignMetric: FunctionalComponent<{ title: string; value: number }> = ({
+  title,
+  value,
+}) => {
+  return (
+    <div className="flex flex-col">
+      <div className="text-gray text-sm">{title}</div>
+      <div style="margin-top:0.25rem">{value}</div>
+    </div>
+  );
+};
+const CampaignStatusMetric: FunctionalComponent<{
+  title: string;
+  value: boolean;
+}> = ({ title, value }) => {
+  return (
+    <div className="flex flex-col">
+      <div className="text-gray text-sm">{title}</div>
+      <div style="margin-top:0.25rem">{value}</div>
+    </div>
+  );
+};
+
 const CampaignSummary: FunctionalComponent<{
   campaignDetails: Campaign;
 }> = ({ campaignDetails }) => {
@@ -125,5 +148,34 @@ const CampaignBudget: FunctionalComponent<{
 const CampaignMetrics: FunctionalComponent<{
   campaignDetails: Campaign;
 }> = ({ campaignDetails }) => {
-  return <CampaignDataBox> metrics {campaignDetails.budget}</CampaignDataBox>;
+  return (
+    <CampaignDataBox>
+      <div className="flex flex-col">
+        <div
+          className="text-lg"
+          style="align-self: center;margin-bottom:0.875rem;"
+        >
+          Metrics
+        </div>
+        <hr className="ts-gray-hr" />
+        <div style="margin-top:0.875rem;">
+          <div className="flex" style="justify-content: space-between;">
+            <CampaignMetric
+              title="Impressions"
+              value={campaignDetails.impressions}
+            />
+            <CampaignMetric title="Clicks" value={campaignDetails.clicks} />
+            <CampaignMetric
+              title="Purchases"
+              value={campaignDetails.purchases}
+            />
+            <CampaignStatusMetric
+              title="Status"
+              value={campaignDetails.status}
+            />
+          </div>
+        </div>
+      </div>
+    </CampaignDataBox>
+  );
 };

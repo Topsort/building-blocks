@@ -25,7 +25,10 @@ export type Campaign = {
   roas: string;
   days: number;
   minRoas: string;
-  //TODO (sofia): add campaign data
+  impressions: number;
+  clicks: number;
+  purchases: number;
+  status: boolean;
 };
 const App: FunctionalComponent<InitProductPromotion> = ({
   promoteTargetClassName,
@@ -69,7 +72,11 @@ const App: FunctionalComponent<InitProductPromotion> = ({
         totalSales: "$123,99",
         roas: "24%",
         days: 4,
-        minRoas: "4x"
+        minRoas: "4x",
+        impressions: 1341,
+        clicks: 24,
+        purchases: 19,
+        status: true,
       }; //TODO (sofia): getProductCampaign(productId);
       const hasCampaign = !!productCampaign;
       if (hasCampaign) {
