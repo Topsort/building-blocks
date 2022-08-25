@@ -4,6 +4,7 @@ import { h, FunctionalComponent } from "preact";
 import { Campaign } from "src";
 
 import { Button } from "./Button";
+import { Switch } from "./Switch";
 
 export const CampaignDetails: FunctionalComponent<{
   text?: CustomText;
@@ -38,29 +39,6 @@ const CampaignTotal: FunctionalComponent<{ title: string; value: string }> = ({
       <div style="margin-top:0.25rem" className="text-purple">
         {value}
       </div>
-    </div>
-  );
-};
-
-const CampaignMetric: FunctionalComponent<{ title: string; value: number }> = ({
-  title,
-  value,
-}) => {
-  return (
-    <div className="flex flex-col">
-      <div className="text-gray text-sm">{title}</div>
-      <div style="margin-top:0.25rem">{value}</div>
-    </div>
-  );
-};
-const CampaignStatusMetric: FunctionalComponent<{
-  title: string;
-  value: boolean;
-}> = ({ title, value }) => {
-  return (
-    <div className="flex flex-col">
-      <div className="text-gray text-sm">{title}</div>
-      <div style="margin-top:0.25rem">{value}</div>
     </div>
   );
 };
@@ -159,21 +137,16 @@ const CampaignMetrics: FunctionalComponent<{
           Metrics
         </div>
         <hr className="ts-gray-hr" />
-        <div style="margin-top:0.875rem;">
-          <div className="flex" style="justify-content: space-between;">
-            <CampaignMetric
-              title="Impressions"
-              value={campaignDetails.impressions}
-            />
-            <CampaignMetric title="Clicks" value={campaignDetails.clicks} />
-            <CampaignMetric
-              title="Purchases"
-              value={campaignDetails.purchases}
-            />
-            <CampaignStatusMetric
-              title="Status"
-              value={campaignDetails.status}
-            />
+        <div style="margin-top:0.875rem;justify-content: space-between;" className="ts-metric-grid ">
+          <div className="text-gray text-sm">Impressions</div>
+          <div className="text-gray text-sm">Clicks</div>
+          <div className="text-gray text-sm">Purchases</div>
+          <div className="text-gray text-sm">Status</div>
+          <div>{campaignDetails.impressions}</div>
+          <div>{campaignDetails.clicks}</div>
+          <div>{campaignDetails.purchases}</div>
+          <div>
+            <Switch />
           </div>
         </div>
       </div>
@@ -186,7 +159,11 @@ const ManageCampaignStatus: FunctionalComponent<{
 }> = ({ campaignDetails }) => {
   return (
     <div style="text-align: right;padding-top:0.875rem">
-      <Button variant="outlined">Pause Campaign</Button>
+      {campaignDetails.status ? (
+        <Button variant="outlined">Pause Campaign</Button>
+      ) : (
+        <Button variant="outlined">Resume Campaign</Button>
+      )}
       <Button variant="contained" style="margin-left:0.5rem;">
         End Campaign
       </Button>
