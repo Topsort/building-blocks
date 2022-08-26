@@ -3,6 +3,7 @@ import { Modal } from "@components/Modal";
 import Portal from "@components/Portal";
 import { PromoteButton } from "@components/PromoteButton";
 import { defaultPromoteTargetClassName, portalRootId } from "@constants";
+import { ProductPromotionContext, useProductPromotion } from "@context";
 import * as services from "@services/central-services";
 import { CustomText, Style } from "@types";
 import { logger } from "@utils/logger";
@@ -11,19 +12,14 @@ import { useEffect, useState } from "preact/hooks";
 
 import "./app.css";
 
-const App: FunctionalComponent<InitProductPromotion> = ({
-  promoteTargetClassName,
-  style,
-  text,
-}) => {
+const App: FunctionalComponent = () => {
+  const { promoteTargetClassName } = useProductPromotion();
   const [productId, setProductId] = useState<string | null>(null);
   const [promoteTargets, setPromoteTargets] = useState<HTMLElement[]>([]);
 
   useEffect(() => {
     const promoteTargets = [
-      ...document.getElementsByClassName(
-        promoteTargetClassName || defaultPromoteTargetClassName
-      ),
+      ...document.getElementsByClassName(promoteTargetClassName),
     ];
 
     if (promoteTargets.length === 0) {
@@ -34,7 +30,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
     }
 
     setPromoteTargets(promoteTargets as HTMLElement[]);
-  }, [promoteTargetClassName, style, text]);
+  }, [promoteTargetClassName]);
 
   return (
     <Fragment>
@@ -50,8 +46,6 @@ const App: FunctionalComponent<InitProductPromotion> = ({
           <Portal key={index} target={promoteTarget}>
             <PromoteButton
               key={index}
-              style={style}
-              text={text}
               onClick={() => {
                 setProductId(productId);
               }}
@@ -61,13 +55,12 @@ const App: FunctionalComponent<InitProductPromotion> = ({
       })}
       <Portal target={`#${portalRootId}`}>
         <Modal
-          text={text}
           onClose={() => {
             setProductId(null);
           }}
           isOpen={!!productId}
         >
-          <CampaignCreation text={text} productId={productId} style={style} />
+          <CampaignCreation productId={productId} />
         </Modal>
       </Portal>
     </Fragment>
@@ -129,11 +122,16 @@ export default class TopsortElements {
     document.body.appendChild(portalRoot);
 
     render(
-      <App
-        promoteTargetClassName={promoteTargetClassName}
-        style={style}
-        text={text}
-      />,
+      <ProductPromotionContext.Provider
+        value={{
+          promoteTargetClassName:
+            promoteTargetClassName || defaultPromoteTargetClassName,
+          style: style || {},
+          text: text || {},
+        }}
+      >
+        <App />
+      </ProductPromotionContext.Provider>,
       document.body
     );
   }
