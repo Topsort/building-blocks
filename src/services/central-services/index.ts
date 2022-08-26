@@ -11,7 +11,7 @@ export async function validateVendor(
   vendorId: string
 ): Promise<string> {
   const { authToken } = await api(
-    schemas.validateApiKeyResponseSchema,
+    schemas.validateVendorResponseSchema,
     paths.validate(vendorId),
     {
       method: "GET",

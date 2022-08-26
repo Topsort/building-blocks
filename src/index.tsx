@@ -113,7 +113,7 @@ export default class TopsortElements {
       );
       this.authToken = authToken;
     } catch (error) {
-      console.error("[validateApiKey]", error);
+      logger.error("[validateVendor]", error);
     }
   }
 

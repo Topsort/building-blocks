@@ -1,5 +1,5 @@
 import { z } from "zod";
 
-export const validateApiKeyResponseSchema = z.object({
+export const validateVendorResponseSchema = z.object({
   authToken: z.string(),
 });
