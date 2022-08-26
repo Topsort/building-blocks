@@ -6,6 +6,7 @@
   --ts-primary-color-60: rgba(var(--ts-primary-rgb), 0.6);
   --ts-primary-color-40: rgba(var(--ts-primary-rgb), 0.4);
   --ts-primary-color-5: rgba(var(--ts-primary-rgb), 0.05);
+  --ts-primary-color-3: rgba(var(--ts-primary-rgb), 0.03);
 
   /* Default secondary rgb: */
   --ts-secondary-rgb: 221, 214, 255;
@@ -223,7 +224,10 @@ hr.ts-gray-hr {
   grid-template-columns: auto auto auto auto;
   align-items: center;
   grid-row-gap: 0.625rem;
+  margin-top: 0.875rem;
+  justify-content: space-between;
 }
+
 
 .ts-switch {
   position: relative;
@@ -282,13 +286,13 @@ input:checked+.ts-slider:before {
   align-items: center;
 }
 
-.ts-campaign-totals .title {
+.ts-campaign-totals>.title {
   font-size: 0.75rem;
   line-height: 150%;
   color: #6B7280;
 }
 
-.ts-campaign-totals .value {
+.ts-campaign-totals>.value {
   margin-top: 0.25rem;
   color: var(--ts-primary-color);
 }
@@ -299,4 +303,36 @@ input:checked+.ts-slider:before {
   border-radius: 0.75rem;
   padding: 1rem;
   font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.ts-campaign-data-box>.title {
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.125rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.ts-product-image {
+  /* border-gray rounded-xl w-17 h-17 */
+  box-sizing: border-box;
+  border: 1px solid #F0F0F0;
+  border-radius: 0.75rem;
+  width: 4.25rem;
+  height: 4.25rem;
+}
+
+.ts-purple-box {
+  background: var(--ts-primary-color-3);
+  justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  padding: 0.875rem;
+  border-radius: 0.75rem;
 }
