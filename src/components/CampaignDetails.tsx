@@ -1,5 +1,4 @@
 import { campaignDetailsClassName } from "@constants";
-import { CustomText } from "@types";
 import { h, FunctionalComponent } from "preact";
 import { Campaign } from "src";
 
@@ -7,10 +6,8 @@ import { Button } from "./Button";
 import { Switch } from "./Switch";
 
 export const CampaignDetails: FunctionalComponent<{
-  text?: CustomText;
-  productId: string | null;
   campaignDetails: Campaign;
-}> = ({ text, productId, campaignDetails }) => {
+}> = ({ campaignDetails }) => {
   return (
     <div className={campaignDetailsClassName}>
       <h2>Campaign Details</h2>
@@ -137,7 +134,10 @@ const CampaignMetrics: FunctionalComponent<{
           Metrics
         </div>
         <hr className="ts-gray-hr" />
-        <div style="margin-top:0.875rem;justify-content: space-between;" className="ts-metric-grid ">
+        <div
+          style="margin-top:0.875rem;justify-content: space-between;"
+          className="ts-metric-grid "
+        >
           <div className="text-gray text-sm">Impressions</div>
           <div className="text-gray text-sm">Clicks</div>
           <div className="text-gray text-sm">Purchases</div>

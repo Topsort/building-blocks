@@ -113,10 +113,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
         isOpen={!!productId}
       >
         {campaignDetails ? (
-          <CampaignDetails
-            productId={productId}
-            campaignDetails={campaignDetails}
-          />
+          <CampaignDetails campaignDetails={campaignDetails} />
         ) : (
           <CampaignCreation text={text} productId={productId} style={style} />
         )}
