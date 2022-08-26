@@ -5,7 +5,7 @@ import { PromoteButton } from "@components/PromoteButton";
 import { defaultPromoteTargetClassName, portalRootId } from "@constants";
 import * as services from "@services/central-services";
 import { CustomText, Style } from "@types";
-import { FunctionalComponent, h, render } from "preact";
+import { Fragment, FunctionalComponent, h, render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
 import "./app.css";
@@ -23,6 +23,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
   text,
 }) => {
   const [productId, setProductId] = useState<string | null>(null);
+  const [promoteTargets, setPromoteTargets] = useState<HTMLElement[]>([]);
 
   useEffect(() => {
     const promoteTargets = [
@@ -38,42 +39,44 @@ const App: FunctionalComponent<InitProductPromotion> = ({
       );
     }
 
-    promoteTargets.forEach((target, index) => {
-      if (!(target instanceof HTMLElement)) return;
-
-      const productId = target.dataset.tsProductId;
-
-      if (!productId) {
-        logger.warn("Skipping button on element with no data-ts-product-id.");
-        return;
-      }
-
-      render(
-        <PromoteButton
-          key={index}
-          style={style}
-          text={text}
-          onClick={() => {
-            setProductId(productId);
-          }}
-        />,
-        target
-      );
-    });
+    setPromoteTargets(promoteTargets as HTMLElement[]);
   }, [promoteTargetClassName, style, text]);
 
   return (
-    <Portal>
-      <Modal
-        text={text}
-        onClose={() => {
-          setProductId(null);
-        }}
-        isOpen={!!productId}
-      >
-        <CampaignCreation text={text} productId={productId} style={style} />
-      </Modal>
-    </Portal>
+    <Fragment>
+      {promoteTargets.map((promoteTarget, index) => {
+        const productId = promoteTarget.dataset.tsProductId;
+
+        if (!productId) {
+          logger.warn("Skipping button on element with no data-ts-product-id.");
+          return null;
+        }
+
+        return (
+          <Portal key={index} target={promoteTarget}>
+            <PromoteButton
+              key={index}
+              style={style}
+              text={text}
+              onClick={() => {
+                setProductId(productId);
+              }}
+            />
+          </Portal>
+        );
+      })}
+      <Portal target={`#${portalRootId}`}>
+        <Modal
+          text={text}
+          onClose={() => {
+            setProductId(null);
+          }}
+          isOpen={!!productId}
+        >
+          <CampaignCreation text={text} productId={productId} style={style} />
+        </Modal>
+      </Portal>
+    </Fragment>
   );
 };
 
