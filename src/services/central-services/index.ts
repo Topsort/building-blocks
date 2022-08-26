@@ -1,4 +1,4 @@
-import { enhancedApi } from "@api/index";
+import { api } from "@api/index";
 import paths from "@api/paths";
 import * as schemas from "@api/schemas";
 
@@ -10,7 +10,7 @@ export async function validateApiKey(
   apiKey: string,
   vendorId: string
 ): Promise<string> {
-  const { authToken } = await enhancedApi(
+  const { authToken } = await api(
     schemas.validateApiKeyResponseSchema,
     paths.validate(vendorId),
     {

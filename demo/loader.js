@@ -43,7 +43,7 @@ function createProductElement(num) {
   return product;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   if (window.TopsortElements) {
     console.log("[TopsortElements] Module loaded");
   } else {
@@ -60,9 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!isUsingTopsortElements) return;
 
-  const tsElements = new TopsortElements({
+  const tsElements = new TopsortElements();
+  await tsElements.init({
     apiKey: "abc123",
-    vendorId: "vendor-id",
+    externalVendorId: "vendor-id",
   });
 
   if (isUsingCustomProps) {

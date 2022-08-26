@@ -79,7 +79,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
 
 type InitParams = {
   apiKey: string;
-  vendorId: string;
+  externalVendorId: string;
 };
 
 type InitProductPromotion = {
@@ -89,11 +89,11 @@ type InitProductPromotion = {
 };
 
 export default class TopsortElements {
-  private apiToken?: string;
+  private authToken?: string;
 
   static promoteTargetClassName = defaultPromoteTargetClassName;
 
-  constructor(params: InitParams) {
+  async init(params: InitParams) {
     if (typeof params !== "object") {
       logger.error('Method "init" is missing the required params object.');
       return;
@@ -106,13 +106,15 @@ export default class TopsortElements {
       return;
     }
 
-    // TODO(christopherbot) server-side validation
-    // Call an endpoint in CC with apiKey and vendorId, which would auth them and return an apiToken.
-    // This code will have to be moved out of the ctor and into an async init method.
-    services
-      .validateApiKey(params.apiKey, params.vendorId)
-      .then((apiToken) => (this.apiToken = apiToken))
-      .catch((err) => console.error("[validateApiKey]", err));
+    try {
+      const authToken = await services.validateApiKey(
+        params.apiKey,
+        params.externalVendorId
+      );
+      this.authToken = authToken;
+    } catch (error) {
+      console.error("[validateApiKey]", error);
+    }
   }
 
   initProductPromotion({
@@ -120,8 +122,8 @@ export default class TopsortElements {
     style,
     text,
   }: InitProductPromotion = {}) {
-    if (!this.apiToken) {
-      logger.warn('Cannot call "initProductPromotion" without an apiToken.');
+    if (!this.authToken) {
+      logger.warn('Cannot call "initProductPromotion" without an authToken.');
       return;
     }
 
