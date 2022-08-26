@@ -22,20 +22,16 @@ export const CampaignDetails: FunctionalComponent<{
 };
 
 const CampaignDataBox: FunctionalComponent = ({ children }) => {
-  return (
-    <div className="border-gray rounded-xl p-4 font-medium"> {children}</div>
-  );
+  return <div className="ts-campaign-data-box"> {children}</div>;
 };
 const CampaignTotal: FunctionalComponent<{ title: string; value: string }> = ({
   title,
   value,
 }) => {
   return (
-    <div className="flex flex-col" style="align-items: center;">
-      <div className="text-gray text-sm">{title}</div>
-      <div style="margin-top:0.25rem" className="text-purple">
-        {value}
-      </div>
+    <div className="ts-campaign-totals">
+      <div className="title">{title}</div>
+      <div className="value">{value}</div>
     </div>
   );
 };

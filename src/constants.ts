@@ -4,7 +4,7 @@ export const defaultText = {
   modalTitle: "Create Campaign",
   modalSubtitle: "Quickly launch a campaign for this product.",
   modalCampaignNamePlaceholder: "Enter your campaign name",
-  detailButton: "Campaign",
+  detailButton: "See Campaign",
 };
 
 /* DOM Targets */
