@@ -58,8 +58,10 @@ module.exports = {
     //   "react-dom": "preact/compat",
     // },
     alias: {
+      "@api": path.resolve(__dirname, "src/api/"),
       "@components": path.resolve(__dirname, "src/components/"),
       "@constants": path.resolve(__dirname, "src/constants"),
+      "@services": path.resolve(__dirname, "src/services/"),
     },
   },
   output: {
