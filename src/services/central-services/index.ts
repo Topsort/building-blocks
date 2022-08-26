@@ -6,7 +6,7 @@ function getAuthorizationHeader(apiKey: string) {
   return { authorization: `Bearer ${apiKey}` };
 }
 
-export async function validateApiKey(
+export async function validateVendor(
   apiKey: string,
   vendorId: string
 ): Promise<string> {

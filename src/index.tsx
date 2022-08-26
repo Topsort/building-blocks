@@ -107,7 +107,7 @@ export default class TopsortElements {
     }
 
     try {
-      const authToken = await services.validateApiKey(
+      const authToken = await services.validateVendor(
         params.apiKey,
         params.externalVendorId
       );
