@@ -1,29 +1,22 @@
-import { portalRootId } from "@constants";
 import { h, Fragment, FunctionalComponent } from "preact";
 import { createPortal } from "preact/compat";
-import { useEffect, useLayoutEffect, useRef } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 
-const Portal: FunctionalComponent = ({ children }) => {
-  const node = useRef();
-  const portalRoot = useRef<Element | null>(null);
+const Portal: FunctionalComponent<{ target: Element | string }> = ({
+  children,
+  target,
+}) => {
+  const [portalRoot, setPortalRoot] = useState<Element | null>(null);
 
   useEffect(() => {
-    portalRoot.current = document.querySelector(`#${portalRootId}`);
-  }, []);
+    const root =
+      typeof target === "string" ? document.querySelector(target) : target;
+    setPortalRoot(root);
+  }, [target]);
 
-  useLayoutEffect(() => {
-    if (node.current && portalRoot.current) {
-      portalRoot.current.appendChild(node.current);
-    }
-  }, [node]);
+  if (!portalRoot) return null;
 
-  if (!portalRoot.current) return null;
-
-  return (
-    <Fragment ref={node}>
-      {createPortal(<div>{children}</div>, portalRoot.current)}
-    </Fragment>
-  );
+  return createPortal(<Fragment>{children}</Fragment>, portalRoot);
 };
 
 export default Portal;
