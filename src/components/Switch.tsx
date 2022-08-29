@@ -4,7 +4,7 @@ export const Switch: FunctionalComponent = () => {
   return (
     <label class="ts-switch">
       <input type="checkbox" />
-      <span class="ts-slider" />
+      <span class="ts-switch-track" />
     </label>
   );
 };

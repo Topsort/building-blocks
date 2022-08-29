@@ -1,3 +1,7 @@
+.space-x-2>*:not(:first-child) {
+  margin-left: 0.5rem;
+}
+
 .space-y-3-5>*:not(:first-child) {
   margin-top: 0.875rem;
 }
@@ -14,20 +18,8 @@
   display: flex;
 }
 
-.ts-flex-row {
-  flex-direction: row;
-}
-
-.ts-flex-col {
-  flex-direction: column;
-}
-
 .ts-text-gray {
   color: var(--ts-gray-color)
-}
-
-.ts-text-black {
-  color: black
 }
 
 .ts-text-xs {
@@ -35,20 +27,8 @@
   line-height: 150%
 }
 
-.ts-text-sm {
-  font-size: 0.875rem;
-}
-
-.ts-text-lg {
-  font-size: 1.125rem;
-}
-
 .ts-font-medium {
   font-weight: 500;
-}
-
-.ts-font-normal-medium {
-  font-weight: 450;
 }
 
 .ts-self-center {

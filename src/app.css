@@ -19,10 +19,10 @@
   --ts-success-color: rgba(var(--ts-success-rgb));
   --ts-success-color-20: rgba(var(--ts-success-rgb), 0.2);
 
-  /* slider color */
-  --ts-slider-gray-rgb: 189, 189, 189;
-  --ts-slider-gray-color: rgba(var(--ts-slider-gray-rgb));
-  --ts-slider-gray-color-20: rgba(var(--ts-slider-gray-rgb), 0.2);
+  /* switch track color */
+  --ts-switch-track-gray-rgb: 189, 189, 189;
+  --ts-switch-track-gray-color: rgba(var(--ts-switch-track-gray-rgb));
+  --ts-switch-track-gray-color-20: rgba(var(--ts-switch-track-gray-rgb), 0.2);
 
   --ts-gray-rgb: 107, 114, 128;
   --ts-gray-color: rgba(var(--ts-gray-rgb));
@@ -152,11 +152,10 @@ hr.ts-hr {
   justify-content: space-between;
 }
 
-.ts-campaign-metrics>.title {
+.ts-campaign-metrics-headers {
   color: var(--ts-gray-color);
   font-size: 0.875rem;
 }
-
 
 .ts-switch {
   position: relative;
@@ -171,38 +170,38 @@ hr.ts-hr {
   height: 0;
 }
 
-.ts-slider {
+.ts-switch-track {
   position: absolute;
   cursor: pointer;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--ts-slider-gray-color-20);
+  background-color: var(--ts-switch-track-gray-color-20);
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 9999px;
 
 }
 
-.ts-slider:before {
+.ts-switch-track:before {
   position: absolute;
   content: "";
   width: 21px;
   height: 20px;
   right: 31px;
   top: 4px;
-  background-color: var(--ts-slider-gray-color);
+  background-color: var(--ts-switch-track-gray-color);
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 50%;
 }
 
-input:checked+.ts-slider {
+input:checked+.ts-switch-track {
   background: var(--ts-success-color-20);
 }
 
-input:checked+.ts-slider:before {
+input:checked+.ts-switch-track:before {
   background-color: var(--ts-success-color);
   -webkit-transform: translateX(25px);
   -ms-transform: translateX(25px);
@@ -237,7 +236,7 @@ input:checked+.ts-slider:before {
 
 }
 
-.ts-campaign-data-box>.title {
+.ts-campaign-data-box>.ts-section-heading {
   align-items: center;
   margin-bottom: 0.5rem;
   font-size: 1.125rem;
@@ -263,4 +262,35 @@ input:checked+.ts-slider:before {
   flex-direction: row;
   padding: 0.875rem;
   border-radius: 0.75rem;
+}
+
+.ts-campaign-summary-name {
+  margin-right: 1rem;
+  font-size: 1.125rem;
+}
+
+.ts-campaign-budget {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ts-min-roas {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  font-style: italic;
+  color: var(--ts-gray-color);
+  font-weight: 450;
+}
+
+.ts-min-roas>* {
+  font-style: normal;
+  font-weight: 500;
+  color: black;
+}
+
+ts-campaign-status-buttons {
+  padding-top:0.875rem;
+  text-align: right;
 }
