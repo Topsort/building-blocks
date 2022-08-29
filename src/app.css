@@ -145,6 +145,11 @@ hr.ts-gray-hr {
   justify-content: space-between;
 }
 
+.ts-metric-grid>.title {
+  color: #6B7280;
+  font-size: 0.875rem;
+}
+
 
 .ts-switch {
   position: relative;

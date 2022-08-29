@@ -38,15 +38,15 @@ const CampaignSummary: FunctionalComponent<{
 }> = ({ campaignDetails }) => {
   return (
     <div className="ts-campaign-data-box space-y-4">
-      <div className="flex flex-row space-x-4">
+      <div className="ts-flex ts-flex-row space-x-4">
         <img class="ts-product-image" src={campaignDetails.productImageUrl} />
-        <div className="text-lg" style="margin-right:1rem;">
+        <div className="ts-text-lg" style="margin-right:1rem;">
           {campaignDetails.name}
         </div>
-        <div class="flex flex-col">
+        <div class="ts-flex ts-flex-col">
           <div style="text-align: right;">{campaignDetails.budget}</div>
           <div
-            className="text-xs text-gray"
+            className="ts-text-xsts-text-gray"
             style="text-align: right;white-space: nowrap;"
           >
             Daily Budget
@@ -81,14 +81,14 @@ const CampaignBudget: FunctionalComponent<{
       <hr className="ts-gray-hr" />
       <div style="margin-top:0.875rem;">
         <div>
-          <span className="font-medium">{campaignDetails.budget} </span>over
-          <span className="font-medium"> {campaignDetails.days} </span>days.
+          <span className="ts-font-medium">{campaignDetails.budget} </span>over
+          <span className="ts-font-medium"> {campaignDetails.days} </span>days.
         </div>
-        <div style="margin-top:0.25rem;" className="text-sm">
-          <span className="text-gray" style="font-style: italic;">
+        <div style="margin-top:0.25rem;" className="ts-text-sm">
+          <span className="ts-text-gray" style="font-style: italic;">
             Your minimun return on ad spend is
           </span>
-          <span className="font-medium"> {campaignDetails.minRoas}</span>.
+          <span className="ts-font-medium"> {campaignDetails.minRoas}</span>.
         </div>
       </div>
     </div>
@@ -100,15 +100,13 @@ const CampaignMetrics: FunctionalComponent<{
 }> = ({ campaignDetails }) => {
   return (
     <div className="ts-campaign-data-box">
-      <div className="title" style="align-self: center;">
-        Metrics
-      </div>
+      <div className="title ts-self-center">Metrics</div>
       <hr className="ts-gray-hr" />
       <div className="ts-metric-grid">
-        <div className="text-gray text-sm">Impressions</div>
-        <div className="text-gray text-sm">Clicks</div>
-        <div className="text-gray text-sm">Purchases</div>
-        <div className="text-gray text-sm">Status</div>
+        <div className="title">Impressions</div>
+        <div className="title">Clicks</div>
+        <div className="title">Purchases</div>
+        <div className="title">Status</div>
         <div>{campaignDetails.impressions}</div>
         <div>{campaignDetails.clicks}</div>
         <div>{campaignDetails.purchases}</div>
