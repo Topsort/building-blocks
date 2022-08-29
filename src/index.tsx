@@ -4,8 +4,9 @@ import { Modal } from "@components/Modal";
 import Portal from "@components/Portal";
 import { PromoteButton } from "@components/PromoteButton";
 import { defaultPromoteTargetClassName, portalRootId } from "@constants";
+import * as services from "@services/central-services";
 import { Campaign, CustomText, Style } from "@types";
-import { FunctionalComponent, h, render } from "preact";
+import { Fragment, FunctionalComponent, h, render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
 import "./app.css";
@@ -28,6 +29,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
     Record<string, Campaign>
   >({});
   const campaignDetails = productId ? productCampaigns[productId] : null;
+  const [promoteTargets, setPromoteTargets] = useState<HTMLElement[]>([]);
 
   useEffect(() => {
     const promoteTargets = [
@@ -42,76 +44,79 @@ const App: FunctionalComponent<InitProductPromotion> = ({
           "If you are using a custom className, make sure to pass it in the `initProductPromotion` options."
       );
     }
-
-    promoteTargets.forEach((target, index) => {
-      if (!(target instanceof HTMLElement)) return;
-
-      const productId = target.dataset.tsProductId;
-
-      if (!productId) {
-        logger.warn("Skipping button on element with no data-ts-product-id.");
-        return;
-      }
-      const productCampaign = {
-        budget: 200,
-        name: `Too FacedHangover ${productId}`,
-        productImageUrl: "//www.html.am/images/image-codes/milford_sound_t.jpg",
-        totalSpend: "$99,698",
-        totalSales: "$123,99",
-        roas: "24%",
-        days: 4,
-        minRoas: "4x",
-        impressions: 1341,
-        clicks: 24,
-        purchases: 19,
-        status: true,
-      }; //TODO (sofia): getProductCampaign(productId);
-      const hasCampaign = !!productCampaign;
-      if (hasCampaign) {
-        setProductCampaigns((prev) => {
-          return {
-            ...prev,
-            [productId]: productCampaign,
-          };
-        });
-      }
-
-      render(
-        <PromoteButton
-          key={index}
-          style={style}
-          text={text}
-          hasCampaign={hasCampaign}
-          onClick={() => {
-            setProductId(productId);
-          }}
-        />,
-        target
-      );
-    });
+    setPromoteTargets(promoteTargets as HTMLElement[]);
   }, [promoteTargetClassName, style, text]);
 
   return (
-    <Portal>
-      <Modal
-        text={text}
-        onClose={() => {
-          setProductId(null);
-        }}
-        isOpen={!!productId}
-      >
-        {campaignDetails ? (
-          <CampaignDetails campaignDetails={campaignDetails} />
-        ) : (
-          <CampaignCreation text={text} productId={productId} style={style} />
-        )}
-      </Modal>
-    </Portal>
+    <Fragment>
+      {promoteTargets.map((promoteTarget, index) => {
+        const productId = promoteTarget.dataset.tsProductId;
+
+        if (!productId) {
+          logger.warn("Skipping button on element with no data-ts-product-id.");
+          return null;
+        }
+        const productCampaign = {
+          budget: 200,
+          name: `Too FacedHangover ${productId}`,
+          productImageUrl:
+            "//www.html.am/images/image-codes/milford_sound_t.jpg",
+          totalSpend: "$99,698",
+          totalSales: "$123,99",
+          roas: "24%",
+          days: 4,
+          minRoas: "4x",
+          impressions: 1341,
+          clicks: 24,
+          purchases: 19,
+          status: true,
+        }; //TODO (sofia): getProductCampaign(productId);
+        const hasCampaign = !!productCampaign;
+        if (hasCampaign) {
+          setProductCampaigns((prev) => {
+            return {
+              ...prev,
+              [productId]: productCampaign,
+            };
+          });
+        }
+
+        return (
+          <Portal key={index} target={promoteTarget}>
+            <PromoteButton
+              key={index}
+              style={style}
+              text={text}
+              hasCampaign={hasCampaign}
+              onClick={() => {
+                setProductId(productId);
+              }}
+            />
+          </Portal>
+        );
+      })}
+      <Portal target={`#${portalRootId}`}>
+        <Modal
+          text={text}
+          onClose={() => {
+            setProductId(null);
+          }}
+          isOpen={!!productId}
+        >
+          {campaignDetails ? (
+            <CampaignDetails campaignDetails={campaignDetails} />
+          ) : (
+            <CampaignCreation text={text} productId={productId} style={style} />
+          )}
+        </Modal>
+      </Portal>
+    </Fragment>
   );
 };
 
 type InitParams = {
   apiKey: string;
+  externalVendorId: string;
 };
 
 type InitProductPromotion = {
@@ -121,11 +126,11 @@ type InitProductPromotion = {
 };
 
 export default class TopsortElements {
-  private apiToken?: string;
+  private authToken?: string;
 
   static promoteTargetClassName = defaultPromoteTargetClassName;
 
-  constructor(params: InitParams) {
+  async init(params: InitParams) {
     if (typeof params !== "object") {
       logger.error('Method "init" is missing the required params object.');
       return;
@@ -138,13 +143,15 @@ export default class TopsortElements {
       return;
     }
 
-    // TODO(christopherbot) server-side validation
-    // Call an endpoint in CC with apiKey and vendorId, which would auth them and return an apiToken.
-    // This code will have to be moved out of the ctor and into an async init method.
-    const validate = (a: any) => a;
-    const apiToken = validate(params.apiKey);
-
-    this.apiToken = apiToken;
+    try {
+      const authToken = await services.validateVendor(
+        params.apiKey,
+        params.externalVendorId
+      );
+      this.authToken = authToken;
+    } catch (error) {
+      logger.error("[validateVendor]", error);
+    }
   }
 
   initProductPromotion({
@@ -152,8 +159,8 @@ export default class TopsortElements {
     style,
     text,
   }: InitProductPromotion = {}) {
-    if (!this.apiToken) {
-      logger.warn('Cannot call "initProductPromotion" without an apiToken.');
+    if (!this.authToken) {
+      logger.warn('Cannot call "initProductPromotion" without an authToken.');
       return;
     }
 

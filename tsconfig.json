@@ -14,13 +14,15 @@
     "moduleResolution": "node",
     "noEmit": true,
     "paths": {
+      "@api/*": ["src/api/*"],
       "@components/*": ["src/components/*"],
       "@constants": ["src/constants"],
+      "@services/*": ["src/services/*"],
       "@types": ["src/types"]
     },
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2016",
+    "target": "es2016"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "./dist/**/*"]
