@@ -14,3 +14,18 @@ export type CustomText = Partial<
     string
   >
 >;
+
+export type Campaign = {
+  budget: number;
+  name: string;
+  productImageUrl: string;
+  totalSpend: string;
+  totalSales: string;
+  roas: string;
+  days: number;
+  minRoas: string;
+  impressions: number;
+  clicks: number;
+  purchases: number;
+  status: boolean;
+};

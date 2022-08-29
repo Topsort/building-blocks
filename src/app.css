@@ -25,7 +25,7 @@
   --ts-slider-gray-color-20: rgba(var(--ts-slider-gray-rgb), 0.2);
 
   --ts-gray-rgb: 107, 114, 128;
-  --ts-gray-color: rgba(var(var(--ts-gray-color)));
+  --ts-gray-color: rgba(var(--ts-gray-rgb));
 
   --ts-border: 0.0625rem solid var(--ts-primary-color);
   --ts-radius: 0.5rem;
@@ -138,12 +138,12 @@
   align-items: center;
 }
 
-hr.ts-slider-gray-hr {
+hr.ts-hr {
   border: 1px solid #EAEAEA;
   margin: 0;
 }
 
-.ts-metric-grid {
+.ts-campaign-metrics {
   display: grid;
   grid-template-columns: auto auto auto auto;
   align-items: center;
@@ -152,7 +152,7 @@ hr.ts-slider-gray-hr {
   justify-content: space-between;
 }
 
-.ts-metric-grid>.title {
+.ts-campaign-metrics>.title {
   color: var(--ts-gray-color);
   font-size: 0.875rem;
 }
@@ -179,7 +179,6 @@ hr.ts-slider-gray-hr {
   right: 0;
   bottom: 0;
   background-color: var(--ts-slider-gray-color-20);
-
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 9999px;
@@ -216,13 +215,13 @@ input:checked+.ts-slider:before {
   align-items: center;
 }
 
-.ts-campaign-totals>.title {
+.ts-campaign-totals>.ts-section-heading {
   font-size: 0.75rem;
   line-height: 150%;
   color: var(--ts-gray-color);
 }
 
-.ts-campaign-totals>.value {
+.ts-campaign-totals>.ts-section-value {
   margin-top: 0.25rem;
   color: var(--ts-primary-color);
 }
@@ -257,7 +256,7 @@ input:checked+.ts-slider:before {
   height: 4.25rem;
 }
 
-.ts-purple-box {
+.ts-info-box {
   background: var(--ts-primary-color-3);
   justify-content: space-around;
   display: flex;

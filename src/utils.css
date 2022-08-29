@@ -23,7 +23,11 @@
 }
 
 .ts-text-gray {
-  color: #6B7280;
+  color: var(--ts-gray-color)
+}
+
+.ts-text-black {
+  color: black
 }
 
 .ts-text-xs {
@@ -41,6 +45,10 @@
 
 .ts-font-medium {
   font-weight: 500;
+}
+
+.ts-font-normal-medium {
+  font-weight: 450;
 }
 
 .ts-self-center {

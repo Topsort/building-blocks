@@ -4,7 +4,7 @@ import { Modal } from "@components/Modal";
 import Portal from "@components/Portal";
 import { PromoteButton } from "@components/PromoteButton";
 import { defaultPromoteTargetClassName, portalRootId } from "@constants";
-import { CustomText, Style } from "@types";
+import { Campaign, CustomText, Style } from "@types";
 import { FunctionalComponent, h, render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
@@ -17,20 +17,7 @@ const logger = {
   warn: (...msg: any[]) => console.warn(logPrefix, ...msg),
   error: (...msg: any[]) => console.error(logPrefix, ...msg),
 };
-export type Campaign = {
-  budget: number;
-  name: string;
-  productImageUrl: string;
-  totalSpend: string;
-  totalSales: string;
-  roas: string;
-  days: number;
-  minRoas: string;
-  impressions: number;
-  clicks: number;
-  purchases: number;
-  status: boolean;
-};
+
 const App: FunctionalComponent<InitProductPromotion> = ({
   promoteTargetClassName,
   style,

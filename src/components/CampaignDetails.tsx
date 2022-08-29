@@ -1,6 +1,6 @@
 import { campaignDetailsClassName } from "@constants";
+import { Campaign } from "@types";
 import { h, FunctionalComponent } from "preact";
-import { Campaign } from "src";
 
 import { Button } from "./Button";
 import { Switch } from "./Switch";
@@ -27,8 +27,8 @@ const CampaignTotal: FunctionalComponent<{ title: string; value: string }> = ({
 }) => {
   return (
     <div className="ts-campaign-totals">
-      <div className="title">{title}</div>
-      <div className="value">{value}</div>
+      <div className="ts-section-heading">{title}</div>
+      <div className="ts-section-value">{value}</div>
     </div>
   );
 };
@@ -40,20 +40,20 @@ const CampaignSummary: FunctionalComponent<{
     <div className="ts-campaign-data-box space-y-4">
       <div className="ts-flex ts-flex-row space-x-4">
         <img class="ts-product-image" src={campaignDetails.productImageUrl} />
-        <div className="ts-text-lg" style="margin-right:1rem;">
+        <span className="ts-text-lg" style="margin-right:1rem;">
           {campaignDetails.name}
-        </div>
+        </span>
         <div class="ts-flex ts-flex-col">
           <div style="text-align: right;">{campaignDetails.budget}</div>
           <div
-            className="ts-text-xsts-text-gray"
+            className="ts-text-xs ts-text-gray"
             style="text-align: right;white-space: nowrap;"
           >
             Daily Budget
           </div>
         </div>
       </div>
-      <div className="ts-purple-box">
+      <div className="ts-info-box">
         <CampaignTotal title="Total Spend" value={campaignDetails.totalSpend} />
         <CampaignTotal title="Total Sales" value={campaignDetails.totalSales} />
         <CampaignTotal title="ROAS" value={campaignDetails.roas} />
@@ -78,17 +78,27 @@ const CampaignBudget: FunctionalComponent<{
           Edit
         </Button>
       </div>
-      <hr className="ts-gray-hr" />
+      <hr className="ts-hr" />
       <div style="margin-top:0.875rem;">
         <div>
           <span className="ts-font-medium">{campaignDetails.budget} </span>over
           <span className="ts-font-medium"> {campaignDetails.days} </span>days.
         </div>
         <div style="margin-top:0.25rem;" className="ts-text-sm">
-          <span className="ts-text-gray" style="font-style: italic;">
+          <span
+            className="ts-text-gray ts-font-normal-medium"
+            style="font-style: italic;"
+          >
             Your minimun return on ad spend is
+            <span
+              className="ts-font-medium ts-text-black"
+              style="font-style: normal;"
+            >
+              {" "}
+              {campaignDetails.minRoas}
+            </span>
+            .
           </span>
-          <span className="ts-font-medium"> {campaignDetails.minRoas}</span>.
         </div>
       </div>
     </div>
@@ -101,8 +111,8 @@ const CampaignMetrics: FunctionalComponent<{
   return (
     <div className="ts-campaign-data-box">
       <div className="title ts-self-center">Metrics</div>
-      <hr className="ts-gray-hr" />
-      <div className="ts-metric-grid">
+      <hr className="ts-hr" />
+      <div className="ts-campaign-metrics">
         <div className="title">Impressions</div>
         <div className="title">Clicks</div>
         <div className="title">Purchases</div>
@@ -126,7 +136,9 @@ const ManageCampaignStatus: FunctionalComponent<{
       {campaignDetails.status ? (
         <Button variant="outlined">Pause Campaign</Button>
       ) : (
-        <Button variant="outlined">Resume Campaign</Button>
+        <Button variant="outlined">
+          {campaignDetails.status ? "Pause Campaign" : "Resume Campaign"}
+        </Button>
       )}
       <Button variant="contained" style="margin-left:0.5rem;">
         End Campaign
