@@ -36,9 +36,9 @@ const App: FunctionalComponent<InitProductPromotion> = ({
   text,
 }) => {
   const [productId, setProductId] = useState<string | null>(null);
-  const [productCampaigns, setProductCampaigns] = useState<{
-    [productId: string]: Campaign;
-  }>({});
+  const [productCampaigns, setProductCampaigns] = useState<
+    Record<string, Campaign>
+  >({});
   const campaignDetails = productId ? productCampaigns[productId] : null;
 
   useEffect(() => {
