@@ -9,6 +9,7 @@ import { FunctionalComponent, h, render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
 import "./app.css";
+import "./utils.css";
 
 const logPrefix = "[Topsort Elements]";
 const logger = {
