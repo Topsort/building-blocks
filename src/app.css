@@ -178,7 +178,8 @@ hr.ts-slider-gray-hr {
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--ts-success-color-20);
+  background-color: var(--ts-slider-gray-color-20);
+
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 9999px;
@@ -192,18 +193,18 @@ hr.ts-slider-gray-hr {
   height: 20px;
   right: 31px;
   top: 4px;
-  background-color: var(--ts-success-color);
+  background-color: var(--ts-slider-gray-color);
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 50%;
 }
 
 input:checked+.ts-slider {
-  background-color: var(--ts-slider-gray-color-20)
+  background: var(--ts-success-color-20);
 }
 
 input:checked+.ts-slider:before {
-  background-color: var(--ts-slider-gray-color);
+  background-color: var(--ts-success-color);
   -webkit-transform: translateX(25px);
   -ms-transform: translateX(25px);
   transform: translateX(25px);
