@@ -19,6 +19,13 @@
   --ts-success-color: rgba(var(--ts-success-rgb));
   --ts-success-color-20: rgba(var(--ts-success-rgb), 0.2);
 
+  /* slider color */
+  --ts-slider-gray-rgb: 189, 189, 189;
+  --ts-slider-gray-color: rgba(var(--ts-slider-gray-rgb));
+  --ts-slider-gray-color-20: rgba(var(--ts-slider-gray-rgb), 0.2);
+
+  --ts-gray-rgb: 107, 114, 128;
+  --ts-gray-color: rgba(var(var(--ts-gray-color)));
 
   --ts-border: 0.0625rem solid var(--ts-primary-color);
   --ts-radius: 0.5rem;
@@ -131,7 +138,7 @@
   align-items: center;
 }
 
-hr.ts-gray-hr {
+hr.ts-slider-gray-hr {
   border: 1px solid #EAEAEA;
   margin: 0;
 }
@@ -146,7 +153,7 @@ hr.ts-gray-hr {
 }
 
 .ts-metric-grid>.title {
-  color: #6B7280;
+  color: var(--ts-gray-color);
   font-size: 0.875rem;
 }
 
@@ -192,11 +199,11 @@ hr.ts-gray-hr {
 }
 
 input:checked+.ts-slider {
-  background-color: rgba(189, 189, 189, 0.2);
+  background-color: var(--ts-slider-gray-color-20)
 }
 
 input:checked+.ts-slider:before {
-  background-color: #BDBDBD;
+  background-color: var(--ts-slider-gray-color);
   -webkit-transform: translateX(25px);
   -ms-transform: translateX(25px);
   transform: translateX(25px);
@@ -211,7 +218,7 @@ input:checked+.ts-slider:before {
 .ts-campaign-totals>.title {
   font-size: 0.75rem;
   line-height: 150%;
-  color: #6B7280;
+  color: var(--ts-gray-color);
 }
 
 .ts-campaign-totals>.value {
