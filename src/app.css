@@ -132,7 +132,7 @@
 }
 
 hr.ts-hr {
-  border: 1px solid #EAEAEA;
+  border: 1px solid #eaeaea;
   margin: 0;
 }
 
@@ -172,11 +172,11 @@ hr.ts-hr {
   right: 0;
   bottom: 0;
   background-color: var(--ts-switch-track-gray-color-20);
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   border-radius: 9999px;
-
 }
+
 .ts-switch:focus-within {
   outline: auto;
   outline-color: -webkit-focus-ring-color;
@@ -190,8 +190,8 @@ hr.ts-hr {
   right: 31px;
   top: 4px;
   background-color: var(--ts-switch-track-gray-color);
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   border-radius: 50%;
 }
 
@@ -225,13 +225,12 @@ input:checked + .ts-switch-track:before {
 
 .ts-campaign-data-box {
   box-sizing: border-box;
-  border: 1px solid #F0F0F0;
+  border: 1px solid #f0f0f0;
   border-radius: 0.75rem;
   padding: 1rem;
   font-weight: 500;
   display: flex;
   flex-direction: column;
-
 }
 
 .ts-campaign-data-box > .ts-section-heading {
@@ -244,10 +243,9 @@ input:checked + .ts-switch-track:before {
   justify-content: space-between;
 }
 
-
 .ts-product-image {
   box-sizing: border-box;
-  border: 1px solid #F0F0F0;
+  border: 1px solid #f0f0f0;
   border-radius: 0.75rem;
   width: 4.25rem;
   height: 4.25rem;
@@ -296,7 +294,7 @@ input:checked + .ts-switch-track:before {
 }
 
 .ts-budget-duration {
-  margin-top:0.875rem;
+  margin-top: 0.875rem;
   display: flex;
   flex-direction: column;
 }
