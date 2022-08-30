@@ -5,7 +5,8 @@ import { h, FunctionalComponent } from "preact";
 
 export const PromoteButton: FunctionalComponent<{
   onClick: () => void;
-}> = ({ onClick }) => {
+  hasCampaign?: boolean;
+}> = ({ onClick, hasCampaign = false }) => {
   const { text } = useProductPromotion();
   return (
     <Button
@@ -13,7 +14,9 @@ export const PromoteButton: FunctionalComponent<{
       variant="outlined"
       onClick={onClick}
     >
-      {text.button || defaultText.promoteButton}
+      {hasCampaign
+        ? text.detailButton || defaultText.detailButton
+        : text.button || defaultText.promoteButton}
     </Button>
   );
 };

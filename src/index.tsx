@@ -1,21 +1,27 @@
 import { CampaignCreation } from "@components/CampaignCreation";
+import { CampaignDetails } from "@components/CampaignDetails";
 import { Modal } from "@components/Modal";
 import Portal from "@components/Portal";
 import { PromoteButton } from "@components/PromoteButton";
 import { defaultPromoteTargetClassName, portalRootId } from "@constants";
 import { ProductPromotionContext, useProductPromotion } from "@context";
 import * as services from "@services/central-services";
-import { CustomText, Style } from "@types";
+import { Campaign, CustomText, Style } from "@types";
 import { logger } from "@utils/logger";
 import { Fragment, FunctionalComponent, h, render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
 import "./app.css";
+import "./utils.css";
 
 const App: FunctionalComponent = () => {
   const { promoteTargetClassName } = useProductPromotion();
   const [productId, setProductId] = useState<string | null>(null);
   const [promoteTargets, setPromoteTargets] = useState<HTMLElement[]>([]);
+  const [productCampaigns, setProductCampaigns] = useState<
+    Record<string, Campaign>
+  >({});
+  const campaignDetails = productId ? productCampaigns[productId] : null;
 
   useEffect(() => {
     const promoteTargets = [
@@ -28,8 +34,40 @@ const App: FunctionalComponent = () => {
           "If you are using a custom className, make sure to pass it in the `initProductPromotion` options."
       );
     }
-
     setPromoteTargets(promoteTargets as HTMLElement[]);
+
+    const testPromoteTarget = promoteTargets[0];
+
+    if (!(testPromoteTarget instanceof HTMLElement)) return;
+    const productId = testPromoteTarget.dataset.tsProductId;
+    if (!productId) {
+      logger.warn("Skipping button on element with no data-ts-product-id.");
+      return;
+    }
+
+    const productCampaign = {
+      budget: 200,
+      name: `Too FacedHangover ${productId}`,
+      productImageUrl: "//www.html.am/images/image-codes/milford_sound_t.jpg",
+      totalSpend: "$99,698",
+      totalSales: "$123,99",
+      roas: "24%",
+      days: 4,
+      minRoas: "4x",
+      impressions: 1341,
+      clicks: 24,
+      purchases: 19,
+      status: true,
+    }; //TODO (sofia): getProductCampaign(productId);
+    const hasCampaign = !!productCampaign;
+    if (hasCampaign) {
+      setProductCampaigns((prev) => {
+        return {
+          ...prev,
+          [productId]: productCampaign,
+        };
+      });
+    }
   }, [promoteTargetClassName]);
 
   return (
@@ -49,6 +87,7 @@ const App: FunctionalComponent = () => {
               onClick={() => {
                 setProductId(productId);
               }}
+              hasCampaign={!!productCampaigns[productId]}
             />
           </Portal>
         );
@@ -60,7 +99,11 @@ const App: FunctionalComponent = () => {
           }}
           isOpen={!!productId}
         >
-          <CampaignCreation productId={productId} />
+          {campaignDetails ? (
+            <CampaignDetails campaignDetails={campaignDetails} />
+          ) : (
+            <CampaignCreation productId={productId} />
+          )}
         </Modal>
       </Portal>
     </Fragment>

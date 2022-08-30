@@ -13,6 +13,19 @@
   --ts-secondary-color-30: rgba(var(--ts-secondary-rgb), 0.3);
   --ts-secondary-color-10: rgba(var(--ts-secondary-rgb), 0.1);
 
+  /* Default success rgb: */
+  --ts-success-rgb: 95, 205, 15;
+  --ts-success-color: rgb(var(--ts-success-rgb));
+  --ts-success-color-20: rgba(var(--ts-success-rgb), 0.2);
+
+  /* switch track color */
+  --ts-switch-track-gray-rgb: 189, 189, 189;
+  --ts-switch-track-gray-color: rgb(var(--ts-switch-track-gray-rgb));
+  --ts-switch-track-gray-color-20: rgba(var(--ts-switch-track-gray-rgb), 0.2);
+
+  --ts-gray-rgb: 107, 114, 128;
+  --ts-gray-color: rgb(var(--ts-gray-rgb));
+
   --ts-border: 0.0625rem solid var(--ts-primary-color);
   --ts-radius: 0.5rem;
 }
@@ -79,14 +92,17 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 20rem;
+  height: 38.5rem;
   max-height: 85vh;
+  max-width: 85vw;
+  width: 25rem;
   padding: 1rem;
   border: 1px solid black;
   border-radius: 0.5rem;
   background-color: white;
   box-shadow: 0px 5px 8px rgb(0 0 0 / 10%);
   z-index: 1;
+  overflow: auto;
 }
 
 .ts-modal--show {
@@ -115,6 +131,175 @@
   align-items: center;
 }
 
+hr.ts-hr {
+  border: 1px solid #EAEAEA;
+  margin: 0;
+}
+
+.ts-campaign-metrics {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  align-items: center;
+  grid-row-gap: 0.625rem;
+  margin-top: 0.875rem;
+  justify-content: space-between;
+}
+
+.ts-campaign-metrics-header {
+  color: var(--ts-gray-color);
+  font-size: 0.875rem;
+}
+
+.ts-switch {
+  position: relative;
+  display: inline-block;
+  width: 56px;
+  height: 28px;
+  border-radius: 9999px;
+}
+
+.ts-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ts-switch-track {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--ts-switch-track-gray-color-20);
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 9999px;
+
+}
+.ts-switch:focus-within {
+  outline: auto;
+  outline-color: -webkit-focus-ring-color;
+}
+
+.ts-switch-track:before {
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 20px;
+  right: 31px;
+  top: 4px;
+  background-color: var(--ts-switch-track-gray-color);
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .ts-switch-track {
+  background-color: var(--ts-success-color-20);
+}
+
+input:checked + .ts-switch-track:before {
+  background-color: var(--ts-success-color);
+  -webkit-transform: translateX(25px);
+  -ms-transform: translateX(25px);
+  transform: translateX(25px);
+}
+
+.ts-campaign-totals {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ts-campaign-totals > .ts-section-heading {
+  font-size: 0.75rem;
+  line-height: 150%;
+  color: var(--ts-gray-color);
+}
+
+.ts-campaign-totals > .ts-section-value {
+  margin-top: 0.25rem;
+  color: var(--ts-primary-color);
+}
+
+.ts-campaign-data-box {
+  box-sizing: border-box;
+  border: 1px solid #F0F0F0;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.ts-campaign-data-box > .ts-section-heading {
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.125rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.ts-product-image {
+  box-sizing: border-box;
+  border: 1px solid #F0F0F0;
+  border-radius: 0.75rem;
+  width: 4.25rem;
+  height: 4.25rem;
+}
+
+.ts-info-box {
+  background-color: var(--ts-primary-color-5);
+  justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  padding: 0.875rem;
+  border-radius: 0.75rem;
+}
+
+.ts-campaign-summary-name {
+  margin-right: 1rem;
+  font-size: 1.125rem;
+}
+
+.ts-campaign-budget {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ts-min-roas {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  font-style: italic;
+  color: var(--ts-gray-color);
+  font-weight: 450;
+}
+
+.ts-min-roas > * {
+  font-style: normal;
+  font-weight: 500;
+  color: initial;
+}
+
+.ts-campaign-status-buttons {
+  padding-top: 0.875rem;
+  justify-content: flex-end;
+  display: flex;
+  flex-direction: row;
+}
+
+.ts-budget-duration {
+  margin-top:0.875rem;
+  display: flex;
+  flex-direction: column;
+}
 .ts-svg-wrapper {
   display: flex;
 }

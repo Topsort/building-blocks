@@ -1,0 +1,36 @@
+.ts-space-x-2>*:not(:first-child) {
+  margin-left: 0.5rem;
+}
+
+.ts-space-y-3-5>*:not(:first-child) {
+  margin-top: 0.875rem;
+}
+
+.ts-space-x-4>*:not(:first-child) {
+  margin-left: 1rem;
+}
+
+.ts-space-y-4>*:not(:first-child) {
+  margin-top: 1rem;
+}
+
+.ts-flex {
+  display: flex;
+}
+
+.ts-text-gray {
+  color: var(--ts-gray-color)
+}
+
+.ts-text-xs {
+  font-size: 0.75rem;
+  line-height: 150%
+}
+
+.ts-font-medium {
+  font-weight: 500;
+}
+
+.ts-self-center {
+  align-self: center;
+}
