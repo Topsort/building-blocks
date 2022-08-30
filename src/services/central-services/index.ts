@@ -6,6 +6,10 @@ function getAuthorizationHeader(apiKey: string) {
   return { authorization: `Bearer ${apiKey}` };
 }
 
+function getAuthTokenHeader(authToken: string) {
+  return { authToken: `Bearer ${authToken}` };
+}
+
 export async function validateVendor(
   apiKey: string,
   vendorId: string
@@ -19,4 +23,20 @@ export async function validateVendor(
     }
   );
   return authToken;
+}
+
+export async function getExistingCampaignByProductId(
+  authToken: string,
+  productId: string
+) {
+  const response = await api(
+    schemas.existingCampaignResponseSchema,
+    paths.existingCampaign(productId),
+    {
+      method: "GET",
+      headers: getAuthTokenHeader(authToken),
+    }
+  );
+
+  return response;
 }

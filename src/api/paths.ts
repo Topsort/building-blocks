@@ -1,6 +1,8 @@
-// ToDo: somehow fetch central-services URL from build
-const CENTRAL_SERVICES_URL = "http://localhost:5001/public/v1/elements-service";
+import { CENTRAL_SERVICES_API_URL } from "@constants";
 
 export default {
-  validate: (vendorId: string) => `${CENTRAL_SERVICES_URL}/vendors/${vendorId}`,
+  validate: (vendorId: string) =>
+    `${CENTRAL_SERVICES_API_URL}/vendors/${vendorId}`,
+  existingCampaign: (productId: string) =>
+    `${CENTRAL_SERVICES_API_URL}/products/${productId}/campaign`,
 };

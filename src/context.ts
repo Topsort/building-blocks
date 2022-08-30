@@ -3,6 +3,7 @@ import { createContext } from "preact";
 import { useContext } from "preact/hooks";
 
 type ProductPromotionContextValue = {
+  authToken: string;
   promoteTargetClassName: string;
   style: Style;
   text: CustomText;
@@ -10,6 +11,7 @@ type ProductPromotionContextValue = {
 
 export const ProductPromotionContext =
   createContext<ProductPromotionContextValue>({
+    authToken: "",
     promoteTargetClassName: "",
     style: {},
     text: {},
