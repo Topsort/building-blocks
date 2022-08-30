@@ -237,10 +237,7 @@ hr.ts-hr {
   display: flex;
   flex-direction: column;
 }
+
 .ts-svg-wrapper {
   display: flex;
-}
-
-.ts-rotate-45 {
-  transform: rotate(45deg);
 }

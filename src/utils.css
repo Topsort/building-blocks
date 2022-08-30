@@ -34,3 +34,7 @@
 .ts-self-center {
   align-self: center;
 }
+
+.ts-rotate-45 {
+  transform: rotate(45deg);
+}
