@@ -177,8 +177,9 @@ hr.ts-hr {
   border-radius: 9999px;
 
 }
-.ts-switch:focus-visible{
+.ts-switch:focus-within {
   outline: auto;
+  outline-color: -webkit-focus-ring-color;
 }
 
 .ts-switch-track:before {
@@ -289,7 +290,9 @@ input:checked + .ts-switch-track:before {
 
 .ts-campaign-status-buttons {
   padding-top: 0.875rem;
-  text-align: right;
+  justify-content: flex-end;
+  display: flex;
+  flex-direction: row;
 }
 
 .ts-budget-duration {
