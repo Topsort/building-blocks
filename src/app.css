@@ -18,6 +18,9 @@
 }
 
 .ts-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: inherit;
   font-weight: 500;
   cursor: pointer;
@@ -100,15 +103,6 @@
   right: 0.75rem;
   width: 1.75rem;
   height: 1.75rem;
-  cursor: pointer;
-  border: none;
-  background-color: unset;
-  border-radius: var(--ts-radius);
-}
-
-.ts-close-button span {
-  color: var(--ts-primary-color);
-  font-size: 1rem;
 }
 
 .ts-close-button:hover {
@@ -119,4 +113,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.ts-svg-wrapper {
+  display: flex;
+}
+
+.ts-rotate-45 {
+  transform: rotate(45deg);
 }
