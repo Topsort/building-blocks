@@ -17,8 +17,10 @@
       "@api/*": ["src/api/*"],
       "@components/*": ["src/components/*"],
       "@constants": ["src/constants"],
+      "@context": ["src/context"],
       "@services/*": ["src/services/*"],
-      "@types": ["src/types"]
+      "@types": ["src/types"],
+      "@utils/*": ["src/utils/*"]
     },
     "skipLibCheck": true,
     "strict": true,

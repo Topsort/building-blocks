@@ -1,8 +1,8 @@
-export type Style = Partial<{
-  button: {
+export type Style = {
+  button?: {
     borderRadius: "none" | "sm" | "full";
   };
-}>;
+};
 
 export type CustomText = Partial<
   Record<

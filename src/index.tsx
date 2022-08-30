@@ -4,26 +4,18 @@ import { Modal } from "@components/Modal";
 import Portal from "@components/Portal";
 import { PromoteButton } from "@components/PromoteButton";
 import { defaultPromoteTargetClassName, portalRootId } from "@constants";
+import { ProductPromotionContext, useProductPromotion } from "@context";
 import * as services from "@services/central-services";
 import { Campaign, CustomText, Style } from "@types";
+import { logger } from "@utils/logger";
 import { Fragment, FunctionalComponent, h, render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
 import "./app.css";
 import "./utils.css";
 
-const logPrefix = "[Topsort Elements]";
-const logger = {
-  info: (...msg: any[]) => console.log(logPrefix, ...msg),
-  warn: (...msg: any[]) => console.warn(logPrefix, ...msg),
-  error: (...msg: any[]) => console.error(logPrefix, ...msg),
-};
-
-const App: FunctionalComponent<InitProductPromotion> = ({
-  promoteTargetClassName,
-  style,
-  text,
-}) => {
+const App: FunctionalComponent = () => {
+  const { promoteTargetClassName } = useProductPromotion();
   const [productId, setProductId] = useState<string | null>(null);
   const [promoteTargets, setPromoteTargets] = useState<HTMLElement[]>([]);
   const [productCampaigns, setProductCampaigns] = useState<
@@ -33,9 +25,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
 
   useEffect(() => {
     const promoteTargets = [
-      ...document.getElementsByClassName(
-        promoteTargetClassName || defaultPromoteTargetClassName
-      ),
+      ...document.getElementsByClassName(promoteTargetClassName),
     ];
 
     if (promoteTargets.length === 0) {
@@ -44,6 +34,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
           "If you are using a custom className, make sure to pass it in the `initProductPromotion` options."
       );
     }
+    setPromoteTargets(promoteTargets as HTMLElement[]);
     promoteTargets.forEach((target) => {
       if (!(target instanceof HTMLElement)) return;
       const productId = target.dataset.tsProductId;
@@ -51,7 +42,6 @@ const App: FunctionalComponent<InitProductPromotion> = ({
         logger.warn("Skipping button on element with no data-ts-product-id.");
         return;
       }
-      setPromoteTargets(promoteTargets as HTMLElement[]);
 
       const productCampaign = {
         budget: 200,
@@ -77,7 +67,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
         });
       }
     });
-  }, [promoteTargetClassName, style, text]);
+  }, [promoteTargetClassName]);
 
   return (
     <Fragment>
@@ -93,8 +83,6 @@ const App: FunctionalComponent<InitProductPromotion> = ({
           <Portal key={index} target={promoteTarget}>
             <PromoteButton
               key={index}
-              style={style}
-              text={text}
               onClick={() => {
                 setProductId(productId);
               }}
@@ -105,7 +93,6 @@ const App: FunctionalComponent<InitProductPromotion> = ({
       })}
       <Portal target={`#${portalRootId}`}>
         <Modal
-          text={text}
           onClose={() => {
             setProductId(null);
           }}
@@ -114,7 +101,7 @@ const App: FunctionalComponent<InitProductPromotion> = ({
           {campaignDetails ? (
             <CampaignDetails campaignDetails={campaignDetails} />
           ) : (
-            <CampaignCreation text={text} productId={productId} style={style} />
+            <CampaignCreation productId={productId} />
           )}
         </Modal>
       </Portal>
@@ -177,11 +164,16 @@ export default class TopsortElements {
     document.body.appendChild(portalRoot);
 
     render(
-      <App
-        promoteTargetClassName={promoteTargetClassName}
-        style={style}
-        text={text}
-      />,
+      <ProductPromotionContext.Provider
+        value={{
+          promoteTargetClassName:
+            promoteTargetClassName || defaultPromoteTargetClassName,
+          style: style || {},
+          text: text || {},
+        }}
+      >
+        <App />
+      </ProductPromotionContext.Provider>,
       document.body
     );
   }

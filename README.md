@@ -136,7 +136,6 @@
   - or use a MutationObserver and do it ourselves:
     https://stackoverflow.com/questions/69781031/inserting-dom-elements-using-content-script-in-chrome-extension
 - publish to s3 instead of unpkg so that marketplaces don't have to whitelist unpkg
-- put common props (text, style etc) into a context
 - use typescript for demo/loader.js
 - consider not storing apiToken on TopsortElements instance
 - consider accepting `primaryRgb` and `secondaryRgb` as props and set the css vars on our side. Or maybe multiple ways of setting it (consumer in css, consumer in JS, us in JS using props)
