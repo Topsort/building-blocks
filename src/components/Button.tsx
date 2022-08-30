@@ -21,7 +21,7 @@ export const Button: FunctionalComponent<
       })}
       {...props}
     >
-      <span>{children}</span>
+      {children}
     </button>
   );
 };
