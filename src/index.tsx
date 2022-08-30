@@ -35,38 +35,39 @@ const App: FunctionalComponent = () => {
       );
     }
     setPromoteTargets(promoteTargets as HTMLElement[]);
-    promoteTargets.forEach((target) => {
-      if (!(target instanceof HTMLElement)) return;
-      const productId = target.dataset.tsProductId;
-      if (!productId) {
-        logger.warn("Skipping button on element with no data-ts-product-id.");
-        return;
-      }
 
-      const productCampaign = {
-        budget: 200,
-        name: `Too FacedHangover ${productId}`,
-        productImageUrl: "//www.html.am/images/image-codes/milford_sound_t.jpg",
-        totalSpend: "$99,698",
-        totalSales: "$123,99",
-        roas: "24%",
-        days: 4,
-        minRoas: "4x",
-        impressions: 1341,
-        clicks: 24,
-        purchases: 19,
-        status: true,
-      }; //TODO (sofia): getProductCampaign(productId);
-      const hasCampaign = !!productCampaign;
-      if (hasCampaign) {
-        setProductCampaigns((prev) => {
-          return {
-            ...prev,
-            [productId]: productCampaign,
-          };
-        });
-      }
-    });
+    const testPromoteTarget = promoteTargets[0];
+
+    if (!(testPromoteTarget instanceof HTMLElement)) return;
+    const productId = testPromoteTarget.dataset.tsProductId;
+    if (!productId) {
+      logger.warn("Skipping button on element with no data-ts-product-id.");
+      return;
+    }
+
+    const productCampaign = {
+      budget: 200,
+      name: `Too FacedHangover ${productId}`,
+      productImageUrl: "//www.html.am/images/image-codes/milford_sound_t.jpg",
+      totalSpend: "$99,698",
+      totalSales: "$123,99",
+      roas: "24%",
+      days: 4,
+      minRoas: "4x",
+      impressions: 1341,
+      clicks: 24,
+      purchases: 19,
+      status: true,
+    }; //TODO (sofia): getProductCampaign(productId);
+    const hasCampaign = !!productCampaign;
+    if (hasCampaign) {
+      setProductCampaigns((prev) => {
+        return {
+          ...prev,
+          [productId]: productCampaign,
+        };
+      });
+    }
   }, [promoteTargetClassName]);
 
   return (
