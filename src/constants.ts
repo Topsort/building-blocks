@@ -22,4 +22,3 @@ export const modalShowClassName = "ts-modal--show";
 export const modalHideClassName = "ts-modal--hide";
 export const closeButtonClassName = "ts-close-button";
 export const campaignCreationClassName = "ts-campaign-creation";
-export const campaignDetailsClassName = "ts-campaign-details";
