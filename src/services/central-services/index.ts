@@ -28,7 +28,7 @@ export async function validateVendor(
 export async function getExistingCampaignByProductId(
   authToken: string,
   productId: string
-) {
+): Promise<schemas.ExistingCampaignResponse> {
   const response = await api(
     schemas.existingCampaignResponseSchema,
     paths.existingCampaign(productId),
@@ -37,6 +37,5 @@ export async function getExistingCampaignByProductId(
       headers: getAuthTokenHeader(authToken),
     }
   );
-
   return response;
 }

@@ -1,3 +1,4 @@
+import { ExistingCampaignResponse } from "@api/schemas";
 import { CampaignCreation } from "@components/CampaignCreation";
 import { Modal } from "@components/Modal";
 import Portal from "@components/Portal";
@@ -34,15 +35,13 @@ const App: FunctionalComponent = () => {
     setPromoteTargets(promoteTargets as HTMLElement[]);
   }, [promoteTargetClassName]);
 
-  const fetchExistingProductInCampaign: () => Promise<{
-    campaignId: string | null;
-    activeBids: number;
-  }> = useCallback(() => {
-    if (!productId) {
-      return Promise.resolve({ campaignId: null, activeBids: 0 });
-    }
-    return services.getExistingCampaignByProductId(authToken, productId);
-  }, [authToken, productId]);
+  const fetchExistingProductInCampaign: () => Promise<ExistingCampaignResponse> =
+    useCallback(() => {
+      if (!productId) {
+        return Promise.resolve({ campaignId: null, activeBids: 0 });
+      }
+      return services.getExistingCampaignByProductId(authToken, productId);
+    }, [authToken, productId]);
 
   const { execute, status, value, error } = hooks.useAsync(
     fetchExistingProductInCampaign,
