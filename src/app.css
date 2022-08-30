@@ -18,6 +18,9 @@
 }
 
 .ts-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: inherit;
   font-weight: 500;
   cursor: pointer;
@@ -100,10 +103,6 @@
   right: 0.75rem;
   width: 1.75rem;
   height: 1.75rem;
-  cursor: pointer;
-  border: none;
-  background-color: unset;
-  border-radius: var(--ts-radius);
 }
 
 .ts-close-button span {
