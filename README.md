@@ -17,7 +17,10 @@
 1. After the script is loaded, initialize the `TopsortElements` library:
 
    ```js
-   const tsElements = new TopsortElements({ apiKey: "api-key-123" });
+   const tsElements = new TopsortElements({
+     apiKey: "api-key-123",
+     externalVendorId: "vendor-id-123",
+   });
    ```
 
 ### Product Promotion
@@ -139,3 +142,4 @@
 - use typescript for demo/loader.js
 - consider not storing apiToken on TopsortElements instance
 - consider accepting `primaryRgb` and `secondaryRgb` as props and set the css vars on our side. Or maybe multiple ways of setting it (consumer in css, consumer in JS, us in JS using props)
+- figure out how to use Fragment shorthand (<></>)
