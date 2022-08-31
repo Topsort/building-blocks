@@ -1,5 +1,5 @@
 import { Button } from "@components/Button";
-import { promoteButtonClassName, defaultText } from "@constants";
+import { defaultText } from "@constants";
 import { useProductPromotion } from "@context";
 import { h, FunctionalComponent } from "preact";
 
@@ -9,11 +9,7 @@ export const PromoteButton: FunctionalComponent<{
 }> = ({ onClick, hasCampaign = false }) => {
   const { text } = useProductPromotion();
   return (
-    <Button
-      className={promoteButtonClassName}
-      variant="outlined"
-      onClick={onClick}
-    >
+    <Button className="ts-promote-button" variant="outlined" onClick={onClick}>
       {hasCampaign
         ? text.detailButton || defaultText.detailButton
         : text.button || defaultText.promoteButton}
