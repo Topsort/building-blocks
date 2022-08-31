@@ -1,13 +1,14 @@
 import { CloseButton } from "@components/CloseButton";
 import cx from "classnames";
-import { h, FunctionalComponent } from "preact";
+import { h, FunctionalComponent, VNode } from "preact";
 import { useEffect, useRef } from "preact/hooks";
 
 // TODO(christopherbot) add overlay behind modal and focus trap
 export const Modal: FunctionalComponent<{
+  heading: VNode | string;
   onClose: () => void;
   isOpen: boolean;
-}> = ({ children, onClose, isOpen }) => {
+}> = ({ heading, children, onClose, isOpen }) => {
   const focusRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     // Bring focus into the modal upon opening it
@@ -40,8 +41,11 @@ export const Modal: FunctionalComponent<{
       tabIndex={-1}
       ref={focusRef}
     >
-      <CloseButton onClick={onClose} />
-      {children}
+      <div className="ts-modal-heading">
+        <CloseButton onClick={onClose} />
+        {typeof heading === "string" ? <h2>{heading}</h2> : heading}
+      </div>
+      <div className="ts-modal-content ts-scroll">{children}</div>
     </div>
   );
 };

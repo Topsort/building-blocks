@@ -94,6 +94,7 @@ const App: FunctionalComponent = () => {
       })}
       <Portal target={`#${portalRootId}`}>
         <Modal
+          heading={campaignDetails ? "Campaign details" : "Promote a product"}
           onClose={() => {
             setProductId(null);
           }}
