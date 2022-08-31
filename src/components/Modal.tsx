@@ -1,9 +1,4 @@
 import { CloseButton } from "@components/CloseButton";
-import {
-  modalClassName,
-  modalHideClassName,
-  modalShowClassName,
-} from "@constants";
 import cx from "classnames";
 import { h, FunctionalComponent } from "preact";
 
@@ -16,9 +11,9 @@ export const Modal: FunctionalComponent<{
     <div
       role="dialog"
       aria-modal
-      className={cx(modalClassName, {
-        [modalHideClassName]: !isOpen,
-        [modalShowClassName]: isOpen,
+      className={cx("ts-modal", {
+        "ts-modal--hide": !isOpen,
+        "ts-modal--show": isOpen,
       })}
     >
       <CloseButton onClick={onClose} />

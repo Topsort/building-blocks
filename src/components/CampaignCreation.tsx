@@ -1,5 +1,5 @@
 import { Button } from "@components/Button";
-import { campaignCreationClassName, defaultText } from "@constants";
+import { defaultText } from "@constants";
 import { useProductPromotion } from "@context";
 import { h, FunctionalComponent } from "preact";
 
@@ -8,7 +8,7 @@ export const CampaignCreation: FunctionalComponent<{
 }> = ({ productId }) => {
   const { text } = useProductPromotion();
   return (
-    <div className={campaignCreationClassName}>
+    <div className="ts-campaign-creation">
       <h2>{text.modalTitle || defaultText.modalTitle}</h2>
       <h3>{text.modalSubtitle || defaultText.modalSubtitle}</h3>
       <span>{productId}</span>
