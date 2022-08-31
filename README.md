@@ -17,7 +17,10 @@
 1. After the script is loaded, initialize the `TopsortElements` library:
 
    ```js
-   const tsElements = new TopsortElements({ apiKey: "api-key-123" });
+   const tsElements = new TopsortElements({
+     apiKey: "api-key-123",
+     externalVendorId: "vendor-id-123",
+   });
    ```
 
 ### Product Promotion
@@ -126,12 +129,8 @@
   - do we allow custom text at all? Or require them to translate? Otherwise it won't be consistent with translations that our app does.
   - We can use the JS I18n API
   - We can detect the browser's locale (https://stackoverflow.com/a/31135571/9717640) but it might be better to allow the marketplace to pass in their preferred locale to the `new TopsortElements()` call so each marketplace user has a consistent experience. Not sure if that would be better because then if one user has a different preferred locale that their browser is set to, it won't be used.
-- finalize all public classNames before shipping so we can minimize the number of changes we make to them
-  - promoteButton instead of button?
-  - promoteButtonText instead of buttonText?
-  - etc.
-  - since these names live as options inside an already-specific method (`initProductPromotion`), is it better to keep them simple, or are the more specific names clearer?
-  - prefix is currently `ts`, should it be `tse`?
+- finalize consumer-facing prop names
+  - prefix is currently `ts`, should it be `tse` (which stands for "topsort elements")?
 - expose method to just re-attach buttons incase of virtualized lists
   - or use a MutationObserver and do it ourselves:
     https://stackoverflow.com/questions/69781031/inserting-dom-elements-using-content-script-in-chrome-extension
@@ -139,3 +138,4 @@
 - use typescript for demo/loader.js
 - consider not storing apiToken on TopsortElements instance
 - consider accepting `primaryRgb` and `secondaryRgb` as props and set the css vars on our side. Or maybe multiple ways of setting it (consumer in css, consumer in JS, us in JS using props)
+- figure out how to use Fragment shorthand (<></>)

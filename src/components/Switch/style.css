@@ -1,0 +1,67 @@
+.ts-switch {
+  --track-color-rgb: 189, 189, 189;
+  --track-color: rgb(var(--track-color-rgb));
+  --track-color-20: rgba(var(--track-color-rgb), 0.2);
+
+  --track-width: 3.5rem;
+  --track-height: 1.75rem;
+  --track-padding: 0.25rem;
+  --thumb-size: calc(var(--track-height) - 2 * var(--track-padding));
+  --thumb-translate-x: calc(
+    var(--track-width) - var(--thumb-size) - 2 * var(--track-padding)
+  );
+
+  position: relative;
+  display: inline-block;
+  width: var(--track-width);
+  height: var(--track-height);
+  border-radius: 9999px;
+}
+
+.ts-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.ts-switch-track {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--track-color-20);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 9999px;
+}
+
+.ts-switch-track:before {
+  position: absolute;
+  content: "";
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  left: var(--track-padding);
+  top: var(--track-padding);
+  background-color: var(--track-color);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .ts-switch-track {
+  background-color: var(--ts-success-color-20);
+}
+
+input:checked + .ts-switch-track:before {
+  background-color: var(--ts-success-color);
+  -webkit-transform: translateX(var(--thumb-translate-x));
+  -ms-transform: translateX(var(--thumb-translate-x));
+  transform: translateX(var(--thumb-translate-x));
+}
+
+input:focus-visible + .ts-switch-track {
+  outline: auto;
+  outline-color: -webkit-focus-ring-color;
+}

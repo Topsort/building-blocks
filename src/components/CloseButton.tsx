@@ -1,6 +1,5 @@
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
-import { closeButtonClassName } from "@constants";
 import cx from "classnames";
 import { h, FunctionalComponent, JSX } from "preact";
 
@@ -9,7 +8,7 @@ export const CloseButton: FunctionalComponent<
 > = ({ className, ...props }) => {
   return (
     <Button
-      className={cx(closeButtonClassName, className)}
+      className={cx("ts-close-button", className)}
       variant="text"
       {...props}
     >

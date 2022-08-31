@@ -1,4 +1,3 @@
-import { buttonClassName } from "@constants";
 import { useProductPromotion } from "@context";
 import cx from "classnames";
 import { h, FunctionalComponent, JSX } from "preact";
@@ -12,7 +11,7 @@ export const Button: FunctionalComponent<
   const borderRadius = style.button?.borderRadius || "sm";
   return (
     <button
-      className={cx(buttonClassName, className, {
+      className={cx("ts-button", className, {
         "ts-button--text": variant === "text",
         "ts-button--contained": variant === "contained",
         "ts-button--outlined": variant === "outlined",
