@@ -9,7 +9,6 @@ export const CampaignCreation: FunctionalComponent<{
   const { text } = useProductPromotion();
   return (
     <div className="ts-campaign-creation">
-      <h2>{text.modalTitle || defaultText.modalTitle}</h2>
       <h3>{text.modalSubtitle || defaultText.modalSubtitle}</h3>
       <span>{productId}</span>
       <input

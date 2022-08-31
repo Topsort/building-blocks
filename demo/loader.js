@@ -84,7 +84,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
       text: {
         button: "Create Campaign",
-        modalTitle: "Custom Modal Title",
       },
     });
   } else {

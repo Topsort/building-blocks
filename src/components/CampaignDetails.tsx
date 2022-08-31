@@ -7,14 +7,11 @@ export const CampaignDetails: FunctionalComponent<{
   campaignDetails: Campaign;
 }> = ({ campaignDetails }) => {
   return (
-    <div>
-      <h2>Campaign Details</h2>
-      <div className="ts-space-y-3-5">
-        <CampaignSummary campaignDetails={campaignDetails} />
-        <CampaignBudget campaignDetails={campaignDetails} />
-        <CampaignMetrics campaignDetails={campaignDetails} />
-        <ManageCampaignStatus campaignDetails={campaignDetails} />
-      </div>
+    <div className="ts-space-y-3-5">
+      <CampaignSummary campaignDetails={campaignDetails} />
+      <CampaignBudget campaignDetails={campaignDetails} />
+      <CampaignMetrics campaignDetails={campaignDetails} />
+      <ManageCampaignStatus campaignDetails={campaignDetails} />
     </div>
   );
 };

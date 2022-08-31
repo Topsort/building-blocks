@@ -1,7 +1,6 @@
 /* Text */
 export const defaultText = {
   promoteButton: "Promote",
-  modalTitle: "Create Campaign",
   modalSubtitle: "Quickly launch a campaign for this product.",
   modalCampaignNamePlaceholder: "Enter your campaign name",
   detailButton: "See Campaign",

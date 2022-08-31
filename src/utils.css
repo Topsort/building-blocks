@@ -38,3 +38,7 @@
 .ts-rotate-45 {
   transform: rotate(45deg);
 }
+
+.ts-scroll {
+  overflow: auto;
+}
