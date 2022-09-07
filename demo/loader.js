@@ -4,7 +4,7 @@
 const imgSize = 160;
 const numProducts = 20;
 const isUsingTopsortElements = true;
-const isUsingCustomProps = false;
+const isUsingCustomProps = true;
 const customPromoteTargetClassName = "my-custom-promote-target";
 
 function getNewElement(selector) {
@@ -69,12 +69,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (isUsingCustomProps) {
     document.documentElement.style.setProperty(
       "--ts-primary-rgb",
-      "15, 67, 94"
+      "120, 170, 50"
     );
     document.documentElement.style.setProperty(
       "--ts-secondary-rgb",
       "255, 255, 255"
     );
+    document.documentElement.style.setProperty("--ts-font-rgb", "200, 80, 215");
     tsElements.initProductPromotion({
       promoteTargetClassName: customPromoteTargetClassName,
       style: {
@@ -83,7 +84,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         },
       },
       text: {
-        button: "Create Campaign",
+        promoteButton: "Create Campaign",
+        detailButton: "View Campaign",
       },
     });
   } else {

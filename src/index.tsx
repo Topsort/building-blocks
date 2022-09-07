@@ -41,14 +41,16 @@ const App: FunctionalComponent = () => {
     if (!(testPromoteTarget instanceof HTMLElement)) return;
     const productId = testPromoteTarget.dataset.tsProductId;
     if (!productId) {
-      logger.warn("Skipping button on element with no data-ts-product-id.");
+      logger.warn(
+        "Skipping test campaign data for element with no data-ts-product-id."
+      );
       return;
     }
 
     const productCampaign = {
       budget: 200,
       name: `Too FacedHangover ${productId}`,
-      productImageUrl: "//www.html.am/images/image-codes/milford_sound_t.jpg",
+      productImageUrl: "https://picsum.photos/68",
       totalSpend: "$99,698",
       totalSales: "$123,99",
       roas: "24%",
@@ -94,7 +96,6 @@ const App: FunctionalComponent = () => {
       })}
       <Portal target={`#${portalRootId}`}>
         <Modal
-          heading={campaignDetails ? "Campaign details" : "Promote a product"}
           onClose={() => {
             setProductId(null);
           }}

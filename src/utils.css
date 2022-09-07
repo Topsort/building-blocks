@@ -1,5 +1,13 @@
+.ts-block {
+  display: block;
+}
+
 .ts-space-x-2 > *:not(:first-child) {
   margin-left: 0.5rem;
+}
+
+.ts-space-y-2 > *:not(:first-child) {
+  margin-top: 0.5rem;
 }
 
 .ts-space-y-3-5 > *:not(:first-child) {
@@ -14,12 +22,32 @@
   margin-top: 1rem;
 }
 
+.ts-space-y-8 > *:not(:first-child) {
+  margin-top: 2rem;
+}
+
 .ts-flex {
   display: flex;
 }
 
-.ts-text-gray {
-  color: var(--ts-gray-color);
+.ts-items-center {
+  align-items: center;
+}
+
+.ts-self-center {
+  align-self: center;
+}
+
+.ts-text-100 {
+  color: var(--ts-font-color);
+}
+
+.ts-text-60 {
+  color: var(--ts-font-color-60);
+}
+
+.ts-text-40 {
+  color: var(--ts-font-color-40);
 }
 
 .ts-text-xs {
@@ -27,18 +55,50 @@
   line-height: 150%;
 }
 
-.ts-font-medium {
-  font-weight: 500;
+.ts-text-sm {
+  font-size: 0.875rem;
 }
 
-.ts-self-center {
-  align-self: center;
+.ts-text-md {
+  font-size: 1.125rem;
+}
+
+.ts-font-semimedium {
+  font-weight: 450;
+}
+
+.ts-font-medium {
+  font-weight: 500;
 }
 
 .ts-rotate-45 {
   transform: rotate(45deg);
 }
 
+.ts-rotate-180 {
+  transform: rotate(180deg);
+}
+
 .ts-scroll {
   overflow: auto;
+}
+
+.ts-draggable {
+  cursor: pointer; /* fallback */
+  cursor: grab;
+}
+
+.ts-draggable:active {
+  cursor: pointer; /* fallback */
+  cursor: grabbing;
+}
+
+.ts-callout {
+  background-color: var(--ts-primary-color-5);
+  padding: 1rem;
+  border-radius: 0.75rem;
+}
+
+.ts-callout .ts-svg {
+  color: var(--ts-primary-color);
 }

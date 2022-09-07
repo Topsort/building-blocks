@@ -4,7 +4,7 @@ import { h, FunctionalComponent, JSX } from "preact";
 
 export const Button: FunctionalComponent<
   JSX.IntrinsicElements["button"] & {
-    variant: "text" | "contained" | "outlined";
+    variant: "inline" | "text" | "contained" | "outlined";
   }
 > = ({ children, className, variant, ...props }) => {
   const { style } = useProductPromotion();
@@ -12,6 +12,7 @@ export const Button: FunctionalComponent<
   return (
     <button
       className={cx("ts-button", className, {
+        "ts-button--inline": variant === "inline",
         "ts-button--text": variant === "text",
         "ts-button--contained": variant === "contained",
         "ts-button--outlined": variant === "outlined",

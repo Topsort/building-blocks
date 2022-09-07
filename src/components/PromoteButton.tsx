@@ -12,7 +12,7 @@ export const PromoteButton: FunctionalComponent<{
     <Button className="ts-promote-button" variant="outlined" onClick={onClick}>
       {hasCampaign
         ? text.detailButton || defaultText.detailButton
-        : text.button || defaultText.promoteButton}
+        : text.promoteButton || defaultText.promoteButton}
     </Button>
   );
 };

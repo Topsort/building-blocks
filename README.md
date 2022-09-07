@@ -45,7 +45,8 @@
         },
       },
       text: {
-        button: "Create Campaign",
+        promoteButton: "Create Campaign",
+        detailButton: "View Campaign",
       },
    );
    ```
@@ -139,3 +140,4 @@
 - consider not storing apiToken on TopsortElements instance
 - consider accepting `primaryRgb` and `secondaryRgb` as props and set the css vars on our side. Or maybe multiple ways of setting it (consumer in css, consumer in JS, us in JS using props)
 - figure out how to use Fragment shorthand (<></>)
+- fix tooltip height with long text
