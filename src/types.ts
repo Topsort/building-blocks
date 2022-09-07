@@ -5,13 +5,7 @@ export type Style = {
 };
 
 export type CustomText = Partial<
-  Record<
-    | "button"
-    | "modalSubtitle"
-    | "modalCampaignNamePlaceholder"
-    | "detailButton",
-    string
-  >
+  Record<"promoteButton" | "detailButton", string>
 >;
 
 export type Campaign = {

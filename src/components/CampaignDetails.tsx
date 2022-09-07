@@ -1,18 +1,24 @@
 import { Button } from "@components/Button";
+import { ModalContent, ModalHeading } from "@components/Modal";
 import { Switch } from "@components/Switch";
 import { Campaign } from "@types";
-import { h, FunctionalComponent } from "preact";
+import { h, FunctionalComponent, Fragment } from "preact";
 
 export const CampaignDetails: FunctionalComponent<{
   campaignDetails: Campaign;
 }> = ({ campaignDetails }) => {
   return (
-    <div className="ts-space-y-3-5">
-      <CampaignSummary campaignDetails={campaignDetails} />
-      <CampaignBudget campaignDetails={campaignDetails} />
-      <CampaignMetrics campaignDetails={campaignDetails} />
-      <ManageCampaignStatus campaignDetails={campaignDetails} />
-    </div>
+    <Fragment>
+      <ModalHeading>Campaign Details</ModalHeading>
+      <ModalContent>
+        <div className="ts-space-y-3-5">
+          <CampaignSummary campaignDetails={campaignDetails} />
+          <CampaignBudget campaignDetails={campaignDetails} />
+          <CampaignMetrics campaignDetails={campaignDetails} />
+          <ManageCampaignStatus campaignDetails={campaignDetails} />
+        </div>
+      </ModalContent>
+    </Fragment>
   );
 };
 
@@ -21,7 +27,7 @@ const CampaignTotal: FunctionalComponent<{ title: string; value: string }> = ({
   value,
 }) => {
   return (
-    <div className="ts-campaign-totals">
+    <div className="ts-campaign-total">
       <div className="ts-section-heading">{title}</div>
       <div className="ts-section-value">{value}</div>
     </div>
@@ -38,10 +44,10 @@ const CampaignSummary: FunctionalComponent<{
         <span className="ts-campaign-summary-name">{campaignDetails.name}</span>
         <div class="ts-campaign-budget">
           <span>{campaignDetails.budget}</span>
-          <span className="ts-text-xs ts-text-gray">Daily Budget</span>
+          <span className="ts-text-xs ts-text-60">Daily Budget</span>
         </div>
       </div>
-      <div className="ts-info-box">
+      <div className="ts-callout ts-campaign-totals">
         <CampaignTotal title="Total Spend" value={campaignDetails.totalSpend} />
         <CampaignTotal title="Total Sales" value={campaignDetails.totalSales} />
         <CampaignTotal title="ROAS" value={campaignDetails.roas} />

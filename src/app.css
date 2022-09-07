@@ -13,13 +13,14 @@
   --ts-secondary-color-30: rgba(var(--ts-secondary-rgb), 0.3);
   --ts-secondary-color-10: rgba(var(--ts-secondary-rgb), 0.1);
 
-  /* Default success rgb: */
+  /* Default font rgb: */
+  --ts-font-rgb: 0, 0, 0;
+  --ts-font-color: rgb(var(--ts-font-rgb));
+  --ts-font-color-60: rgba(var(--ts-font-rgb), 0.6);
+
   --ts-success-rgb: 95, 205, 15;
   --ts-success-color: rgb(var(--ts-success-rgb));
   --ts-success-color-20: rgba(var(--ts-success-rgb), 0.2);
-
-  --ts-gray-rgb: 107, 114, 128;
-  --ts-gray-color: rgb(var(--ts-gray-rgb));
 
   --ts-border: 0.0625rem solid var(--ts-primary-color);
   --ts-radius: 0.5rem;
@@ -31,11 +32,14 @@
   align-items: center;
   font-family: inherit;
   font-weight: 500;
+  font-size: 1rem;
   cursor: pointer;
   border: var(--ts-border);
   padding: 0.5rem 0.75rem;
+  padding: 0.75rem 1.375rem;
 }
 
+.ts-button--inline,
 .ts-button--text {
   border-color: transparent;
   background-color: transparent;
@@ -44,6 +48,14 @@
 
 .ts-button--text:hover {
   background-color: var(--ts-primary-color-5);
+}
+
+.ts-button--inline {
+  padding: 0;
+}
+
+.ts-button--inline:hover {
+  text-decoration: underline;
 }
 
 .ts-button--contained {
@@ -80,6 +92,19 @@
   font-weight: 600;
 }
 
+.ts-close-button {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+}
+
+.ts-close-button:hover {
+  background-color: var(--ts-primary-color-5);
+}
+
 .ts-modal {
   position: fixed;
   flex-direction: column;
@@ -94,20 +119,17 @@
   background-color: white;
   box-shadow: 0px 5px 8px rgb(0 0 0 / 10%);
   z-index: 1;
+  color: var(--ts-font-color);
 }
 
 .ts-modal-heading {
-  position: relative;
+  font-weight: 500;
+  margin: 0;
   padding: 1.875rem;
 }
 
 .ts-modal-content {
   padding: 0 1.875rem 1.875rem;
-}
-
-.ts-modal h2 {
-  font-weight: 500;
-  margin: 0;
 }
 
 .ts-modal--show {
@@ -118,22 +140,34 @@
   display: none;
 }
 
-.ts-close-button {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  width: 1.75rem;
-  height: 1.75rem;
-}
-
-.ts-close-button:hover {
-  background-color: var(--ts-primary-color-5);
-}
-
 .ts-campaign-creation {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+.ts-campaign-creation__range {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+
+.ts-campaign-creation__range span {
+  color: var(--ts-font-color-60);
+}
+
+.ts-campaign-creation__range .ts-tooltip-wrapper {
+  margin-top: 3.5rem;
+}
+
+.ts-campaign-creation__details-callout {
+  margin-top: 2rem;
+}
+
+.ts-campaign-creation__footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2.75rem;
 }
 
 hr.ts-hr {
@@ -151,23 +185,28 @@ hr.ts-hr {
 }
 
 .ts-campaign-metrics-header {
-  color: var(--ts-gray-color);
+  color: var(--ts-font-color-60);
   font-size: 0.875rem;
 }
 
 .ts-campaign-totals {
   display: flex;
+  justify-content: space-around;
+}
+
+.ts-campaign-total {
+  display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.ts-campaign-totals > .ts-section-heading {
+.ts-campaign-total > .ts-section-heading {
   font-size: 0.75rem;
   line-height: 150%;
-  color: var(--ts-gray-color);
+  color: var(--ts-font-color-60);
 }
 
-.ts-campaign-totals > .ts-section-value {
+.ts-campaign-total > .ts-section-value {
   margin-top: 0.25rem;
   color: var(--ts-primary-color);
 }
@@ -183,7 +222,6 @@ hr.ts-hr {
 }
 
 .ts-campaign-data-box > .ts-section-heading {
-  align-items: center;
   margin-bottom: 0.5rem;
   font-size: 1.125rem;
   display: flex;
@@ -200,15 +238,10 @@ hr.ts-hr {
   height: 4.25rem;
 }
 
-.ts-info-box {
-  background-color: var(--ts-primary-color-5);
-  justify-content: space-around;
-  display: flex;
-  flex-direction: row;
-  padding: 0.875rem;
-  border-radius: 0.75rem;
+.ts-product-image--md {
+  width: 4.75rem;
+  height: 4.75rem;
 }
-
 .ts-campaign-summary-name {
   margin-right: 1rem;
   font-size: 1.125rem;
@@ -225,14 +258,14 @@ hr.ts-hr {
   margin-top: 0.25rem;
   font-size: 0.875rem;
   font-style: italic;
-  color: var(--ts-gray-color);
+  color: var(--ts-font-color-60);
   font-weight: 450;
 }
 
 .ts-min-roas > * {
   font-style: normal;
   font-weight: 500;
-  color: initial;
+  color: var(--ts-font-color);
 }
 
 .ts-campaign-status-buttons {
@@ -248,6 +281,6 @@ hr.ts-hr {
   flex-direction: column;
 }
 
-.ts-svg-wrapper {
+.ts-svg {
   display: flex;
 }

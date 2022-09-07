@@ -1,0 +1,64 @@
+.ts-input[type="range"] {
+  --track-height: 0.3125rem;
+  --thumb-size: 1.25rem;
+  --thumb-border-color: #cfcfcf;
+  --thumb-inner-color: #ffffff;
+
+  -webkit-appearance: none;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+/* Can't use comma separated selectors here */
+.ts-input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: var(--track-height);
+  background: var(--ts-primary-color);
+  border-radius: calc(var(--track-height) / 2);
+}
+
+.ts-input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: var(--track-height);
+  background: var(--ts-primary-color-60);
+  border-radius: calc(var(--track-height) / 2);
+}
+
+/* Firefox lets you style the left side of the track: */
+.ts-input[type="range"]::-moz-range-progress {
+  height: var(--track-height);
+  background: var(--ts-primary-color);
+  border-radius: calc(var(--track-height) / 2);
+}
+
+.ts-input[type="range"]::-webkit-slider-thumb {
+  height: var(--thumb-size);
+  width: var(--thumb-size);
+  border-radius: 50%;
+  border: 0.125rem solid var(--thumb-border-color);
+  background: var(--thumb-inner-color);
+
+  /* Needed to apply thumb styles only in webkit: */
+  -webkit-appearance: none;
+  /* Needed to align the thumb only in webkit: */
+  margin-top: calc(-1 * (var(--thumb-size) / 2 - var(--track-height) / 2));
+}
+
+.ts-input[type="range"]::-webkit-slider-thumb:hover {
+  --thumb-size: 1.5rem;
+}
+
+.ts-input[type="range"]::-moz-range-thumb {
+  height: var(--thumb-size);
+  width: var(--thumb-size);
+  border-radius: 50%;
+  border: 0.125rem solid var(--thumb-border-color);
+  background: var(--thumb-inner-color);
+
+  /* Needed in Firefox here: */
+  box-sizing: border-box;
+}
+
+.ts-input[type="range"]::-moz-range-thumb:hover {
+  --thumb-size: 1.5rem;
+}

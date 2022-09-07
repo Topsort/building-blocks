@@ -32,7 +32,7 @@ export const Svg: FunctionalComponent<SvgProps> = ({
   }
 
   return (
-    <div className="ts-svg-wrapper">
+    <div className="ts-svg">
       <svg
         width="24"
         height="24"
