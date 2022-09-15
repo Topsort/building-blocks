@@ -1,7 +1,7 @@
 import { Tooltip, TooltipProps } from "@components/Tooltip";
 import cx from "classnames";
 import { h, FunctionalComponent, JSX } from "preact";
-import { useRef } from "preact/compat";
+import { useCallback, useRef, useState } from "preact/compat";
 
 import "./style.css";
 
@@ -18,12 +18,13 @@ export const RangeInput: FunctionalComponent<
 export const RangeInputWithTooltip: FunctionalComponent<
   JSX.IntrinsicElements["input"] & { tooltipProps: TooltipProps }
 > = ({ className, tooltipProps, ...props }) => {
-  const rangeRef = useRef<HTMLInputElement>(null);
-  const leftOffset = (() => {
-    if (!rangeRef.current) {
-      return 0;
-    }
+  const [leftOffset, setLeftOffset] = useState(0);
+  const rangeRef = useRef<HTMLInputElement | null>(null);
 
+  const updateLeftOffset = () => {
+    if (!rangeRef.current) {
+      return;
+    }
     const min = Number(props.min) || 0;
     const max = Number(props.max) || 0;
     const val = Number(props.value) || min;
@@ -33,14 +34,24 @@ export const RangeInputWithTooltip: FunctionalComponent<
         getComputedStyle(rangeRef.current).getPropertyValue("--thumb-size")
       ) * 16;
 
-    return ratio * (rangeRef.current.offsetWidth - thumbSize) + thumbSize / 2;
-  })();
+    setLeftOffset(
+      ratio * (rangeRef.current.offsetWidth - thumbSize) + thumbSize / 2
+    );
+  };
+
+  const ref = useCallback((node: HTMLInputElement | null) => {
+    rangeRef.current = node;
+    updateLeftOffset();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  updateLeftOffset();
 
   return (
     <Tooltip {...tooltipProps} leftOffset={leftOffset}>
       <input
         type="range"
-        ref={rangeRef}
+        ref={ref}
         className={cx("ts-input ts-draggable", className)}
         {...props}
       />
