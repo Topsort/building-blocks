@@ -1,6 +1,6 @@
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
-import { RangeInput } from "@components/Input";
+import { RangeInputWithTooltip } from "@components/Input";
 import { ModalContent, ModalHeading } from "@components/Modal";
 import { Tooltip } from "@components/Tooltip";
 import { h, FunctionalComponent, Fragment } from "preact";
@@ -34,38 +34,41 @@ const BudgetAndDuration: FunctionalComponent<{
       </div>
       <div className="ts-campaign-creation__range">
         <span className="ts-text-sm ts-font-medium">Set a daily budget</span>
-        <Tooltip
-          // TODO(christopherbot) use marketplace's currency:
-          content={`${dailyBudget} USD`}
-          alwaysShow
-          light
-        >
-          <RangeInput
-            value={dailyBudget}
-            min={minBudgetUSD}
-            max={maxBudgetUSD}
-            onInput={(event: ChangeEvent<HTMLInputElement>) => {
-              // Casting needing due to preact bug:
-              // https://github.com/preactjs/preact/issues/1930
-              setDailyBudget(Number((event.target as HTMLInputElement).value));
-            }}
-          />
-        </Tooltip>
+        <RangeInputWithTooltip
+          value={dailyBudget}
+          min={minBudgetUSD}
+          max={maxBudgetUSD}
+          onInput={(event: ChangeEvent<HTMLInputElement>) => {
+            // Casting needing due to preact bug:
+            // https://github.com/preactjs/preact/issues/1930
+            setDailyBudget(Number((event.target as HTMLInputElement).value));
+          }}
+          tooltipProps={{
+            // TODO(christopherbot) use marketplace's currency:
+            content: `${dailyBudget} USD`,
+            alwaysShow: true,
+            light: true,
+          }}
+        />
       </div>
       <div className="ts-campaign-creation__range">
         <span className="ts-text-sm ts-font-medium">Set a duration</span>
-        <Tooltip content={`${durationDays} Days`} alwaysShow light>
-          <RangeInput
-            value={durationDays}
-            min={minDurationDays}
-            max={maxDurationDays}
-            onInput={(event: ChangeEvent<HTMLInputElement>) => {
-              // Casting needing due to preact bug:
-              // https://github.com/preactjs/preact/issues/1930
-              setDurationDays(Number((event.target as HTMLInputElement).value));
-            }}
-          />
-        </Tooltip>
+        <RangeInputWithTooltip
+          value={durationDays}
+          min={minDurationDays}
+          max={maxDurationDays}
+          onInput={(event: ChangeEvent<HTMLInputElement>) => {
+            // Casting needing due to preact bug:
+            // https://github.com/preactjs/preact/issues/1930
+            setDurationDays(Number((event.target as HTMLInputElement).value));
+          }}
+          tooltipProps={{
+            // TODO(christopherbot) use marketplace's currency:
+            content: `${durationDays} Days`,
+            alwaysShow: true,
+            light: true,
+          }}
+        />
       </div>
       <div className="ts-callout ts-flex ts-items-center ts-campaign-creation__details-callout ts-space-x-4">
         <Icon name="info-circle" className="ts-rotate-180" />
