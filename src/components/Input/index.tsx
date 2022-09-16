@@ -70,7 +70,13 @@ export const RangeInputWithTooltip: FunctionalComponent<
   }, [props.value, props.min, props.max]);
 
   return (
-    <Tooltip {...tooltipProps} style={{ left: leftOffset }}>
+    <Tooltip
+      {...tooltipProps}
+      style={{
+        left: leftOffset,
+        ...(leftOffset === null && { display: "none" }),
+      }}
+    >
       <RangeInput ref={ref} {...props} />
     </Tooltip>
   );
