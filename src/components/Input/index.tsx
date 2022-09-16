@@ -27,7 +27,7 @@ export const RangeInput: FunctionalComponent<JSX.IntrinsicElements["input"]> =
 export const RangeInputWithTooltip: FunctionalComponent<
   JSX.IntrinsicElements["input"] & { tooltipProps: TooltipProps }
 > = ({ tooltipProps, ...props }) => {
-  const [leftOffset, setLeftOffset] = useState(0);
+  const [leftOffset, setLeftOffset] = useState<number | null>(null);
   const rangeRef = useRef<HTMLInputElement | null>(null);
   const observer = useRef<ResizeObserver | null>(null);
 
@@ -35,9 +35,9 @@ export const RangeInputWithTooltip: FunctionalComponent<
     if (!rangeRef.current) {
       return;
     }
-    const min = Number(props.min) || 0;
-    const max = Number(props.max) || 0;
-    const val = Number(props.value) || min;
+    const min = Number(rangeRef.current.min) || 0;
+    const max = Number(rangeRef.current.max) || 0;
+    const val = Number(rangeRef.current.value) || min;
     const ratio = (val - min) / (max - min);
     const thumbSize = remToPx(
       getComputedStyle(rangeRef.current).getPropertyValue("--thumb-size")
@@ -56,6 +56,7 @@ export const RangeInputWithTooltip: FunctionalComponent<
           updateLeftOffset();
         });
       }
+      observer.current.disconnect();
       observer.current.observe(node);
       updateLeftOffset();
     } else {
