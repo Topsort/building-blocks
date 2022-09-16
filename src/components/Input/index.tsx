@@ -1,23 +1,25 @@
 import { Tooltip, TooltipProps } from "@components/Tooltip";
 import cx from "classnames";
 import { h, FunctionalComponent, JSX } from "preact";
-import { useCallback, useRef, useState } from "preact/compat";
+import { forwardRef, useCallback, useRef, useState } from "preact/compat";
 
 import "./style.css";
 
-export const RangeInput: FunctionalComponent<
-  JSX.IntrinsicElements["input"]
-> = ({ className, ...props }) => (
-  <input
-    type="range"
-    className={cx("ts-input ts-draggable", className)}
-    {...props}
-  />
-);
+export const RangeInput: FunctionalComponent<JSX.IntrinsicElements["input"]> =
+  forwardRef<HTMLInputElement, JSX.IntrinsicElements["input"]>(
+    ({ className, ...props }, ref) => (
+      <input
+        ref={ref}
+        type="range"
+        className={cx("ts-input ts-draggable", className)}
+        {...props}
+      />
+    )
+  );
 
 export const RangeInputWithTooltip: FunctionalComponent<
   JSX.IntrinsicElements["input"] & { tooltipProps: TooltipProps }
-> = ({ className, tooltipProps, ...props }) => {
+> = ({ tooltipProps, ...props }) => {
   const [leftOffset, setLeftOffset] = useState(0);
   const rangeRef = useRef<HTMLInputElement | null>(null);
 
@@ -48,13 +50,8 @@ export const RangeInputWithTooltip: FunctionalComponent<
   updateLeftOffset();
 
   return (
-    <Tooltip {...tooltipProps} leftOffset={leftOffset}>
-      <input
-        type="range"
-        ref={ref}
-        className={cx("ts-input ts-draggable", className)}
-        {...props}
-      />
+    <Tooltip {...tooltipProps} style={{ left: leftOffset }}>
+      <RangeInput ref={ref} {...props} />
     </Tooltip>
   );
 };

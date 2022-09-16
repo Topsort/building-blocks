@@ -10,7 +10,7 @@ export type TooltipProps = {
   align?: "top" | "bottom";
   alwaysShow?: boolean;
   light?: boolean;
-  leftOffset?: number;
+  style?: h.JSX.CSSProperties;
 };
 
 export const Tooltip: FunctionalComponent<TooltipProps> = ({
@@ -20,7 +20,7 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
   align = "top",
   alwaysShow,
   light,
-  leftOffset,
+  style,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -37,9 +37,7 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
             "ts-tooltip--top": align === "top",
             "ts-tooltip--bottom": align === "bottom",
           })}
-          style={{
-            ...(typeof leftOffset !== "undefined" && { left: leftOffset }),
-          }}
+          style={style}
         >
           {content}
         </div>
