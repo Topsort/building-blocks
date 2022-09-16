@@ -43,9 +43,17 @@ export const RangeInputWithTooltip: FunctionalComponent<
       getComputedStyle(rangeRef.current).getPropertyValue("--thumb-size")
     );
 
-    setLeftOffset(
-      ratio * (rangeRef.current.offsetWidth - thumbSize) + thumbSize / 2
-    );
+    const calculatedLeftOffset =
+      ratio * (rangeRef.current.offsetWidth - thumbSize) + thumbSize / 2;
+
+    if (
+      typeof calculatedLeftOffset === "number" &&
+      !isNaN(calculatedLeftOffset)
+    ) {
+      setLeftOffset(calculatedLeftOffset);
+    } else {
+      setLeftOffset(null);
+    }
   };
 
   const ref = useCallback((node: HTMLInputElement | null) => {
