@@ -4,13 +4,24 @@ import { useState } from "preact/hooks";
 
 import "./style.css";
 
-export const Tooltip: FunctionalComponent<{
+export type TooltipProps = {
   className?: string;
   content: VNode | string;
   align?: "top" | "bottom";
   alwaysShow?: boolean;
   light?: boolean;
-}> = ({ className, children, content, align = "top", alwaysShow, light }) => {
+  style?: h.JSX.CSSProperties;
+};
+
+export const Tooltip: FunctionalComponent<TooltipProps> = ({
+  className,
+  children,
+  content,
+  align = "top",
+  alwaysShow,
+  light,
+  style,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div
@@ -26,6 +37,7 @@ export const Tooltip: FunctionalComponent<{
             "ts-tooltip--top": align === "top",
             "ts-tooltip--bottom": align === "bottom",
           })}
+          style={style}
         >
           {content}
         </div>
