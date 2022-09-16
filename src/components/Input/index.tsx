@@ -1,4 +1,5 @@
 import { Tooltip, TooltipProps } from "@components/Tooltip";
+import { remToPx } from "@utils/css-unit-converter";
 import cx from "classnames";
 import { h, FunctionalComponent, JSX } from "preact";
 import {
@@ -38,10 +39,9 @@ export const RangeInputWithTooltip: FunctionalComponent<
     const max = Number(props.max) || 0;
     const val = Number(props.value) || min;
     const ratio = (val - min) / (max - min);
-    const thumbSize =
-      parseFloat(
-        getComputedStyle(rangeRef.current).getPropertyValue("--thumb-size")
-      ) * 16;
+    const thumbSize = remToPx(
+      getComputedStyle(rangeRef.current).getPropertyValue("--thumb-size")
+    );
 
     setLeftOffset(
       ratio * (rangeRef.current.offsetWidth - thumbSize) + thumbSize / 2
