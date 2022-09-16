@@ -12,17 +12,17 @@ import {
 
 import "./style.css";
 
-export const RangeInput: FunctionalComponent<JSX.IntrinsicElements["input"]> =
-  forwardRef<HTMLInputElement, JSX.IntrinsicElements["input"]>(
-    ({ className, ...props }, ref) => (
-      <input
-        ref={ref}
-        type="range"
-        className={cx("ts-input ts-draggable", className)}
-        {...props}
-      />
-    )
-  );
+export const RangeInput = forwardRef<
+  HTMLInputElement,
+  JSX.IntrinsicElements["input"]
+>(({ className, ...props }, ref) => (
+  <input
+    ref={ref}
+    type="range"
+    className={cx("ts-input ts-draggable", className)}
+    {...props}
+  />
+));
 
 export const RangeInputWithTooltip: FunctionalComponent<
   JSX.IntrinsicElements["input"] & { tooltipProps: TooltipProps }
