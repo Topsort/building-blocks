@@ -64,7 +64,6 @@ export const RangeInputWithTooltip: FunctionalComponent<
           updateLeftOffset();
         });
       }
-      observer.current.disconnect();
       observer.current.observe(node);
       updateLeftOffset();
     } else {
