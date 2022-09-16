@@ -44,7 +44,6 @@ const BudgetAndDuration: FunctionalComponent<{
             setDailyBudget(Number((event.target as HTMLInputElement).value));
           }}
           tooltipProps={{
-            // TODO(christopherbot) use marketplace's currency:
             content: `${dailyBudget} USD`,
             alwaysShow: true,
             light: true,
