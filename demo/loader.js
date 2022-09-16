@@ -67,18 +67,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   if (isUsingCustomProps) {
-    document.documentElement.style.setProperty(
-      "--ts-primary-rgb",
-      "120, 170, 50"
-    );
-    document.documentElement.style.setProperty(
-      "--ts-secondary-rgb",
-      "255, 255, 255"
-    );
-    document.documentElement.style.setProperty("--ts-font-rgb", "200, 80, 215");
     tsElements.initProductPromotion({
       promoteTargetClassName: customPromoteTargetClassName,
       style: {
+        primaryColorRgb: "120, 170, 50",
+        fontColorRgb: [200, 80, 215],
         button: {
           borderRadius: "none",
         },
