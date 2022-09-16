@@ -1,7 +1,13 @@
 import { Tooltip, TooltipProps } from "@components/Tooltip";
 import cx from "classnames";
 import { h, FunctionalComponent, JSX } from "preact";
-import { forwardRef, useCallback, useRef, useState } from "preact/compat";
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "preact/compat";
 
 import "./style.css";
 
@@ -22,6 +28,7 @@ export const RangeInputWithTooltip: FunctionalComponent<
 > = ({ tooltipProps, ...props }) => {
   const [leftOffset, setLeftOffset] = useState(0);
   const rangeRef = useRef<HTMLInputElement | null>(null);
+  const observer = useRef<ResizeObserver | null>(null);
 
   const updateLeftOffset = () => {
     if (!rangeRef.current) {
@@ -43,11 +50,24 @@ export const RangeInputWithTooltip: FunctionalComponent<
 
   const ref = useCallback((node: HTMLInputElement | null) => {
     rangeRef.current = node;
-    updateLeftOffset();
+    if (node) {
+      if (!observer.current) {
+        observer.current = new ResizeObserver(() => {
+          updateLeftOffset();
+        });
+      }
+      observer.current.observe(node);
+      updateLeftOffset();
+    } else {
+      observer.current?.disconnect();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  updateLeftOffset();
+  useEffect(() => {
+    updateLeftOffset();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.value, props.min, props.max]);
 
   return (
     <Tooltip {...tooltipProps} style={{ left: leftOffset }}>
