@@ -27,7 +27,10 @@ const BudgetAndDuration: FunctionalComponent<{
         <span className="ts-text-md ts-font-medium">Budget and duration</span>
         <Tooltip
           content="The average amount you're willing to spend on your ads & the length of days you want the ads to show"
-          align="bottom"
+          placement="bottom"
+          offsetOptions={{
+            mainAxis: 5,
+          }}
         >
           <Icon name="message-question" />
         </Tooltip>
