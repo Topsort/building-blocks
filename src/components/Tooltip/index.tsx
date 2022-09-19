@@ -1,6 +1,6 @@
 import Portal from "@components/Portal";
 import { OffsetOptions, Placement } from "@floating-ui/core/src/types";
-import { computePosition, offset } from "@floating-ui/dom";
+import { computePosition, offset, autoUpdate } from "@floating-ui/dom";
 import cx from "classnames";
 import { h, FunctionalComponent, VNode } from "preact";
 import { useCallback, useEffect, useRef, useState } from "preact/hooks";
@@ -28,12 +28,14 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
   placement = "top",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
+  const [isHidden, setIsHidden] = useState(true);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
-  const observer = useRef<ResizeObserver | null>(null);
+  const cleanupRef = useRef<(() => void) | null>(null);
 
   const updateTooltipPosition = () => {
+    cleanupRef.current?.();
+
     if (
       !wrapperRef.current ||
       !tooltipRef.current ||
@@ -45,38 +47,45 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
       return;
     }
 
-    setIsHidden(false);
-    computePosition(wrapperRef.current, tooltipRef.current, {
-      placement,
-      middleware: [offset(offsetOptions)],
-    }).then(({ x, y }) => {
-      if (tooltipRef.current) {
-        Object.assign(tooltipRef.current.style, {
-          left: `${x}px`,
-          top: `${y}px`,
-        });
+    cleanupRef.current = autoUpdate(
+      wrapperRef.current,
+      tooltipRef.current,
+      () => {
+        if (wrapperRef.current && tooltipRef.current) {
+          computePosition(wrapperRef.current, tooltipRef.current, {
+            placement,
+            middleware: [offset(offsetOptions)],
+          }).then(({ x, y }) => {
+            if (tooltipRef.current) {
+              Object.assign(tooltipRef.current.style, {
+                transform: `translate3d(${Math.round(x)}px,${Math.round(
+                  y
+                )}px,0)`,
+              });
+            }
+            setIsHidden(false);
+          });
+        }
+      },
+      {
+        animationFrame: true,
       }
-    });
+    );
   };
 
   const ref = useCallback((tooltipNode: HTMLDivElement | null) => {
     tooltipRef.current = tooltipNode;
-    if (tooltipNode && wrapperRef.current) {
-      if (!observer.current) {
-        observer.current = new ResizeObserver(() => {
-          updateTooltipPosition();
-        });
-      }
-      observer.current.observe(wrapperRef.current);
+    if (tooltipNode) {
+      updateTooltipPosition();
     } else {
-      observer.current?.disconnect();
+      cleanupRef.current?.();
     }
-    updateTooltipPosition();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     updateTooltipPosition();
+    return () => cleanupRef.current?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [offsetOptions, placement]);
 
@@ -100,7 +109,6 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
             style={{ ...style, ...(isHidden && { display: "none" }) }}
           >
             {content}
-            <div className="ts-tooltip-arrow" />
           </div>
         </Portal>
       )}

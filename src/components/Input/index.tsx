@@ -85,7 +85,7 @@ export const RangeInputWithTooltip: FunctionalComponent<
         ...(leftOffset === null && { display: "none" }),
       }}
       offsetOptions={{
-        crossAxis: leftOffset || 0,
+        ...(leftOffset !== null && { crossAxis: leftOffset }),
       }}
     >
       <RangeInput ref={ref} {...props} />
