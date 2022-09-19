@@ -48,7 +48,7 @@ const App: FunctionalComponent = () => {
         logger.warn(getInvalidRgbWarning("--ts-font-rgb", fontColorRgb));
       }
     }
-  }, []);
+  }, [style]);
 
   useEffect(() => {
     const promoteTargets = [
