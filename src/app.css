@@ -7,12 +7,6 @@
   --ts-primary-color-40: rgba(var(--ts-primary-rgb), 0.4);
   --ts-primary-color-5: rgba(var(--ts-primary-rgb), 0.05);
 
-  /* Default secondary rgb: */
-  --ts-secondary-rgb: 221, 214, 255;
-  --ts-secondary-color: rgb(var(--ts-secondary-rgb));
-  --ts-secondary-color-30: rgba(var(--ts-secondary-rgb), 0.3);
-  --ts-secondary-color-10: rgba(var(--ts-secondary-rgb), 0.1);
-
   /* Default font rgb: */
   --ts-font-rgb: 0, 0, 0;
   --ts-font-color: rgb(var(--ts-font-rgb));

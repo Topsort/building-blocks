@@ -7,6 +7,11 @@ import { defaultPromoteTargetClassName, portalRootId } from "@constants";
 import { ProductPromotionContext, useProductPromotion } from "@context";
 import * as services from "@services/central-services";
 import { Campaign, CustomText, Style } from "@types";
+import {
+  getInvalidRgbWarning,
+  isRgbValid,
+  setDocumentStyleProperty,
+} from "@utils/custom-styles";
 import { logger } from "@utils/logger";
 import { Fragment, FunctionalComponent, h, render } from "preact";
 import { useEffect, useState } from "preact/hooks";
@@ -15,13 +20,35 @@ import "./app.css";
 import "./utils.css";
 
 const App: FunctionalComponent = () => {
-  const { promoteTargetClassName } = useProductPromotion();
+  const { promoteTargetClassName, style } = useProductPromotion();
   const [productId, setProductId] = useState<string | null>(null);
   const [promoteTargets, setPromoteTargets] = useState<HTMLElement[]>([]);
   const [productCampaigns, setProductCampaigns] = useState<
     Record<string, Campaign>
   >({});
   const campaignDetails = productId ? productCampaigns[productId] : null;
+
+  // Set up color variables for custom theming
+  useEffect(() => {
+    if (!style) return;
+
+    const { primaryColorRgb, fontColorRgb } = style;
+
+    if (primaryColorRgb) {
+      if (isRgbValid(primaryColorRgb)) {
+        setDocumentStyleProperty("--ts-primary-rgb", primaryColorRgb);
+      } else {
+        logger.warn(getInvalidRgbWarning("--ts-primary-rgb", primaryColorRgb));
+      }
+    }
+    if (fontColorRgb) {
+      if (isRgbValid(fontColorRgb)) {
+        setDocumentStyleProperty("--ts-font-rgb", fontColorRgb);
+      } else {
+        logger.warn(getInvalidRgbWarning("--ts-font-rgb", fontColorRgb));
+      }
+    }
+  }, [style]);
 
   useEffect(() => {
     const promoteTargets = [

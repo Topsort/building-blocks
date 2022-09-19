@@ -39,8 +39,12 @@
    tsElements.initProductPromotion(
     promoteTargetClassName: "my-custom-promote-target",
       style: {
+        // color RGBs acceptable in either format:
+        primaryColorRgb: "50, 175, 200",
+        fontColorRgb: [50, 175, 200],
+
         button: {
-          // defaults to "sm"
+          // defaults to "sm":
           borderRadius: "none" | "sm" | "full"
         },
       },
@@ -84,30 +88,6 @@
    </div>
    ```
 
-1. You can set a primary and secondary theme color.
-
-   With CSS:
-
-   ```css
-   :root {
-     --ts-primary-rgb: 18, 58, 188;
-     --ts-secondary-rgb: 222, 222, 222;
-   }
-   ```
-
-   With JavaScript:
-
-   ```js
-   document.documentElement.style.setProperty(
-     "--ts-primary-rgb",
-     "18, 58, 188"
-   );
-   document.documentElement.style.setProperty(
-     "--ts-secondary-rgb",
-     "222, 222, 222"
-   );
-   ```
-
 ## Development
 
 1. Install dependencies:
@@ -138,6 +118,5 @@
 - publish to s3 instead of unpkg so that marketplaces don't have to whitelist unpkg
 - use typescript for demo/loader.js
 - consider not storing apiToken on TopsortElements instance
-- consider accepting `primaryRgb` and `secondaryRgb` as props and set the css vars on our side. Or maybe multiple ways of setting it (consumer in css, consumer in JS, us in JS using props)
 - figure out how to use Fragment shorthand (<></>)
 - fix tooltip height with long text
