@@ -62,13 +62,15 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
                   y
                 )}px,0)`,
               });
-              setTimeout(() => {
-                if (tooltipRef.current) {
-                  Object.assign(tooltipRef.current.style, {
-                    visibility: "visible",
-                  });
-                }
-              }, 20);
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  if (tooltipRef.current) {
+                    Object.assign(tooltipRef.current.style, {
+                      visibility: "visible",
+                    });
+                  }
+                });
+              });
             }
           });
         }
