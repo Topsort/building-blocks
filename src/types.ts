@@ -1,4 +1,10 @@
+export type DocumentStyleProperty = "--ts-primary-rgb" | "--ts-font-rgb";
+
+export type Rgb = string | [number, number, number];
+
 export type Style = {
+  primaryColorRgb?: Rgb;
+  fontColorRgb?: Rgb;
   button?: {
     borderRadius: "none" | "sm" | "full";
   };
