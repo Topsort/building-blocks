@@ -66,9 +66,6 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
             setIsHidden(false);
           });
         }
-      },
-      {
-        animationFrame: true,
       }
     );
   };
@@ -83,11 +80,11 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  updateTooltipPosition();
+
   useEffect(() => {
-    updateTooltipPosition();
     return () => cleanupRef.current?.();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [offsetOptions, placement]);
+  }, []);
 
   return (
     <div
