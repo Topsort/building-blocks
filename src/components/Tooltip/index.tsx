@@ -3,7 +3,7 @@ import { OffsetOptions, Placement } from "@floating-ui/core/src/types";
 import { computePosition, offset, autoUpdate } from "@floating-ui/dom";
 import cx from "classnames";
 import { h, FunctionalComponent, VNode } from "preact";
-import { useCallback, useEffect, useRef, useState } from "preact/hooks";
+import { useCallback, useLayoutEffect, useRef, useState } from "preact/hooks";
 
 import "./style.css";
 
@@ -91,7 +91,7 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     updateTooltipPosition();
     return () => cleanupRef.current?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
