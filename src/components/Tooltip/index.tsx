@@ -28,22 +28,22 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
   placement = "top",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isHidden, setIsHidden] = useState(true);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement | null>(null);
   const cleanupRef = useRef<(() => void) | null>(null);
 
   const updateTooltipPosition = () => {
-    cleanupRef.current?.();
-
     if (
       !wrapperRef.current ||
       !tooltipRef.current ||
       wrapperRef.current.offsetHeight === 0 ||
       wrapperRef.current.offsetWidth === 0
     ) {
-      // hide tooltip
-      setIsHidden(true);
+      if (tooltipRef.current) {
+        Object.assign(tooltipRef.current.style, {
+          visibility: "hidden",
+        });
+      }
       return;
     }
 
@@ -62,8 +62,14 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
                   y
                 )}px,0)`,
               });
+              setTimeout(() => {
+                if (tooltipRef.current) {
+                  Object.assign(tooltipRef.current.style, {
+                    visibility: "visible",
+                  });
+                }
+              }, 20);
             }
-            setIsHidden(false);
           });
         }
       }
@@ -73,6 +79,9 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
   const ref = useCallback((tooltipNode: HTMLDivElement | null) => {
     tooltipRef.current = tooltipNode;
     if (tooltipNode) {
+      Object.assign(tooltipNode.style, {
+        visibility: "hidden",
+      });
       updateTooltipPosition();
     } else {
       cleanupRef.current?.();
@@ -80,11 +89,11 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  updateTooltipPosition();
-
   useEffect(() => {
+    updateTooltipPosition();
     return () => cleanupRef.current?.();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [offsetOptions, placement]);
 
   return (
     <div
@@ -103,7 +112,7 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
               "ts-tooltip--top": placement === "top",
               "ts-tooltip--bottom": placement === "bottom",
             })}
-            style={{ ...style, ...(isHidden && { display: "none" }) }}
+            style={style}
           >
             {content}
           </div>

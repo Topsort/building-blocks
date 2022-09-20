@@ -82,7 +82,7 @@ export const RangeInputWithTooltip: FunctionalComponent<
     <Tooltip
       {...tooltipProps}
       style={{
-        ...(leftOffset === null && { display: "none" }),
+        ...(leftOffset === null && { visibility: "hidden" }),
       }}
       offsetOptions={{
         ...(leftOffset !== null && { crossAxis: leftOffset }),
