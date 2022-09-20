@@ -89,8 +89,9 @@ const BudgetAndDuration: FunctionalComponent<{
           {durationDays < maxDurationDays ? (
             <>
               With a <span className="ts-font-bold">{dailyBudget} USD</span>{" "}
-              budgetin <span className="ts-font-bold">{durationDays} days</span>{" "}
-              weestimate{" "}
+              budget in{" "}
+              <span className="ts-font-bold">{durationDays} days</span> we
+              estimate{" "}
               <span className="ts-text-primary">
                 between {minEstimatedClick} and {maxEstimatedClick}
               </span>{" "}
