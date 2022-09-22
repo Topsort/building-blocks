@@ -128,11 +128,12 @@ const App: FunctionalComponent = () => {
           }}
           isOpen={!!productId}
         >
-          {campaignDetails ? (
-            <CampaignDetails campaignDetails={campaignDetails} />
-          ) : (
-            <CampaignCreation productId={productId} />
-          )}
+          {productId &&
+            (campaignDetails ? (
+              <CampaignDetails campaignDetails={campaignDetails} />
+            ) : (
+              <CampaignCreation productId={productId} />
+            ))}
         </Modal>
       </Portal>
     </Fragment>
