@@ -16,6 +16,11 @@
   --ts-success-color: rgb(var(--ts-success-rgb));
   --ts-success-color-20: rgba(var(--ts-success-rgb), 0.2);
 
+  --ts-disabled-rgb: 128, 128, 128;
+  --ts-disabled-color: rgb(var(--ts-disabled-rgb));
+  --ts-disabled-color-90: rgba(var(--ts-disabled-rgb), 0.9);
+  --ts-disabled-color-5: rgba(var(--ts-disabled-rgb), 0.05);
+
   --ts-border: 0.0625rem solid var(--ts-primary-color);
   --ts-radius: 0.5rem;
 }
@@ -51,14 +56,31 @@
   text-decoration: underline;
 }
 
+.ts-button--inline:disabled,
+.ts-button--text:disabled {
+  color: var(--ts-disabled-color);
+}
+
+.ts-button--text:disabled:hover {
+  background-color: var(--ts-disabled-color-5);
+}
+
 .ts-button--contained {
   background-color: var(--ts-primary-color);
+  border-color: transparent;
   color: #fff;
 }
 
 .ts-button--contained:hover {
   background-color: var(--ts-primary-color-90);
-  border-color: transparent;
+}
+
+.ts-button--contained:disabled {
+  background-color: var(--ts-disabled-color);
+}
+
+.ts-button--contained:disabled:hover {
+  background-color: var(--ts-disabled-color-90);
 }
 
 .ts-button--outlined {
@@ -70,12 +92,25 @@
   background-color: var(--ts-primary-color-5);
 }
 
+.ts-button--outlined:disabled {
+  border-color: var(--ts-disabled-color);
+  color: var(--ts-disabled-color);
+}
+
+.ts-button--outlined:disabled:hover {
+  background-color: var(--ts-disabled-color-5);
+}
+
 .ts-button--rounded-sm {
   border-radius: var(--ts-radius);
 }
 
 .ts-button--rounded-full {
   border-radius: 9999px;
+}
+
+.ts-button:disabled {
+  cursor: not-allowed;
 }
 
 .ts-promote-button {
