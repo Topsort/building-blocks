@@ -18,8 +18,6 @@
 
   --ts-disabled-rgb: 128, 128, 128;
   --ts-disabled-color: rgb(var(--ts-disabled-rgb));
-  --ts-disabled-color-90: rgba(var(--ts-disabled-rgb), 0.9);
-  --ts-disabled-color-5: rgba(var(--ts-disabled-rgb), 0.05);
 
   --ts-border: 0.0625rem solid var(--ts-primary-color);
   --ts-radius: 0.5rem;
