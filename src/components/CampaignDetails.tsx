@@ -10,7 +10,7 @@ export const CampaignDetails: FunctionalComponent<{
   return (
     <Fragment>
       <ModalHeading>Campaign Details</ModalHeading>
-      <ModalContent>
+      <ModalContent height="32rem">
         <div className="ts-space-y-3-5">
           <CampaignSummary campaignDetails={campaignDetails} />
           <CampaignBudget campaignDetails={campaignDetails} />

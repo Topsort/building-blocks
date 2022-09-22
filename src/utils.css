@@ -30,6 +30,10 @@
   display: flex;
 }
 
+.ts-justify-between {
+  justify-content: space-between;
+}
+
 .ts-items-center {
   align-items: center;
 }
