@@ -1,6 +1,6 @@
-# @topsort/elements
+# @topsort/building-blocks
 
-> Topsort's JS elements and widgets library.
+> Topsort's JS library for building individual and easily integratable widgets.
 
 ## Table of Contents
 
@@ -14,10 +14,10 @@
 
 1. _TODO script with cdn link_
 
-1. After the script is loaded, initialize the `TopsortElements` library:
+1. After the script is loaded, initialize the `TopsortBlocks` library:
 
    ```js
-   const tsElements = new TopsortElements({
+   const tsBlocks = new TopsortBlocks({
      apiKey: "api-key-123",
      externalVendorId: "vendor-id-123",
    });
@@ -30,13 +30,13 @@
    With defaults:
 
    ```js
-   tsElements.initProductPromotion();
+   tsBlocks.initProductPromotion();
    ```
 
    With custom props:
 
    ```js
-   tsElements.initProductPromotion(
+   tsBlocks.initProductPromotion(
     promoteTargetClassName: "my-custom-promote-target",
       style: {
         // color RGBs acceptable in either format:
@@ -66,11 +66,11 @@
    </div>
    ```
 
-   This target class is also a static property of the TopsortElements class:
+   This target class is also a static property of the TopsortBlocks class:
 
    ```jsx
    <div
-     class={`${TopsortElements.promoteTargetClassName} my-custom-class`}
+     class={`${TopsortBlocks.promoteTargetClassName} my-custom-class`}
      data-ts-product-id="product-id-123"
    >
      ...
@@ -109,14 +109,14 @@
 - i18n
   - do we allow custom text at all? Or require them to translate? Otherwise it won't be consistent with translations that our app does.
   - We can use the JS I18n API
-  - We can detect the browser's locale (https://stackoverflow.com/a/31135571/9717640) but it might be better to allow the marketplace to pass in their preferred locale to the `new TopsortElements()` call so each marketplace user has a consistent experience. Not sure if that would be better because then if one user has a different preferred locale that their browser is set to, it won't be used.
+  - We can detect the browser's locale (https://stackoverflow.com/a/31135571/9717640) but it might be better to allow the marketplace to pass in their preferred locale to the `new TopsortBlocks()` call so each marketplace user has a consistent experience. Not sure if that would be better because then if one user has a different preferred locale that their browser is set to, it won't be used.
 - finalize consumer-facing prop names
-  - prefix is currently `ts`, should it be `tse` (which stands for "topsort elements")?
+  - prefix is currently `ts`, should it be `tsb` (which stands for "topsort blocks")?
 - expose method to just re-attach buttons incase of virtualized lists
   - or use a MutationObserver and do it ourselves:
     https://stackoverflow.com/questions/69781031/inserting-dom-elements-using-content-script-in-chrome-extension
 - publish to s3 instead of unpkg so that marketplaces don't have to whitelist unpkg
 - use typescript for demo/loader.js
-- consider not storing apiToken on TopsortElements instance
+- consider not storing apiToken on TopsortBlocks instance
 - figure out how to use Fragment shorthand (<></>)
 - fix tooltip height with long text

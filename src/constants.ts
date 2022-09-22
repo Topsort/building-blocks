@@ -5,5 +5,5 @@ export const defaultText = {
 };
 
 /* DOM Targets */
-export const portalRootId = "ts-elements-portal-root";
+export const portalRootId = "ts-blocks-portal-root";
 export const defaultPromoteTargetClassName = "ts-promote-target";

@@ -1,7 +1,7 @@
 {
-  "name": "@topsort/elements",
+  "name": "@topsort/building-blocks",
   "version": "1.0.0-alpha.0",
-  "description": "Topsort's JS elements and widgets library.",
+  "description": "Topsort's JS library for building individual and easily integratable widgets.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -12,10 +12,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Topsort/elements.git"
+    "url": "git+https://github.com/Topsort/building-blocks.git"
   },
   "keywords": [
     "ads",
+    "building-blocks",
     "campaigns",
     "elements",
     "listings",
@@ -29,9 +30,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Topsort/elements/issues"
+    "url": "https://github.com/Topsort/building-blocks/issues"
   },
-  "homepage": "https://github.com/Topsort/elements#readme",
+  "homepage": "https://github.com/Topsort/building-blocks#readme",
   "devDependencies": {
     "@babel/preset-env": "^7.18.10",
     "@babel/preset-react": "^7.18.6",

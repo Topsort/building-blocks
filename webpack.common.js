@@ -71,7 +71,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
     library: {
-      name: "TopsortElements",
+      name: "TopsortBlocks",
       type: "umd",
       export: "default",
     },
