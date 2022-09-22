@@ -38,6 +38,10 @@
   align-self: center;
 }
 
+.ts-text-primary {
+  color: var(--ts-primary-color);
+}
+
 .ts-text-100 {
   color: var(--ts-font-color);
 }
@@ -69,6 +73,10 @@
 
 .ts-font-medium {
   font-weight: 500;
+}
+
+.ts-font-bold {
+  font-weight: 700;
 }
 
 .ts-rotate-45 {

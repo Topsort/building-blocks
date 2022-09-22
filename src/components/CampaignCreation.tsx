@@ -9,11 +9,19 @@ import { useState } from "preact/hooks";
 
 type Step = "budget and duration" | "confirm";
 
-// TODO(christopherbot) what should these be?
-const minBudgetUSD = 1;
-const maxBudgetUSD = 1000;
+// TODO(samet) recommendedBudget and estimatedClick will change.
+const recommendedBudgetUSD = 5;
+const minBudgetUSD = Math.floor(
+  recommendedBudgetUSD - 1 - recommendedBudgetUSD * 0.25
+);
+const maxBudgetUSD = Math.ceil(
+  recommendedBudgetUSD + 1 + recommendedBudgetUSD * 0.25
+);
+const initialDurationDays = 7;
 const minDurationDays = 1;
-const maxDurationDays = 100;
+const maxDurationDays = 13;
+const minEstimatedClick = 1000;
+const maxEstimatedClick = 1500;
 
 const BudgetAndDuration: FunctionalComponent<{
   dailyBudget: number;
@@ -66,7 +74,10 @@ const BudgetAndDuration: FunctionalComponent<{
             setDurationDays(Number((event.target as HTMLInputElement).value));
           }}
           tooltipProps={{
-            content: `${durationDays} Days`,
+            content:
+              durationDays < maxDurationDays
+                ? `${durationDays} Days`
+                : "Active before being ended.",
             alwaysShow: true,
             light: true,
           }}
@@ -75,8 +86,20 @@ const BudgetAndDuration: FunctionalComponent<{
       <div className="ts-callout ts-flex ts-items-center ts-campaign-creation__details-callout ts-space-x-4">
         <Icon name="info-circle" className="ts-rotate-180" />
         <span className="ts-text-sm ts-font-semimedium">
-          We are going to promote your product in a way that you can make
-          profits!
+          {durationDays < maxDurationDays ? (
+            <>
+              With a <span className="ts-font-bold">{dailyBudget} USD</span>{" "}
+              budget in{" "}
+              <span className="ts-font-bold">{durationDays} days</span> we
+              estimate{" "}
+              <span className="ts-text-primary">
+                between {minEstimatedClick} and {maxEstimatedClick}
+              </span>{" "}
+              clicks.
+            </>
+          ) : (
+            <>Your campaign will be active infinitely until you end it.</>
+          )}
         </span>
       </div>
     </Fragment>
@@ -137,8 +160,8 @@ export const CampaignCreation: FunctionalComponent<{
   productId: string | null;
 }> = () => {
   const [step, setStep] = useState<Step>("budget and duration");
-  const [dailyBudget, setDailyBudget] = useState(400);
-  const [durationDays, setDurationDays] = useState(7);
+  const [dailyBudget, setDailyBudget] = useState(recommendedBudgetUSD);
+  const [durationDays, setDurationDays] = useState(initialDurationDays);
 
   return (
     <Fragment>
