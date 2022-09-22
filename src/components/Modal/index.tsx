@@ -3,6 +3,8 @@ import cx from "classnames";
 import { h, FunctionalComponent } from "preact";
 import { useEffect, useRef } from "preact/hooks";
 
+import "./style.css";
+
 export const ModalHeading: FunctionalComponent = ({ children }) => {
   return <h2 className="ts-modal-heading">{children}</h2>;
 };
@@ -11,7 +13,7 @@ export const ModalContent: FunctionalComponent = ({ children }) => {
   return <div className="ts-modal-content ts-scroll">{children}</div>;
 };
 
-// TODO(christopherbot) add overlay behind modal and focus trap
+// TODO(christopherbot) add overlay behind modal, focus trap, and outside click to close
 export const Modal: FunctionalComponent<{
   onClose: () => void;
   isOpen: boolean;
