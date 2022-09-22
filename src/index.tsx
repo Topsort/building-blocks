@@ -151,7 +151,7 @@ type InitProductPromotion = {
   text?: CustomText;
 };
 
-export default class TopsortElements {
+export default class TopsortBlocks {
   private authToken?: string;
 
   static promoteTargetClassName = defaultPromoteTargetClassName;

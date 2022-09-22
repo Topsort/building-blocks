@@ -1,9 +1,9 @@
-/* global TopsortElements */
+/* global TopsortBlocks */
 
 // Demo config
 const imgSize = 160;
 const numProducts = 20;
-const isUsingTopsortElements = true;
+const isUsingTopsortBlocks = true;
 const isUsingCustomProps = true;
 const customPromoteTargetClassName = "my-custom-promote-target";
 
@@ -36,7 +36,7 @@ function createProductElement(num) {
   target.classList.add(
     isUsingCustomProps
       ? customPromoteTargetClassName
-      : TopsortElements.promoteTargetClassName
+      : TopsortBlocks.promoteTargetClassName
   );
   target.dataset.tsProductId = `product-${num}`;
 
@@ -44,10 +44,10 @@ function createProductElement(num) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  if (window.TopsortElements) {
-    console.log("[TopsortElements] Module loaded");
+  if (window.TopsortBlocks) {
+    console.log("[TopsortBlocks] Module loaded");
   } else {
-    console.error("[TopsortElements] Module did not load correctly.");
+    console.error("[TopsortBlocks] Module did not load correctly.");
     return;
   }
 
@@ -58,16 +58,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     wrapper.appendChild(product);
   }
 
-  if (!isUsingTopsortElements) return;
+  if (!isUsingTopsortBlocks) return;
 
-  const tsElements = new TopsortElements();
-  await tsElements.init({
+  const tsBlocks = new TopsortBlocks();
+  await tsBlocks.init({
     apiKey: "abc123",
     externalVendorId: "vendor-id",
   });
 
   if (isUsingCustomProps) {
-    tsElements.initProductPromotion({
+    tsBlocks.initProductPromotion({
       promoteTargetClassName: customPromoteTargetClassName,
       style: {
         primaryColorRgb: "120, 170, 50",
@@ -82,6 +82,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
     });
   } else {
-    tsElements.initProductPromotion();
+    tsBlocks.initProductPromotion();
   }
 });

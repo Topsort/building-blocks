@@ -1,4 +1,4 @@
-const logPrefix = "[Topsort Elements]";
+const logPrefix = "[Topsort Blocks]";
 
 export const logger = {
   info: (...msg: any[]) => console.log(logPrefix, ...msg),
