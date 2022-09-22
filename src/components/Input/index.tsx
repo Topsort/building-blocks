@@ -42,9 +42,10 @@ export const RangeInputWithTooltip: FunctionalComponent<
     const thumbSize = remToPx(
       getComputedStyle(rangeRef.current).getPropertyValue("--thumb-size")
     );
+    const offsetWidth = rangeRef.current.offsetWidth;
 
     const calculatedLeftOffset =
-      ratio * (rangeRef.current.offsetWidth - thumbSize) + thumbSize / 2;
+      ratio * (offsetWidth - thumbSize) + thumbSize / 2 - offsetWidth / 2;
 
     if (
       typeof calculatedLeftOffset === "number" &&
@@ -81,8 +82,10 @@ export const RangeInputWithTooltip: FunctionalComponent<
     <Tooltip
       {...tooltipProps}
       style={{
-        left: leftOffset,
-        ...(leftOffset === null && { display: "none" }),
+        ...(leftOffset === null && { visibility: "hidden" }),
+      }}
+      offsetOptions={{
+        ...(leftOffset !== null && { crossAxis: leftOffset }),
       }}
     >
       <RangeInput ref={ref} {...props} />
