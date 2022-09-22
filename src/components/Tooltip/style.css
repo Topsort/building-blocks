@@ -15,9 +15,8 @@
   padding: 0.5rem 0.75rem;
   color: var(--tooltip-text-color);
   background: var(--tooltip-background-color);
-  font-size: 0.625rem;
-  font-weight: 700;
-  line-height: 1;
+  font-size: 0.875rem;
+  font-weight: 400;
   z-index: 100;
   height: fit-content;
   width: fit-content;
@@ -27,6 +26,8 @@
 
 .ts-tooltip--light {
   --tooltip-background-color: #757575;
+  font-size: 0.625rem;
+  font-weight: 700;
 }
 
 .ts-tooltip::before {
