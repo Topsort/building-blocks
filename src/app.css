@@ -25,36 +25,6 @@
   --ts-radius: 0.5rem;
 }
 
-.ts-campaign-creation {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.ts-campaign-creation__range {
-  display: flex;
-  flex-direction: column;
-  margin-top: 1.5rem;
-}
-
-.ts-campaign-creation__range span {
-  color: var(--ts-font-color-60);
-}
-
-.ts-campaign-creation__range .ts-tooltip-wrapper {
-  margin-top: 3.5rem;
-}
-
-.ts-campaign-creation__details-callout {
-  margin-top: 2rem;
-}
-
-.ts-campaign-creation__footer {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 2.75rem;
-}
-
 hr.ts-hr {
   border: 1px solid #eaeaea;
   margin: 0;
@@ -127,6 +97,7 @@ hr.ts-hr {
   width: 4.75rem;
   height: 4.75rem;
 }
+
 .ts-campaign-summary-name {
   margin-right: 1rem;
   font-size: 1.125rem;

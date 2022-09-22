@@ -9,8 +9,15 @@ export const ModalHeading: FunctionalComponent = ({ children }) => {
   return <h2 className="ts-modal-heading">{children}</h2>;
 };
 
-export const ModalContent: FunctionalComponent = ({ children }) => {
-  return <div className="ts-modal-content ts-scroll">{children}</div>;
+export const ModalContent: FunctionalComponent<{ height?: string }> = ({
+  children,
+  height = "30rem",
+}) => {
+  return (
+    <div className="ts-modal-content ts-scroll" style={{ height }}>
+      {children}
+    </div>
+  );
 };
 
 // TODO(christopherbot) add overlay behind modal, focus trap, and outside click to close
