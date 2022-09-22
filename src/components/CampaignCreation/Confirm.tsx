@@ -8,7 +8,7 @@ export const Confirm: FunctionalComponent = () => {
   const { dailyBudget, durationDays } = state;
 
   return (
-    <div className="ts-campaign-creation__content ts-justify-between ts-space-y-8">
+    <div className="ts-campaign-creation__content ts-space-y-8">
       <div className="ts-space-y-8">
         <div className="ts-callout ts-flex ts-items-center ts-space-x-4">
           <img
@@ -48,7 +48,14 @@ export const Confirm: FunctionalComponent = () => {
           >
             **** **** **** 1234
           </div>
-          <Button variant="inline">+ Add new payment method</Button>
+          <Button
+            variant="inline"
+            onClick={() =>
+              void dispatch({ type: "add new payment method button clicked" })
+            }
+          >
+            + Add new payment method
+          </Button>
         </div>
       </div>
       <div className="ts-campaign-creation__footer ts-space-x-2">

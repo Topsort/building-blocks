@@ -49,15 +49,13 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
-    // TODO(christophberbot) confirm if we need these?
-    // https://preactjs.com/guide/v10/typescript#typescript-preactcompat-configuration
-    // also would need similar "paths" in tsconfig.json
-    // alias: {
-    //   react: "preact/compat",
-    //   "react-dom/test-utils": "preact/test-utils",
-    //   "react-dom": "preact/compat",
-    // },
     alias: {
+      // `react` and `react-dom` aliases are necessary to use
+      // React libraries in Preact. See:
+      // https://github.com/preactjs/preact/issues/2150
+      react: "preact/compat",
+      "react-dom": "preact/compat",
+      // "react-dom/test-utils": "preact/test-utils",
       "@api": path.resolve(__dirname, "src/api/"),
       "@components": path.resolve(__dirname, "src/components/"),
       "@constants": path.resolve(__dirname, "src/constants"),

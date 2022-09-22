@@ -1,5 +1,6 @@
 import { ModalContent, ModalHeading } from "@components/Modal";
 import { assertNever } from "@utils/assert-never";
+import { getStripe } from "@utils/stripe";
 import { h, FunctionalComponent } from "preact";
 import { useEffect, useReducer } from "preact/hooks";
 
@@ -19,7 +20,7 @@ export const CampaignCreation: FunctionalComponent<{
   productId: string | null;
 }> = ({ productId }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { step } = state;
+  const { step, paymentMethods } = state;
 
   useEffect(() => {
     dispatch({
@@ -37,11 +38,22 @@ export const CampaignCreation: FunctionalComponent<{
 
   useEffect(() => {
     // TODO(christopherbot) fetch paymenth methods from Central Services here
+    // Change this to be able to see the flow to the Confirm step
+    // const fetchedPaymentMethods: any[] = [{}];
+    const fetchedPaymentMethods: any[] = [];
     dispatch({
       type: "payment methods received",
-      payload: { paymentMethods: [] },
+      payload: { paymentMethods: fetchedPaymentMethods },
     });
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!paymentMethods) {
+      // To reduce load time later, load Stripe early if we know
+      // the user will need to add a card
+      getStripe();
+    }
+  }, [paymentMethods]);
 
   useEffect(() => {
     // If the modal for a different product is opened,
