@@ -44,7 +44,8 @@ export const Modal: FunctionalComponent<{
     return () => {
       document.removeEventListener("keydown", onKeydown);
     };
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div

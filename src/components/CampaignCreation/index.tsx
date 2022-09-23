@@ -41,7 +41,7 @@ export const CampaignCreation: FunctionalComponent<{
       type: "payment methods received",
       payload: { paymentMethods: [] },
     });
-  });
+  }, [dispatch]);
 
   useEffect(() => {
     // If the modal for a different product is opened,
