@@ -27,8 +27,8 @@ export type State = {
 export const initialState: State = {
   step: "budget and duration",
   paymentMethods: [],
-  dailyBudget: 0,
-  durationDays: 0,
+  dailyBudget: recommendedBudgetUSD,
+  durationDays: initialDurationDays,
 };
 
 export type Action =
