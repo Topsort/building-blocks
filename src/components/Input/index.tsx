@@ -81,9 +81,7 @@ export const RangeInputWithTooltip: FunctionalComponent<
   return (
     <Tooltip
       {...tooltipProps}
-      style={{
-        ...(leftOffset === null && { visibility: "hidden" }),
-      }}
+      hidden={tooltipProps.hidden || leftOffset === null}
       offsetOptions={{
         ...(leftOffset !== null && { crossAxis: leftOffset }),
       }}

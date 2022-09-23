@@ -54,6 +54,7 @@ export const BudgetAndDuration: FunctionalComponent = () => {
               // TODO(christopherbot) use marketplace's currency:
               content: `${dailyBudget} USD`,
               alwaysShow: true,
+              hidden: dailyBudget === 0,
               light: true,
             }}
           />
@@ -80,6 +81,7 @@ export const BudgetAndDuration: FunctionalComponent = () => {
                   ? `${durationDays} Days`
                   : "Active before being ended.",
               alwaysShow: true,
+              hidden: durationDays === 0,
               light: true,
             }}
           />

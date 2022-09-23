@@ -11,6 +11,8 @@ export type TooltipProps = {
   className?: string;
   content: VNode | string;
   alwaysShow?: boolean;
+  // hidden has precedence over alwaysShow.
+  hidden?: boolean;
   light?: boolean;
   style?: h.JSX.CSSProperties;
   offsetOptions?: OffsetOptions;
@@ -22,6 +24,7 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
   children,
   content,
   alwaysShow,
+  hidden,
   light,
   style,
   offsetOptions,
@@ -120,7 +123,10 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
               "ts-tooltip--top": placement === "top",
               "ts-tooltip--bottom": placement === "bottom",
             })}
-            style={style}
+            style={{
+              ...style,
+              ...(hidden && { visibility: "hidden" }),
+            }}
           >
             {content}
           </div>
