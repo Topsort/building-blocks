@@ -11,6 +11,8 @@ export type TooltipProps = {
   className?: string;
   content: VNode | string;
   alwaysShow?: boolean;
+  // hidden has precedence over alwaysShow.
+  hidden?: boolean;
   light?: boolean;
   style?: h.JSX.CSSProperties;
   offsetOptions?: OffsetOptions;
@@ -22,6 +24,7 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
   children,
   content,
   alwaysShow,
+  hidden,
   light,
   style,
   offsetOptions,
@@ -61,7 +64,21 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
                 transform: `translate3d(${Math.round(x)}px,${Math.round(
                   y
                 )}px,0)`,
-                visibility: "visible",
+              });
+              /*
+                "translate3d" may not take effect immediately. 
+                In this case, the tooltip is first shown and then shifted suddenly.
+                This happens in 15-20ms.
+                Nested requestAnimationFrame callbacks seems to solve this issue.
+              /*/
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  if (tooltipRef.current) {
+                    Object.assign(tooltipRef.current.style, {
+                      visibility: "visible",
+                    });
+                  }
+                });
               });
             }
           });
@@ -106,7 +123,10 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
               "ts-tooltip--top": placement === "top",
               "ts-tooltip--bottom": placement === "bottom",
             })}
-            style={style}
+            style={{
+              ...style,
+              ...(hidden && { visibility: "hidden" }),
+            }}
           >
             {content}
           </div>
