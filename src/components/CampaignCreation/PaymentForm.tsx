@@ -8,10 +8,15 @@ import {
   CardExpiryElement,
   CardCvcElement,
 } from "@stripe/react-stripe-js";
-import { StripeCardNumberElement } from "@stripe/stripe-js";
+import {
+  StripeCardCvcElementChangeEvent,
+  StripeCardExpiryElementChangeEvent,
+  StripeCardNumberElement,
+  StripeCardNumberElementChangeEvent,
+} from "@stripe/stripe-js";
 import { getStripe } from "@utils/stripe";
 import cx from "classnames";
-import { h, JSX } from "preact";
+import { Fragment, h, JSX } from "preact";
 import { useState } from "preact/hooks";
 
 import { useCampaignCreation } from "./context";
@@ -31,25 +36,44 @@ const stripeElementStyle = {
   },
 };
 
-type LoadingElement = "number" | "expiry" | "cvc";
+type CardElement = "number" | "expiry" | "cvc";
+
 type ErrorCode =
   | "invalid number"
   | "invalid expiry"
   | "invalid cvc"
-  | "unknown";
+  | "create payment method";
+
+const initialErrorCodesByType = {
+  number: null,
+  expiry: null,
+  cvc: null,
+  api: null,
+};
+
+const errorText = {
+  invalidNumber: "Invalid card number.",
+  invalidExpiry: "Invalid expiration date.",
+  invalidCvc: "Invalid CVC.",
+  tryWithANewOne: "Please try with a new one.",
+  tryAgain: "Please try again.",
+  createPaymentMethod: "Failed to save payment method.",
+};
 
 const StripePaymentForm = () => {
   const { dispatch } = useCampaignCreation();
   const stripe = useStripe();
   const elements = useElements();
   const [loadingElements, setLoadingElements] = useState<
-    Record<LoadingElement, boolean>
+    Record<CardElement, boolean>
   >({
     number: true,
     expiry: true,
     cvc: true,
   });
-  const [errorCode, setErrorCode] = useState<ErrorCode | null>(null);
+  const [errorCodesByType, setErrorCodesByType] = useState<
+    Record<CardElement | "api", ErrorCode | null>
+  >(initialErrorCodesByType);
   const [isSavingCard, setIsSavingCard] = useState(false);
 
   const isStripeLoading =
@@ -62,7 +86,7 @@ const StripePaymentForm = () => {
     if (isStripeLoading) return;
 
     setIsSavingCard(true);
-    setErrorCode(null);
+    setErrorCodesByType((prev) => ({ ...prev, api: null }));
 
     const cardNumberElement = elements.getElement("cardNumber");
     const cardExpiryElement = elements.getElement("cardExpiry");
@@ -84,7 +108,7 @@ const StripePaymentForm = () => {
         error.code === "incomplete_number" ||
         error.code === "invalid_number"
       ) {
-        setErrorCode("invalid number");
+        setErrorCodesByType((prev) => ({ ...prev, number: "invalid number" }));
         cardNumberElement.focus();
       } else if (
         error.code === "incomplete_expiry" ||
@@ -92,36 +116,39 @@ const StripePaymentForm = () => {
         error.code === "invalid_expiry_year" ||
         error.code === "invalid_expiry_year_past"
       ) {
-        setErrorCode("invalid expiry");
+        setErrorCodesByType((prev) => ({ ...prev, expiry: "invalid expiry" }));
         cardExpiryElement.focus();
       } else if (error.code === "incomplete_cvc") {
-        setErrorCode("invalid cvc");
+        setErrorCodesByType((prev) => ({ ...prev, cvc: "invalid cvc" }));
         cardCvcElement.focus();
       } else {
-        setErrorCode("unknown");
+        setErrorCodesByType((prev) => ({
+          ...prev,
+          api: "create payment method",
+        }));
       }
 
       setIsSavingCard(false);
       return;
     }
 
+    setErrorCodesByType(initialErrorCodesByType);
+
     // TODO(christopherbot) call Central Services here to save card in our db
     setIsSavingCard(false);
     dispatch({ type: "payment method saved" });
   };
 
-  const getErrorMessage = () => {
-    switch (errorCode) {
-      case "invalid number":
-        return "Invalid card number. Please try with a new one.";
-      case "invalid expiry":
-        return "Invalid expiration date. Please try with a new one.";
-      case "invalid cvc":
-        return "Invalid CVC. Please try with a new one.";
-      case "unknown":
-        return "Something went wrong, please try again.";
-    }
+  const messagesByErrorCode: Record<ErrorCode, string> = {
+    "invalid number": errorText.invalidNumber,
+    "invalid expiry": errorText.invalidExpiry,
+    "invalid cvc": errorText.invalidCvc,
+    "create payment method": errorText.createPaymentMethod,
   };
+
+  const errorCodes = Object.values(errorCodesByType).filter(
+    (code): code is Exclude<typeof code, null> => code !== null
+  );
 
   return (
     <form
@@ -133,13 +160,20 @@ const StripePaymentForm = () => {
           Card number
           <div
             className={cx("ts-stripe-element", {
-              "ts-stripe-element--error": errorCode === "invalid number",
+              "ts-stripe-element--error": !!errorCodesByType.number,
             })}
           >
             <CardNumberElement
               onReady={(element: StripeCardNumberElement) => {
                 setLoadingElements((prev) => ({ ...prev, number: false }));
                 element.focus();
+              }}
+              onChange={(event: StripeCardNumberElementChangeEvent) => {
+                setErrorCodesByType((prev) => ({
+                  ...prev,
+                  number: event.error ? "invalid number" : null,
+                  api: null,
+                }));
               }}
               options={{ style: stripeElementStyle }}
             />
@@ -150,13 +184,20 @@ const StripePaymentForm = () => {
             Expiration date
             <div
               className={cx("ts-stripe-element", {
-                "ts-stripe-element--error": errorCode === "invalid expiry",
+                "ts-stripe-element--error": !!errorCodesByType.expiry,
               })}
             >
               <CardExpiryElement
                 onReady={() =>
                   setLoadingElements((prev) => ({ ...prev, expiry: false }))
                 }
+                onChange={(event: StripeCardExpiryElementChangeEvent) => {
+                  setErrorCodesByType((prev) => ({
+                    ...prev,
+                    expiry: event.error ? "invalid expiry" : null,
+                    api: null,
+                  }));
+                }}
                 options={{ style: stripeElementStyle }}
               />
             </div>
@@ -165,24 +206,52 @@ const StripePaymentForm = () => {
             CVC
             <div
               className={cx("ts-stripe-element", {
-                "ts-stripe-element--error": errorCode === "invalid cvc",
+                "ts-stripe-element--error": !!errorCodesByType.cvc,
               })}
             >
               <CardCvcElement
                 onReady={() =>
                   setLoadingElements((prev) => ({ ...prev, cvc: false }))
                 }
+                onChange={(event: StripeCardCvcElementChangeEvent) => {
+                  setErrorCodesByType((prev) => ({
+                    ...prev,
+                    cvc: event.error ? "invalid cvc" : null,
+                    api: null,
+                  }));
+                }}
                 options={{ style: stripeElementStyle }}
               />
             </div>
           </label>
         </div>
-        {errorCode && (
+        {errorCodes.length > 0 && (
           <div className="ts-payment-form-error ts-space-x-4">
             <div className="ts-payment-form-error__icon">
               <Icon name="info-circle-bold" />
             </div>
-            <span>{getErrorMessage()}</span>
+            <div className="ts-payment-form-error__list">
+              <ul>
+                {errorCodesByType.api ? (
+                  <li>
+                    {messagesByErrorCode[errorCodesByType.api]}{" "}
+                    {errorText.tryAgain}
+                  </li>
+                ) : (
+                  errorCodes.map((errorCode) => (
+                    <li key={errorCode}>
+                      {messagesByErrorCode[errorCode]}
+                      {errorCodes.length === 1 && (
+                        <Fragment> {errorText.tryWithANewOne}</Fragment>
+                      )}
+                    </li>
+                  ))
+                )}
+              </ul>
+              {errorCodes.length > 1 && !errorCodesByType.api && (
+                <span>{errorText.tryAgain}</span>
+              )}
+            </div>
           </div>
         )}
       </div>

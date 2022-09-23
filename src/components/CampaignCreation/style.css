@@ -57,7 +57,13 @@
   border-radius: var(--ts-radius);
 }
 
-.ts-payment-form-error span {
+.ts-payment-form-error__list {
+  line-height: 1.5;
   font-size: 0.875rem;
   font-weight: 700;
+}
+
+.ts-payment-form-error__list ul {
+  margin: 0;
+  padding-left: 1rem;
 }

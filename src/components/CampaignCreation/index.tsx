@@ -97,7 +97,7 @@ export const CampaignCreation: FunctionalComponent<{
       }}
     >
       <ModalHeading>{title}</ModalHeading>
-      <ModalContent height={step === "add payment" ? "22rem" : undefined}>
+      <ModalContent height={step === "add payment" ? "27rem" : undefined}>
         {content}
       </ModalContent>
     </CampaignCreationContext.Provider>
