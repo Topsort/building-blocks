@@ -61,21 +61,7 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
                 transform: `translate3d(${Math.round(x)}px,${Math.round(
                   y
                 )}px,0)`,
-              });
-              /*
-                "translate3d" may not take effect immediately. 
-                In this case, the tooltip is first shown and then shifted suddenly.
-                This happens in 15-20ms.
-                Nested requestAnimationFrame callbacks seems to solve this issue.
-              /*/
-              requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                  if (tooltipRef.current) {
-                    Object.assign(tooltipRef.current.style, {
-                      visibility: "visible",
-                    });
-                  }
-                });
+                visibility: "visible",
               });
             }
           });
