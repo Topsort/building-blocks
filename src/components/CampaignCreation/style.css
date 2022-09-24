@@ -67,3 +67,11 @@
   margin: 0;
   padding-left: 1rem;
 }
+
+.ts-payment-form-error__list ul:has(li:only-child) {
+  padding-left: 0;
+}
+
+.ts-payment-form-error__list li:only-child {
+  list-style-type: none;
+}
