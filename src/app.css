@@ -53,13 +53,13 @@ hr.ts-hr {
   align-items: center;
 }
 
-.ts-campaign-total > .ts-section-heading {
+.ts-campaign-total>.ts-section-heading {
   font-size: 0.75rem;
   line-height: 150%;
   color: var(--ts-font-color-60);
 }
 
-.ts-campaign-total > .ts-section-value {
+.ts-campaign-total>.ts-section-value {
   margin-top: 0.25rem;
   color: var(--ts-primary-color);
 }
@@ -74,7 +74,7 @@ hr.ts-hr {
   flex-direction: column;
 }
 
-.ts-campaign-data-box > .ts-section-heading {
+.ts-campaign-data-box>.ts-section-heading {
   margin-bottom: 0.5rem;
   font-size: 1.125rem;
   display: flex;
@@ -111,15 +111,8 @@ hr.ts-hr {
 .ts-min-roas {
   margin-top: 0.25rem;
   font-size: 0.875rem;
-  font-style: italic;
   color: var(--ts-font-color-60);
   font-weight: 450;
-}
-
-.ts-min-roas > * {
-  font-style: normal;
-  font-weight: 500;
-  color: var(--ts-font-color);
 }
 
 .ts-campaign-status-buttons {
@@ -130,9 +123,11 @@ hr.ts-hr {
 }
 
 .ts-budget-duration {
-  margin-top: 0.875rem;
   display: flex;
   flex-direction: column;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--ts-font-color-60);
 }
 
 .ts-svg {

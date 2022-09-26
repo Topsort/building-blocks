@@ -23,9 +23,14 @@
 }
 
 .ts-modal-heading {
+  display: flex;
   font-weight: 500;
   margin: 0;
   padding: 1.875rem;
+}
+.ts-modal-heading .ts-icon {
+  color: var(--ts-success-color);
+  margin-right: 0.875rem;
 }
 
 .ts-modal-content {

@@ -8,6 +8,7 @@ type A11yProps = {
 
 export type SvgProps = JSX.IntrinsicElements["svg"] & {
   description?: string;
+  size?: number;
 };
 
 let numId = 0;
@@ -17,6 +18,7 @@ export const Svg: FunctionalComponent<SvgProps> = ({
   description,
   children,
   fill = "none",
+  size = 24,
   ...props
 }) => {
   const id = useMemo(() => numId++, []);
@@ -34,8 +36,8 @@ export const Svg: FunctionalComponent<SvgProps> = ({
   return (
     <div className="ts-svg">
       <svg
-        width="24"
-        height="24"
+        width={size}
+        height={size}
         viewBox="0 0 24 24"
         fill={fill}
         role="img"

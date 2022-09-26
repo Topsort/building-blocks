@@ -5,6 +5,7 @@ import { Svg, SvgProps } from "./Svg";
 import { InfoCircle } from "./icons/InfoCircle";
 import { MessageQuestion } from "./icons/MessageQuestion";
 import { Plus } from "./icons/Plus";
+import { TickCircle } from "./icons/TickCircle";
 
 // NOTE(christopherbot) All keys are wrapped in quotes for easier programmatic sorting
 // prettier-ignore
@@ -13,6 +14,7 @@ const icons = {
   "info-circle": InfoCircle,
   "message-question": MessageQuestion,
   "plus": Plus,
+  "tick-circle": TickCircle
 };
 
 type IconName = keyof typeof icons;

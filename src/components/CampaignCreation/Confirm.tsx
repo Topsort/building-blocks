@@ -1,4 +1,5 @@
 import { Button } from "@components/Button";
+import { Summary } from "@components/CampaignCreation/Summary";
 import { h, FunctionalComponent } from "preact";
 
 import { useCampaignCreation } from "./context";
@@ -10,24 +11,12 @@ export const Confirm: FunctionalComponent = () => {
   return (
     <div className="ts-campaign-creation__content ts-justify-between ts-space-y-8">
       <div className="ts-space-y-8">
-        <div className="ts-callout ts-flex ts-items-center ts-space-x-4">
-          <img
-            className="ts-product-image ts-product-image--md"
-            src="https://picsum.photos/76"
-          />
-          <span className="ts-font-medium">Too faced hangover primer</span>
-        </div>
-        <div className="ts-space-y-2">
-          <span className="ts-block ts-text-md ts-font-medium">
-            Budget and duration
-          </span>
-          <span className="ts-block ts-text-sm ts-font-medium">
-            ${dailyBudget} over {durationDays} days.
-          </span>
-          <span className="ts-block ts-min-roas">
-            Your minimum return on ad spend is <span>4x</span>.
-          </span>
-        </div>
+        <Summary
+          dailyBudget={dailyBudget}
+          durationDays={durationDays}
+          imgSrc="https://picsum.photos/76"
+          showTargetingText
+        />
         <div className="ts-space-y-2">
           <span className="ts-block ts-text-md ts-font-medium">
             Payment method
@@ -60,7 +49,10 @@ export const Confirm: FunctionalComponent = () => {
         </Button>
         <Button
           variant="contained"
-          onClick={() => console.log("TODO: Launch campaign")}
+          onClick={() => {
+            console.log("aca");
+            dispatch({ type: "launch campaign" });
+          }} // ToDo: save campaign
         >
           Launch
         </Button>

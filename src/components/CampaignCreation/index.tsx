@@ -1,10 +1,12 @@
+import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
 import { assertNever } from "@utils/assert-never";
-import { h, FunctionalComponent } from "preact";
+import { h, FunctionalComponent, Fragment } from "preact";
 import { useEffect, useReducer } from "preact/hooks";
 
 import { BudgetAndDuration } from "./BudgetAndDuration";
 import { Confirm } from "./Confirm";
+import { Launched } from "./Launched";
 import { PaymentForm } from "./PaymentForm";
 import { CampaignCreationContext } from "./context";
 import {
@@ -69,6 +71,17 @@ export const CampaignCreation: FunctionalComponent<{
         return {
           title: "Confirm details",
           content: <Confirm />,
+        };
+      }
+      case "launch": {
+        return {
+          title: (
+            <Fragment>
+              <Icon className="ts-icon" size={31} name="tick-circle" />
+              <div>Your campaign was launched!</div>
+            </Fragment>
+          ),
+          content: <Launched />,
         };
       }
       default: {
