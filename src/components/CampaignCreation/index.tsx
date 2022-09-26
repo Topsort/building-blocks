@@ -1,6 +1,7 @@
 import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
 import { assertNever } from "@utils/assert-never";
+import { getStripe } from "@utils/stripe";
 import { h, FunctionalComponent, Fragment } from "preact";
 import { useEffect, useReducer } from "preact/hooks";
 
@@ -39,9 +40,19 @@ export const CampaignCreation: FunctionalComponent<{
 
   useEffect(() => {
     // TODO(christopherbot) fetch paymenth methods from Central Services here
+    // Change this to be able to see the flow to the Confirm step
+    // const fetchedPaymentMethods: any[] = [{}];
+    const fetchedPaymentMethods: any[] = [];
+
+    if (fetchedPaymentMethods.length === 0) {
+      // To reduce load time later, load Stripe early if we know
+      // the user will need to add a card
+      getStripe();
+    }
+
     dispatch({
       type: "payment methods received",
-      payload: { paymentMethods: [] },
+      payload: { paymentMethods: fetchedPaymentMethods },
     });
   }, [dispatch]);
 
@@ -98,7 +109,7 @@ export const CampaignCreation: FunctionalComponent<{
       }}
     >
       <ModalHeading>{title}</ModalHeading>
-      <ModalContent height={step === "add payment" ? "22rem" : undefined}>
+      <ModalContent height={step === "add payment" ? "27rem" : undefined}>
         {content}
       </ModalContent>
     </CampaignCreationContext.Provider>

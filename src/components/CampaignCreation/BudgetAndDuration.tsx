@@ -20,7 +20,7 @@ export const BudgetAndDuration: FunctionalComponent = () => {
   const { dailyBudget, durationDays } = state;
 
   return (
-    <div className="ts-campaign-creation__content ts-justify-between ts-space-y-8">
+    <div className="ts-campaign-creation__content ts-space-y-8">
       <div>
         <div className="ts-flex ts-space-x-2">
           <span className="ts-text-md ts-font-medium">Budget and duration</span>

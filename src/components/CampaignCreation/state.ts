@@ -37,6 +37,7 @@ export type Action =
         | "budget and duration next button clicked"
         | "payment form back button clicked"
         | "payment method saved"
+        | "add new payment method button clicked"
         | "confirm back button clicked"
         | "campaign creation reset"
         | "launch campaign";
@@ -99,6 +100,12 @@ export const reducer = (
       return {
         ...state,
         step: "confirm",
+      };
+    }
+    case "add new payment method button clicked": {
+      return {
+        ...state,
+        step: "add payment",
       };
     }
     case "confirm back button clicked": {
