@@ -14,6 +14,11 @@
     "moduleResolution": "node",
     "noEmit": true,
     "paths": {
+      // `react` and `react-dom` aliases are necessary to use
+      // React libraries in Preact. See:
+      // https://github.com/preactjs/preact/issues/2150
+      "react": ["preact/compat"],
+      "react-dom": ["preact/compat"],
       "@api/*": ["src/api/*"],
       "@components/*": ["src/components/*"],
       "@constants": ["src/constants"],

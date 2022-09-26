@@ -26,12 +26,12 @@
   margin-top: 2rem;
 }
 
-.ts-flex {
-  display: flex;
+.ts-w-full {
+  width: 100%;
 }
 
-.ts-justify-between {
-  justify-content: space-between;
+.ts-flex {
+  display: flex;
 }
 
 .ts-items-center {

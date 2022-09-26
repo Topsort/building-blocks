@@ -3,6 +3,7 @@ import { useMemo } from "preact/hooks";
 
 import { Svg, SvgProps } from "./Svg";
 import { InfoCircle } from "./icons/InfoCircle";
+import { InfoCircleBold } from "./icons/InfoCircleBold";
 import { MessageQuestion } from "./icons/MessageQuestion";
 import { Plus } from "./icons/Plus";
 
@@ -10,6 +11,7 @@ import { Plus } from "./icons/Plus";
 // prettier-ignore
 /* eslint-disable quote-props */
 const icons = {
+  "info-circle-bold": InfoCircleBold,
   "info-circle": InfoCircle,
   "message-question": MessageQuestion,
   "plus": Plus,
