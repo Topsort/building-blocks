@@ -20,7 +20,7 @@ export const CampaignCreation: FunctionalComponent<{
   productId: string | null;
 }> = ({ productId }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { step, paymentMethods } = state;
+  const { step } = state;
 
   useEffect(() => {
     dispatch({
@@ -41,19 +41,18 @@ export const CampaignCreation: FunctionalComponent<{
     // Change this to be able to see the flow to the Confirm step
     // const fetchedPaymentMethods: any[] = [{}];
     const fetchedPaymentMethods: any[] = [];
+
+    if (fetchedPaymentMethods.length === 0) {
+      // To reduce load time later, load Stripe early if we know
+      // the user will need to add a card
+      getStripe();
+    }
+
     dispatch({
       type: "payment methods received",
       payload: { paymentMethods: fetchedPaymentMethods },
     });
   }, [dispatch]);
-
-  useEffect(() => {
-    if (!paymentMethods) {
-      // To reduce load time later, load Stripe early if we know
-      // the user will need to add a card
-      getStripe();
-    }
-  }, [paymentMethods]);
 
   useEffect(() => {
     // If the modal for a different product is opened,
