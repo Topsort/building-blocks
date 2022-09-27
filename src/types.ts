@@ -1,3 +1,5 @@
+import { ComponentChildren } from "preact";
+
 export type DocumentStyleProperty = "--ts-primary-rgb" | "--ts-font-rgb";
 
 export type Rgb = string | [number, number, number];
@@ -28,3 +30,5 @@ export type Campaign = {
   purchases: number;
   status: boolean;
 };
+
+export type PropsWithChildren<T> = T & { children?: ComponentChildren };
