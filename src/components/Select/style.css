@@ -4,13 +4,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 3.625;
+  height: 3.625rem;
   padding: 1.25rem;
-  border: 1px solid black;
+  border: 1px solid #c4c4c4;
   border-radius: 0.75rem;
   color: inherit;
   background-color: inherit;
   font-size: inherit;
+  cursor: pointer;
 }
 
 .ts-select-menu {
@@ -30,6 +31,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+  color: var(--ts-font-color);
 }
 
 .ts-select-option svg {
