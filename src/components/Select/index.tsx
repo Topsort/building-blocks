@@ -37,17 +37,18 @@ export const Select = <T extends boolean | number | string | Date | object>({
 }: PropsWithChildren<SelectProps<T>>) => {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(() => {
     /*
       TODO(samet): Write a function to check equality of objects.
       JSON.stringify is limited, and it doesn't work correctly if the orders
       of the properties are different.
     */
-    Math.max(
-      0,
-      options.findIndex((val) => JSON.stringify(value) === JSON.stringify(val))
-    )
-  );
+    const valueIndex = options.findIndex(
+      (val) => JSON.stringify(value) === JSON.stringify(val)
+    );
+
+    return valueIndex === -1 ? null : valueIndex;
+  });
   const listRef = useRef<Array<HTMLElement | null>>([]);
   const { x, y, reference, floating, context } = useFloating({
     open,
