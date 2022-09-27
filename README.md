@@ -4,10 +4,11 @@
 
 ## Table of Contents
 
-1. [Installation](#installation)
 1. [Integration](#integration)
-   1. [Product Promotion](#product-promotion)
+   1. [Product Promotion Modal](#product-promotion-modal)
 1. [Development](#development)
+   1. [Running the demo](#running-the-demo)
+   1. [Adding new environment variables](#adding-new-environment-variables)
    1. [TODOs](#todos)
 
 ## Integration
@@ -23,7 +24,7 @@
    });
    ```
 
-### Product Promotion
+### Product Promotion Modal
 
 1. Initialize product promotion:
 
@@ -90,17 +91,76 @@
 
 ## Development
 
-1. Install dependencies:
+### Running the demo
 
-   ```zsh
+1. Install the dependencies:
+
+   ```bash
    npm install
    ```
 
-1. Start development server to run the demo on http://localhost:8080/:
+1. Create and set up your `.env` file:
 
-   ```zsh
+   ```bash
+   cp .env.example .env
+   ```
+
+1. Start the development server which runs the demo at [localhost:8080](http://localhost:8080):
+
+   ```bash
    npm run start
    ```
+
+### Adding new environment variables
+
+Environment variables should not contain secrets (e.g. private API keys) since they will be injected into the published build. They are meant to change the behaviour between different environments such as calling a local, staging, or production Central Services API base URL.
+
+To add a new env var:
+
+1. Add its name to `.env.example` with an empty or default value:
+
+   ```bash
+   MY_NEW_PUBLIC_VAR=
+   ```
+
+1. Add its name and value to your `.env`:
+
+   ```bash
+   MY_NEW_PUBLIC_VAR="the actual value"
+   ```
+
+1. To have it injected into the app, add it to `webpack.common.js` in the `DefinePlugin`:
+
+   > Remember to wrap the value in `JSON.stringify()` because the `DefinePlugin` does a find-and-replace and the value given to it must include actual quotes inside of the string itself.
+   >
+   > For reference, see the Tip on the [Webpack DefinePlugin docs](https://webpack.js.org/plugins/define-plugin/).
+
+   ```js
+   new webpack.DefinePlugin({
+    // ...the rest
+    MY_NEW_PUBLIC_VAR: JSON.stringify(process.env.MY_NEW_PUBLIC_VAR),
+   }),
+   ```
+
+1. To inform TypeScript of this new global variable, add it to `src/types.ts` under the global declaration with its type:
+
+   ```ts
+   declare global {
+     // ...the rest
+     const MY_NEW_PUBLIC_VAR: string;
+   }
+   ```
+
+1. To inform eslint of this new global variable, add it to `.eslintrc.js` under `globals` with a `readonly` value (assuming it's meant to be readonly):
+
+   ```js
+   globals: {
+    // ...the rest
+    MY_NEW_PUBLIC_VAR: "readonly",
+   },
+   ```
+
+1. Ensure you restart your dev server so webpack can pick up the latest changes.
 
 ### TODOs
 
@@ -119,4 +179,3 @@
 - use typescript for demo/loader.js
 - consider not storing apiToken on TopsortBlocks instance
 - figure out how to use Fragment shorthand (<></>)
-- fix tooltip height with long text
