@@ -23,14 +23,19 @@
 }
 
 .ts-modal-heading {
-  display: flex;
-  font-weight: 500;
-  margin: 0;
   padding: 1.875rem;
 }
-.ts-modal-heading .ts-icon {
+
+.ts-modal-heading h2 {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  margin: 0;
+  height: 2rem;
+}
+
+.ts-modal-heading .ts-svg {
   color: var(--ts-success-color);
-  margin-right: 0.875rem;
 }
 
 .ts-modal-content {

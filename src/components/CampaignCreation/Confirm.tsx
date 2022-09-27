@@ -5,18 +5,12 @@ import { h, FunctionalComponent } from "preact";
 import { useCampaignCreation } from "./context";
 
 export const Confirm: FunctionalComponent = () => {
-  const { state, dispatch } = useCampaignCreation();
-  const { dailyBudget, durationDays } = state;
+  const { dispatch } = useCampaignCreation();
 
   return (
     <div className="ts-campaign-creation__content ts-space-y-8">
       <div className="ts-space-y-8">
-        <Summary
-          dailyBudget={dailyBudget}
-          durationDays={durationDays}
-          imgSrc="https://picsum.photos/76"
-          showTargetingText
-        />
+        <Summary imgSrc="https://picsum.photos/76" showTargetingText />
         <div className="ts-space-y-2">
           <span className="ts-block ts-text-md ts-font-medium">
             Payment method
@@ -58,7 +52,7 @@ export const Confirm: FunctionalComponent = () => {
           variant="contained"
           onClick={() => {
             console.log("aca");
-            dispatch({ type: "launch campaign" });
+            dispatch({ type: "campaign launched" });
           }} // ToDo: save campaign
         >
           Launch

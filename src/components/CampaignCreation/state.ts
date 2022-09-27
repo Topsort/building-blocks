@@ -12,7 +12,11 @@ export const maxDurationDays = 13;
 export const minEstimatedClick = 1000;
 export const maxEstimatedClick = 1500;
 
-export type Step = "budget and duration" | "add payment" | "confirm" | "launch";
+export type Step =
+  | "budget and duration"
+  | "add payment"
+  | "confirm"
+  | "launched";
 
 // FIXME(christopherbot) update when we can retrieve payments methods from the api
 type PaymentMethod = any;
@@ -40,7 +44,7 @@ export type Action =
         | "add new payment method button clicked"
         | "confirm back button clicked"
         | "campaign creation reset"
-        | "launch campaign";
+        | "campaign launched";
     }
   | {
       type: "payment methods received";
@@ -122,8 +126,8 @@ export const reducer = (
         durationDays: initialDurationDays,
       };
     }
-    case "launch campaign": {
-      return { ...state, step: "launch" };
+    case "campaign launched": {
+      return { ...state, step: "launched" };
     }
   }
 };

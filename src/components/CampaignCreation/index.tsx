@@ -84,12 +84,12 @@ export const CampaignCreation: FunctionalComponent<{
           content: <Confirm />,
         };
       }
-      case "launch": {
+      case "launched": {
         return {
           title: (
             <Fragment>
-              <Icon className="ts-icon" size={31} name="tick-circle" />
-              <div>Your campaign was launched!</div>
+              <Icon size={32} name="tick-circle" />
+              <span>Your campaign was launched!</span>
             </Fragment>
           ),
           content: <Launched />,

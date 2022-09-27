@@ -1,11 +1,13 @@
 import { h, FunctionalComponent, Fragment } from "preact";
 
+import { useCampaignCreation } from "./context";
+
 export const Summary: FunctionalComponent<{
-  dailyBudget: number;
-  durationDays: number;
   imgSrc: string;
   showTargetingText?: boolean;
-}> = ({ dailyBudget, durationDays, imgSrc, showTargetingText = false }) => {
+}> = ({ imgSrc, showTargetingText = false }) => {
+  const { state } = useCampaignCreation();
+  const { dailyBudget, durationDays } = state;
   return (
     <Fragment>
       <div className="ts-callout ts-flex ts-items-center ts-space-x-4">
@@ -20,7 +22,7 @@ export const Summary: FunctionalComponent<{
           <span>
             ${dailyBudget} over {durationDays} days
           </span>
-          {showTargetingText && <span>with automatic targeting.</span>}
+          {showTargetingText && <span>with automatic targeting</span>}.
         </div>
       </div>
     </Fragment>

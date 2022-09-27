@@ -16,7 +16,7 @@ const icons = {
   "info-circle": InfoCircle,
   "message-question": MessageQuestion,
   "plus": Plus,
-  "tick-circle": TickCircle
+  "tick-circle": TickCircle,
 };
 
 type IconName = keyof typeof icons;
