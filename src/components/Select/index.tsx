@@ -13,7 +13,7 @@ import {
 import { PropsWithChildren } from "@types";
 import cx from "classnames";
 import { h, FunctionalComponent, VNode, Fragment } from "preact";
-import { MutableRef, useRef, useState } from "preact/hooks";
+import { MutableRef, useEffect, useRef, useState } from "preact/hooks";
 
 import "./style.css";
 
@@ -76,6 +76,14 @@ export const Select = <T extends boolean | number | string | Date | object>({
     onChange?.(options[index]);
   };
 
+  useEffect(() => {
+    if (activeIndex !== null) {
+      setTimeout(() => {
+        listRef.current[activeIndex]?.focus();
+      }, 0);
+    }
+  }, [activeIndex]);
+
   return (
     <Fragment>
       <button
@@ -97,17 +105,23 @@ export const Select = <T extends boolean | number | string | Date | object>({
       <Portal target={document.body}>
         {open && (
           <div
-            ref={floating}
-            className="ts-select-menu"
-            style={{
-              transform: `translate3d(${Math.round(x ?? 0)}px,${Math.round(
-                y ?? 0
-              )}px,0)`,
-              width:
-                context.refs.reference.current?.clientWidth ?? "fit-content",
-              visibility: x === null || y === null ? "hidden" : "visible",
-            }}
-            {...getFloatingProps()}
+            {...getFloatingProps({
+              ref: floating,
+              className: "ts-select-menu",
+              style: {
+                transform: `translate3d(${Math.round(x ?? 0)}px,${Math.round(
+                  y ?? 0
+                )}px,0)`,
+                width:
+                  context.refs.reference.current?.clientWidth ?? "fit-content",
+                visibility: x === null || y === null ? "hidden" : "visible",
+              },
+              onKeyDown: (event: KeyboardEvent) => {
+                if (event.key === "Tab") {
+                  setOpen(false);
+                }
+              },
+            })}
           >
             {options.map((option, index) => {
               const active = activeIndex === index;
@@ -176,15 +190,15 @@ const Option: FunctionalComponent<{
 
   return (
     <div
-      className={cx("ts-select-option", {
-        "ts-select-option--active": active,
-        "ts-select-option--selected": selected,
-      })}
-      role="option"
-      aria-selected={selected}
-      tabIndex={active ? 1 : 0}
-      ref={(node) => (listRef.current[index] = node)}
       {...getItemProps({
+        className: cx("ts-select-option", {
+          "ts-select-option--active": active,
+          "ts-select-option--selected": selected,
+        }),
+        role: "option",
+        "aria-selected": selected,
+        tabIndex: active ? 1 : 0,
+        ref: (node: HTMLDivElement | null) => (listRef.current[index] = node),
         onClick: handleClick,
         onKeyDown: handleKeyDown,
         onKeyUp: handleKeyUp,
