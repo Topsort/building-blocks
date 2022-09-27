@@ -1,4 +1,5 @@
 import { Button } from "@components/Button";
+import { Select } from "@components/Select";
 import { h, FunctionalComponent } from "preact";
 
 import { useCampaignCreation } from "./context";
@@ -36,18 +37,10 @@ export const Confirm: FunctionalComponent = () => {
            * TODO(christopherbot) placeholder until we build a picker
            * and/or finalize how payments will work.
            */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              border: "1px solid #cecece",
-              height: "3rem",
-              padding: "0 1rem",
-              borderRadius: "0.75rem",
-            }}
-          >
-            **** **** **** 1234
-          </div>
+          <Select
+            options={[1, 2, 3]}
+            optionRenderer={(option) => <div>{option}</div>}
+          />
           <Button
             variant="inline"
             onClick={() =>
