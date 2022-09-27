@@ -157,7 +157,6 @@ hr.ts-hr {
   color: #161C24;
   align-items: center;
   justify-content: space-between;
-  line-height: 1.25rem;
 }
 
 .ts-campaign-budget-duration {
@@ -180,15 +179,17 @@ hr.ts-hr {
   font-weight: 500;
 }
 
-.ts-campaign-details-metrics>.ts-title {
+.ts-campaign-metrics-title {
   font-weight: 500;
   font-size: 1rem;
   line-height: 1.25rem;
+  margin-bottom: 0.75rem;
 }
 
 .ts-metrics-grid {
   display: grid;
   grid-template-columns: auto auto auto;
+  row-gap: 0.625rem;
 }
 
 .ts-metrics-grid>.ts-metric {
@@ -198,19 +199,19 @@ hr.ts-hr {
   line-height: 150%;
 }
 
-.ts-metrics-grid>.ts-metric>.ts-value {
+.ts-metric-value {
   margin-left: 18px;
   padding-left: 0.3rem;
   font-weight: 450;
   color: #6B7280;
 }
 
-.ts-metrics-grid>.ts-metric>.ts-title {
+.ts-metric-title {
   display: flex;
   color: #826AF9;
 }
 
-.ts-metrics-grid>.ts-metric span {
+.ts-metric-title span {
   padding-left: 0.3rem;
   color: black;
   font-weight: 500;

@@ -67,12 +67,37 @@ const CampaignMetrics: FunctionalComponent<{
 }> = ({ campaignDetails }) => {
   return (
     <div className="ts-campaign-details-metrics">
-      <div className="ts-title">Metrics</div>
+      <span className="ts-campaign-metrics-title">Metrics</span>
       <div class="ts-metrics-grid">
         <Metric
           title="Impressions"
           value={campaignDetails.impressions}
           iconName="eye"
+        />
+        <Metric
+          title="Clicks"
+          value={campaignDetails.clicks}
+          iconName="mouse-square"
+        />
+        <Metric
+          title="Purchases"
+          value={campaignDetails.purchases}
+          iconName="bag"
+        />
+        <Metric
+          title="Total spend"
+          value={campaignDetails.totalSpend}
+          iconName="money"
+        />
+        <Metric
+          title="Total sales"
+          value={campaignDetails.totalSales}
+          iconName="message-add"
+        />
+        <Metric
+          title="ROAS"
+          value={campaignDetails.roas}
+          iconName="back-square"
         />
       </div>
     </div>
@@ -81,16 +106,16 @@ const CampaignMetrics: FunctionalComponent<{
 
 const Metric: FunctionalComponent<{
   title: string;
-  value: number;
+  value: number | string;
   iconName: IconName;
 }> = ({ title, value, iconName }) => {
   return (
     <div className="ts-metric">
-      <div className="ts-title">
+      <div className="ts-metric-title">
         <Icon name={iconName} title={title} />
         <span>{title}</span>
       </div>
-      <div class="ts-value">{value}</div>
+      <div class="ts-metric-value">{value}</div>
     </div>
   );
 };
