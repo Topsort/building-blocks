@@ -2,9 +2,15 @@ import { h, FunctionalComponent } from "preact";
 import { useMemo } from "preact/hooks";
 
 import { Svg, SvgProps } from "./Svg";
+import { BackSquare } from "./icons/BackSquare";
+import { Bag } from "./icons/Bag";
+import { Eye } from "./icons/Eye";
 import { InfoCircle } from "./icons/InfoCircle";
 import { InfoCircleBold } from "./icons/InfoCircleBold";
+import { MessageAdd } from "./icons/MessageAdd";
 import { MessageQuestion } from "./icons/MessageQuestion";
+import { Money } from "./icons/Money";
+import { MouseSquare } from "./icons/MouseSquare";
 import { Plus } from "./icons/Plus";
 
 // NOTE(christopherbot) All keys are wrapped in quotes for easier programmatic sorting
@@ -15,6 +21,12 @@ const icons = {
   "info-circle": InfoCircle,
   "message-question": MessageQuestion,
   "plus": Plus,
+  "back-square": BackSquare,
+  "bag": Bag,
+  "eye": Eye,
+  "message-add": MessageAdd,
+  "money": Money,
+  "mouse-square": MouseSquare
 };
 
 type IconName = keyof typeof icons;
