@@ -2,6 +2,7 @@ import { h, FunctionalComponent } from "preact";
 import { useMemo } from "preact/hooks";
 
 import { Svg, SvgProps } from "./Svg";
+import { ArrowUp1Linear } from "./icons/ArrowUp1Linear";
 import { InfoCircle } from "./icons/InfoCircle";
 import { MessageQuestion } from "./icons/MessageQuestion";
 import { Plus } from "./icons/Plus";
@@ -10,6 +11,7 @@ import { Plus } from "./icons/Plus";
 // prettier-ignore
 /* eslint-disable quote-props */
 const icons = {
+  "arrow-up-1-linear": ArrowUp1Linear,
   "info-circle": InfoCircle,
   "message-question": MessageQuestion,
   "plus": Plus,
