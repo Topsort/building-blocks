@@ -57,13 +57,13 @@ hr.ts-hr {
   align-items: center;
 }
 
-.ts-campaign-total>.ts-section-heading {
+.ts-campaign-total > .ts-section-heading {
   font-size: 0.75rem;
   line-height: 150%;
   color: var(--ts-font-color-60);
 }
 
-.ts-campaign-total>.ts-section-value {
+.ts-campaign-total > .ts-section-value {
   margin-top: 0.25rem;
   color: var(--ts-primary-color);
 }
@@ -76,7 +76,7 @@ hr.ts-hr {
 }
 
 .ts-campaign-summary {
-  background-color: #F1F8FF;
+  background-color: #f1f8ff;
   display: flex;
   border-radius: 0.75rem;
   padding: 1rem;
@@ -102,7 +102,7 @@ hr.ts-hr {
   font-weight: 500;
   font-size: 1rem;
   line-height: 1.25rem;
-  color: #272A47;
+  color: #272a47;
 }
 
 .ts-campaign-summary-time {
@@ -120,7 +120,7 @@ hr.ts-hr {
   font-weight: 450;
 }
 
-.ts-min-roas>* {
+.ts-min-roas > * {
   font-style: normal;
   font-weight: 500;
   color: var(--ts-font-color);
@@ -154,7 +154,7 @@ hr.ts-hr {
   font-weight: 500;
   font-size: 1rem;
   line-height: 1.25rem;
-  color: #161C24;
+  color: #161c24;
   align-items: center;
   justify-content: space-between;
 }
@@ -162,14 +162,14 @@ hr.ts-hr {
 .ts-campaign-budget-duration {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #F4F4F4;
+  border-bottom: 1px solid #f4f4f4;
 }
 
 .ts-budget-by-day {
   font-weight: 450;
   font-size: 0.875rem;
   line-height: 150%;
-  color: #6B7280;
+  color: #6b7280;
   padding-bottom: 0.875rem;
 }
 
@@ -192,7 +192,7 @@ hr.ts-hr {
   row-gap: 0.625rem;
 }
 
-.ts-metrics-grid>.ts-metric {
+.ts-metrics-grid > .ts-metric {
   display: flex;
   flex-direction: column;
   font-size: 0.875rem;
@@ -203,12 +203,12 @@ hr.ts-hr {
   margin-left: 18px;
   padding-left: 0.3rem;
   font-weight: 450;
-  color: #6B7280;
+  color: #6b7280;
 }
 
 .ts-metric-title {
   display: flex;
-  color: #826AF9;
+  color: #826af9;
 }
 
 .ts-metric-title span {
