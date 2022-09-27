@@ -12,7 +12,7 @@ import {
 } from "@floating-ui/react-dom-interactions";
 import { PropsWithChildren } from "@types";
 import cx from "classnames";
-import { h, FunctionalComponent, VNode, cloneElement, Fragment } from "preact";
+import { h, FunctionalComponent, VNode, Fragment } from "preact";
 import { MutableRef, useRef, useState } from "preact/hooks";
 
 import "./style.css";
@@ -28,7 +28,7 @@ interface SelectProps<T> {
   selectRenderer?: (selectedOption: T | null) => VNode;
 }
 
-export const Select = <T extends boolean | number | string | object>({
+export const Select = <T extends boolean | number | string | Date | object>({
   value,
   options,
   onChange,
@@ -174,19 +174,26 @@ const Option: FunctionalComponent<{
     }
   };
 
-  return cloneElement(children, {
-    className: cx("ts-select-option", {
-      "ts-select-option--active": active,
-      "ts-select-option--selected": selected,
-    }),
-    role: "option",
-    ariaSelected: selected,
-    tabIndex: active ? 1 : 0,
-    ref: (node: HTMLElement | null) => (listRef.current[index] = node),
-    ...getItemProps({
-      onClick: handleClick,
-      onKeyDown: handleKeyDown,
-      onKeyUp: handleKeyUp,
-    }),
-  });
+  return (
+    <div
+      className={cx("ts-select-option", {
+        "ts-select-option--active": active,
+        "ts-select-option--selected": selected,
+      })}
+      role="option"
+      aria-selected={selected}
+      tabIndex={active ? 1 : 0}
+      ref={(node) => (listRef.current[index] = node)}
+      {...getItemProps({
+        onClick: handleClick,
+        onKeyDown: handleKeyDown,
+        onKeyUp: handleKeyUp,
+      })}
+    >
+      {children}
+      {selected && (
+        <Icon name="checkmark" width={10} height={8} viewBox="0 0 10 8" />
+      )}
+    </div>
+  );
 };
