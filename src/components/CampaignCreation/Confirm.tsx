@@ -6,7 +6,7 @@ import { useCampaignCreation } from "./context";
 
 export const Confirm: FunctionalComponent = () => {
   const { state, dispatch } = useCampaignCreation();
-  const { dailyBudget, durationDays } = state;
+  const { dailyBudget, durationDays, paymentMethods } = state;
 
   return (
     <div className="ts-campaign-creation__content ts-space-y-8">
@@ -41,6 +41,18 @@ export const Confirm: FunctionalComponent = () => {
             options={[1, 2, 3]}
             optionRenderer={(option) => <div>{option}</div>}
           />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              border: "1px solid #cecece",
+              height: "3rem",
+              padding: "0 1rem",
+              borderRadius: "0.75rem",
+            }}
+          >
+            **** **** **** {paymentMethods[0]?.card?.last4}
+          </div>
           <Button
             variant="inline"
             onClick={() =>
