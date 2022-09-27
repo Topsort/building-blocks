@@ -57,34 +57,29 @@ hr.ts-hr {
   align-items: center;
 }
 
-.ts-campaign-total > .ts-section-heading {
+.ts-campaign-total>.ts-section-heading {
   font-size: 0.75rem;
   line-height: 150%;
   color: var(--ts-font-color-60);
 }
 
-.ts-campaign-total > .ts-section-value {
+.ts-campaign-total>.ts-section-value {
   margin-top: 0.25rem;
   color: var(--ts-primary-color);
 }
 
 .ts-campaign-data-box {
-  box-sizing: border-box;
-  border: 1px solid #f0f0f0;
-  border-radius: 0.75rem;
   padding: 1rem;
   font-weight: 500;
   display: flex;
   flex-direction: column;
 }
 
-.ts-campaign-data-box > .ts-section-heading {
-  margin-bottom: 0.5rem;
-  font-size: 1.125rem;
+.ts-campaign-summary {
+  background-color: #F1F8FF;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  border-radius: 0.75rem;
+  padding: 1rem;
 }
 
 .ts-product-image {
@@ -101,15 +96,20 @@ hr.ts-hr {
 }
 
 .ts-campaign-summary-name {
-  margin-right: 1rem;
-  font-size: 1.125rem;
-}
-
-.ts-campaign-budget {
   display: flex;
   flex-direction: column;
-  text-align: right;
-  white-space: nowrap;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  color: #272A47;
+}
+
+.ts-campaign-summary-time {
+  font-weight: 450;
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--ts-font-color-60);
 }
 
 .ts-min-roas {
@@ -120,7 +120,7 @@ hr.ts-hr {
   font-weight: 450;
 }
 
-.ts-min-roas > * {
+.ts-min-roas>* {
   font-style: normal;
   font-weight: 500;
   color: var(--ts-font-color);
@@ -141,4 +141,35 @@ hr.ts-hr {
 
 .ts-svg {
   display: flex;
+}
+
+.ts-edit-campaign-button {
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+}
+
+.ts-campaign-budget-duration-title {
+  display: flex;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  color: #161C24;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 1.25rem;
+}
+
+.ts-campaign-budget-duration {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #F4F4F4;
+}
+
+.ts-budget-by-day {
+  font-weight: 450;
+  font-size: 0.875rem;
+  line-height: 150%;
+  color: #6B7280;
+  padding-bottom: 0.875rem;
 }

@@ -5,7 +5,7 @@ import { Modal } from "@components/Modal";
 import Portal from "@components/Portal";
 import { defaultPromoteTargetClassName, portalRootId } from "@constants";
 import { ProductPromotionContext, useProductPromotion } from "@context";
-import * as services from "@services/central-services";
+//import * as services from "@services/central-services";
 import { Campaign, CustomText, Style } from "@types";
 import {
   getInvalidRgbWarning,
@@ -170,11 +170,11 @@ export default class TopsortBlocks {
     }
 
     try {
-      const authToken = await services.validateVendor(
-        params.apiKey,
-        params.externalVendorId
-      );
-      this.authToken = authToken;
+      // const authToken = await services.validateVendor(
+      //   params.apiKey,
+      //   params.externalVendorId
+      // );
+      this.authToken = "authToken";
     } catch (error) {
       logger.error("[validateVendor]", error);
     }

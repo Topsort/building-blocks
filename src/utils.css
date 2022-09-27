@@ -2,27 +2,27 @@
   display: block;
 }
 
-.ts-space-x-2 > *:not(:first-child) {
+.ts-space-x-2>*:not(:first-child) {
   margin-left: 0.5rem;
 }
 
-.ts-space-y-2 > *:not(:first-child) {
+.ts-space-y-2>*:not(:first-child) {
   margin-top: 0.5rem;
 }
 
-.ts-space-y-3-5 > *:not(:first-child) {
+.ts-space-y-3-5>*:not(:first-child) {
   margin-top: 0.875rem;
 }
 
-.ts-space-x-4 > *:not(:first-child) {
+.ts-space-x-4>*:not(:first-child) {
   margin-left: 1rem;
 }
 
-.ts-space-y-4 > *:not(:first-child) {
+.ts-space-y-4>*:not(:first-child) {
   margin-top: 1rem;
 }
 
-.ts-space-y-8 > *:not(:first-child) {
+.ts-space-y-8>*:not(:first-child) {
   margin-top: 2rem;
 }
 
@@ -32,6 +32,10 @@
 
 .ts-flex {
   display: flex;
+}
+
+.ts-flex-col {
+  flex-direction: column;
 }
 
 .ts-items-center {
@@ -96,12 +100,14 @@
 }
 
 .ts-draggable {
-  cursor: pointer; /* fallback */
+  cursor: pointer;
+  /* fallback */
   cursor: grab;
 }
 
 .ts-draggable:active {
-  cursor: pointer; /* fallback */
+  cursor: pointer;
+  /* fallback */
   cursor: grabbing;
 }
 
