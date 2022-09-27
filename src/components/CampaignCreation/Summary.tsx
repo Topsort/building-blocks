@@ -18,12 +18,10 @@ export const Summary: FunctionalComponent<{
         <span className="ts-block ts-text-md ts-font-medium">
           Budget and duration
         </span>
-        <div className="ts-budget-duration">
-          <span>
-            ${dailyBudget} over {durationDays} days
-          </span>
-          {showTargetingText && <span>with automatic targeting</span>}.
-        </div>
+        <span className="ts-budget-duration">
+          ${dailyBudget} over {durationDays} days
+          {showTargetingText ? <span>with automatic targeting.</span> : "."}
+        </span>
       </div>
     </Fragment>
   );

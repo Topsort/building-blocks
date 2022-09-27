@@ -134,17 +134,12 @@ hr.ts-hr {
 }
 
 .ts-budget-duration {
+  margin-top: 0.875rem;
   display: flex;
   flex-direction: column;
   font-weight: 500;
   font-size: 0.875rem;
   color: var(--ts-font-color-60);
-}
-
-.ts-budget-duration {
-  margin-top: 0.875rem;
-  display: flex;
-  flex-direction: column;
 }
 
 .ts-svg {
