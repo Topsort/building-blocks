@@ -1,6 +1,7 @@
 declare global {
   const CENTRAL_SERVICES_PUBLIC_URL: string;
   const CENTRAL_SERVICES_URL: string;
+  const STRIPE_PUBLIC_KEY: string;
 }
 
 export type DocumentStyleProperty = "--ts-primary-rgb" | "--ts-font-rgb";
