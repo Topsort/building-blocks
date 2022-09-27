@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const TerserPlugin = require("terser-webpack-plugin");
+const webpack = require("webpack");
+require("dotenv").config();
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -65,6 +67,14 @@ module.exports = {
       "@utils": path.resolve(__dirname, "src/utils/"),
     },
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      CENTRAL_SERVICES_PUBLIC_URL: JSON.stringify(
+        process.env.CENTRAL_SERVICES_PUBLIC_URL
+      ),
+      CENTRAL_SERVICES_URL: JSON.stringify(process.env.CENTRAL_SERVICES_URL),
+    }),
+  ],
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
