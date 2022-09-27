@@ -20,3 +20,6 @@ npm-debug.log*
 
 # eslint
 .eslintcache
+
+# local env files
+.env

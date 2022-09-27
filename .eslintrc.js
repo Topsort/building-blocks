@@ -10,6 +10,10 @@ module.exports = {
     "plugin:prettier/recommended",
     "preact",
   ],
+  globals: {
+    CENTRAL_SERVICES_PUBLIC_URL: "readonly",
+    CENTRAL_SERVICES_URL: "readonly",
+  },
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 12,
