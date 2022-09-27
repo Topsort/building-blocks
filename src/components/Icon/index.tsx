@@ -29,7 +29,7 @@ const icons = {
   "mouse-square": MouseSquare
 };
 
-type IconName = keyof typeof icons;
+export type IconName = keyof typeof icons;
 
 export const Icon: FunctionalComponent<
   SvgProps & {

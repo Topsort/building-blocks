@@ -3,6 +3,8 @@ import { ModalContent, ModalHeading } from "@components/Modal";
 import { Campaign } from "@types";
 import { h, FunctionalComponent, Fragment } from "preact";
 
+import { Icon, IconName } from "./Icon";
+
 export const CampaignDetails: FunctionalComponent<{
   campaignDetails: Campaign;
 }> = ({ campaignDetails }) => {
@@ -13,6 +15,7 @@ export const CampaignDetails: FunctionalComponent<{
         <div className="ts-space-y-3-5">
           <CampaignSummary campaignDetails={campaignDetails} />
           <CampaignBudget campaignDetails={campaignDetails} />
+          <CampaignMetrics campaignDetails={campaignDetails} />
         </div>
       </ModalContent>
     </Fragment>
@@ -55,6 +58,39 @@ const CampaignBudget: FunctionalComponent<{
       <div class="ts-budget-by-day">
         ${campaignDetails.budget} over {campaignDetails.days} days.
       </div>
+    </div>
+  );
+};
+
+const CampaignMetrics: FunctionalComponent<{
+  campaignDetails: Campaign;
+}> = ({ campaignDetails }) => {
+  return (
+    <div className="ts-campaign-details-metrics">
+      <div className="ts-title">Metrics</div>
+      <div class="ts-metrics-grid">
+        <Metric
+          title="Impressions"
+          value={campaignDetails.impressions}
+          iconName="eye"
+        />
+      </div>
+    </div>
+  );
+};
+
+const Metric: FunctionalComponent<{
+  title: string;
+  value: number;
+  iconName: IconName;
+}> = ({ title, value, iconName }) => {
+  return (
+    <div className="ts-metric">
+      <div className="ts-title">
+        <Icon name={iconName} title={title} />
+        <span>{title}</span>
+      </div>
+      <div class="ts-value">{value}</div>
     </div>
   );
 };

@@ -173,3 +173,45 @@ hr.ts-hr {
   color: #6B7280;
   padding-bottom: 0.875rem;
 }
+
+.ts-campaign-details-metrics {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
+
+.ts-campaign-details-metrics>.ts-title {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.25rem;
+}
+
+.ts-metrics-grid {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.ts-metrics-grid>.ts-metric {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.875rem;
+  line-height: 150%;
+}
+
+.ts-metrics-grid>.ts-metric>.ts-value {
+  margin-left: 18px;
+  padding-left: 0.3rem;
+  font-weight: 450;
+  color: #6B7280;
+}
+
+.ts-metrics-grid>.ts-metric>.ts-title {
+  display: flex;
+  color: #826AF9;
+}
+
+.ts-metrics-grid>.ts-metric span {
+  padding-left: 0.3rem;
+  color: black;
+  font-weight: 500;
+}
