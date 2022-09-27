@@ -136,7 +136,12 @@ const StripePaymentForm = () => {
 
     // TODO(christopherbot) call Central Services here to save card in our db
     setIsSavingCard(false);
-    dispatch({ type: "payment method saved" });
+    dispatch({
+      type: "payment method saved",
+      payload: {
+        paymentMethod,
+      },
+    });
   };
 
   const messagesByErrorCode: Record<ErrorCode, string> = {

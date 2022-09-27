@@ -1,3 +1,5 @@
+import { PaymentMethod } from "@stripe/stripe-js";
+
 // TODO(samet) recommendedBudget and estimatedClick will change.
 export const recommendedBudgetUSD = 5;
 export const minBudgetUSD = Math.floor(
@@ -18,12 +20,10 @@ export type Step =
   | "confirm"
   | "launched";
 
-// FIXME(christopherbot) update when we can retrieve payments methods from the api
-type PaymentMethod = any;
-
 export type State = {
   step: Step;
   paymentMethods: PaymentMethod[];
+  selectedPaymentMethodId: PaymentMethod["id"] | null;
   dailyBudget: number;
   durationDays: number;
 };
@@ -31,6 +31,7 @@ export type State = {
 export const initialState: State = {
   step: "budget and duration",
   paymentMethods: [],
+  selectedPaymentMethodId: null,
   dailyBudget: 0,
   durationDays: 0,
 };
@@ -40,7 +41,6 @@ export type Action =
       type:
         | "budget and duration next button clicked"
         | "payment form back button clicked"
-        | "payment method saved"
         | "add new payment method button clicked"
         | "confirm back button clicked"
         | "campaign creation reset"
@@ -50,6 +50,12 @@ export type Action =
       type: "payment methods received";
       payload: {
         paymentMethods: PaymentMethod[];
+      };
+    }
+  | {
+      type: "payment method saved";
+      payload: {
+        paymentMethod: PaymentMethod;
       };
     }
   | {
@@ -101,8 +107,11 @@ export const reducer = (
       };
     }
     case "payment method saved": {
+      const { paymentMethod } = action.payload;
       return {
         ...state,
+        paymentMethods: [...state.paymentMethods, paymentMethod],
+        selectedPaymentMethodId: paymentMethod.id,
         step: "confirm",
       };
     }

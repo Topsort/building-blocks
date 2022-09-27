@@ -5,7 +5,8 @@ import { h, FunctionalComponent } from "preact";
 import { useCampaignCreation } from "./context";
 
 export const Confirm: FunctionalComponent = () => {
-  const { dispatch } = useCampaignCreation();
+  const { state, dispatch } = useCampaignCreation();
+  const { paymentMethods } = state;
 
   return (
     <div className="ts-campaign-creation__content ts-space-y-8">
@@ -29,7 +30,7 @@ export const Confirm: FunctionalComponent = () => {
               borderRadius: "0.75rem",
             }}
           >
-            **** **** **** 1234
+            **** **** **** {paymentMethods[0]?.card?.last4}
           </div>
           <Button
             variant="inline"
