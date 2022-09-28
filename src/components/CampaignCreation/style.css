@@ -33,7 +33,7 @@
 .ts-stripe-element {
   height: 1.25rem;
   padding: 1rem;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   border: 0.0625rem solid #c4c4c4;
   margin-top: 0.75rem;
 }
