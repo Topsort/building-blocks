@@ -95,6 +95,8 @@ export const Select = <T extends boolean | number | string | Date | object>({
       >
         {selectRenderer
           ? selectRenderer(selectedOption)
+          : selectedOption === null
+          ? "None selected"
           : JSON.stringify(selectedOption)}
         <Icon
           name="arrow-up-1-linear"
