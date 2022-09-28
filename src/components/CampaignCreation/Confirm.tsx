@@ -52,7 +52,6 @@ export const Confirm: FunctionalComponent = () => {
         <Button
           variant="contained"
           onClick={() => {
-            console.log("aca");
             dispatch({ type: "campaign launched" });
           }} // ToDo: save campaign
         >
