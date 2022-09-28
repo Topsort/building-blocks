@@ -97,7 +97,6 @@ const StripePaymentForm = () => {
     // care of the elements not being ready.
     if (!cardNumberElement || !cardExpiryElement || !cardCvcElement) return;
 
-    /* eslint-disable-next-line */
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: cardNumberElement,
