@@ -60,6 +60,8 @@
   },
   "dependencies": {
     "@floating-ui/dom": "^1.0.1",
+    "@floating-ui/react-dom": "^1.0.0",
+    "@floating-ui/react-dom-interactions": "^0.10.1",
     "@stripe/react-stripe-js": "^1.11.0",
     "@stripe/stripe-js": "^1.37.0",
     "classnames": "^2.3.1",

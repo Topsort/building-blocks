@@ -1,3 +1,5 @@
+import { ComponentChildren } from "preact";
+
 declare global {
   const CENTRAL_SERVICES_PUBLIC_URL: string;
   const CENTRAL_SERVICES_URL: string;
@@ -34,3 +36,5 @@ export type Campaign = {
   purchases: number;
   status: boolean;
 };
+
+export type PropsWithChildren<T> = T & { children?: ComponentChildren };

@@ -1,5 +1,6 @@
 import { Button } from "@components/Button";
 import { Summary } from "@components/CampaignCreation/Summary";
+import { Select } from "@components/Select";
 import { h, FunctionalComponent } from "preact";
 
 import { useCampaignCreation } from "./context";
@@ -20,6 +21,10 @@ export const Confirm: FunctionalComponent = () => {
            * TODO(christopherbot) placeholder until we build a picker
            * and/or finalize how payments will work.
            */}
+          <Select
+            options={[1, 2, 3]}
+            optionRenderer={(option) => <div>{option}</div>}
+          />
           <div
             style={{
               display: "flex",
