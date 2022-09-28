@@ -14,7 +14,11 @@ export const maxDurationDays = 13;
 export const minEstimatedClick = 1000;
 export const maxEstimatedClick = 1500;
 
-export type Step = "budget and duration" | "add payment" | "confirm";
+export type Step =
+  | "budget and duration"
+  | "add payment"
+  | "confirm"
+  | "launched";
 
 export type State = {
   step: Step;
@@ -39,7 +43,8 @@ export type Action =
         | "payment form back button clicked"
         | "add new payment method button clicked"
         | "confirm back button clicked"
-        | "campaign creation reset";
+        | "campaign creation reset"
+        | "campaign launched";
     }
   | {
       type: "payment methods received";
@@ -129,6 +134,9 @@ export const reducer = (
         dailyBudget: recommendedBudgetUSD,
         durationDays: initialDurationDays,
       };
+    }
+    case "campaign launched": {
+      return { ...state, step: "launched" };
     }
   }
 };

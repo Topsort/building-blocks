@@ -1,11 +1,13 @@
+import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
 import { assertNever } from "@utils/assert-never";
 import { getStripe } from "@utils/stripe";
-import { h, FunctionalComponent } from "preact";
+import { h, FunctionalComponent, Fragment } from "preact";
 import { useEffect, useReducer } from "preact/hooks";
 
 import { BudgetAndDuration } from "./BudgetAndDuration";
 import { Confirm } from "./Confirm";
+import { Launched } from "./Launched";
 import { PaymentForm } from "./PaymentForm";
 import { CampaignCreationContext } from "./context";
 import {
@@ -82,9 +84,30 @@ export const CampaignCreation: FunctionalComponent<{
           content: <Confirm />,
         };
       }
+      case "launched": {
+        return {
+          title: (
+            <Fragment>
+              <Icon size={32} name="tick-circle" />
+              <span>Your campaign was launched!</span>
+            </Fragment>
+          ),
+          content: <Launched />,
+        };
+      }
       default: {
         assertNever(step, true);
       }
+    }
+  })();
+  const contentHeight = (() => {
+    switch (step) {
+      case "add payment":
+        return "27rem";
+      case "launched":
+        return "13rem";
+      default:
+        return undefined;
     }
   })();
 
@@ -96,9 +119,7 @@ export const CampaignCreation: FunctionalComponent<{
       }}
     >
       <ModalHeading>{title}</ModalHeading>
-      <ModalContent height={step === "add payment" ? "27rem" : undefined}>
-        {content}
-      </ModalContent>
+      <ModalContent height={contentHeight}>{content}</ModalContent>
     </CampaignCreationContext.Provider>
   );
 };

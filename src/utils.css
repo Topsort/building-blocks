@@ -6,6 +6,10 @@
   margin-left: 0.5rem;
 }
 
+.ts-space-x-3-5 > *:not(:first-child) {
+  margin-left: 0.875rem;
+}
+
 .ts-space-y-2 > *:not(:first-child) {
   margin-top: 0.5rem;
 }

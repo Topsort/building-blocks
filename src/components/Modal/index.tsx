@@ -6,7 +6,11 @@ import { useEffect, useRef } from "preact/hooks";
 import "./style.css";
 
 export const ModalHeading: FunctionalComponent = ({ children }) => {
-  return <h2 className="ts-modal-heading">{children}</h2>;
+  return (
+    <div className="ts-modal-heading">
+      <h2 className="ts-space-x-3-5">{children}</h2>
+    </div>
+  );
 };
 
 export const ModalContent: FunctionalComponent<{ height?: string }> = ({
