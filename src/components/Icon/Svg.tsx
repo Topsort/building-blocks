@@ -34,8 +34,8 @@ export const Svg: FunctionalComponent<SvgProps> = ({
   return (
     <div className="ts-svg">
       <svg
-        width="18"
-        height="18"
+        width="24"
+        height="24"
         viewBox="0 0 24 24"
         fill={fill}
         role="img"

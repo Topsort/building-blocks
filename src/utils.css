@@ -100,14 +100,12 @@
 }
 
 .ts-draggable {
-  cursor: pointer;
-  /* fallback */
+  cursor: pointer; /* fallback */
   cursor: grab;
 }
 
 .ts-draggable:active {
-  cursor: pointer;
-  /* fallback */
+  cursor: pointer; /* fallback */
   cursor: grabbing;
 }
 
