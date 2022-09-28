@@ -25,6 +25,13 @@ module.exports = {
     "object-shorthand": "error",
     "no-duplicate-imports": "error",
 
+    /*
+     * Disabling this rule because it unnecessarily flags unused vars
+     * in function type definitions, and actual unused vars are still
+     * caught by the typescript-eslint/no-unused-vars rule.
+     */
+    "no-unused-vars": "off",
+
     // Disabled rules from @typescript-eslint
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",

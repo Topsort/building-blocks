@@ -4,7 +4,6 @@ import { useContext } from "preact/hooks";
 import { Action, initialState, State } from "./state";
 
 type CampaignCreationContextValue = {
-  /* eslint-disable-next-line no-unused-vars */
   dispatch: (action: Action) => void;
   state: State;
 };
