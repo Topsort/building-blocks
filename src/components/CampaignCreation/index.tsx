@@ -100,6 +100,16 @@ export const CampaignCreation: FunctionalComponent<{
       }
     }
   })();
+  const contentHeight = (() => {
+    switch (step) {
+      case "add payment":
+        return "27rem";
+      case "launched":
+        return "13rem";
+      default:
+        return undefined;
+    }
+  })();
 
   return (
     <CampaignCreationContext.Provider
@@ -109,9 +119,7 @@ export const CampaignCreation: FunctionalComponent<{
       }}
     >
       <ModalHeading>{title}</ModalHeading>
-      <ModalContent height={step === "add payment" ? "27rem" : undefined}>
-        {content}
-      </ModalContent>
+      <ModalContent height={contentHeight}>{content}</ModalContent>
     </CampaignCreationContext.Provider>
   );
 };
