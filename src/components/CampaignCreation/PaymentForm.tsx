@@ -179,7 +179,7 @@ const StripePaymentForm = () => {
                   api: null,
                 }));
               }}
-              options={{ style: stripeElementStyle }}
+              options={{ style: stripeElementStyle, showIcon: true }}
             />
           </div>
         </label>
