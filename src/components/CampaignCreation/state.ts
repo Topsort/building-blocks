@@ -59,6 +59,12 @@ export type Action =
       };
     }
   | {
+      type: "payment method selected";
+      payload: {
+        paymentMethod: PaymentMethod;
+      };
+    }
+  | {
       type: "daily budget updated";
       payload: {
         amount: number;
@@ -76,12 +82,6 @@ export const reducer = (
   action: Readonly<Action>
 ): State => {
   switch (action.type) {
-    case "payment methods received": {
-      return {
-        ...state,
-        paymentMethods: action.payload.paymentMethods,
-      };
-    }
     case "daily budget updated": {
       return {
         ...state,
@@ -106,6 +106,16 @@ export const reducer = (
         step: state.paymentMethods.length ? "confirm" : "budget and duration",
       };
     }
+    case "payment methods received": {
+      return {
+        ...state,
+        paymentMethods: action.payload.paymentMethods,
+        selectedPaymentMethodId:
+          state.selectedPaymentMethodId ||
+          action.payload.paymentMethods[0]?.id ||
+          null,
+      };
+    }
     case "payment method saved": {
       const { paymentMethod } = action.payload;
       return {
@@ -113,6 +123,12 @@ export const reducer = (
         paymentMethods: [...state.paymentMethods, paymentMethod],
         selectedPaymentMethodId: paymentMethod.id,
         step: "confirm",
+      };
+    }
+    case "payment method selected": {
+      return {
+        ...state,
+        selectedPaymentMethodId: action.payload.paymentMethod.id,
       };
     }
     case "add new payment method button clicked": {

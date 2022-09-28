@@ -75,3 +75,8 @@
 .ts-payment-form-error__list li:only-child {
   list-style-type: none;
 }
+
+.ts-payment-method {
+  display: flex;
+  align-items: center;
+}
