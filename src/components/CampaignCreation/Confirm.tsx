@@ -50,7 +50,7 @@ export const Confirm: FunctionalComponent = () => {
               <FormattedPaymentMethod paymentMethod={option} />
             )}
             onChange={(option) =>
-              void dispatch({
+              dispatch({
                 type: "payment method selected",
                 payload: {
                   paymentMethod: option,
@@ -61,7 +61,7 @@ export const Confirm: FunctionalComponent = () => {
           <Button
             variant="inline"
             onClick={() =>
-              void dispatch({ type: "add new payment method button clicked" })
+              dispatch({ type: "add new payment method button clicked" })
             }
           >
             + Add new payment method
