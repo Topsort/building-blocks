@@ -3,7 +3,7 @@ import { CampaignCreation } from "@components/CampaignCreation";
 import { CampaignDetails } from "@components/CampaignDetails";
 import { Modal } from "@components/Modal";
 import Portal from "@components/Portal";
-import { defaultPromoteTargetClassName, portalRootId } from "@constants";
+import { defaultPromoteTargetClassName } from "@constants";
 import { ProductPromotionContext, useProductPromotion } from "@context";
 import * as services from "@services/central-services";
 import { Campaign, CustomText, Style } from "@types";
@@ -121,7 +121,7 @@ const App: FunctionalComponent = () => {
           </Portal>
         );
       })}
-      <Portal target={`#${portalRootId}`}>
+      <Portal target={document.body}>
         <Modal
           onClose={() => {
             setProductId(null);
@@ -189,10 +189,6 @@ export default class TopsortBlocks {
       logger.warn('Cannot call "initProductPromotion" without an authToken.');
       return;
     }
-
-    const portalRoot = document.createElement("div");
-    portalRoot.setAttribute("id", portalRootId);
-    document.body.appendChild(portalRoot);
 
     render(
       <ProductPromotionContext.Provider
