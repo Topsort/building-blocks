@@ -30,25 +30,25 @@ import { Visa } from "./icons/Visa";
 const icons = {
   "amex": Amex,
   "arrow-up-1-linear": ArrowUp1Linear,
+  "back-square": BackSquare,
+  "bag": Bag,
   "checkmark": Checkmark,
   "credit-card": CreditCard,
   "diners": Diners,
   "discover": Discover,
+  "eye": Eye,
   "info-circle-bold": InfoCircleBold,
   "info-circle": InfoCircle,
   "jcb": Jcb,
   "mastercard": Mastercard,
   "message-question": MessageQuestion,
-  "plus": Plus,
-  "back-square": BackSquare,
-  "bag": Bag,
-  "eye": Eye,
   "message-add": MessageAdd,
   "money": Money,
   "mouse-square": MouseSquare,
+  "plus": Plus,
   "tick-circle": TickCircle,
   "union-pay": UnionPay,
-  "visa": Visa,
+  "visa": Visa
 };
 
 export type IconName = keyof typeof icons;

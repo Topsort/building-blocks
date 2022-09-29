@@ -38,10 +38,6 @@
   display: flex;
 }
 
-.ts-flex-col {
-  flex-direction: column;
-}
-
 .ts-items-center {
   align-items: center;
 }
