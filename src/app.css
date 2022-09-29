@@ -69,7 +69,7 @@ hr.ts-hr {
 }
 
 .ts-campaign-summary {
-  background-color: #f1f8ff;
+  background-color: var(--ts-primary-color-5);
   display: flex;
   border-radius: 0.75rem;
   padding: 1rem;
@@ -199,4 +199,8 @@ hr.ts-hr {
 .ts-metric-value {
   font-weight: 450;
   color: var(--ts-font-color-60);
+}
+
+.ts-metric-title {
+  line-height: 24px;
 }

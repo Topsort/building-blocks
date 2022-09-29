@@ -113,8 +113,8 @@ const Metric: FunctionalComponent<{
     <div className="ts-metric">
       <Icon name={iconName} title={title} />
       <div className="ts-metric-content">
-        <span>{title}</span>
-        <span class="ts-metric-value">{value}</span>
+        <span className="ts-metric-title">{title}</span>
+        <span className="ts-metric-value">{value}</span>
       </div>
     </div>
   );
