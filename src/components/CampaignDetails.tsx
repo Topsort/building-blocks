@@ -111,11 +111,11 @@ const Metric: FunctionalComponent<{
 }> = ({ title, value, iconName }) => {
   return (
     <div className="ts-metric">
-      <div className="ts-metric-title">
-        <Icon name={iconName} title={title} />
+      <Icon name={iconName} title={title} />
+      <div className="ts-metric-content">
         <span>{title}</span>
+        <span class="ts-metric-value">{value}</span>
       </div>
-      <div class="ts-metric-value">{value}</div>
     </div>
   );
 };
