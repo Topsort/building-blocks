@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Icon } from "@components/Icon";
 import Portal from "@components/Portal";
 import {

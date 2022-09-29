@@ -110,7 +110,7 @@ export const BudgetAndDuration: FunctionalComponent = () => {
         <Button
           variant="contained"
           onClick={() =>
-            void dispatch({ type: "budget and duration next button clicked" })
+            dispatch({ type: "budget and duration next button clicked" })
           }
         >
           Next

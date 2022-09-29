@@ -14,7 +14,11 @@ export const maxDurationDays = 13;
 export const minEstimatedClick = 1000;
 export const maxEstimatedClick = 1500;
 
-export type Step = "budget and duration" | "add payment" | "confirm";
+export type Step =
+  | "budget and duration"
+  | "add payment"
+  | "confirm"
+  | "launched";
 
 export type State = {
   step: Step;
@@ -39,7 +43,8 @@ export type Action =
         | "payment form back button clicked"
         | "add new payment method button clicked"
         | "confirm back button clicked"
-        | "campaign creation reset";
+        | "campaign creation reset"
+        | "campaign launched";
     }
   | {
       type: "payment methods received";
@@ -49,6 +54,12 @@ export type Action =
     }
   | {
       type: "payment method saved";
+      payload: {
+        paymentMethod: PaymentMethod;
+      };
+    }
+  | {
+      type: "payment method selected";
       payload: {
         paymentMethod: PaymentMethod;
       };
@@ -71,12 +82,6 @@ export const reducer = (
   action: Readonly<Action>
 ): State => {
   switch (action.type) {
-    case "payment methods received": {
-      return {
-        ...state,
-        paymentMethods: action.payload.paymentMethods,
-      };
-    }
     case "daily budget updated": {
       return {
         ...state,
@@ -101,6 +106,16 @@ export const reducer = (
         step: state.paymentMethods.length ? "confirm" : "budget and duration",
       };
     }
+    case "payment methods received": {
+      return {
+        ...state,
+        paymentMethods: action.payload.paymentMethods,
+        selectedPaymentMethodId:
+          state.selectedPaymentMethodId ||
+          action.payload.paymentMethods[0]?.id ||
+          null,
+      };
+    }
     case "payment method saved": {
       const { paymentMethod } = action.payload;
       return {
@@ -108,6 +123,12 @@ export const reducer = (
         paymentMethods: [...state.paymentMethods, paymentMethod],
         selectedPaymentMethodId: paymentMethod.id,
         step: "confirm",
+      };
+    }
+    case "payment method selected": {
+      return {
+        ...state,
+        selectedPaymentMethodId: action.payload.paymentMethod.id,
       };
     }
     case "add new payment method button clicked": {
@@ -129,6 +150,9 @@ export const reducer = (
         dailyBudget: recommendedBudgetUSD,
         durationDays: initialDurationDays,
       };
+    }
+    case "campaign launched": {
+      return { ...state, step: "launched" };
     }
   }
 };
