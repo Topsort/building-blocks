@@ -1,4 +1,5 @@
 import { Campaign } from "@types";
+import cx from "classnames";
 import { h, FunctionalComponent } from "preact";
 
 export const CampaignSummary: FunctionalComponent<
@@ -9,7 +10,9 @@ export const CampaignSummary: FunctionalComponent<
   return (
     <div className="ts-campaign-summary ts-space-x-4">
       <img
-        class="ts-product-image ts-product-image--md"
+        className={cx("ts-product-image", {
+          "ts-product-image--md": showSummaryTime,
+        })}
         src={productImageUrl}
       />
       <div className="ts-campaign-summary-name">
