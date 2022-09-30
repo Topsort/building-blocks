@@ -13,22 +13,18 @@ function getAuthTokenHeader(authToken: string) {
 export async function validateVendor(
   apiKey: string,
   vendorId: string
-): Promise<schemas.ValidateVendorResponse> {
-  return await api(
-    schemas.validateVendorResponseSchema,
-    paths.validate(vendorId),
-    {
-      method: "GET",
-      headers: getAuthorizationHeader(apiKey),
-    }
-  );
+): Promise<schemas.ValidateVendor> {
+  return await api(schemas.validateVendorSchema, paths.validate(vendorId), {
+    method: "GET",
+    headers: getAuthorizationHeader(apiKey),
+  });
 }
 
-export async function getVendorCampaignIdsByProductId(
+export async function getCampaignIdsByProductId(
   authToken: string,
   vendorId: string,
   productIds: string[]
-): Promise<schemas.VendorCampaignIdsByProductIdResponse> {
+): Promise<schemas.CampaignIdsByProductId> {
   /*
    * TODO(christopherbot) uncomment this to test a "success" or "failure"
    * of this endpoint since it's not merged yet in Central Services. Will
@@ -39,8 +35,8 @@ export async function getVendorCampaignIdsByProductId(
   //   // setTimeout(() => rej("Error!!"), 2000);
   // });
   return await api(
-    schemas.vendorCampaignIdsByProductIdResponseSchema,
-    paths.vendorProducts(vendorId),
+    schemas.campaignIdsByProductIdSchema,
+    paths.products(vendorId),
     {
       method: "POST",
       headers: getAuthTokenHeader(authToken),

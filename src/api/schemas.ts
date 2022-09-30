@@ -1,16 +1,14 @@
 import { z } from "zod";
 
-export const validateVendorResponseSchema = z.object({
+export const validateVendorSchema = z.object({
   authToken: z.string(),
 });
-export type ValidateVendorResponse = z.infer<
-  typeof validateVendorResponseSchema
->;
+export type ValidateVendor = z.infer<typeof validateVendorSchema>;
 
-export const vendorCampaignIdsByProductIdResponseSchema = z.record(
+export const campaignIdsByProductIdSchema = z.record(
   z.string(),
   z.string().nullable()
 );
-export type VendorCampaignIdsByProductIdResponse = z.infer<
-  typeof vendorCampaignIdsByProductIdResponseSchema
+export type CampaignIdsByProductId = z.infer<
+  typeof campaignIdsByProductIdSchema
 >;
