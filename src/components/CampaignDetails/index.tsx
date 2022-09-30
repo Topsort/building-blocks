@@ -6,24 +6,24 @@ import { h, FunctionalComponent, Fragment } from "preact";
 import { CampaignMetrics } from "./CampaignMetrics";
 
 export const CampaignDetails: FunctionalComponent<{
-  campaignDetails: Campaign;
-}> = ({ campaignDetails }) => {
+  campaign: Campaign;
+}> = ({ campaign }) => {
   return (
     <Fragment>
       <ModalHeading>Campaign Details</ModalHeading>
       <ModalContent height="32rem">
         <div className="ts-space-y-3-5">
           <CampaignSummary
-            name={campaignDetails.name}
-            productImageUrl={campaignDetails.productImageUrl}
+            name={campaign.name}
+            productImageUrl={campaign.productImageUrl}
             showSummaryTime
           />
           <CampaignBudget
-            budget={campaignDetails.budget}
-            days={campaignDetails.days}
+            budget={campaign.budget}
+            days={campaign.days}
             onEditOrEnd={() => console.log("edit or end clicked")}
           />
-          <CampaignMetrics title="Metrics" campaignDetails={campaignDetails} />
+          <CampaignMetrics title="Metrics" campaign={campaign} />
         </div>
       </ModalContent>
     </Fragment>
