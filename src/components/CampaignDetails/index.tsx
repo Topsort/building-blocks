@@ -4,6 +4,7 @@ import { Campaign } from "@types";
 import { h, FunctionalComponent, Fragment } from "preact";
 
 import { CampaignMetrics } from "./CampaignMetrics";
+import "./style.css";
 
 export const CampaignDetails: FunctionalComponent<{
   campaignDetails: Campaign;
