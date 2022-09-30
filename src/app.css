@@ -123,15 +123,6 @@ hr.ts-hr {
   flex-direction: row;
 }
 
-.ts-budget-duration {
-  margin-top: 0.875rem;
-  display: flex;
-  flex-direction: column;
-  font-weight: 500;
-  font-size: 0.875rem;
-  color: var(--ts-font-color-60);
-}
-
 .ts-svg {
   display: flex;
 }
@@ -156,7 +147,7 @@ hr.ts-hr {
   padding-bottom: 0.875rem;
 }
 
-.ts-budget-by-day {
+.ts-budget-duration {
   font-weight: 450;
   font-size: 0.875rem;
   line-height: 150%;

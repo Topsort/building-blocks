@@ -22,7 +22,7 @@ export const CampaignBudget: FunctionalComponent<
           </Button>
         )}
       </div>
-      <div class="ts-budget-by-day">
+      <div class="ts-budget-duration">
         ${budget} over {days} days
         {showTargetingText ? <span>with automatic targeting.</span> : "."}
       </div>
