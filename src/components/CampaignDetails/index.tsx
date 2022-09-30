@@ -23,6 +23,7 @@ export const CampaignDetails: FunctionalComponent<{
             days={campaign.days}
             onEditOrEnd={() => console.log("edit or end clicked")}
           />
+          <hr className="ts-hr" />
           <CampaignMetrics title="Metrics" campaign={campaign} />
         </div>
       </ModalContent>
