@@ -4,7 +4,7 @@
 const imgSize = 160;
 const numProducts = 20;
 const isUsingTopsortBlocks = true;
-const isUsingCustomProps = false;
+const isUsingCustomProps = true;
 const customPromoteTargetClassName = "my-custom-promote-target";
 
 function getNewElement(selector) {
@@ -38,7 +38,11 @@ function createProductElement(num) {
       ? customPromoteTargetClassName
       : TopsortBlocks.promoteTargetClassName
   );
-  target.dataset.tsProductId = `product-${num}`;
+
+  // To demo no Promote button for product 7
+  if (num !== 7) {
+    target.dataset.tsProductId = `product-${num}`;
+  }
 
   return product;
 }
