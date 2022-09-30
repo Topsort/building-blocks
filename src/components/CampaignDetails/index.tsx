@@ -16,7 +16,7 @@ export const CampaignDetails: FunctionalComponent<{
           <CampaignSummary
             name={campaignDetails.name}
             productImageUrl={campaignDetails.productImageUrl}
-            showTime
+            showSummaryTime
           />
           <CampaignBudget
             budget={campaignDetails.budget}
