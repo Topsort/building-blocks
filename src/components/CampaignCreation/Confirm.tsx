@@ -1,6 +1,6 @@
 import { Button } from "@components/Button";
-import { Summary } from "@components/CampaignCreation/Summary";
 import { Select } from "@components/Select";
+import { CampaignBudget, CampaignSummary } from "@components/common";
 import { PaymentMethod } from "@stripe/stripe-js";
 import { h, FunctionalComponent } from "preact";
 
@@ -25,11 +25,20 @@ const FormattedPaymentMethod: FunctionalComponent<{
 export const Confirm: FunctionalComponent = () => {
   const { state, dispatch } = useCampaignCreation();
   const { paymentMethods, selectedPaymentMethodId } = state;
+  const { dailyBudget, durationDays } = state;
 
   return (
     <div className="ts-campaign-creation__content ts-space-y-8">
       <div className="ts-space-y-8">
-        <Summary imgSrc="https://picsum.photos/76" showTargetingText />
+        <CampaignSummary
+          productImageUrl="https://picsum.photos/76"
+          name="Too faced hangover primer"
+        />
+        <CampaignBudget
+          budget={dailyBudget}
+          days={durationDays}
+          showTargetingText
+        />
         <div className="ts-space-y-2">
           <span className="ts-block ts-text-md ts-font-medium">
             Payment method

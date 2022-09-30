@@ -28,7 +28,7 @@
 }
 
 hr.ts-hr {
-  border: 1px solid #eaeaea;
+  border: 1px solid #f4f4f4;
   margin: 0;
 }
 
@@ -39,33 +39,6 @@ hr.ts-hr {
   grid-row-gap: 0.625rem;
   margin-top: 0.875rem;
   justify-content: space-between;
-}
-
-.ts-campaign-metrics-header {
-  color: var(--ts-font-color-60);
-  font-size: 0.875rem;
-}
-
-.ts-campaign-totals {
-  display: flex;
-  justify-content: space-around;
-}
-
-.ts-campaign-total {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.ts-campaign-total > .ts-section-heading {
-  font-size: 0.75rem;
-  line-height: 150%;
-  color: var(--ts-font-color-60);
-}
-
-.ts-campaign-total > .ts-section-value {
-  margin-top: 0.25rem;
-  color: var(--ts-primary-color);
 }
 
 .ts-campaign-summary {
@@ -102,36 +75,6 @@ hr.ts-hr {
   color: var(--ts-font-color-60);
 }
 
-.ts-min-roas {
-  margin-top: 0.25rem;
-  font-size: 0.875rem;
-  font-style: italic;
-  color: var(--ts-font-color-60);
-  font-weight: 450;
-}
-
-.ts-min-roas > * {
-  font-style: normal;
-  font-weight: 500;
-  color: var(--ts-font-color);
-}
-
-.ts-campaign-status-buttons {
-  padding-top: 0.875rem;
-  justify-content: flex-end;
-  display: flex;
-  flex-direction: row;
-}
-
-.ts-budget-duration {
-  margin-top: 0.875rem;
-  display: flex;
-  flex-direction: column;
-  font-weight: 500;
-  font-size: 0.875rem;
-  color: var(--ts-font-color-60);
-}
-
 .ts-svg {
   display: flex;
 }
@@ -152,11 +95,11 @@ hr.ts-hr {
 .ts-campaign-budget-duration {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #f4f4f4;
-  padding-bottom: 0.875rem;
 }
 
-.ts-budget-by-day {
+.ts-budget-duration {
+  display: flex;
+  flex-direction: column;
   font-weight: 450;
   font-size: 0.875rem;
   line-height: 150%;
