@@ -3,43 +3,35 @@ import { Campaign } from "@types";
 import { h, FunctionalComponent } from "preact";
 
 export const CampaignMetrics: FunctionalComponent<{
-  campaignDetails: Campaign;
+  campaign: Campaign;
   title: string;
-}> = ({ campaignDetails, title }) => {
+}> = ({ campaign, title }) => {
   return (
     <div className="ts-campaign-details-metrics">
       <span className="ts-campaign-metrics-title">{title}</span>
       <div class="ts-metrics-grid">
         <Metric
           title="Impressions"
-          value={campaignDetails.impressions}
+          value={campaign.impressions}
           iconName="eye"
         />
         <Metric
           title="Clicks"
-          value={campaignDetails.clicks}
+          value={campaign.clicks}
           iconName="mouse-square"
         />
-        <Metric
-          title="Purchases"
-          value={campaignDetails.purchases}
-          iconName="bag"
-        />
+        <Metric title="Purchases" value={campaign.purchases} iconName="bag" />
         <Metric
           title="Total spend"
-          value={campaignDetails.totalSpend}
+          value={campaign.totalSpend}
           iconName="money"
         />
         <Metric
           title="Total sales"
-          value={campaignDetails.totalSales}
+          value={campaign.totalSales}
           iconName="message-add"
         />
-        <Metric
-          title="ROAS"
-          value={campaignDetails.roas}
-          iconName="back-square"
-        />
+        <Metric title="ROAS" value={campaign.roas} iconName="back-square" />
       </div>
     </div>
   );

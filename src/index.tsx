@@ -26,7 +26,7 @@ const App: FunctionalComponent = () => {
   const [productCampaigns, setProductCampaigns] = useState<
     Record<string, Campaign>
   >({});
-  const campaignDetails = productId ? productCampaigns[productId] : null;
+  const campaign = productId ? productCampaigns[productId] : null;
 
   // Set up color variables for custom theming
   useEffect(() => {
@@ -129,8 +129,8 @@ const App: FunctionalComponent = () => {
           isOpen={!!productId}
         >
           {productId &&
-            (campaignDetails ? (
-              <CampaignDetails campaignDetails={campaignDetails} />
+            (campaign ? (
+              <CampaignDetails campaign={campaign} />
             ) : (
               <CampaignCreation productId={productId} />
             ))}

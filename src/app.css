@@ -28,7 +28,7 @@
 }
 
 hr.ts-hr {
-  border: 1px solid #eaeaea;
+  border: 1px solid #f4f4f4;
   margin: 0;
 }
 
@@ -86,8 +86,6 @@ hr.ts-hr {
 .ts-campaign-budget-duration {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #f4f4f4;
-  padding-bottom: 0.875rem;
 }
 
 .ts-budget-duration {
