@@ -24,7 +24,7 @@ export const CampaignBudget: FunctionalComponent<
       </div>
       <div class="ts-budget-duration">
         ${budget} over {days} days
-        {showTargetingText ? <span> with automatic targeting.</span> : "."}
+        {showTargetingText && " with automatic targeting"}.
       </div>
     </div>
   );
