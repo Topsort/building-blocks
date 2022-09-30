@@ -38,3 +38,5 @@ export type Campaign = {
 };
 
 export type PropsWithChildren<T> = T & { children?: ComponentChildren };
+
+export type RequestStatus = "idle" | "pending" | "success" | "error";

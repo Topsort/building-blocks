@@ -5,8 +5,13 @@ async function request(url: string, config?: RequestInit) {
   if (!window.fetch) {
     throw "[fetch] Your browser does not support this function";
   }
-  const res = await window.fetch(url, config);
-  return res.json();
+  const response = await window.fetch(url, config);
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  return response.json();
 }
 
 export async function api<T>(
