@@ -148,6 +148,8 @@ hr.ts-hr {
 }
 
 .ts-budget-duration {
+  display: flex;
+  flex-direction: column;
   font-weight: 450;
   font-size: 0.875rem;
   line-height: 150%;
