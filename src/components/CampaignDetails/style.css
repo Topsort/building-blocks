@@ -48,3 +48,10 @@
 .ts-metric-title {
   line-height: 24px;
 }
+
+.ts-campaign-ending__email_text {
+  font-size: 0.75rem;
+  font-weight: 450;
+  line-height: 150%;
+  color: var(--ts-disabled-color);
+}
