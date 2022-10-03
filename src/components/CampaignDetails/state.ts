@@ -1,4 +1,4 @@
-export type Step = "details" | "ending";
+export type Step = "details" | "ended" | "ending";
 
 export type State = {
   step: Step;
@@ -28,8 +28,10 @@ export const reducer = (
       };
     }
     case "end campaign button clicked": {
-      // TODO set step as "ended" once "campaign ended" page is implemented
-      return state;
+      return {
+        ...state,
+        step: "ended",
+      };
     }
     case "end campaign back button clicked": {
       return {
