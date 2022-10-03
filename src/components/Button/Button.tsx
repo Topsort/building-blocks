@@ -4,9 +4,11 @@ import { h, FunctionalComponent, JSX } from "preact";
 
 export const Button: FunctionalComponent<
   JSX.IntrinsicElements["button"] & {
+    color?: "danger";
+    fullWidth?: boolean;
     variant: "inline" | "text" | "contained" | "outlined";
   }
-> = ({ children, className, variant, ...props }) => {
+> = ({ children, className, color, fullWidth = false, variant, ...props }) => {
   const { style } = useProductPromotion();
   const borderRadius = style.button?.borderRadius || "sm";
   return (
@@ -18,6 +20,8 @@ export const Button: FunctionalComponent<
         "ts-button--outlined": variant === "outlined",
         "ts-button--rounded-sm": borderRadius === "sm",
         "ts-button--rounded-full": borderRadius === "full",
+        "ts-button--danger": color === "danger",
+        "ts-w-full": fullWidth,
       })}
       {...props}
     >

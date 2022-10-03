@@ -16,9 +16,11 @@
   --ts-success-color: rgb(var(--ts-success-rgb));
   --ts-success-color-20: rgba(var(--ts-success-rgb), 0.2);
 
-  --ts-error-rgb: 255, 72, 66;
-  --ts-error-color: rgb(var(--ts-error-rgb));
-  --ts-error-color-15: rgba(var(--ts-error-rgb), 0.15);
+  --ts-danger-rgb: 211, 47, 47;
+  --ts-danger-color: rgb(var(--ts-danger-rgb));
+  --ts-danger-color-90: rgba(var(--ts-danger-rgb), 0.9);
+  --ts-danger-color-15: rgba(var(--ts-danger-rgb), 0.15);
+  --ts-danger-color-5: rgba(var(--ts-danger-rgb), 0.05);
 
   --ts-disabled-rgb: 128, 128, 128;
   --ts-disabled-color: rgb(var(--ts-disabled-rgb));
