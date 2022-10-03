@@ -5,6 +5,7 @@ import { Modal } from "@components/Modal";
 import Portal from "@components/Portal";
 import { defaultPromoteTargetClassName } from "@constants";
 import { ProductPromotionContext, useProductPromotion } from "@context";
+import { useAsync } from "@hooks/use-async";
 import * as services from "@services/central-services";
 import { Campaign, CustomText, Style } from "@types";
 import {
@@ -14,13 +15,14 @@ import {
 } from "@utils/custom-styles";
 import { logger } from "@utils/logger";
 import { Fragment, FunctionalComponent, h, render } from "preact";
-import { useEffect, useState } from "preact/hooks";
+import { useCallback, useEffect, useState } from "preact/hooks";
 
 import "./app.css";
 import "./utils.css";
 
 const App: FunctionalComponent = () => {
-  const { promoteTargetClassName, style } = useProductPromotion();
+  const { authToken, vendorId, promoteTargetClassName, style } =
+    useProductPromotion();
   const [productId, setProductId] = useState<string | null>(null);
   const [promoteTargets, setPromoteTargets] = useState<HTMLElement[]>([]);
   const [productCampaigns, setProductCampaigns] = useState<
@@ -99,6 +101,40 @@ const App: FunctionalComponent = () => {
     }
   }, [promoteTargetClassName]);
 
+  const getVendorCampaignIdsByProductId = useAsync(
+    useCallback(
+      () =>
+        services.getVendorCampaignIdsByProductId(
+          authToken,
+          vendorId,
+          promoteTargets
+            .map((promoteTarget) => promoteTarget.dataset.tsProductId)
+            .filter((productId): productId is string => !!productId)
+        ),
+      [authToken, vendorId, promoteTargets]
+    ),
+    false
+  );
+
+  useEffect(() => {
+    if (promoteTargets.length > 0) {
+      getVendorCampaignIdsByProductId.execute();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [promoteTargets, getVendorCampaignIdsByProductId.execute]);
+
+  useEffect(() => {
+    if (getVendorCampaignIdsByProductId.status === "error") {
+      logger.error(
+        "[getVendorCampaignIdsByProductId]",
+        getVendorCampaignIdsByProductId.error
+      );
+    }
+  }, [
+    getVendorCampaignIdsByProductId.status,
+    getVendorCampaignIdsByProductId.error,
+  ]);
+
   return (
     <Fragment>
       {promoteTargets.map((promoteTarget, index) => {
@@ -109,6 +145,8 @@ const App: FunctionalComponent = () => {
           return null;
         }
 
+        const { status } = getVendorCampaignIdsByProductId;
+
         return (
           <Portal key={index} target={promoteTarget}>
             <PromoteButton
@@ -116,7 +154,8 @@ const App: FunctionalComponent = () => {
               onClick={() => {
                 setProductId(productId);
               }}
-              hasCampaign={!!productCampaigns[productId]}
+              status={status}
+              hasCampaign={!!getVendorCampaignIdsByProductId.value?.[productId]}
             />
           </Portal>
         );
@@ -153,6 +192,7 @@ type InitProductPromotion = {
 
 export default class TopsortBlocks {
   private authToken?: string;
+  private vendorId?: string;
 
   static promoteTargetClassName = defaultPromoteTargetClassName;
 
@@ -162,15 +202,26 @@ export default class TopsortBlocks {
       return;
     }
 
-    if (!params.apiKey) {
-      logger.error(
-        'Method "init" is missing the required apiKey in the params object.'
-      );
+    if (!params.apiKey || !params.externalVendorId) {
+      if (!params.apiKey) {
+        logger.error(
+          'Method "init" is missing the required apiKey in the params object.'
+        );
+      }
+
+      if (!params.externalVendorId) {
+        logger.error(
+          'Method "init" is missing the required externalVendorId in the params object.'
+        );
+      }
+
       return;
     }
 
+    this.vendorId = params.externalVendorId;
+
     try {
-      const authToken = await services.validateVendor(
+      const { authToken } = await services.validateVendor(
         params.apiKey,
         params.externalVendorId
       );
@@ -185,14 +236,27 @@ export default class TopsortBlocks {
     style,
     text,
   }: InitProductPromotion = {}) {
-    if (!this.authToken) {
-      logger.warn('Cannot call "initProductPromotion" without an authToken.');
+    if (!this.authToken || !this.vendorId) {
+      if (!this.authToken) {
+        logger.warn(
+          'Cannot call "initProductPromotion" without an authToken set.'
+        );
+      }
+
+      if (!this.vendorId) {
+        logger.warn(
+          'Cannot call "initProductPromotion" without a vendorId set.'
+        );
+      }
+
       return;
     }
 
     render(
       <ProductPromotionContext.Provider
         value={{
+          authToken: this.authToken,
+          vendorId: this.vendorId,
           promoteTargetClassName:
             promoteTargetClassName || defaultPromoteTargetClassName,
           style: style || {},

@@ -34,6 +34,15 @@ hr.ts-hr {
   margin: 0;
 }
 
+.ts-campaign-metrics {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  align-items: center;
+  grid-row-gap: 0.625rem;
+  margin-top: 0.875rem;
+  justify-content: space-between;
+}
+
 .ts-campaign-summary {
   background-color: var(--ts-primary-color-5);
   display: flex;
