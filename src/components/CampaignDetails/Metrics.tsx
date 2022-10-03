@@ -2,7 +2,7 @@ import { Icon, IconName } from "@components/Icon";
 import { Campaign } from "@types";
 import { h, FunctionalComponent } from "preact";
 
-export const CampaignMetrics: FunctionalComponent<{
+export const Metrics: FunctionalComponent<{
   campaign: Campaign;
   title: string;
 }> = ({ campaign, title }) => {

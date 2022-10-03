@@ -1,33 +1,52 @@
 import { ModalContent, ModalHeading } from "@components/Modal";
-import { CampaignBudget, CampaignSummary } from "@components/common";
 import { Campaign } from "@types";
-import { h, FunctionalComponent, Fragment } from "preact";
+import { h, FunctionalComponent } from "preact";
+import { useReducer } from "preact/hooks";
 
-import { CampaignMetrics } from "./CampaignMetrics";
+import { Details } from "./Details";
+import { Ending } from "./Ending";
+import { CampaignDetailsContext } from "./context";
+import { initialState, reducer } from "./state";
 import "./style.css";
 
 export const CampaignDetails: FunctionalComponent<{
   campaign: Campaign;
 }> = ({ campaign }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { step } = state;
+
+  const { title, content } = (() => {
+    switch (step) {
+      case "details": {
+        return {
+          title: "Campaign Details",
+          content: <Details campaign={campaign} />,
+        };
+      }
+      case "ending": {
+        return {
+          title: "You're about to end this campaign",
+          content: <Ending campaign={campaign} />,
+        };
+      }
+    }
+  })();
+
+  const contentHeight = (() => {
+    switch (step) {
+      case "details":
+        return "24rem";
+      case "ending":
+        return "fit-content";
+      default:
+        return undefined;
+    }
+  })();
+
   return (
-    <Fragment>
-      <ModalHeading>Campaign Details</ModalHeading>
-      <ModalContent height="32rem">
-        <div className="ts-space-y-3-5">
-          <CampaignSummary
-            name={campaign.name}
-            productImageUrl={campaign.productImageUrl}
-            showSummaryTime
-          />
-          <CampaignBudget
-            budget={campaign.budget}
-            days={campaign.days}
-            onEditOrEnd={() => console.log("edit or end clicked")}
-          />
-          <hr className="ts-hr" />
-          <CampaignMetrics title="Metrics" campaign={campaign} />
-        </div>
-      </ModalContent>
-    </Fragment>
+    <CampaignDetailsContext.Provider value={{ state, dispatch }}>
+      <ModalHeading>{title}</ModalHeading>
+      <ModalContent height={contentHeight}>{content}</ModalContent>
+    </CampaignDetailsContext.Provider>
   );
 };
