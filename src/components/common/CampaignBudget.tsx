@@ -4,21 +4,21 @@ import { h, FunctionalComponent } from "preact";
 
 export const CampaignBudget: FunctionalComponent<
   Pick<Campaign, "budget" | "days"> & {
-    onEditOrEnd?: () => void;
+    onEdit?: () => void;
     showTargetingText?: boolean;
   }
-> = ({ budget, days, onEditOrEnd, showTargetingText = false }) => {
+> = ({ budget, days, onEdit, showTargetingText = false }) => {
   return (
     <div className="ts-campaign-budget-duration">
       <div className="ts-campaign-budget-duration-title">
         <div>Budget & Duration</div>
-        {onEditOrEnd && (
+        {onEdit && (
           <Button
-            onClick={onEditOrEnd}
+            onClick={onEdit}
             variant="text"
             className="ts-edit-campaign-button"
           >
-            Edit or end
+            Edit
           </Button>
         )}
       </div>
