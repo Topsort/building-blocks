@@ -40,7 +40,7 @@ export async function getCampaignIdsByProductId(
     {
       method: "POST",
       headers: getHeaders(authToken),
-      body: JSON.stringify({ productIds }),
+      body: JSON.stringify(productIds),
     }
   );
 }
