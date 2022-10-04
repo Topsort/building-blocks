@@ -1,6 +1,7 @@
 import { api } from "@api/index";
 import paths from "@api/paths";
 import * as schemas from "@api/schemas";
+import type { CampaignIdsByProductId, ValidateVendor } from "@api/types";
 
 function getAuthorizationHeader(apiKey: string) {
   return { authorization: `Bearer ${apiKey}` };
@@ -13,7 +14,7 @@ function getAuthTokenHeader(authToken: string) {
 export async function validateVendor(
   apiKey: string,
   vendorId: string
-): Promise<schemas.ValidateVendor> {
+): Promise<ValidateVendor> {
   return await api(schemas.validateVendorSchema, paths.validate(vendorId), {
     method: "GET",
     headers: getAuthorizationHeader(apiKey),
@@ -24,7 +25,7 @@ export async function getCampaignIdsByProductId(
   authToken: string,
   vendorId: string,
   productIds: string[]
-): Promise<schemas.CampaignIdsByProductId> {
+): Promise<CampaignIdsByProductId> {
   /*
    * TODO(christopherbot) uncomment this to test a "success" or "failure"
    * of this endpoint since it's not merged yet in Central Services. Will
