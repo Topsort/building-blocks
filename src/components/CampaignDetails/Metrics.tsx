@@ -7,9 +7,9 @@ export const Metrics: FunctionalComponent<{
   title: string;
 }> = ({ campaign, title }) => {
   return (
-    <div className="ts-campaign-details-metrics">
-      <span className="ts-campaign-metrics-title">{title}</span>
-      <div class="ts-metrics-grid">
+    <div className="ts-metrics">
+      <span className="ts-metrics__title">{title}</span>
+      <div class="ts-metrics__grid">
         <Metric
           title="Impressions"
           value={campaign.impressions}
@@ -45,9 +45,9 @@ const Metric: FunctionalComponent<{
   return (
     <div className="ts-metric">
       <Icon name={iconName} title={title} />
-      <div className="ts-metric-content">
-        <span className="ts-metric-title">{title}</span>
-        <span className="ts-metric-value">{value}</span>
+      <div className="ts-metric__content">
+        <span className="ts-metric__title">{title}</span>
+        <span className="ts-metric__value">{value}</span>
       </div>
     </div>
   );

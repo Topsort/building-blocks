@@ -1,21 +1,21 @@
-.ts-campaign-details-metrics {
+.ts-metrics {
   display: flex;
   flex-direction: column;
   font-weight: 500;
 }
 
-.ts-campaign-metrics-title {
+.ts-metrics__title {
   line-height: 1.25rem;
   margin-bottom: 0.75rem;
 }
 
-.ts-metrics-grid {
+.ts-metrics__grid {
   display: grid;
   grid-template-columns: auto auto auto;
   row-gap: 0.625rem;
 }
 
-.ts-metrics-grid > .ts-metric {
+.ts-metrics__grid > .ts-metric {
   display: flex;
   font-size: 0.875rem;
   line-height: 150%;
@@ -25,18 +25,18 @@
   color: #826af9;
 }
 
-.ts-metric-content {
+.ts-metric__content {
   display: flex;
   flex-direction: column;
   margin-left: 0.375rem;
 }
 
-.ts-metric-value {
+.ts-metric__value {
   font-weight: 450;
   color: var(--ts-font-color-60);
 }
 
-.ts-metric-title {
+.ts-metric__title {
   line-height: 24px;
 }
 
