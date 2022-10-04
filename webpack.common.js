@@ -70,10 +70,9 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      CENTRAL_SERVICES_PUBLIC_URL: JSON.stringify(
-        process.env.CENTRAL_SERVICES_PUBLIC_URL
+      CENTRAL_SERVICES_BASE_URL: JSON.stringify(
+        process.env.CENTRAL_SERVICES_BASE_URL
       ),
-      CENTRAL_SERVICES_URL: JSON.stringify(process.env.CENTRAL_SERVICES_URL),
       STRIPE_PUBLIC_KEY: JSON.stringify(process.env.STRIPE_PUBLIC_KEY),
     }),
   ],

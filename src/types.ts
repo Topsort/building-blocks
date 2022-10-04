@@ -1,8 +1,7 @@
 import { ComponentChildren } from "preact";
 
 declare global {
-  const CENTRAL_SERVICES_PUBLIC_URL: string;
-  const CENTRAL_SERVICES_URL: string;
+  const CENTRAL_SERVICES_BASE_URL: string;
   const STRIPE_PUBLIC_KEY: string;
 }
 
