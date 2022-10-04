@@ -30,7 +30,7 @@ export const CampaignDetails: FunctionalComponent<{
           title: (
             <Fragment>
               <Icon size={32} name="tick-circle" />
-              <span>Your campaign was launched!</span>
+              <span>Your campaign ended!</span>
             </Fragment>
           ),
           content: <Ended campaign={campaign} />,
