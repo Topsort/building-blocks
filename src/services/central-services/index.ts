@@ -1,7 +1,12 @@
 import { api } from "@api/index";
 import paths from "@api/paths";
 import * as schemas from "@api/schemas";
-import type { CampaignIdsByProductId, ValidateVendor } from "@api/types";
+import type {
+  CampaignIdsByProductId,
+  ValidateVendor,
+  PaymentMethod,
+} from "@api/types";
+import { PaymentMethod as StripePaymentMethod } from "@stripe/stripe-js";
 
 function getHeaders(token: string) {
   return {
@@ -43,4 +48,39 @@ export async function getCampaignIdsByProductId(
       body: JSON.stringify(productIds),
     }
   );
+}
+
+export async function getPaymentMethods(
+  authToken: string
+): Promise<PaymentMethod[]> {
+  const { methods } = await api(
+    schemas.paymentMethodsSchema,
+    paths.paymentMethods(),
+    {
+      method: "GET",
+      headers: getHeaders(authToken),
+    }
+  );
+
+  return methods;
+}
+
+export async function createPaymentMethod(
+  authToken: string,
+  paymentMethod: StripePaymentMethod
+): Promise<null> {
+  return await api(schemas.nullSchema, paths.paymentMethods(), {
+    method: "POST",
+    headers: getHeaders(authToken),
+    body: JSON.stringify({
+      data: {
+        id: paymentMethod.id,
+        provider: "stripe",
+        data: {
+          id: paymentMethod.id,
+          type: paymentMethod.type,
+        },
+      },
+    }),
+  });
 }

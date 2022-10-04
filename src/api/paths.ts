@@ -1,6 +1,8 @@
 export default {
+  paymentMethods: () =>
+    `${CENTRAL_SERVICES_BASE_URL}/payment-service/payment_methods`,
   products: (vendorId: string) =>
-    `${CENTRAL_SERVICES_URL}/vendors/${vendorId}/products`,
+    `${CENTRAL_SERVICES_BASE_URL}/modal-service/vendors/${vendorId}/products`,
   validate: (vendorId: string) =>
-    `${CENTRAL_SERVICES_PUBLIC_URL}/auth/vendors/${vendorId}`,
+    `${CENTRAL_SERVICES_BASE_URL}/public/v1/modal-service/auth/vendors/${vendorId}`,
 };
