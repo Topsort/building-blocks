@@ -11,8 +11,7 @@ module.exports = {
     "preact",
   ],
   globals: {
-    CENTRAL_SERVICES_PUBLIC_URL: "readonly",
-    CENTRAL_SERVICES_URL: "readonly",
+    CENTRAL_SERVICES_BASE_URL: "readonly",
     STRIPE_PUBLIC_KEY: "readonly",
   },
   parser: "@typescript-eslint/parser",

@@ -1,16 +1,27 @@
 import { z } from "zod";
 
-export const validateVendorResponseSchema = z.object({
-  authToken: z.string(),
-});
-export type ValidateVendorResponse = z.infer<
-  typeof validateVendorResponseSchema
->;
+export const nullSchema = z.null();
 
-export const vendorCampaignIdsByProductIdResponseSchema = z.record(
-  z.string(),
-  z.string().nullable()
+export const validateVendorSchema = z.object({
+  authToken: z.string().min(1),
+});
+
+export const campaignIdsByProductIdSchema = z.record(
+  z.string().min(1),
+  z.string().uuid().nullable()
 );
-export type VendorCampaignIdsByProductIdResponse = z.infer<
-  typeof vendorCampaignIdsByProductIdResponseSchema
->;
+
+export const paymentMethodSchema = z.object({
+  id: z.string().min(1),
+  provider: z.string().min(1),
+  data: z.object({
+    id: z.string().min(1),
+    type: z.string().min(1),
+    brand: z.string().min(1),
+    last4: z.string().length(4),
+  }),
+});
+
+export const paymentMethodsSchema = z.object({
+  methods: z.array(paymentMethodSchema),
+});

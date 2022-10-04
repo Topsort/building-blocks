@@ -1,4 +1,4 @@
-import { PaymentMethod } from "@stripe/stripe-js";
+import { PaymentMethod } from "@api/types";
 
 // TODO(samet) recommendedBudget and estimatedClick will change.
 export const recommendedBudgetUSD = 5;

@@ -1,7 +1,7 @@
+import { PaymentMethod } from "@api/types";
 import { Button } from "@components/Button";
 import { Select } from "@components/Select";
 import { CampaignBudget, CampaignSummary } from "@components/common";
-import { PaymentMethod } from "@stripe/stripe-js";
 import { h, FunctionalComponent } from "preact";
 
 import { useCampaignCreation } from "./context";
@@ -10,14 +10,14 @@ import { PaymentMethodIcon } from "./utils";
 const FormattedPaymentMethod: FunctionalComponent<{
   paymentMethod: PaymentMethod;
 }> = ({ paymentMethod }) => {
-  if (!paymentMethod.card) {
-    return <span>payment method of type "{paymentMethod.type}"</span>;
+  if (paymentMethod.data.type !== "card") {
+    return <span>payment method of type "{paymentMethod.data.type}"</span>;
   }
 
   return (
     <div className="ts-payment-method ts-space-x-2">
       <PaymentMethodIcon paymentMethod={paymentMethod} />
-      <span>**** **** **** {paymentMethod.card.last4}</span>
+      <span>**** **** **** {paymentMethod.data.last4}</span>
     </div>
   );
 };
@@ -49,7 +49,7 @@ export const Confirm: FunctionalComponent = () => {
             )}
             options={paymentMethods}
             selectRenderer={(selectedOption) =>
-              selectedOption?.card ? (
+              selectedOption ? (
                 <FormattedPaymentMethod paymentMethod={selectedOption} />
               ) : (
                 <span>Select a payment method</span>

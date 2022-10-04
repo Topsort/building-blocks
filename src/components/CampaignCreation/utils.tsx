@@ -1,11 +1,11 @@
+import { PaymentMethod } from "@api/types";
 import { Icon } from "@components/Icon";
-import { PaymentMethod } from "@stripe/stripe-js";
 import { h, FunctionalComponent } from "preact";
 
 export const PaymentMethodIcon: FunctionalComponent<{
   paymentMethod: PaymentMethod;
 }> = ({ paymentMethod }) => {
-  switch (paymentMethod.card?.brand) {
+  switch (paymentMethod.data.brand) {
     case "visa":
       return <Icon name="visa" viewBox="71.75 85 72.75 45.96" />;
     case "mastercard":

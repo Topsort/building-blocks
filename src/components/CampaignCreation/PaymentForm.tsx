@@ -1,5 +1,7 @@
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
+import { useProductPromotion } from "@context";
+import * as services from "@services/central-services";
 import {
   Elements,
   useStripe,
@@ -14,7 +16,7 @@ import {
   StripeCardNumberElement,
   StripeCardNumberElementChangeEvent,
 } from "@stripe/stripe-js";
-import { getStripe } from "@utils/stripe";
+import { formatPaymentMethod, getStripe } from "@utils/payment";
 import cx from "classnames";
 import { Fragment, h, JSX } from "preact";
 import { useState } from "preact/hooks";
@@ -61,6 +63,7 @@ const errorText = {
 };
 
 const StripePaymentForm = () => {
+  const { authToken } = useProductPromotion();
   const { dispatch } = useCampaignCreation();
   const stripe = useStripe();
   const elements = useElements();
@@ -133,14 +136,22 @@ const StripePaymentForm = () => {
 
     setErrorCodesByType(initialErrorCodesByType);
 
-    // TODO(christopherbot) call Central Services here to save card in our db
-    setIsSavingCard(false);
-    dispatch({
-      type: "payment method saved",
-      payload: {
-        paymentMethod,
-      },
-    });
+    try {
+      await services.createPaymentMethod(authToken, paymentMethod);
+      dispatch({
+        type: "payment method saved",
+        payload: {
+          paymentMethod: formatPaymentMethod(paymentMethod),
+        },
+      });
+    } catch (error) {
+      setErrorCodesByType((prev) => ({
+        ...prev,
+        api: "create payment method",
+      }));
+    } finally {
+      setIsSavingCard(false);
+    }
   };
 
   const messagesByErrorCode: Record<ErrorCode, string> = {

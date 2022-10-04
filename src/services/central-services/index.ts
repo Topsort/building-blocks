@@ -1,34 +1,35 @@
 import { api } from "@api/index";
 import paths from "@api/paths";
 import * as schemas from "@api/schemas";
+import type {
+  CampaignIdsByProductId,
+  ValidateVendor,
+  PaymentMethod,
+} from "@api/types";
+import { PaymentMethod as StripePaymentMethod } from "@stripe/stripe-js";
 
-function getAuthorizationHeader(apiKey: string) {
-  return { authorization: `Bearer ${apiKey}` };
-}
-
-function getAuthTokenHeader(authToken: string) {
-  return { authToken: `Bearer ${authToken}` };
+function getHeaders(token: string) {
+  return {
+    authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
 }
 
 export async function validateVendor(
   apiKey: string,
   vendorId: string
-): Promise<schemas.ValidateVendorResponse> {
-  return await api(
-    schemas.validateVendorResponseSchema,
-    paths.validate(vendorId),
-    {
-      method: "GET",
-      headers: getAuthorizationHeader(apiKey),
-    }
-  );
+): Promise<ValidateVendor> {
+  return await api(schemas.validateVendorSchema, paths.validate(vendorId), {
+    method: "GET",
+    headers: getHeaders(apiKey),
+  });
 }
 
-export async function getVendorCampaignIdsByProductId(
+export async function getCampaignIdsByProductId(
   authToken: string,
   vendorId: string,
   productIds: string[]
-): Promise<schemas.VendorCampaignIdsByProductIdResponse> {
+): Promise<CampaignIdsByProductId> {
   /*
    * TODO(christopherbot) uncomment this to test a "success" or "failure"
    * of this endpoint since it's not merged yet in Central Services. Will
@@ -39,12 +40,47 @@ export async function getVendorCampaignIdsByProductId(
   //   // setTimeout(() => rej("Error!!"), 2000);
   // });
   return await api(
-    schemas.vendorCampaignIdsByProductIdResponseSchema,
-    paths.vendorProducts(vendorId),
+    schemas.campaignIdsByProductIdSchema,
+    paths.products(vendorId),
     {
       method: "POST",
-      headers: getAuthTokenHeader(authToken),
-      body: JSON.stringify({ productIds }),
+      headers: getHeaders(authToken),
+      body: JSON.stringify(productIds),
     }
   );
+}
+
+export async function getPaymentMethods(
+  authToken: string
+): Promise<PaymentMethod[]> {
+  const { methods } = await api(
+    schemas.paymentMethodsSchema,
+    paths.paymentMethods(),
+    {
+      method: "GET",
+      headers: getHeaders(authToken),
+    }
+  );
+
+  return methods;
+}
+
+export async function createPaymentMethod(
+  authToken: string,
+  paymentMethod: StripePaymentMethod
+): Promise<null> {
+  return await api(schemas.nullSchema, paths.paymentMethods(), {
+    method: "POST",
+    headers: getHeaders(authToken),
+    body: JSON.stringify({
+      data: {
+        id: paymentMethod.id,
+        provider: "stripe",
+        data: {
+          id: paymentMethod.id,
+          type: paymentMethod.type,
+        },
+      },
+    }),
+  });
 }

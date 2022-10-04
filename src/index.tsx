@@ -101,10 +101,10 @@ const App: FunctionalComponent = () => {
     }
   }, [promoteTargetClassName]);
 
-  const getVendorCampaignIdsByProductId = useAsync(
+  const getCampaignIdsByProductId = useAsync(
     useCallback(
       () =>
-        services.getVendorCampaignIdsByProductId(
+        services.getCampaignIdsByProductId(
           authToken,
           vendorId,
           promoteTargets
@@ -118,22 +118,19 @@ const App: FunctionalComponent = () => {
 
   useEffect(() => {
     if (promoteTargets.length > 0) {
-      getVendorCampaignIdsByProductId.execute();
+      getCampaignIdsByProductId.execute();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [promoteTargets, getVendorCampaignIdsByProductId.execute]);
+  }, [promoteTargets, getCampaignIdsByProductId.execute]);
 
   useEffect(() => {
-    if (getVendorCampaignIdsByProductId.status === "error") {
+    if (getCampaignIdsByProductId.status === "error") {
       logger.error(
-        "[getVendorCampaignIdsByProductId]",
-        getVendorCampaignIdsByProductId.error
+        "[getCampaignIdsByProductId]",
+        getCampaignIdsByProductId.error
       );
     }
-  }, [
-    getVendorCampaignIdsByProductId.status,
-    getVendorCampaignIdsByProductId.error,
-  ]);
+  }, [getCampaignIdsByProductId.status, getCampaignIdsByProductId.error]);
 
   return (
     <Fragment>
@@ -145,7 +142,7 @@ const App: FunctionalComponent = () => {
           return null;
         }
 
-        const { status } = getVendorCampaignIdsByProductId;
+        const { status } = getCampaignIdsByProductId;
 
         return (
           <Portal key={index} target={promoteTarget}>
@@ -155,7 +152,7 @@ const App: FunctionalComponent = () => {
                 setProductId(productId);
               }}
               status={status}
-              hasCampaign={!!getVendorCampaignIdsByProductId.value?.[productId]}
+              hasCampaign={!!getCampaignIdsByProductId.value?.[productId]}
             />
           </Portal>
         );
