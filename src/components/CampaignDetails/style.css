@@ -44,5 +44,5 @@
   font-size: 0.75rem;
   font-weight: 450;
   line-height: 150%;
-  color: var(--ts-disabled-color);
+  color: var(--ts-font-color-40);
 }

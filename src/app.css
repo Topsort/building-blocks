@@ -11,6 +11,7 @@
   --ts-font-rgb: 0, 0, 0;
   --ts-font-color: rgb(var(--ts-font-rgb));
   --ts-font-color-60: rgba(var(--ts-font-rgb), 0.6);
+  --ts-font-color-40: rgba(var(--ts-font-rgb), 0.4);
 
   --ts-success-rgb: 95, 205, 15;
   --ts-success-color: rgb(var(--ts-success-rgb));
