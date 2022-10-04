@@ -3,12 +3,11 @@ import paths from "@api/paths";
 import * as schemas from "@api/schemas";
 import type { CampaignIdsByProductId, ValidateVendor } from "@api/types";
 
-function getAuthorizationHeader(apiKey: string) {
-  return { authorization: `Bearer ${apiKey}` };
-}
-
-function getAuthTokenHeader(authToken: string) {
-  return { authToken: `Bearer ${authToken}` };
+function getHeaders(token: string) {
+  return {
+    authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
 }
 
 export async function validateVendor(
@@ -17,7 +16,7 @@ export async function validateVendor(
 ): Promise<ValidateVendor> {
   return await api(schemas.validateVendorSchema, paths.validate(vendorId), {
     method: "GET",
-    headers: getAuthorizationHeader(apiKey),
+    headers: getHeaders(apiKey),
   });
 }
 
@@ -40,7 +39,7 @@ export async function getCampaignIdsByProductId(
     paths.products(vendorId),
     {
       method: "POST",
-      headers: getAuthTokenHeader(authToken),
+      headers: getHeaders(authToken),
       body: JSON.stringify({ productIds }),
     }
   );
