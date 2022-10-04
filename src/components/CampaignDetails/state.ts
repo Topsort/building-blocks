@@ -1,4 +1,4 @@
-export type Step = "details" | "ended" | "ending";
+export type Step = "details" | "ending" | "ended";
 
 export type State = {
   step: Step;
