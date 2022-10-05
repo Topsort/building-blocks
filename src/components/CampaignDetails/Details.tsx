@@ -1,5 +1,5 @@
+import { Campaign } from "@api/types";
 import { CampaignBudget, CampaignSummary } from "@components/common";
-import { Campaign } from "@types";
 import { h, FunctionalComponent } from "preact";
 
 import { Metrics } from "./Metrics";
@@ -14,12 +14,14 @@ export const Details: FunctionalComponent<{
     <div className="ts-space-y-3-5">
       <CampaignSummary
         name={campaign.name}
-        productImageUrl={campaign.productImageUrl}
+        // productImageUrl={campaign.productImageUrl}
+        productImageUrl="https://picsum.photos/68"
         showSummaryTime
       />
       <CampaignBudget
-        budget={campaign.budget}
-        days={campaign.days}
+        budget={campaign.budget.amount}
+        // days={campaign.days}
+        days={4}
         onEdit={() => dispatch({ type: "edit campaign button clicked" })}
       />
       <hr className="ts-hr" />

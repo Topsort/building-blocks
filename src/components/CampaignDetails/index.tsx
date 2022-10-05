@@ -1,6 +1,6 @@
+import { Campaign } from "@api/types";
 import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
-import { Campaign } from "@types";
 import { h, FunctionalComponent, Fragment } from "preact";
 import { useReducer } from "preact/hooks";
 

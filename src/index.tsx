@@ -1,3 +1,4 @@
+import type { Campaign } from "@api/types";
 import { PromoteButton } from "@components/Button";
 import { CampaignCreation } from "@components/CampaignCreation";
 import { CampaignDetails } from "@components/CampaignDetails";
@@ -7,7 +8,7 @@ import { defaultPromoteTargetClassName } from "@constants";
 import { ProductPromotionContext, useProductPromotion } from "@context";
 import { useAsync } from "@hooks/use-async";
 import * as services from "@services/central-services";
-import { Campaign, CustomText, Style } from "@types";
+import { CustomText, Style } from "@types";
 import {
   getInvalidRgbWarning,
   isRgbValid,
@@ -25,10 +26,13 @@ const App: FunctionalComponent = () => {
     useProductPromotion();
   const [productId, setProductId] = useState<string | null>(null);
   const [promoteTargets, setPromoteTargets] = useState<HTMLElement[]>([]);
-  const [productCampaigns, setProductCampaigns] = useState<
+  // const [productCampaigns, setProductCampaigns] = useState<
+  //   Record<string, Campaign>
+  // >({});
+  const [campaignsByProductId, setCampaignsByProductId] = useState<
     Record<string, Campaign>
   >({});
-  const campaign = productId ? productCampaigns[productId] : null;
+  const campaign = productId ? campaignsByProductId[productId] : null;
 
   // Set up color variables for custom theming
   useEffect(() => {
@@ -76,29 +80,29 @@ const App: FunctionalComponent = () => {
       return;
     }
 
-    const productCampaign = {
-      budget: 200,
-      name: `Too FacedHangover ${productId}`,
-      productImageUrl: "https://picsum.photos/68",
-      totalSpend: "$99,698",
-      totalSales: "$123,99",
-      roas: "24%",
-      days: 4,
-      minRoas: "4x",
-      impressions: 1341,
-      clicks: 24,
-      purchases: 19,
-      status: true,
-    }; //TODO (sofia): getProductCampaign(productId);
-    const hasCampaign = !!productCampaign;
-    if (hasCampaign) {
-      setProductCampaigns((prev) => {
-        return {
-          ...prev,
-          [productId]: productCampaign,
-        };
-      });
-    }
+    // const productCampaign = {
+    //   budget: 200,
+    //   name: `Too FacedHangover ${productId}`,
+    //   productImageUrl: "https://picsum.photos/68",
+    //   totalSpend: "$99,698",
+    //   totalSales: "$123,99",
+    //   roas: "24%",
+    //   days: 4,
+    //   minRoas: "4x",
+    //   impressions: 1341,
+    //   clicks: 24,
+    //   purchases: 19,
+    //   status: true,
+    // }; //TODO (sofia): getProductCampaign(productId);
+    // const hasCampaign = !!productCampaign;
+    // if (hasCampaign) {
+    //   setProductCampaigns((prev) => {
+    //     return {
+    //       ...prev,
+    //       [productId]: productCampaign,
+    //     };
+    //   });
+    // }
   }, [promoteTargetClassName]);
 
   const getCampaignIdsByProductId = useAsync(
@@ -132,13 +136,72 @@ const App: FunctionalComponent = () => {
     }
   }, [getCampaignIdsByProductId.status, getCampaignIdsByProductId.error]);
 
+  // const campaignId = productId
+  //   ? getCampaignIdsByProductId.value?.[productId]
+  //   : null;
+
+  // const getCampaign = useAsync(
+  //   useCallback(
+  //     () => services.getCampaign(authToken, vendorId, campaignId || ""),
+  //     [authToken, vendorId, campaignId]
+  //   ),
+  //   false
+  // );
+
+  // useEffect(() => {
+  //   if (campaignId) {
+  //     getCampaign.execute();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [campaignId, getCampaign.execute]);
+
+  // useEffect(() => {
+  //   if (getCampaign.value) {
+  //     setCampaignsByProductId()
+  //   }
+  // }, [getCampaign.value])
+
+  // console.log("~~~ getCampaign.value", getCampaign.value);
+
+  useEffect(() => {
+    async function getCampaign() {
+      if (!productId || campaignsByProductId[productId]) return;
+
+      const campaignId = getCampaignIdsByProductId.value?.[productId];
+
+      if (!campaignId) return;
+
+      console.log("~~~ getting campaign!");
+
+      const response = await services.getCampaign(
+        authToken,
+        vendorId,
+        campaignId
+      );
+
+      console.log("~~~~ campaign=", response);
+
+      setCampaignsByProductId((prev) => ({
+        ...prev,
+        [productId]: response,
+      }));
+    }
+
+    getCampaign();
+  }, [
+    authToken,
+    vendorId,
+    productId,
+    campaignsByProductId,
+    getCampaignIdsByProductId.value,
+  ]);
+
   return (
     <Fragment>
       {promoteTargets.map((promoteTarget, index) => {
         const productId = promoteTarget.dataset.tsProductId;
 
         if (!productId) {
-          logger.warn("Skipping button on element with no data-ts-product-id.");
           return null;
         }
 

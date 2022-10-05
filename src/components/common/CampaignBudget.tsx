@@ -1,13 +1,12 @@
 import { Button } from "@components/Button";
-import { Campaign } from "@types";
 import { h, FunctionalComponent } from "preact";
 
-export const CampaignBudget: FunctionalComponent<
-  Pick<Campaign, "budget" | "days"> & {
-    onEdit?: () => void;
-    showTargetingText?: boolean;
-  }
-> = ({ budget, days, onEdit, showTargetingText = false }) => {
+export const CampaignBudget: FunctionalComponent<{
+  budget: number;
+  days: number;
+  onEdit?: () => void;
+  showTargetingText?: boolean;
+}> = ({ budget, days, onEdit, showTargetingText = false }) => {
   return (
     <div className="ts-campaign-budget-duration">
       <div className="ts-campaign-budget-duration-title">

@@ -1,5 +1,5 @@
+import { Campaign } from "@api/types";
 import { Icon, IconName } from "@components/Icon";
-import { Campaign } from "@types";
 import { h, FunctionalComponent } from "preact";
 
 export const Metrics: FunctionalComponent<{
@@ -12,26 +12,37 @@ export const Metrics: FunctionalComponent<{
       <div class="ts-metrics__grid">
         <Metric
           title="Impressions"
-          value={campaign.impressions}
+          value={campaign.campaignBehaviorData.impressions.total}
           iconName="eye"
         />
         <Metric
           title="Clicks"
-          value={campaign.clicks}
+          value={campaign.campaignBehaviorData.clicks.total}
           iconName="mouse-square"
         />
-        <Metric title="Purchases" value={campaign.purchases} iconName="bag" />
+        <Metric
+          title="Purchases"
+          value={campaign.campaignBehaviorData.purchases.amount}
+          iconName="bag"
+        />
         <Metric
           title="Total spend"
-          value={campaign.totalSpend}
+          // value={campaign.totalSpend}
+          value="$99,698"
           iconName="money"
         />
         <Metric
           title="Total sales"
-          value={campaign.totalSales}
+          // value={campaign.totalSales}
+          value="$123.99"
           iconName="message-add"
         />
-        <Metric title="ROAS" value={campaign.roas} iconName="back-square" />
+        <Metric
+          title="ROAS"
+          // value={campaign.roas}
+          value="4x"
+          iconName="back-square"
+        />
       </div>
     </div>
   );

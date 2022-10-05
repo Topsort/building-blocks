@@ -1,6 +1,6 @@
+import { Campaign } from "@api/types";
 import { Button } from "@components/Button";
 import { CampaignSummary } from "@components/common";
-import { Campaign } from "@types";
 import { h, FunctionalComponent } from "preact";
 
 import { Metrics } from "./Metrics";
@@ -17,7 +17,8 @@ export const Ending: FunctionalComponent<{
     <div className="ts-space-y-4">
       <CampaignSummary
         name={campaign.name}
-        productImageUrl={campaign.productImageUrl}
+        // productImageUrl={campaign.productImageUrl}
+        productImageUrl="https://picsum.photos/68"
       />
       <Metrics title="Final Metrics" campaign={campaign} />
       <div className="ts-space-y-2-5">

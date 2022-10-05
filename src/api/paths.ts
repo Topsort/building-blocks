@@ -1,4 +1,6 @@
 export default {
+  campaign: (vendorId: string, campaignId: string) =>
+    `${CENTRAL_SERVICES_BASE_URL}/modal-service/vendors/${vendorId}/campaigns/${campaignId}`,
   paymentMethods: () =>
     `${CENTRAL_SERVICES_BASE_URL}/payment-service/payment_methods`,
   products: (vendorId: string) =>
