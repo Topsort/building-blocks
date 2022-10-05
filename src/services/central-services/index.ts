@@ -31,23 +31,7 @@ export async function getCampaignIdsByProductId(
   vendorId: string,
   productIds: string[]
 ): Promise<CampaignIdsByProductId> {
-  /*
-   * TODO(christopherbot) uncomment this to test a "success" or "failure"
-   * of this endpoint since it's not merged yet in Central Services. Will
-   * remove this code when the CS work is merged.
-   */
-  // return new Promise((res, rej) => {
-  //   setTimeout(
-  //     () =>
-  //       res({
-  //         "product-1": "00000000-0000-7000-8088-0000000002dc",
-  //         "product-4": "00000000-0000-7000-8088-0000000001ab",
-  //       }),
-  //     2000
-  //   );
-  //   // setTimeout(() => rej("Error!!"), 2000);
-  // });
-  const a = await api(
+  const response = await api(
     schemas.campaignIdsByProductIdSchema,
     paths.products(vendorId),
     {
@@ -56,9 +40,12 @@ export async function getCampaignIdsByProductId(
       body: JSON.stringify(productIds),
     }
   );
-  a["product-1"] = "00000000-0000-7000-8088-0000000002dc";
-  a["product-4"] = "00000000-0000-7000-8088-0000000001ab";
-  return a;
+  // TODO(christopherbot) remove this temp code eventually
+  // a real campaignId that belongs to Balboa
+  response["product-1"] = "e86a2438-14cb-44b1-94a8-291a4a57215b";
+  // a campaignId that will result in an error when fetching the campaign
+  response["product-4"] = "00000000-0000-7000-8088-0000000001ab";
+  return response;
 }
 
 export async function getPaymentMethods(
@@ -97,8 +84,8 @@ export async function createPaymentMethod(
 }
 
 const fakeCampaignsById: Record<string, Campaign> = {
-  "00000000-0000-7000-8088-0000000002dc": {
-    campaignId: "00000000-0000-7000-8088-0000000002dc",
+  "00000000-0000-7000-8088-0000000001ab": {
+    campaignId: "00000000-0000-7000-8088-0000000001ab",
     name: "Fakey McFakerson Campaign",
     budget: {
       amount: 200,
@@ -123,8 +110,8 @@ const fakeCampaignsById: Record<string, Campaign> = {
       },
     },
   },
-  "00000000-0000-7000-8088-0000000001ab": {
-    campaignId: "00000000-0000-7000-8088-0000000001ab",
+  "e86a2438-14cb-44b1-94a8-291a4a57215b": {
+    campaignId: "e86a2438-14cb-44b1-94a8-291a4a57215b",
     name: "Totally A Real Campaign",
     budget: {
       amount: 990,
@@ -156,10 +143,10 @@ export async function getCampaign(
   vendorId: string,
   campaignId: string
 ): Promise<Campaign> {
-  return new Promise((res, rej) => {
-    setTimeout(() => res(fakeCampaignsById[campaignId]), 1000);
-    // setTimeout(() => rej("Error!!"), 1000);
-  });
+  // return new Promise((res, rej) => {
+  //   setTimeout(() => res(fakeCampaignsById[campaignId]), 1000);
+  //   // setTimeout(() => rej("Error!!"), 1000);
+  // });
   return await api(
     schemas.campaignSchema,
     paths.campaign(vendorId, campaignId),

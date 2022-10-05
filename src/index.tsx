@@ -1,4 +1,3 @@
-import type { Campaign } from "@api/types";
 import { PromoteButton } from "@components/Button";
 import { CampaignCreation } from "@components/CampaignCreation";
 import { CampaignDetails } from "@components/CampaignDetails";
@@ -16,9 +15,10 @@ import {
 } from "@utils/custom-styles";
 import { logger } from "@utils/logger";
 import { Fragment, FunctionalComponent, h, render } from "preact";
-import { useCallback, useEffect, useState } from "preact/hooks";
+import { useCallback, useEffect, useReducer, useState } from "preact/hooks";
 
 import "./app.css";
+import { initialState, reducer } from "./state";
 import "./utils.css";
 
 const App: FunctionalComponent = () => {
@@ -26,13 +26,6 @@ const App: FunctionalComponent = () => {
     useProductPromotion();
   const [productId, setProductId] = useState<string | null>(null);
   const [promoteTargets, setPromoteTargets] = useState<HTMLElement[]>([]);
-  // const [productCampaigns, setProductCampaigns] = useState<
-  //   Record<string, Campaign>
-  // >({});
-  const [campaignsByProductId, setCampaignsByProductId] = useState<
-    Record<string, Campaign>
-  >({});
-  const campaign = productId ? campaignsByProductId[productId] : null;
 
   // Set up color variables for custom theming
   useEffect(() => {
@@ -66,43 +59,11 @@ const App: FunctionalComponent = () => {
         "No promote targets found. Did you add the right className to the promote targets?\n\n" +
           "If you are using a custom className, make sure to pass it in the `initProductPromotion` options."
       );
-    }
-    setPromoteTargets(promoteTargets as HTMLElement[]);
 
-    const testPromoteTarget = promoteTargets[0];
-
-    if (!(testPromoteTarget instanceof HTMLElement)) return;
-    const productId = testPromoteTarget.dataset.tsProductId;
-    if (!productId) {
-      logger.warn(
-        "Skipping test campaign data for element with no data-ts-product-id."
-      );
       return;
     }
 
-    // const productCampaign = {
-    //   budget: 200,
-    //   name: `Too FacedHangover ${productId}`,
-    //   productImageUrl: "https://picsum.photos/68",
-    //   totalSpend: "$99,698",
-    //   totalSales: "$123,99",
-    //   roas: "24%",
-    //   days: 4,
-    //   minRoas: "4x",
-    //   impressions: 1341,
-    //   clicks: 24,
-    //   purchases: 19,
-    //   status: true,
-    // }; //TODO (sofia): getProductCampaign(productId);
-    // const hasCampaign = !!productCampaign;
-    // if (hasCampaign) {
-    //   setProductCampaigns((prev) => {
-    //     return {
-    //       ...prev,
-    //       [productId]: productCampaign,
-    //     };
-    //   });
-    // }
+    setPromoteTargets(promoteTargets as HTMLElement[]);
   }, [promoteTargetClassName]);
 
   const getCampaignIdsByProductId = useAsync(
@@ -136,65 +97,9 @@ const App: FunctionalComponent = () => {
     }
   }, [getCampaignIdsByProductId.status, getCampaignIdsByProductId.error]);
 
-  // const campaignId = productId
-  //   ? getCampaignIdsByProductId.value?.[productId]
-  //   : null;
-
-  // const getCampaign = useAsync(
-  //   useCallback(
-  //     () => services.getCampaign(authToken, vendorId, campaignId || ""),
-  //     [authToken, vendorId, campaignId]
-  //   ),
-  //   false
-  // );
-
-  // useEffect(() => {
-  //   if (campaignId) {
-  //     getCampaign.execute();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [campaignId, getCampaign.execute]);
-
-  // useEffect(() => {
-  //   if (getCampaign.value) {
-  //     setCampaignsByProductId()
-  //   }
-  // }, [getCampaign.value])
-
-  // console.log("~~~ getCampaign.value", getCampaign.value);
-
-  useEffect(() => {
-    async function getCampaign() {
-      if (!productId || campaignsByProductId[productId]) return;
-
-      const campaignId = getCampaignIdsByProductId.value?.[productId];
-
-      if (!campaignId) return;
-
-      console.log("~~~ getting campaign!");
-
-      const response = await services.getCampaign(
-        authToken,
-        vendorId,
-        campaignId
-      );
-
-      console.log("~~~~ campaign=", response);
-
-      setCampaignsByProductId((prev) => ({
-        ...prev,
-        [productId]: response,
-      }));
-    }
-
-    getCampaign();
-  }, [
-    authToken,
-    vendorId,
-    productId,
-    campaignsByProductId,
-    getCampaignIdsByProductId.value,
-  ]);
+  const campaignId = productId
+    ? getCampaignIdsByProductId.value?.[productId]
+    : null;
 
   return (
     <Fragment>
@@ -228,14 +133,40 @@ const App: FunctionalComponent = () => {
           isOpen={!!productId}
         >
           {productId &&
-            (campaign ? (
-              <CampaignDetails campaign={campaign} />
+            (campaignId ? (
+              <CampaignDetails campaignId={campaignId} />
             ) : (
               <CampaignCreation productId={productId} />
             ))}
         </Modal>
       </Portal>
     </Fragment>
+  );
+};
+
+const AppWithContext: FunctionalComponent<{
+  authToken: string;
+  vendorId: string;
+  promoteTargetClassName: string;
+  style: Style;
+  text: CustomText;
+}> = ({ authToken, vendorId, promoteTargetClassName, style, text }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <ProductPromotionContext.Provider
+      value={{
+        authToken,
+        vendorId,
+        promoteTargetClassName,
+        style,
+        text,
+        state,
+        dispatch,
+      }}
+    >
+      <App />
+    </ProductPromotionContext.Provider>
   );
 };
 
@@ -313,18 +244,15 @@ export default class TopsortBlocks {
     }
 
     render(
-      <ProductPromotionContext.Provider
-        value={{
-          authToken: this.authToken,
-          vendorId: this.vendorId,
-          promoteTargetClassName:
-            promoteTargetClassName || defaultPromoteTargetClassName,
-          style: style || {},
-          text: text || {},
-        }}
-      >
-        <App />
-      </ProductPromotionContext.Provider>,
+      <AppWithContext
+        authToken={this.authToken}
+        vendorId={this.vendorId}
+        promoteTargetClassName={
+          promoteTargetClassName || defaultPromoteTargetClassName
+        }
+        style={style || {}}
+        text={text || {}}
+      />,
       document.body
     );
   }

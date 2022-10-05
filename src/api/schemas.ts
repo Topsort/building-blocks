@@ -31,7 +31,7 @@ export const campaignSchema = z.object({
   name: z.string(),
   budget: z.object({
     amount: z.number(),
-    type: z.enum(["daily"]), // FIXME(christopherbot) add all values
+    type: z.enum(["daily", "weekly", "monthly", "fixed"]),
   }),
   endDate: z.string(),
   campaignBehaviorData: z.object({

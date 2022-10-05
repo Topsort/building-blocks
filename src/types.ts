@@ -21,21 +21,6 @@ export type CustomText = Partial<
   Record<"promoteButton" | "detailButton", string>
 >;
 
-// export type Campaign = {
-//   budget: number;
-//   name: string;
-//   productImageUrl: string;
-//   totalSpend: string;
-//   totalSales: string;
-//   roas: string;
-//   days: number;
-//   minRoas: string;
-//   impressions: number;
-//   clicks: number;
-//   purchases: number;
-//   status: boolean;
-// };
-
 export type PropsWithChildren<T> = T & { children?: ComponentChildren };
 
 export type RequestStatus = "idle" | "pending" | "success" | "error";
