@@ -39,7 +39,7 @@
 }
 
 .ts-stripe-element--error {
-  border-color: var(--ts-error-color);
+  border-color: var(--ts-danger-color);
 }
 
 .ts-payment-form-error {
@@ -51,8 +51,8 @@
 }
 
 .ts-payment-form-error__icon {
-  background-color: var(--ts-error-color-15);
-  color: var(--ts-error-color);
+  background-color: var(--ts-danger-color-15);
+  color: var(--ts-danger-color);
   padding: 0.5rem;
   border-radius: var(--ts-radius);
 }
