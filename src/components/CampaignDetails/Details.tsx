@@ -20,7 +20,7 @@ export const Details: FunctionalComponent<{
       <CampaignBudget
         budget={campaign.budget}
         days={campaign.days}
-        onEdit={() => dispatch({ type: "edit or end button clicked" })}
+        onEdit={() => dispatch({ type: "edit campaign button clicked" })}
       />
       <hr className="ts-hr" />
       <Metrics title="Metrics" campaign={campaign} />

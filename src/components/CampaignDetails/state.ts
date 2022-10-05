@@ -10,7 +10,7 @@ export const initialState: State = {
 
 export type Action = {
   type:
-    | "edit or end button clicked"
+    | "edit campaign button clicked"
     | "end campaign button clicked"
     | "end campaign back button clicked";
 };
@@ -20,7 +20,7 @@ export const reducer = (
   action: Readonly<Action>
 ): State => {
   switch (action.type) {
-    case "edit or end button clicked": {
+    case "edit campaign button clicked": {
       return {
         ...state,
         // TODO: set it as "editing" once edit page is implemented
