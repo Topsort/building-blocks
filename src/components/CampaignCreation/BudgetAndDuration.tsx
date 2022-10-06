@@ -2,7 +2,7 @@ import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { RangeInputWithTooltip } from "@components/Input";
 import { Tooltip } from "@components/Tooltip";
-import { h, Fragment, FunctionalComponent } from "preact";
+import { h, FunctionalComponent } from "preact";
 import { ChangeEvent } from "preact/compat";
 
 import { useCampaignCreation } from "./context";
@@ -76,10 +76,7 @@ export const BudgetAndDuration: FunctionalComponent = () => {
               });
             }}
             tooltipProps={{
-              content:
-                durationDays < maxDurationDays
-                  ? `${durationDays} Days`
-                  : "Active before being ended.",
+              content: `${durationDays} Days`,
               alwaysShow: true,
               hidden: durationDays === 0,
               light: true,
@@ -89,20 +86,13 @@ export const BudgetAndDuration: FunctionalComponent = () => {
         <div className="ts-callout ts-flex ts-items-center ts-campaign-creation__details-callout ts-space-x-4">
           <Icon name="info-circle" className="ts-rotate-180" />
           <span className="ts-text-sm ts-font-semimedium">
-            {durationDays < maxDurationDays ? (
-              <Fragment>
-                With a <span className="ts-font-bold">{dailyBudget} USD</span>{" "}
-                budget in{" "}
-                <span className="ts-font-bold">{durationDays} days</span> we
-                estimate{" "}
-                <span className="ts-text-primary">
-                  between {minEstimatedClick} and {maxEstimatedClick}
-                </span>{" "}
-                clicks.
-              </Fragment>
-            ) : (
-              <>Your campaign will be active infinitely until you end it.</>
-            )}
+            With a <span className="ts-font-bold">{dailyBudget} USD</span>{" "}
+            budget in <span className="ts-font-bold">{durationDays} days</span>{" "}
+            estimate{" "}
+            <span className="ts-text-primary">
+              between {minEstimatedClick} and {maxEstimatedClick}
+            </span>{" "}
+            clicks.
           </span>
         </div>
       </div>

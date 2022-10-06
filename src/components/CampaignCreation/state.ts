@@ -8,9 +8,9 @@ export const minBudgetUSD = Math.floor(
 export const maxBudgetUSD = Math.ceil(
   recommendedBudgetUSD + 1 + recommendedBudgetUSD * 0.25
 );
-export const initialDurationDays = 7;
+export const initialDurationDays = 15;
 export const minDurationDays = 1;
-export const maxDurationDays = 13;
+export const maxDurationDays = 30;
 export const minEstimatedClick = 1000;
 export const maxEstimatedClick = 1500;
 
