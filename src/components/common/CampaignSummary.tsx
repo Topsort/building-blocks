@@ -10,6 +10,9 @@ export const CampaignSummary: FunctionalComponent<{
   productImageUrl: string;
   startDate?: string;
 }> = ({ productImageUrl, name, startDate }) => {
+  // FIXME(christopherbot) UI is showing the wrong hours, likely
+  // due to timezones not being taken into account somewhere
+  // (creation flow? here? CS?)
   const remaining = useMemo(() => {
     if (!startDate) return null;
 
