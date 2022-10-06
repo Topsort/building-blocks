@@ -150,7 +150,21 @@ const AppWithContext: FunctionalComponent<{
   promoteTargetClassName: string;
   style: Style;
   text: CustomText;
-}> = ({ authToken, vendorId, promoteTargetClassName, style, text }) => {
+  language: string;
+  currencyCode: string;
+  numberFormater: Intl.NumberFormat;
+  moneyFormater: Intl.NumberFormat;
+}> = ({
+  authToken,
+  vendorId,
+  language,
+  currencyCode,
+  numberFormater,
+  moneyFormater,
+  promoteTargetClassName,
+  style,
+  text,
+}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
@@ -158,6 +172,10 @@ const AppWithContext: FunctionalComponent<{
       value={{
         authToken,
         vendorId,
+        language,
+        currencyCode,
+        numberFormater,
+        moneyFormater,
         promoteTargetClassName,
         style,
         text,
@@ -243,10 +261,22 @@ export default class TopsortBlocks {
       return;
     }
 
+    const language = "en"; // TODO(christopherbot) get from marketplace or browser
+    const currencyCode = "USD"; // TODO(christopherbot) get from marketplace
+
     render(
       <AppWithContext
         authToken={this.authToken}
         vendorId={this.vendorId}
+        language={language}
+        currencyCode={currencyCode}
+        numberFormater={new Intl.NumberFormat(language)}
+        moneyFormater={
+          new Intl.NumberFormat(language, {
+            style: "currency",
+            currency: currencyCode,
+          })
+        }
         promoteTargetClassName={
           promoteTargetClassName || defaultPromoteTargetClassName
         }
