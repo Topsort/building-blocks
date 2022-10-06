@@ -2,10 +2,7 @@ import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { RangeInputWithTooltip } from "@components/Input";
 import { Tooltip } from "@components/Tooltip";
-import { h, FunctionalComponent } from "preact";
-import { ChangeEvent } from "preact/compat";
-
-import { useCampaignCreation } from "./context";
+import { useProductPromotion } from "@context";
 import {
   minBudgetUSD,
   maxBudgetUSD,
@@ -13,11 +10,13 @@ import {
   maxDurationDays,
   minEstimatedClick,
   maxEstimatedClick,
-} from "./state";
+} from "@state";
+import { h, FunctionalComponent } from "preact";
+import { ChangeEvent } from "preact/compat";
 
 export const BudgetAndDuration: FunctionalComponent = () => {
-  const { state, dispatch } = useCampaignCreation();
-  const { dailyBudget, durationDays } = state;
+  const { state, dispatch } = useProductPromotion();
+  const { dailyBudget, durationDays } = state.campaignCreation;
 
   return (
     <div className="ts-campaign-creation__content ts-space-y-8">
@@ -42,7 +41,7 @@ export const BudgetAndDuration: FunctionalComponent = () => {
             max={maxBudgetUSD}
             onInput={(event: ChangeEvent<HTMLInputElement>) => {
               dispatch({
-                type: "daily budget updated",
+                type: "campaign creation daily budget updated",
                 payload: {
                   // Casting needing due to preact bug:
                   // https://github.com/preactjs/preact/issues/1930
@@ -67,7 +66,7 @@ export const BudgetAndDuration: FunctionalComponent = () => {
             max={maxDurationDays}
             onInput={(event: ChangeEvent<HTMLInputElement>) => {
               dispatch({
-                type: "duration days updated",
+                type: "campaign creation duration updated",
                 payload: {
                   // Casting needing due to preact bug:
                   // https://github.com/preactjs/preact/issues/1930

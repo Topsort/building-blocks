@@ -21,8 +21,6 @@ import cx from "classnames";
 import { Fragment, h, JSX } from "preact";
 import { useState } from "preact/hooks";
 
-import { useCampaignCreation } from "./context";
-
 const stripeElementStyle = {
   base: {
     color: "#272A47",
@@ -63,8 +61,7 @@ const errorText = {
 };
 
 const StripePaymentForm = () => {
-  const { authToken } = useProductPromotion();
-  const { dispatch } = useCampaignCreation();
+  const { authToken, dispatch } = useProductPromotion();
   const stripe = useStripe();
   const elements = useElements();
   const [loadingElements, setLoadingElements] = useState<

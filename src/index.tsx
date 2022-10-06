@@ -7,6 +7,7 @@ import { defaultPromoteTargetClassName } from "@constants";
 import { ProductPromotionContext, useProductPromotion } from "@context";
 import { useAsync } from "@hooks/use-async";
 import * as services from "@services/central-services";
+import { initialState, reducer } from "@state";
 import { CustomText, Style } from "@types";
 import {
   getInvalidRgbWarning,
@@ -18,7 +19,6 @@ import { Fragment, FunctionalComponent, h, render } from "preact";
 import { useCallback, useEffect, useReducer, useState } from "preact/hooks";
 
 import "./app.css";
-import { initialState, reducer } from "./state";
 import "./utils.css";
 
 const App: FunctionalComponent = () => {

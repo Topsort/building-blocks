@@ -2,9 +2,9 @@ import { PaymentMethod } from "@api/types";
 import { Button } from "@components/Button";
 import { Select } from "@components/Select";
 import { CampaignBudget, CampaignSummary } from "@components/common";
+import { useProductPromotion } from "@context";
 import { h, FunctionalComponent } from "preact";
 
-import { useCampaignCreation } from "./context";
 import { PaymentMethodIcon } from "./utils";
 
 const FormattedPaymentMethod: FunctionalComponent<{
@@ -23,9 +23,12 @@ const FormattedPaymentMethod: FunctionalComponent<{
 };
 
 export const Confirm: FunctionalComponent = () => {
-  const { state, dispatch } = useCampaignCreation();
-  const { paymentMethods, selectedPaymentMethodId } = state;
-  const { dailyBudget, durationDays } = state;
+  const { state, dispatch } = useProductPromotion();
+  const {
+    paymentMethods,
+    selectedPaymentMethodId,
+    campaignCreation: { dailyBudget, durationDays },
+  } = state;
 
   return (
     <div className="ts-campaign-creation__content ts-space-y-8">
@@ -80,7 +83,9 @@ export const Confirm: FunctionalComponent = () => {
       <div className="ts-campaign-creation__footer ts-space-x-2">
         <Button
           variant="outlined"
-          onClick={() => dispatch({ type: "confirm back button clicked" })}
+          onClick={() =>
+            dispatch({ type: "confirm campaign creation back button clicked" })
+          }
         >
           Back
         </Button>

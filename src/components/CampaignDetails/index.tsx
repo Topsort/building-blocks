@@ -4,24 +4,21 @@ import { ModalContent, ModalHeading } from "@components/Modal";
 import { useProductPromotion } from "@context";
 import * as services from "@services/central-services";
 import { h, FunctionalComponent, Fragment } from "preact";
-import { useEffect, useReducer, useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 
 import { Details } from "./Details";
 import { Ended } from "./Ended";
 import { Ending } from "./Ending";
-import { CampaignDetailsContext } from "./context";
-import { initialState, reducer } from "./state";
 import "./style.css";
 
 export const CampaignDetails: FunctionalComponent<{
   campaignId: Campaign["campaignId"];
 }> = ({ campaignId }) => {
+  const { authToken, vendorId, state, dispatch } = useProductPromotion();
   const {
-    authToken,
-    vendorId,
-    state: { campaignsById },
-    dispatch: productPromotionDispatch,
-  } = useProductPromotion();
+    campaignsById,
+    campaignDetails: { step },
+  } = state;
 
   const campaign = campaignsById[campaignId];
   const [hasError, setHasError] = useState(false);
@@ -37,7 +34,7 @@ export const CampaignDetails: FunctionalComponent<{
           campaignId
         );
 
-        productPromotionDispatch({
+        dispatch({
           type: "campaign retrieved",
           payload: { campaign },
         });
@@ -47,10 +44,7 @@ export const CampaignDetails: FunctionalComponent<{
     }
 
     getCampaign();
-  }, [authToken, vendorId, campaign, campaignId, productPromotionDispatch]);
-
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const { step } = state;
+  }, [authToken, vendorId, campaign, campaignId, dispatch]);
 
   const { title, content } = (() => {
     if (!campaign) {
@@ -116,9 +110,9 @@ export const CampaignDetails: FunctionalComponent<{
   })();
 
   return (
-    <CampaignDetailsContext.Provider value={{ state, dispatch }}>
+    <Fragment>
       <ModalHeading>{title}</ModalHeading>
       <ModalContent height={contentHeight}>{content}</ModalContent>
-    </CampaignDetailsContext.Provider>
+    </Fragment>
   );
 };

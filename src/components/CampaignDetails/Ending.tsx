@@ -1,15 +1,15 @@
 import { Campaign } from "@api/types";
 import { Button } from "@components/Button";
 import { CampaignSummary } from "@components/common";
+import { useProductPromotion } from "@context";
 import { h, FunctionalComponent } from "preact";
 
 import { Metrics } from "./Metrics";
-import { useCampaignDetails } from "./context";
 
 export const Ending: FunctionalComponent<{
   campaign: Campaign;
 }> = ({ campaign }) => {
-  const { dispatch } = useCampaignDetails();
+  const { dispatch } = useProductPromotion();
   // TODO (samet): Fetch the email from central services or somewhere else
   const email = "samet@topsort.com";
 

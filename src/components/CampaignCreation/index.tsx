@@ -3,41 +3,34 @@ import { ModalContent, ModalHeading } from "@components/Modal";
 import { useProductPromotion } from "@context";
 import { useAsync } from "@hooks/use-async";
 import * as services from "@services/central-services";
+import { recommendedBudgetUSD, initialDurationDays } from "@state";
 import { assertNever } from "@utils/assert-never";
 import { getStripe } from "@utils/payment";
 import { h, FunctionalComponent, Fragment } from "preact";
-import { useCallback, useEffect, useReducer } from "preact/hooks";
+import { useCallback, useEffect } from "preact/hooks";
 
 import { BudgetAndDuration } from "./BudgetAndDuration";
 import { Confirm } from "./Confirm";
 import { Launched } from "./Launched";
 import { PaymentForm } from "./PaymentForm";
-import { CampaignCreationContext } from "./context";
-import {
-  initialState,
-  reducer,
-  recommendedBudgetUSD,
-  initialDurationDays,
-} from "./state";
 import "./style.css";
 
 export const CampaignCreation: FunctionalComponent<{
   productId: string | null;
 }> = ({ productId }) => {
-  const { authToken } = useProductPromotion();
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const { step } = state;
+  const { authToken, state, dispatch } = useProductPromotion();
+  const { step } = state.campaignCreation;
 
   useEffect(() => {
     dispatch({
-      type: "daily budget updated",
+      type: "campaign creation daily budget updated",
       payload: { amount: recommendedBudgetUSD },
     });
   }, [dispatch]);
 
   useEffect(() => {
     dispatch({
-      type: "duration days updated",
+      type: "campaign creation duration updated",
       payload: { days: initialDurationDays },
     });
   }, [dispatch]);
@@ -68,7 +61,7 @@ export const CampaignCreation: FunctionalComponent<{
     return () => {
       dispatch({ type: "campaign creation reset" });
     };
-  }, [productId]);
+  }, [dispatch, productId]);
 
   const { title, content } = (() => {
     switch (step) {
@@ -118,14 +111,9 @@ export const CampaignCreation: FunctionalComponent<{
   })();
 
   return (
-    <CampaignCreationContext.Provider
-      value={{
-        state,
-        dispatch,
-      }}
-    >
+    <Fragment>
       <ModalHeading>{title}</ModalHeading>
       <ModalContent height={contentHeight}>{content}</ModalContent>
-    </CampaignCreationContext.Provider>
+    </Fragment>
   );
 };

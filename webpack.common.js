@@ -64,6 +64,7 @@ module.exports = {
       "@context": path.resolve(__dirname, "src/context"),
       "@hooks": path.resolve(__dirname, "src/hooks/"),
       "@services": path.resolve(__dirname, "src/services/"),
+      "@state": path.resolve(__dirname, "src/state"),
       "@types": path.resolve(__dirname, "src/types"),
       "@utils": path.resolve(__dirname, "src/utils/"),
     },
