@@ -14,7 +14,7 @@ export const Details: FunctionalComponent<{
   const days = useMemo(() => {
     const end = new Date(campaign.endDate);
 
-    if (end.getFullYear() === 9999) {
+    if (end.getUTCFullYear() === 9999) {
       return "infinite";
     }
 
