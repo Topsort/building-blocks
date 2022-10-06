@@ -1,13 +1,13 @@
 import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
 import { useProductPromotion } from "@context";
-import { useAsync } from "@hooks/use-async";
 import * as services from "@services/central-services";
 import { recommendedBudgetUSD, initialDurationDays } from "@state";
 import { assertNever } from "@utils/assert-never";
+import { logger } from "@utils/logger";
 import { getStripe } from "@utils/payment";
 import { h, FunctionalComponent, Fragment } from "preact";
-import { useCallback, useEffect } from "preact/hooks";
+import { useEffect } from "preact/hooks";
 
 import { BudgetAndDuration } from "./BudgetAndDuration";
 import { Confirm } from "./Confirm";
@@ -15,11 +15,12 @@ import { Launched } from "./Launched";
 import { PaymentForm } from "./PaymentForm";
 import "./style.css";
 
-export const CampaignCreation: FunctionalComponent<{
-  productId: string | null;
-}> = ({ productId }) => {
+export const CampaignCreation: FunctionalComponent = () => {
   const { authToken, state, dispatch } = useProductPromotion();
-  const { step } = state.campaignCreation;
+  const {
+    selectedProductId,
+    campaignCreation: { step },
+  } = state;
 
   useEffect(() => {
     dispatch({
@@ -35,25 +36,29 @@ export const CampaignCreation: FunctionalComponent<{
     });
   }, [dispatch]);
 
-  const getPaymentMethods = useAsync(
-    useCallback(() => services.getPaymentMethods(authToken), [authToken])
-  );
-
   useEffect(() => {
-    const paymentMethods = getPaymentMethods.value;
-    if (!paymentMethods) return;
+    const getPaymentMethods = async () => {
+      try {
+        const paymentMethods = await services.getPaymentMethods(authToken);
 
-    if (paymentMethods.length === 0) {
-      // To reduce load time later, load Stripe early if we know
-      // the user will need to add a card
-      getStripe();
-    }
+        dispatch({
+          type: "payment methods received",
+          payload: { paymentMethods },
+        });
 
-    dispatch({
-      type: "payment methods received",
-      payload: { paymentMethods },
-    });
-  }, [dispatch, getPaymentMethods.value]);
+        if (paymentMethods.length === 0) {
+          // To reduce load time later, load Stripe early if we know
+          // the user will need to add a card
+          getStripe();
+        }
+      } catch (error) {
+        // TODO(christopherbot) display an error
+        logger.error("Failed to fetch payment methods", error);
+      }
+    };
+
+    getPaymentMethods();
+  }, [dispatch, authToken]);
 
   useEffect(() => {
     // If the modal for a different product is opened,
@@ -61,7 +66,7 @@ export const CampaignCreation: FunctionalComponent<{
     return () => {
       dispatch({ type: "campaign creation reset" });
     };
-  }, [dispatch, productId]);
+  }, [dispatch, selectedProductId]);
 
   const { title, content } = (() => {
     switch (step) {
