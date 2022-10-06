@@ -1,11 +1,10 @@
 import { CampaignBudget, CampaignSummary } from "@components/common";
+import { useProductPromotion } from "@context";
 import { h, FunctionalComponent } from "preact";
 
-import { useCampaignCreation } from "./context";
-
 export const Launched: FunctionalComponent = () => {
-  const { state } = useCampaignCreation();
-  const { dailyBudget, durationDays } = state;
+  const { state } = useProductPromotion();
+  const { dailyBudget, durationDays } = state.campaignCreation;
 
   return (
     <div className="ts-campaign-creation__content ts-space-y-8">

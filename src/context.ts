@@ -1,8 +1,7 @@
+import { Action, initialState, State } from "@state";
 import { CustomText, Style } from "@types";
 import { createContext } from "preact";
 import { useContext } from "preact/hooks";
-
-import { Action, initialState, State } from "./state";
 
 type ProductPromotionContextValue = {
   authToken: string;

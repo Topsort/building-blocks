@@ -1,16 +1,16 @@
 import { Campaign } from "@api/types";
 import { CampaignBudget, CampaignSummary } from "@components/common";
 import { MS_PER_DAY } from "@constants";
+import { useProductPromotion } from "@context";
 import { h, FunctionalComponent } from "preact";
 import { useMemo } from "preact/hooks";
 
 import { Metrics } from "./Metrics";
-import { useCampaignDetails } from "./context";
 
 export const Details: FunctionalComponent<{
   campaign: Campaign;
 }> = ({ campaign }) => {
-  const { dispatch } = useCampaignDetails();
+  const { dispatch } = useProductPromotion();
   const days = useMemo(() => {
     const end = new Date(campaign.endDate);
 
