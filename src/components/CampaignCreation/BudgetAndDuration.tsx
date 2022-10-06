@@ -2,7 +2,7 @@ import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { RangeInputWithTooltip } from "@components/Input";
 import { Tooltip } from "@components/Tooltip";
-import { h, Fragment, FunctionalComponent } from "preact";
+import { h, FunctionalComponent } from "preact";
 import { ChangeEvent } from "preact/compat";
 
 import { useCampaignCreation } from "./context";
