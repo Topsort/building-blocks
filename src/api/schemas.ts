@@ -25,3 +25,31 @@ export const paymentMethodSchema = z.object({
 export const paymentMethodsSchema = z.object({
   methods: z.array(paymentMethodSchema),
 });
+
+export const campaignSchema = z.object({
+  campaignId: z.string().uuid(),
+  name: z.string(),
+  budget: z.object({
+    amount: z.number(),
+    type: z.enum(["daily", "weekly", "monthly", "fixed"]),
+  }),
+  startDate: z.string(),
+  endDate: z.string(),
+  campaignBehaviorData: z.object({
+    clicks: z.object({
+      total: z.number().min(0),
+      charged: z.number().min(0),
+      adSpent: z.number().min(0),
+    }),
+    impressions: z.object({
+      total: z.number().min(0),
+      charged: z.number().min(0),
+      adSpent: z.number().min(0),
+    }),
+    purchases: z.object({
+      amount: z.number().min(0),
+      count: z.number().min(0),
+      quantity: z.number().min(0),
+    }),
+  }),
+});

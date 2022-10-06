@@ -42,8 +42,16 @@
   width: 100%;
 }
 
+.ts-h-full {
+  height: 100%;
+}
+
 .ts-flex {
   display: flex;
+}
+
+.ts-justify-center {
+  justify-content: center;
 }
 
 .ts-items-center {
@@ -68,6 +76,10 @@
 
 .ts-text-40 {
   color: var(--ts-font-color-40);
+}
+
+.ts-text-danger {
+  color: var(--ts-danger-color);
 }
 
 .ts-text-xs {

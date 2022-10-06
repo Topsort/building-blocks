@@ -1,6 +1,6 @@
+import { Campaign } from "@api/types";
 import { Button } from "@components/Button";
 import { CampaignSummary } from "@components/common";
-import { Campaign } from "@types";
 import { h, FunctionComponent } from "preact";
 
 import { Metrics } from "./Metrics";
@@ -12,7 +12,7 @@ export const Ended: FunctionComponent<{ campaign: Campaign }> = ({
     <div className="ts-space-y-5">
       <CampaignSummary
         name={campaign.name}
-        productImageUrl={campaign.productImageUrl}
+        productImageUrl="https://picsum.photos/68"
       />
       <Metrics title="Final Metrics" campaign={campaign} />
       {/* TODO(samet): close the modal */}

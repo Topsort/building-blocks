@@ -1,13 +1,17 @@
 import { Button } from "@components/Button";
-import { Campaign } from "@types";
 import { h, FunctionalComponent } from "preact";
 
-export const CampaignBudget: FunctionalComponent<
-  Pick<Campaign, "budget" | "days"> & {
-    onEdit?: () => void;
-    showTargetingText?: boolean;
-  }
-> = ({ budget, days, onEdit, showTargetingText = false }) => {
+export const CampaignBudget: FunctionalComponent<{
+  budget: number;
+  days: number | "infinite";
+  onEdit?: () => void;
+  showTargetingText?: boolean;
+}> = ({ budget, days, onEdit, showTargetingText = false }) => {
+  // TODO(christopherbot) extract money into context
+  const money = new Intl.NumberFormat("en", {
+    style: "currency",
+    currency: "USD",
+  });
   return (
     <div className="ts-campaign-budget-duration">
       <div className="ts-campaign-budget-duration-title">
@@ -23,7 +27,9 @@ export const CampaignBudget: FunctionalComponent<
         )}
       </div>
       <div class="ts-budget-duration">
-        ${budget} over {days} days
+        {money.format(budget)} over{" "}
+        {typeof days === "number" ? days : "infinite"}{" "}
+        {days === 1 ? "day" : "days"}
         {showTargetingText ? <span>with automatic targeting.</span> : "."}
       </div>
     </div>
