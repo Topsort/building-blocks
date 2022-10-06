@@ -14,7 +14,6 @@ export const Details: FunctionalComponent<{
     <div className="ts-space-y-3-5">
       <CampaignSummary
         name={campaign.name}
-        // productImageUrl={campaign.productImageUrl}
         productImageUrl="https://picsum.photos/68"
         showSummaryTime
       />

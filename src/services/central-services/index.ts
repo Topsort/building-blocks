@@ -83,6 +83,8 @@ export async function createPaymentMethod(
   });
 }
 
+// TODO(christopherbot) remove this eventually
+// eslint-disable-next-line
 const fakeCampaignsById: Record<string, Campaign> = {
   "00000000-0000-7000-8088-0000000001ab": {
     campaignId: "00000000-0000-7000-8088-0000000001ab",

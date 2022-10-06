@@ -12,7 +12,6 @@ export const Ended: FunctionComponent<{ campaign: Campaign }> = ({
     <div className="ts-space-y-5">
       <CampaignSummary
         name={campaign.name}
-        // productImageUrl={campaign.productImageUrl}
         productImageUrl="https://picsum.photos/68"
       />
       <Metrics title="Final Metrics" campaign={campaign} />
