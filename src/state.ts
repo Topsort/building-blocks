@@ -62,7 +62,8 @@ export type Action =
         | "campaign launched"
         | "edit campaign button clicked"
         | "end campaign button clicked"
-        | "end campaign back button clicked";
+        | "end campaign back button clicked"
+        | "campaign details reset";
     }
   | {
       type: "campaign retrieved";
@@ -180,6 +181,10 @@ export const reducer = (
       }
       case "end campaign back button clicked": {
         // TODO: set it as "editing" once edit page is implemented
+        draft.campaignDetails.step = "details";
+        break;
+      }
+      case "campaign details reset": {
         draft.campaignDetails.step = "details";
         break;
       }
