@@ -1,24 +1,50 @@
+import { MS_PER_DAY, MS_PER_HOUR, MS_PER_MIN, MS_PER_SEC } from "@constants";
 import cx from "classnames";
 import { h, FunctionalComponent } from "preact";
+import { useMemo } from "preact/hooks";
+
+const padTime = (num: number) => `0${num}`.slice(-2);
 
 export const CampaignSummary: FunctionalComponent<{
   name: string;
   productImageUrl: string;
-  showSummaryTime?: boolean;
-}> = ({ productImageUrl, name, showSummaryTime = false }) => {
+  startDate?: string;
+}> = ({ productImageUrl, name, startDate }) => {
+  const remaining = useMemo(() => {
+    if (!startDate) return null;
+
+    const start = new Date(startDate);
+    const timeDiff = Date.now() - start.getTime();
+    const days = Math.floor(timeDiff / MS_PER_DAY);
+    const timeDiff2 = timeDiff % MS_PER_DAY;
+    const hours = Math.floor(timeDiff2 / MS_PER_HOUR);
+    const timeDiff3 = timeDiff2 % MS_PER_HOUR;
+    const minutes = Math.floor(timeDiff3 / MS_PER_MIN);
+    const timeDiff4 = timeDiff3 % MS_PER_MIN;
+    const seconds = Math.floor(timeDiff4 / MS_PER_SEC);
+    return {
+      days,
+      hours,
+      minutes: padTime(minutes),
+      seconds: padTime(seconds),
+    };
+  }, [startDate]);
+
   return (
     <div className="ts-campaign-summary ts-space-x-4">
       <img
         className={cx("ts-product-image", {
-          "ts-product-image--md": showSummaryTime,
+          "ts-product-image--md": remaining,
         })}
         src={productImageUrl}
       />
       <div className="ts-campaign-summary-name">
         <span>{name}</span>
-        {showSummaryTime && (
+        {remaining && (
           <span className="ts-campaign-summary-time">
-            1 day 12:30:45 since running.
+            {remaining.days} {remaining.days === 1 ? "day" : "days"}{" "}
+            {remaining.hours}:{remaining.minutes}:{remaining.seconds} since
+            running.
           </span>
         )}
       </div>

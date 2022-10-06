@@ -33,6 +33,7 @@ export const campaignSchema = z.object({
     amount: z.number(),
     type: z.enum(["daily", "weekly", "monthly", "fixed"]),
   }),
+  startDate: z.string(),
   endDate: z.string(),
   campaignBehaviorData: z.object({
     clicks: z.object({

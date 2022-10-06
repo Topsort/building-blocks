@@ -93,6 +93,7 @@ const fakeCampaignsById: Record<string, Campaign> = {
       amount: 200,
       type: "daily",
     },
+    startDate: "2019-08-22T14:15:22Z",
     endDate: "2019-08-24T14:15:22Z",
     campaignBehaviorData: {
       clicks: {
@@ -119,7 +120,8 @@ const fakeCampaignsById: Record<string, Campaign> = {
       amount: 990,
       type: "daily",
     },
-    endDate: "2019-08-24T14:15:22Z",
+    startDate: "2019-08-11T14:15:22Z",
+    endDate: "2019-08-24T20:54:10Z",
     campaignBehaviorData: {
       clicks: {
         total: 42,
