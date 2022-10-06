@@ -46,6 +46,14 @@ export const CampaignDetails: FunctionalComponent<{
     getCampaign();
   }, [authToken, vendorId, campaign, campaignId, dispatch]);
 
+  useEffect(() => {
+    // If the modal for a different campaign is opened,
+    // reset back to the first step
+    return () => {
+      dispatch({ type: "campaign details reset" });
+    };
+  }, [dispatch, campaignId]);
+
   const { title, content } = (() => {
     if (!campaign) {
       return {
