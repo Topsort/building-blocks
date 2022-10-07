@@ -42,7 +42,7 @@ export async function getCampaignIdsByProductId(
   );
   // TODO(christopherbot) remove this temp code eventually
   // a real campaignId that belongs to Balboa
-  response["product-1"] = "e86a2438-14cb-44b1-94a8-291a4a57215b";
+  response["product-1"] = "bd4ed96d-394f-4de8-997e-43d7853c8da6";
   // a campaignId that will result in an error when fetching the campaign
   response["product-4"] = "00000000-0000-7000-8088-0000000001ab";
   return response;
@@ -113,8 +113,8 @@ const fakeCampaignsById: Record<string, Campaign> = {
       },
     },
   },
-  "e86a2438-14cb-44b1-94a8-291a4a57215b": {
-    campaignId: "e86a2438-14cb-44b1-94a8-291a4a57215b",
+  "bd4ed96d-394f-4de8-997e-43d7853c8da6": {
+    campaignId: "bd4ed96d-394f-4de8-997e-43d7853c8da6",
     name: "Totally A Real Campaign",
     budget: {
       amount: 990,
