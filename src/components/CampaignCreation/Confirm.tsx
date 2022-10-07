@@ -101,7 +101,7 @@ export const Confirm: FunctionalComponent = () => {
       <div className="ts-space-y-8">
         <CampaignSummary />
         <CampaignBudget
-          budget={dailyBudget}
+          budget={dailyBudget * 100}
           days={durationDays}
           showTargetingText
         />
