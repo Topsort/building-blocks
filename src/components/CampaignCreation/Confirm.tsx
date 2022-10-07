@@ -30,6 +30,7 @@ export const Confirm: FunctionalComponent = () => {
   const { authToken, vendorId, currencyCode, state, dispatch } =
     useProductPromotion();
   const {
+    productDataById,
     selectedProductId,
     paymentMethods,
     selectedPaymentMethodId,
@@ -45,6 +46,7 @@ export const Confirm: FunctionalComponent = () => {
   const launchCampaign = async () => {
     setIsLoading(true);
     setHasError(false);
+
     const paymentMethod = paymentMethods.find(
       ({ id }) => id === selectedPaymentMethodId
     );
@@ -63,6 +65,10 @@ export const Confirm: FunctionalComponent = () => {
       return;
     }
 
+    const productData = selectedProductId
+      ? productDataById[selectedProductId]
+      : null;
+
     const startDate = new Date();
     const endDate = new Date();
     endDate.setDate(startDate.getDate() + durationDays);
@@ -70,8 +76,7 @@ export const Confirm: FunctionalComponent = () => {
     try {
       const campaign = await services.createCampaign(authToken, vendorId, {
         productId: selectedProductId,
-        // TODO(christopherbot) use product name instead of productId:
-        name: `${selectedProductId} Campaign`,
+        name: `${productData?.name || selectedProductId} Campaign`,
         dailyBudget,
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
@@ -94,10 +99,7 @@ export const Confirm: FunctionalComponent = () => {
   return (
     <div className="ts-campaign-creation__content ts-space-y-8">
       <div className="ts-space-y-8">
-        <CampaignSummary
-          productImageUrl="https://picsum.photos/76"
-          name="Too faced hangover primer"
-        />
+        <CampaignSummary />
         <CampaignBudget
           budget={dailyBudget}
           days={durationDays}

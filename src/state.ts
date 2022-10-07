@@ -23,7 +23,14 @@ type CampaignCreationStep =
 
 type CampaignDetailsStep = "details" | "ending" | "ended";
 
+type ProductData = {
+  id: string;
+  name: string;
+  imgUrl: string;
+};
+
 export type State = {
+  productDataById: Record<string, ProductData>;
   isModalOpen: boolean;
   campaignIdsByProductId: Record<string, string | null>;
   campaignsById: Record<string, Campaign>;
@@ -41,6 +48,7 @@ export type State = {
 };
 
 export const initialState: State = {
+  productDataById: {},
   isModalOpen: false,
   campaignIdsByProductId: {},
   campaignsById: {},
@@ -70,6 +78,12 @@ export type Action =
         | "end campaign button clicked"
         | "end campaign back button clicked"
         | "campaign details reset";
+    }
+  | {
+      type: "promote targets retrieved";
+      payload: {
+        productDataById: Record<string, ProductData>;
+      };
     }
   | {
       type: "campaign ids by product id retrieved";
@@ -133,6 +147,10 @@ export const reducer = (
 ): State => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case "promote targets retrieved": {
+        draft.productDataById = action.payload.productDataById;
+        break;
+      }
       case "modal close button clicked": {
         draft.isModalOpen = false;
         draft.selectedProductId = null;

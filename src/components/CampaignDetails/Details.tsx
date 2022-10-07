@@ -25,11 +25,7 @@ export const Details: FunctionalComponent<{
 
   return (
     <div className="ts-space-y-3-5">
-      <CampaignSummary
-        name={campaign.name}
-        productImageUrl="https://picsum.photos/68"
-        startDate={campaign.startDate}
-      />
+      <CampaignSummary startDate={campaign.startDate} />
       <CampaignBudget
         budget={campaign.budget.amount}
         days={days}

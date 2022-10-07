@@ -62,6 +62,8 @@
    <div
      class="ts-promote-target some-other-custom-class"
      data-ts-product-id="product-id-123"
+     data-ts-product-name="My Product"
+     data-ts-product-img-url="https://picsum.photos/100"
    >
      ...
    </div>
@@ -73,6 +75,8 @@
    <div
      class={`${TopsortBlocks.promoteTargetClassName} my-custom-class`}
      data-ts-product-id="product-id-123"
+     data-ts-product-name="My Product"
+     data-ts-product-img-url="https://picsum.photos/100"
    >
      ...
    </div>
@@ -84,6 +88,8 @@
    <div
      class="my-custom-promote-target my-custom-class"
      data-ts-product-id="product-id-123"
+     data-ts-product-name="My Product"
+     data-ts-product-img-url="https://picsum.photos/100"
    >
      ...
    </div>

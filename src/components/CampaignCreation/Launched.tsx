@@ -9,10 +9,7 @@ export const Launched: FunctionalComponent = () => {
   return (
     <div className="ts-campaign-creation__content ts-space-y-8">
       <div className="ts-space-y-8">
-        <CampaignSummary
-          productImageUrl="https://picsum.photos/76"
-          name="Too faced hangover primer"
-        />
+        <CampaignSummary />
         <CampaignBudget budget={dailyBudget} days={durationDays} />
       </div>
     </div>
