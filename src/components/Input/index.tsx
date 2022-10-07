@@ -97,7 +97,9 @@ export const Input: FunctionalComponent<
     before?: string;
   }
 > = ({ after, before, className, placeholder, value, ...props }) => {
-  const [width, afterBeforeWidth] = (() => {
+  const [width, setWidth] = useState(0);
+  const [afterBeforeWidth, setAfterBeforeWidth] = useState(0);
+  useEffect(() => {
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
     if (context) {
@@ -106,19 +108,16 @@ export const Input: FunctionalComponent<
     }
     const text = value ? String(value) : placeholder ?? "";
     const afterBeforeText = `${after ? after : ""}${before ? before : ""}  `;
-    return [
-      /*
+    /*
         NOTE (samet)
         The width of "W" character is added to the width of the text.
         Otherwise, when a new character is appended, we will see a sudden
         shift.
       */
-      context?.measureText(`${text}W`).width ?? 0,
-      context?.measureText(`${afterBeforeText}`).width ?? 0,
-    ];
-  })();
+    setWidth(context?.measureText(`${text}W`).width ?? 0);
+    setAfterBeforeWidth(context?.measureText(`${afterBeforeText}`).width ?? 0);
+  }, [after, before, value, placeholder]);
 
-  console.log(afterBeforeWidth);
   return (
     <div className="ts-input-wrapper">
       {before && <span className="ts-input__before">{before} </span>}
