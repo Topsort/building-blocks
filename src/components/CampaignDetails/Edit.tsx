@@ -93,6 +93,7 @@ export const Edit: FunctionalComponent<{
 
   const onSave = (event: SubmitEvent) => {
     event.preventDefault();
+    console.log(event);
     // TODO : save campaign
   };
 
