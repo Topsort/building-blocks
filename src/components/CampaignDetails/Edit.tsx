@@ -12,14 +12,24 @@ export const Edit: FunctionalComponent<{
   const { dispatch } = useProductPromotion();
 
   const defaultDailyBudget = () => {
-    return campaign.budget.amount;
+    const budget = campaign.budget.amount;
+    switch (campaign.budget.type) {
+      case "daily":
+        return budget;
+      case "weekly":
+        return budget / 7;
+      case "monthly":
+      case "fixed":
+        return budget / 30;
+    }
   };
 
   const defaultDurationDays = () => {
     // TODO (samet) User time-related utilty functions
     const startTime = new Date(campaign.startDate).getTime();
     const endTime = new Date(campaign.endDate).getTime();
-    return (endTime - startTime) / (1000 * 3600 * 24);
+    const days = Math.ceil((endTime - startTime) / (1000 * 3600 * 24));
+    return days < 30 ? days : 30;
   };
 
   const [dailyBudget, setDailyBudget] = useState(() => {
