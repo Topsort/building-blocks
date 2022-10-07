@@ -1,9 +1,13 @@
 import { PaymentMethod } from "@api/types";
 import { Button } from "@components/Button";
+import { Icon } from "@components/Icon";
 import { Select } from "@components/Select";
 import { CampaignBudget, CampaignSummary } from "@components/common";
 import { useProductPromotion } from "@context";
+import * as services from "@services/central-services";
+import { logger } from "@utils/logger";
 import { h, FunctionalComponent } from "preact";
+import { useState } from "preact/hooks";
 
 import { PaymentMethodIcon } from "./utils";
 
@@ -23,20 +27,79 @@ const FormattedPaymentMethod: FunctionalComponent<{
 };
 
 export const Confirm: FunctionalComponent = () => {
-  const { state, dispatch } = useProductPromotion();
+  const { authToken, vendorId, currencyCode, state, dispatch } =
+    useProductPromotion();
   const {
+    productDataById,
+    selectedProductId,
     paymentMethods,
     selectedPaymentMethodId,
     campaignCreation: { dailyBudget, durationDays },
   } = state;
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  // TODO(christopherbot) improve progress state: e.g. what if
+  // a user closes the modal while waiting for the api to repsond
+  // and then re-opens the modal?
+  const launchCampaign = async () => {
+    setIsLoading(true);
+    setHasError(false);
+
+    const paymentMethod = paymentMethods.find(
+      ({ id }) => id === selectedPaymentMethodId
+    );
+
+    if (!selectedProductId || !paymentMethod) {
+      if (!selectedProductId) {
+        logger.error("Cannot create campaign without a product selected.");
+      }
+      if (!paymentMethod) {
+        logger.error(
+          "Cannot create campaign without a payment method selected."
+        );
+      }
+      setIsLoading(false);
+      setHasError(true);
+      return;
+    }
+
+    const productData = selectedProductId
+      ? productDataById[selectedProductId]
+      : null;
+
+    const startDate = new Date();
+    const endDate = new Date();
+    endDate.setDate(startDate.getDate() + durationDays);
+
+    try {
+      const campaign = await services.createCampaign(authToken, vendorId, {
+        productId: selectedProductId,
+        name: `${productData?.name || selectedProductId} Campaign`,
+        dailyBudget,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        paymentMethod,
+        currencyCode,
+      });
+
+      dispatch({
+        type: "campaign launched",
+        payload: { campaign, productId: selectedProductId },
+      });
+    } catch (error) {
+      logger.error("Failed to create campaign", error);
+      setHasError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="ts-campaign-creation__content ts-space-y-8">
       <div className="ts-space-y-8">
-        <CampaignSummary
-          productImageUrl="https://picsum.photos/76"
-          name="Too faced hangover primer"
-        />
+        <CampaignSummary />
         <CampaignBudget
           budget={dailyBudget}
           days={durationDays}
@@ -79,6 +142,12 @@ export const Confirm: FunctionalComponent = () => {
             + Add new payment method
           </Button>
         </div>
+        {hasError && (
+          <span className="ts-flex ts-items-center ts-text-danger ts-space-x-2">
+            <Icon name="info-circle-bold" />
+            <span>Something went wrong.</span>
+          </span>
+        )}
       </div>
       <div className="ts-campaign-creation__footer ts-space-x-2">
         <Button
@@ -91,9 +160,8 @@ export const Confirm: FunctionalComponent = () => {
         </Button>
         <Button
           variant="contained"
-          onClick={() => {
-            dispatch({ type: "campaign launched" });
-          }} // ToDo: save campaign
+          onClick={() => launchCampaign()}
+          disabled={isLoading}
         >
           Launch
         </Button>

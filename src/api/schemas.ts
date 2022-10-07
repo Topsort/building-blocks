@@ -26,7 +26,7 @@ export const paymentMethodsSchema = z.object({
   methods: z.array(paymentMethodSchema),
 });
 
-export const campaignSchema = z.object({
+export const campaignPartialSchema = z.object({
   campaignId: z.string().uuid(),
   name: z.string(),
   budget: z.object({
@@ -35,6 +35,9 @@ export const campaignSchema = z.object({
   }),
   startDate: z.string(),
   endDate: z.string(),
+});
+
+export const campaignSchema = campaignPartialSchema.extend({
   campaignBehaviorData: z.object({
     clicks: z.object({
       total: z.number().min(0),

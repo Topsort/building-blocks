@@ -5,10 +5,9 @@ import { Modal } from "@components/Modal";
 import Portal from "@components/Portal";
 import { defaultPromoteTargetClassName } from "@constants";
 import { ProductPromotionContext, useProductPromotion } from "@context";
-import { useAsync } from "@hooks/use-async";
 import * as services from "@services/central-services";
-import { initialState, reducer } from "@state";
-import { CustomText, Style } from "@types";
+import { initialState, reducer, State } from "@state";
+import { CustomText, RequestStatus, Style } from "@types";
 import {
   getInvalidRgbWarning,
   isRgbValid,
@@ -16,16 +15,28 @@ import {
 } from "@utils/custom-styles";
 import { logger } from "@utils/logger";
 import { Fragment, FunctionalComponent, h, render } from "preact";
-import { useCallback, useEffect, useReducer, useState } from "preact/hooks";
+import { useEffect, useReducer, useState } from "preact/hooks";
 
 import "./app.css";
 import "./utils.css";
 
 const App: FunctionalComponent = () => {
-  const { authToken, vendorId, promoteTargetClassName, style } =
-    useProductPromotion();
-  const [productId, setProductId] = useState<string | null>(null);
+  const {
+    authToken,
+    vendorId,
+    promoteTargetClassName,
+    style,
+    dispatch,
+    state: {
+      isModalOpen,
+      campaignIdsByProductId,
+      selectedProductId,
+      campaignCreation,
+    },
+  } = useProductPromotion();
   const [promoteTargets, setPromoteTargets] = useState<HTMLElement[]>([]);
+  const [campaignIdsByProductIdStatus, setCampaignIdsByProductIdStatus] =
+    useState<RequestStatus>("idle");
 
   // Set up color variables for custom theming
   useEffect(() => {
@@ -52,7 +63,7 @@ const App: FunctionalComponent = () => {
   useEffect(() => {
     const promoteTargets = [
       ...document.getElementsByClassName(promoteTargetClassName),
-    ];
+    ] as HTMLElement[];
 
     if (promoteTargets.length === 0) {
       logger.warn(
@@ -63,42 +74,68 @@ const App: FunctionalComponent = () => {
       return;
     }
 
-    setPromoteTargets(promoteTargets as HTMLElement[]);
-  }, [promoteTargetClassName]);
+    const productDataById = promoteTargets.reduce((dataById, promoteTarget) => {
+      const productId = promoteTarget.dataset.tsProductId;
+      const productName = promoteTarget.dataset.tsProductName;
+      const productImgUrl = promoteTarget.dataset.tsProductImgUrl;
 
-  const getCampaignIdsByProductId = useAsync(
-    useCallback(
-      () =>
-        services.getCampaignIdsByProductId(
+      if (productId && productName && productImgUrl) {
+        dataById[productId] = {
+          id: productId,
+          name: productName,
+          imgUrl: productImgUrl,
+        };
+      } else {
+        logger.warn("Missing data attributes on promote target:", {
+          "ts-product-id": productId || "(missing)",
+          "ts-product-name": productName || "(missing)",
+          "ts-product-img-url": productImgUrl || "(missing)",
+        });
+      }
+
+      return dataById;
+    }, {} as State["productDataById"]);
+
+    dispatch({
+      type: "promote targets retrieved",
+      payload: {
+        productDataById,
+      },
+    });
+
+    setPromoteTargets(promoteTargets);
+  }, [dispatch, promoteTargetClassName]);
+
+  useEffect(() => {
+    const getCampaignIdsByProductId = async () => {
+      if (promoteTargets.length === 0) return;
+
+      setCampaignIdsByProductIdStatus("pending");
+
+      try {
+        const campaignIdsByProductId = await services.getCampaignIdsByProductId(
           authToken,
           vendorId,
           promoteTargets
             .map((promoteTarget) => promoteTarget.dataset.tsProductId)
             .filter((productId): productId is string => !!productId)
-        ),
-      [authToken, vendorId, promoteTargets]
-    ),
-    false
-  );
+        );
+        setCampaignIdsByProductIdStatus("success");
+        dispatch({
+          type: "campaign ids by product id retrieved",
+          payload: { campaignIdsByProductId },
+        });
+      } catch (error) {
+        setCampaignIdsByProductIdStatus("error");
+        logger.error("Failed to get campaign ids by product id", error);
+      }
+    };
 
-  useEffect(() => {
-    if (promoteTargets.length > 0) {
-      getCampaignIdsByProductId.execute();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [promoteTargets, getCampaignIdsByProductId.execute]);
+    getCampaignIdsByProductId();
+  }, [dispatch, authToken, vendorId, promoteTargets]);
 
-  useEffect(() => {
-    if (getCampaignIdsByProductId.status === "error") {
-      logger.error(
-        "[getCampaignIdsByProductId]",
-        getCampaignIdsByProductId.error
-      );
-    }
-  }, [getCampaignIdsByProductId.status, getCampaignIdsByProductId.error]);
-
-  const campaignId = productId
-    ? getCampaignIdsByProductId.value?.[productId]
+  const campaignId = selectedProductId
+    ? campaignIdsByProductId[selectedProductId]
     : null;
 
   return (
@@ -110,33 +147,33 @@ const App: FunctionalComponent = () => {
           return null;
         }
 
-        const { status } = getCampaignIdsByProductId;
-
         return (
           <Portal key={index} target={promoteTarget}>
             <PromoteButton
               key={index}
-              onClick={() => {
-                setProductId(productId);
-              }}
-              status={status}
-              hasCampaign={!!getCampaignIdsByProductId.value?.[productId]}
+              onClick={() =>
+                dispatch({ type: "product selected", payload: { productId } })
+              }
+              status={campaignIdsByProductIdStatus}
+              hasCampaign={!!campaignIdsByProductId[productId]}
             />
           </Portal>
         );
       })}
       <Portal target={document.body}>
         <Modal
-          onClose={() => {
-            setProductId(null);
-          }}
-          isOpen={!!productId}
+          onClose={() => dispatch({ type: "modal close button clicked" })}
+          isOpen={isModalOpen}
         >
-          {productId &&
-            (campaignId ? (
+          {selectedProductId &&
+            /*
+             * Don't show the Details if the campaign was just launched so that
+             * the user still sees the Launched screen in the creation flow
+             */
+            (campaignId && campaignCreation.step !== "launched" ? (
               <CampaignDetails campaignId={campaignId} />
             ) : (
-              <CampaignCreation productId={productId} />
+              <CampaignCreation />
             ))}
         </Modal>
       </Portal>
@@ -150,7 +187,21 @@ const AppWithContext: FunctionalComponent<{
   promoteTargetClassName: string;
   style: Style;
   text: CustomText;
-}> = ({ authToken, vendorId, promoteTargetClassName, style, text }) => {
+  language: string;
+  currencyCode: string;
+  numberFormater: Intl.NumberFormat;
+  moneyFormater: Intl.NumberFormat;
+}> = ({
+  authToken,
+  vendorId,
+  language,
+  currencyCode,
+  numberFormater,
+  moneyFormater,
+  promoteTargetClassName,
+  style,
+  text,
+}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
@@ -158,6 +209,10 @@ const AppWithContext: FunctionalComponent<{
       value={{
         authToken,
         vendorId,
+        language,
+        currencyCode,
+        numberFormater,
+        moneyFormater,
         promoteTargetClassName,
         style,
         text,
@@ -243,10 +298,22 @@ export default class TopsortBlocks {
       return;
     }
 
+    const language = "en"; // TODO(christopherbot) get from marketplace or browser
+    const currencyCode = "USD"; // TODO(christopherbot) get from marketplace
+
     render(
       <AppWithContext
         authToken={this.authToken}
         vendorId={this.vendorId}
+        language={language}
+        currencyCode={currencyCode}
+        numberFormater={new Intl.NumberFormat(language)}
+        moneyFormater={
+          new Intl.NumberFormat(language, {
+            style: "currency",
+            currency: currencyCode,
+          })
+        }
         promoteTargetClassName={
           promoteTargetClassName || defaultPromoteTargetClassName
         }

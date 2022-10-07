@@ -23,8 +23,18 @@ type CampaignCreationStep =
 
 type CampaignDetailsStep = "details" | "editing" | "ending" | "ended";
 
+type ProductData = {
+  id: string;
+  name: string;
+  imgUrl: string;
+};
+
 export type State = {
+  productDataById: Record<string, ProductData>;
+  isModalOpen: boolean;
+  campaignIdsByProductId: Record<string, string | null>;
   campaignsById: Record<string, Campaign>;
+  selectedProductId: string | null;
   paymentMethods: PaymentMethod[];
   selectedPaymentMethodId: PaymentMethod["id"] | null;
   campaignCreation: {
@@ -38,7 +48,11 @@ export type State = {
 };
 
 export const initialState: State = {
+  productDataById: {},
+  isModalOpen: false,
+  campaignIdsByProductId: {},
   campaignsById: {},
+  selectedProductId: null,
   paymentMethods: [],
   selectedPaymentMethodId: null,
   campaignCreation: {
@@ -54,12 +68,12 @@ export const initialState: State = {
 export type Action =
   | {
       type:
+        | "modal close button clicked"
         | "budget and duration next button clicked"
         | "payment form back button clicked"
         | "add new payment method button clicked"
         | "confirm campaign creation back button clicked"
         | "campaign creation reset"
-        | "campaign launched"
         | "edit campaign button clicked"
         | "edit campaign back button clicked"
         | "edit campaign save button clicked"
@@ -67,6 +81,24 @@ export type Action =
         | "end campaign button clicked"
         | "end campaign back button clicked"
         | "campaign details reset";
+    }
+  | {
+      type: "promote targets retrieved";
+      payload: {
+        productDataById: Record<string, ProductData>;
+      };
+    }
+  | {
+      type: "campaign ids by product id retrieved";
+      payload: {
+        campaignIdsByProductId: Record<string, string | null>;
+      };
+    }
+  | {
+      type: "product selected";
+      payload: {
+        productId: string;
+      };
     }
   | {
       type: "campaign retrieved";
@@ -103,6 +135,13 @@ export type Action =
       payload: {
         days: number;
       };
+    }
+  | {
+      type: "campaign launched";
+      payload: {
+        campaign: Campaign;
+        productId: string;
+      };
     };
 
 export const reducer = (
@@ -111,6 +150,24 @@ export const reducer = (
 ): State => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case "promote targets retrieved": {
+        Object.assign(draft.productDataById, action.payload.productDataById);
+        break;
+      }
+      case "modal close button clicked": {
+        draft.isModalOpen = false;
+        draft.selectedProductId = null;
+        break;
+      }
+      case "campaign ids by product id retrieved": {
+        draft.campaignIdsByProductId = action.payload.campaignIdsByProductId;
+        break;
+      }
+      case "product selected": {
+        draft.selectedProductId = action.payload.productId;
+        draft.isModalOpen = true;
+        break;
+      }
       case "campaign retrieved": {
         const { campaign } = action.payload;
         draft.campaignsById[campaign.campaignId] = campaign;
@@ -170,6 +227,9 @@ export const reducer = (
         break;
       }
       case "campaign launched": {
+        const { campaign, productId } = action.payload;
+        draft.campaignIdsByProductId[productId] = campaign.campaignId;
+        draft.campaignsById[campaign.campaignId] = campaign;
         draft.campaignCreation.step = "launched";
         break;
       }

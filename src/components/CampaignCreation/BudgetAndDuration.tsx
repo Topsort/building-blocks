@@ -16,7 +16,7 @@ import { h, FunctionalComponent } from "preact";
 import { ChangeEvent } from "preact/compat";
 
 export const BudgetAndDuration: FunctionalComponent = () => {
-  const { state, dispatch } = useProductPromotion();
+  const { state, dispatch, currencyCode } = useProductPromotion();
   const { dailyBudget, durationDays } = state.campaignCreation;
 
   return (
@@ -51,8 +51,7 @@ export const BudgetAndDuration: FunctionalComponent = () => {
               });
             }}
             tooltipProps={{
-              // TODO(christopherbot) use marketplace's currency:
-              content: `${dailyBudget} USD`,
+              content: `${dailyBudget} ${currencyCode}`,
               alwaysShow: true,
               hidden: dailyBudget === 0,
               light: true,

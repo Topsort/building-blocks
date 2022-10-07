@@ -10,10 +10,7 @@ export const Ended: FunctionComponent<{ campaign: Campaign }> = ({
 }) => {
   return (
     <div className="ts-space-y-5">
-      <CampaignSummary
-        name={campaign.name}
-        productImageUrl="https://picsum.photos/68"
-      />
+      <CampaignSummary />
       <Metrics title="Final Metrics" campaign={campaign} />
       {/* TODO(samet): close the modal */}
       <Button fullWidth variant="contained">

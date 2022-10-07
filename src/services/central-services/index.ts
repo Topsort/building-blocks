@@ -142,6 +142,92 @@ const fakeCampaignsById: Record<string, Campaign> = {
   },
 };
 
+export async function createCampaign(
+  authToken: string,
+  vendorId: string,
+  {
+    productId,
+    name,
+    dailyBudget,
+    startDate,
+    endDate,
+    paymentMethod,
+    currencyCode,
+  }: {
+    productId: string;
+    name: string;
+    dailyBudget: number;
+    startDate: string;
+    endDate: string;
+    paymentMethod: PaymentMethod;
+    currencyCode: string;
+  }
+): Promise<Campaign> {
+  const budgetAmount = currencyCode === "USD" ? dailyBudget * 100 : dailyBudget;
+  const response = await api(
+    schemas.campaignPartialSchema,
+    paths.campaigns(vendorId),
+    {
+      method: "POST",
+      headers: getHeaders(authToken),
+      body: JSON.stringify({
+        name,
+        budget: {
+          amount: budgetAmount,
+          type: "daily",
+        },
+        startDate,
+        endDate,
+        isActive: true,
+        campaignType: "autobidding",
+        promotionType: {
+          adFormat: "listing",
+        },
+        bids: [
+          {
+            amount: budgetAmount,
+            target: {
+              id: productId,
+              type: "product",
+            },
+            trigger: {
+              type: "product",
+              value: {
+                productId,
+              },
+            },
+          },
+        ],
+        paymentMethod,
+        currencyCode,
+      }),
+    }
+  );
+
+  // New campaigns don't have behaviour data yet, so add it here
+  // filled with zeros for a consistent data format
+  return {
+    ...response,
+    campaignBehaviorData: {
+      clicks: {
+        total: 0,
+        charged: 0,
+        adSpent: 0,
+      },
+      impressions: {
+        total: 0,
+        charged: 0,
+        adSpent: 0,
+      },
+      purchases: {
+        amount: 0,
+        count: 0,
+        quantity: 0,
+      },
+    },
+  };
+}
+
 export async function getCampaign(
   authToken: string,
   vendorId: string,

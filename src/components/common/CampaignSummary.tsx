@@ -1,4 +1,5 @@
 import { MS_PER_DAY, MS_PER_HOUR, MS_PER_MIN, MS_PER_SEC } from "@constants";
+import { useProductPromotion } from "@context";
 import cx from "classnames";
 import { h, FunctionalComponent } from "preact";
 import { useMemo } from "preact/hooks";
@@ -6,10 +7,17 @@ import { useMemo } from "preact/hooks";
 const padTime = (num: number) => `0${num}`.slice(-2);
 
 export const CampaignSummary: FunctionalComponent<{
-  name: string;
-  productImageUrl: string;
   startDate?: string;
-}> = ({ productImageUrl, name, startDate }) => {
+}> = ({ startDate }) => {
+  const { state } = useProductPromotion();
+  const { productDataById, selectedProductId } = state;
+  const productData = selectedProductId
+    ? productDataById[selectedProductId]
+    : null;
+
+  // FIXME(christopherbot) UI is showing the wrong hours, likely
+  // due to timezones not being taken into account somewhere
+  // (creation flow? here? CS?)
   const remaining = useMemo(() => {
     if (!startDate) return null;
 
@@ -36,10 +44,12 @@ export const CampaignSummary: FunctionalComponent<{
         className={cx("ts-product-image", {
           "ts-product-image--md": remaining,
         })}
-        src={productImageUrl}
+        // TODO(christopherbot) handle missing imgUrl
+        src={productData?.imgUrl}
       />
       <div className="ts-campaign-summary-name">
-        <span>{name}</span>
+        {/* TODO(christopherbot) handle missing name */}
+        <span>{productData?.name}</span>
         {remaining && (
           <span className="ts-campaign-summary-time">
             {remaining.days} {remaining.days === 1 ? "day" : "days"}{" "}
