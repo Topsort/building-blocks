@@ -43,6 +43,8 @@ hr.ts-hr {
 }
 
 .ts-product-image {
+  background-color: #fff;
+  object-fit: contain;
   box-sizing: border-box;
   border: 1px solid #f0f0f0;
   border-radius: 0.75rem;

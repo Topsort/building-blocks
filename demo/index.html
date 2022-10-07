@@ -21,23 +21,43 @@
 
       .title-row {
         display: flex;
-        padding: 0.5rem;
+        flex-direction: column;
+        align-items: flex-end;
+        position: sticky;
+        top: 0;
+        background-color: white;
+        border-bottom: 1px solid #eeeeee;
+        z-index: 1;
+        padding-top: 1rem;
+        gap: 1rem;
       }
 
-      .title-row span {
+      .search-input {
+        width: 15rem;
+        height: 1.5rem;
+        padding: 0 0.5rem;
+      }
+
+      .title-row-headers {
+        display: flex;
+        padding: 0.5rem;
+        width: 100%;
+      }
+
+      .title-row-headers span {
         flex: 0.5;
         text-align: center;
       }
 
-      .title-row span:nth-child(1) {
+      .title-row-headers span:nth-child(1) {
         flex: 1;
       }
 
-      .title-row span:nth-child(4) {
+      .title-row-headers span:nth-child(4) {
         min-width: 12rem;
       }
 
-      .title-row span:nth-child(5) {
+      .title-row-headers span:nth-child(5) {
         text-align: end;
       }
 
@@ -54,6 +74,10 @@
         max-width: 75rem;
       }
 
+      .product-hide {
+        display: none;
+      }
+
       .product:last-child {
         border-bottom: 1px solid #eeeeee;
       }
@@ -67,6 +91,7 @@
       }
 
       .product-img {
+        object-fit: contain;
         width: 4.5rem;
         height: 4.5rem;
       }
@@ -114,11 +139,18 @@
     <main>
       <div class="wrapper">
         <div class="title-row">
-          <span>Name / Code</span>
-          <span>Price</span>
-          <span>Quantity</span>
-          <span></span>
-          <span>Status</span>
+          <input
+            id="product-search"
+            class="search-input"
+            placeholder="Search products"
+          />
+          <div class="title-row-headers">
+            <span>Name / Code</span>
+            <span>Price</span>
+            <span>Quantity</span>
+            <span><!-- purposely empty --></span>
+            <span>Status</span>
+          </div>
         </div>
         <!-- REUSABLE ELEMENTS -->
         <div hidden id="product-proto" class="product">
@@ -139,6 +171,6 @@
         <!-- END REUSABLE ELEMENTS -->
       </div>
     </main>
-    <script src="./loader.js"></script>
+    <script type="module" src="loader.js"></script>
   </body>
 </html>
