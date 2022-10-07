@@ -5,6 +5,7 @@
   font-size: 0.875rem;
   display: flex;
   align-items: center;
+  border-radius: 0.5rem;
 }
 
 .ts-input-wrapper:focus-within {
