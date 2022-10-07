@@ -11,7 +11,7 @@ export const Ending: FunctionalComponent<{
 }> = ({ campaign }) => {
   const { dispatch } = useProductPromotion();
   // TODO (samet): Fetch the email from central services or somewhere else
-  const email = "samet@topsort.com";
+  const email = "example@domain.com";
 
   return (
     <div className="ts-space-y-4">
