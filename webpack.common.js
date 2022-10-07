@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const webpack = require("webpack");
 require("dotenv").config();
@@ -70,6 +71,9 @@ module.exports = {
     },
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, "./demo/index.html"),
+    }),
     new webpack.DefinePlugin({
       CENTRAL_SERVICES_BASE_URL: JSON.stringify(
         process.env.CENTRAL_SERVICES_BASE_URL
