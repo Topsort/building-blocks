@@ -22,7 +22,7 @@
 }
 
 .ts-metric .ts-svg {
-  color: #826af9;
+  color: var(--ts-primary-color-90);
 }
 
 .ts-metric__content {
