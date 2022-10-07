@@ -3,6 +3,7 @@ import { useMemo } from "preact/hooks";
 
 import { Svg, SvgProps } from "./Svg";
 import { Amex } from "./icons/Amex";
+import { ArrowCircleUpBold } from "./icons/ArrowCircleUpBold";
 import { ArrowUp1Linear } from "./icons/ArrowUp1Linear";
 import { BackSquare } from "./icons/BackSquare";
 import { Bag } from "./icons/Bag";
@@ -29,6 +30,7 @@ import { Visa } from "./icons/Visa";
 /* eslint-disable quote-props */
 const icons = {
   "amex": Amex,
+  "arrow-circle-up-bold": ArrowCircleUpBold,
   "arrow-up-1-linear": ArrowUp1Linear,
   "back-square": BackSquare,
   "bag": Bag,

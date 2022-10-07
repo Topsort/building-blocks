@@ -1,5 +1,6 @@
 import "./style.css";
 
 export { Button } from "./Button";
-export { PromoteButton } from "./PromoteButton";
+export { BackButton } from "./BackButton";
 export { CloseButton } from "./CloseButton";
+export { PromoteButton } from "./PromoteButton";
