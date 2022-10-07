@@ -148,7 +148,10 @@ export const reducer = (
   return produce(state, (draft) => {
     switch (action.type) {
       case "promote targets retrieved": {
-        draft.productDataById = action.payload.productDataById;
+        draft.productDataById = {
+          ...state.productDataById,
+          ...action.payload.productDataById,
+        };
         break;
       }
       case "modal close button clicked": {
