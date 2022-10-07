@@ -15,10 +15,7 @@ export const Ending: FunctionalComponent<{
 
   return (
     <div className="ts-space-y-4">
-      <CampaignSummary
-        name={campaign.name}
-        productImageUrl="https://picsum.photos/68"
-      />
+      <CampaignSummary />
       <Metrics title="Final Metrics" campaign={campaign} />
       <div className="ts-space-y-2-5">
         <span className="ts-campaign-ending__email-text">

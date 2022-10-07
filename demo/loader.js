@@ -22,26 +22,31 @@ function getNewElement(selector) {
 function createProductElement(num) {
   const product = getNewElement("#product-proto");
 
+  const productName = `Product ${num}`;
+  const productImgUrl = `https://picsum.photos/${imgSize}?random=${num}`;
+
   const img = product.querySelector(".product-img");
-  img.src = `https://picsum.photos/${imgSize}?random=${num}`;
+  img.src = productImgUrl;
   img.width = imgSize;
   img.height = imgSize;
 
-  product.querySelector(".product-name").innerText = `Product ${num}`;
+  product.querySelector(".product-name").innerText = productName;
   product.querySelector(".product-vendor").innerText = `Vendor ${num}`;
   product.querySelector(".product-price").innerText = `$${num}.99`;
 
   const target = product.querySelector(".promote-target-placeholder");
   target.classList.remove("promote-target-placeholder");
-  target.classList.add(
-    isUsingCustomProps
-      ? customPromoteTargetClassName
-      : TopsortBlocks.promoteTargetClassName
-  );
 
   // To demo no Promote button for product 7
   if (num !== 7) {
+    target.classList.add(
+      isUsingCustomProps
+        ? customPromoteTargetClassName
+        : TopsortBlocks.promoteTargetClassName
+    );
     target.dataset.tsProductId = `product-${num}`;
+    target.dataset.tsProductName = productName;
+    target.dataset.tsProductImgUrl = productImgUrl;
   }
 
   return product;

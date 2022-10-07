@@ -6,7 +6,7 @@ import Portal from "@components/Portal";
 import { defaultPromoteTargetClassName } from "@constants";
 import { ProductPromotionContext, useProductPromotion } from "@context";
 import * as services from "@services/central-services";
-import { initialState, reducer } from "@state";
+import { initialState, reducer, State } from "@state";
 import { CustomText, RequestStatus, Style } from "@types";
 import {
   getInvalidRgbWarning,
@@ -63,7 +63,7 @@ const App: FunctionalComponent = () => {
   useEffect(() => {
     const promoteTargets = [
       ...document.getElementsByClassName(promoteTargetClassName),
-    ];
+    ] as HTMLElement[];
 
     if (promoteTargets.length === 0) {
       logger.warn(
@@ -74,8 +74,37 @@ const App: FunctionalComponent = () => {
       return;
     }
 
-    setPromoteTargets(promoteTargets as HTMLElement[]);
-  }, [promoteTargetClassName]);
+    const productDataById = promoteTargets.reduce((dataById, promoteTarget) => {
+      const productId = promoteTarget.dataset.tsProductId;
+      const productName = promoteTarget.dataset.tsProductName;
+      const productImgUrl = promoteTarget.dataset.tsProductImgUrl;
+
+      if (productId && productName && productImgUrl) {
+        dataById[productId] = {
+          id: productId,
+          name: productName,
+          imgUrl: productImgUrl,
+        };
+      } else {
+        logger.warn("Missing data attributes on promote target:", {
+          "ts-product-id": productId || "(missing)",
+          "ts-product-name": productName || "(missing)",
+          "ts-product-img-url": productImgUrl || "(missing)",
+        });
+      }
+
+      return dataById;
+    }, {} as State["productDataById"]);
+
+    dispatch({
+      type: "promote targets retrieved",
+      payload: {
+        productDataById,
+      },
+    });
+
+    setPromoteTargets(promoteTargets);
+  }, [dispatch, promoteTargetClassName]);
 
   useEffect(() => {
     const getCampaignIdsByProductId = async () => {
