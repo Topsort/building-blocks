@@ -42,7 +42,35 @@ export const Edit: FunctionalComponent<{
 
   const onBudgetBlur = (event: FocusEvent) => {
     const target = event.target as HTMLInputElement;
-    const [integer, fractional] = target.value.split(".");
+    const finalValue = cleanDailyBudget(target.value);
+    target.value = finalValue;
+    setDailyBudget(finalValue);
+  };
+
+  const onDayInput = (event: InputEvent) => {
+    const target = event.target as HTMLInputElement;
+    const cleanedValue = target.value.replace(/[^0-9]/g, "");
+    const intValue = Number(cleanedValue);
+    const finalValue = !cleanedValue || intValue < 30 ? cleanedValue : "30";
+    target.value = finalValue;
+    setDurationDays(finalValue);
+  };
+
+  const onDayBlur = (event: FocusEvent) => {
+    const target = event.target as HTMLInputElement;
+    const finalValue = cleanDurationDays(target.value);
+    setDurationDays(finalValue);
+  };
+
+  const onSave = (event: SubmitEvent) => {
+    event.preventDefault();
+    // TODO : save campaign
+    setDailyBudget(cleanDailyBudget(dailyBudget));
+    setDurationDays(cleanDurationDays(durationDays));
+  };
+
+  const cleanDailyBudget = (value: string) => {
+    const [integer, fractional] = value.split(".");
     let intValue = 0;
     if (integer) {
       intValue += Number(integer) * 100;
@@ -59,42 +87,15 @@ export const Edit: FunctionalComponent<{
       intValue = defaultDailyBudget();
     }
 
-    const finalValue = `${Math.floor(intValue / 100)}.${String(
-      intValue % 100
-    ).padEnd(2, "0")}`;
-    target.value = finalValue;
-    console.log({
-      integer,
-      fractional,
-      finalValue,
-    });
-    setDailyBudget(finalValue);
+    return `${Math.floor(intValue / 100)}.${String(intValue % 100).padEnd(
+      2,
+      "0"
+    )}`;
   };
 
-  const onDayInput = (event: InputEvent) => {
-    const target = event.target as HTMLInputElement;
-    const cleanedValue = target.value.replace(/[^0-9]/g, "");
-    const intValue = Number(cleanedValue);
-    const finalValue = !cleanedValue || intValue < 30 ? cleanedValue : "30";
-    target.value = finalValue;
-    setDurationDays(finalValue);
-  };
-
-  const onDayBlur = (event: FocusEvent) => {
-    const target = event.target as HTMLInputElement;
-    const intValue = Number(target.value);
-    const finalValue =
-      !target.value || intValue === 0
-        ? String(defaultDurationDays())
-        : target.value;
-    target.value = finalValue;
-    setDurationDays(finalValue);
-  };
-
-  const onSave = (event: SubmitEvent) => {
-    event.preventDefault();
-    console.log(event);
-    // TODO : save campaign
+  const cleanDurationDays = (value: string) => {
+    const intValue = Number(value);
+    return !value || intValue === 0 ? String(defaultDurationDays()) : value;
   };
 
   return (
