@@ -18,8 +18,7 @@ export const Edit: FunctionalComponent<{
         return budget;
       case "weekly":
         return budget / 7;
-      case "monthly":
-      case "fixed":
+      default:
         return budget / 30;
     }
   };
@@ -34,7 +33,7 @@ export const Edit: FunctionalComponent<{
 
   const [dailyBudget, setDailyBudget] = useState(() => {
     const budget = defaultDailyBudget();
-    return `${Math.floor(budget / 100)}.${String(budget % 100).padEnd(2, "0")}`;
+    return (budget / 100).toFixed(2);
   });
   const [durationDays, setDurationDays] = useState(() => {
     return String(defaultDurationDays());
@@ -96,10 +95,7 @@ export const Edit: FunctionalComponent<{
       intValue = defaultDailyBudget();
     }
 
-    return `${Math.floor(intValue / 100)}.${String(intValue % 100).padEnd(
-      2,
-      "0"
-    )}`;
+    return (intValue / 100).toFixed(2);
   };
 
   const cleanDurationDays = (value: string) => {
