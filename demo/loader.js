@@ -1,10 +1,13 @@
+import { lumaProducts } from "./lumaProducts.js";
+
 /* global TopsortBlocks */
 
 // Demo config
 const imgSize = 72;
 const numProducts = 20;
 const isUsingTopsortBlocks = true;
-const isUsingCustomProps = true;
+const isUsingCustomProps = false;
+const useLumaProducts = true;
 const customPromoteTargetClassName = "my-custom-promote-target";
 
 function getNewElement(selector) {
@@ -19,40 +22,53 @@ function getNewElement(selector) {
   return newNode;
 }
 
-function createProductElement(num) {
-  const product = getNewElement("#product-proto");
+function createProductElement(product) {
+  const productElement = getNewElement("#product-proto");
 
-  const productName = `Product ${num}`;
-  const productId = `product-${num}`;
-  const productImgUrl = `https://picsum.photos/${imgSize}?random=${num}`;
-
-  const img = product.querySelector(".product-img");
-  img.src = productImgUrl;
+  const img = productElement.querySelector(".product-img");
+  img.src = product.imgUrl;
   img.width = imgSize;
   img.height = imgSize;
 
-  product.querySelector(".product-name").innerText = productName;
-  product.querySelector(".product-code").innerText = productId;
-  product.querySelector(".product-quantity").innerText = `${num}`;
-  product.querySelector(".product-price").innerText = `$${num}.99`;
-  product.querySelector(".product-status").innerText = "Active";
+  productElement.querySelector(".product-name").innerText = product.name;
+  productElement.querySelector(".product-code").innerText = product.id;
+  productElement.querySelector(".product-quantity").innerText =
+    product.quantity;
+  productElement.querySelector(".product-price").innerText = product.price;
+  productElement.querySelector(".product-status").innerText = "Active";
 
-  const target = product.querySelector(".promote-target-placeholder");
+  const target = productElement.querySelector(".promote-target-placeholder");
   target.classList.remove("promote-target-placeholder");
 
-  // To demo no Promote button for product 7
-  if (num !== 7) {
-    target.classList.add(
-      isUsingCustomProps
-        ? customPromoteTargetClassName
-        : TopsortBlocks.promoteTargetClassName
-    );
-    target.dataset.tsProductId = productId;
-    target.dataset.tsProductName = productName;
-    target.dataset.tsProductImgUrl = productImgUrl;
-  }
+  // return early if we should skip over this product for demo purposes
+  if (product.skip) return productElement;
 
-  return product;
+  target.classList.add(
+    isUsingCustomProps
+      ? customPromoteTargetClassName
+      : TopsortBlocks.promoteTargetClassName
+  );
+  target.dataset.tsProductId = product.id;
+  target.dataset.tsProductName = product.name;
+  target.dataset.tsProductImgUrl = product.imgUrl;
+
+  return productElement;
+}
+
+function getNumberedProducts() {
+  const products = [];
+  for (let i = 1; i < numProducts + 1; i++) {
+    products.push({
+      id: `product-${i}`,
+      imgUrl: `https://picsum.photos/${imgSize}?random=${i}`,
+      name: `Product ${i}`,
+      price: `$${i}.99`,
+      quantity: i,
+      // to demo NOT putting a promote button on a certain product
+      skip: i === 8,
+    });
+  }
+  return products;
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -65,10 +81,29 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const wrapper = document.querySelector(".wrapper");
 
-  for (let i = 1; i < numProducts + 1; i++) {
-    const product = createProductElement(i);
-    wrapper.appendChild(product);
-  }
+  const products = useLumaProducts ? lumaProducts : getNumberedProducts();
+
+  const productElements = products.map((product) =>
+    createProductElement(product)
+  );
+  productElements.forEach((productElement) => {
+    wrapper.appendChild(productElement);
+  });
+
+  const searchInput = document.getElementById("product-search");
+  searchInput.addEventListener("input", (event) => {
+    productElements.forEach((productElement) => {
+      const productName =
+        productElement.querySelector(".product-name").innerText;
+      if (
+        productName.toLowerCase().includes(event.target.value.toLowerCase())
+      ) {
+        productElement.classList.remove("product-hide");
+      } else {
+        productElement.classList.add("product-hide");
+      }
+    });
+  });
 
   if (!isUsingTopsortBlocks) return;
 
