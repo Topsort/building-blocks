@@ -53,7 +53,6 @@ export const Edit: FunctionalComponent<{
   const onBudgetBlur = (event: FocusEvent) => {
     const target = event.target as HTMLInputElement;
     const finalValue = cleanDailyBudget(target.value);
-    target.value = finalValue;
     setDailyBudget(finalValue);
   };
 
