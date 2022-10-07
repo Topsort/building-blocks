@@ -46,3 +46,29 @@
   line-height: 150%;
   color: var(--ts-font-color-40);
 }
+
+.ts-edit-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.ts-edit-form > .ts-button {
+  margin-top: 2.25rem !important;
+}
+
+.ts-edit-form__item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ts-edit-form__item > span {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ts-font-color-70)
+}
+
+.ts-edit-form__item > .ts-input-wrapper {
+  width: 50%;
+}
