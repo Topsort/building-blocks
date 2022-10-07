@@ -15,37 +15,97 @@
 
       .wrapper {
         display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
+        flex-direction: column;
+        padding: 1rem;
       }
 
-      .product {
+      .title-row {
         display: flex;
-        border: 1px solid black;
+        padding: 0.5rem;
+      }
+
+      .title-row span {
+        flex: 0.5;
+        text-align: center;
+      }
+
+      .title-row span:nth-child(1) {
+        flex: 1;
+      }
+
+      .title-row span:nth-child(4) {
+        min-width: 12rem;
+      }
+
+      .title-row span:nth-child(5) {
+        text-align: end;
       }
 
       #product-proto {
         display: none;
       }
 
-      .product-info {
-        position: relative;
+      .product {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #eeeeee;
+        padding: 0.5rem;
+        max-width: 75rem;
+      }
+
+      .product:last-child {
+        border-bottom: 1px solid #eeeeee;
+      }
+
+      .product-img-name {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .product-img {
+        width: 4.5rem;
+        height: 4.5rem;
+      }
+
+      .product-name-code {
         display: flex;
         flex-direction: column;
-        width: 10rem;
-        padding: 0.5rem;
       }
 
-      .my-custom-button {
-        background-color: #7d70ad;
-        border-radius: 0.5rem;
-        height: 1.75rem;
+      .product-name {
+        color: #5e3bdd;
+        line-height: 1.5;
       }
 
-      .my-custom-button-text {
-        font-style: italic;
-        font-weight: 900;
-        color: #ffffff;
+      .product-code {
+        font-size: 0.875rem;
+        line-height: 1.5;
+      }
+
+      .product-price {
+        flex: 0.5;
+        text-align: center;
+      }
+
+      .product-quantity {
+        flex: 0.5;
+        text-align: center;
+      }
+
+      .promote-target-wrapper {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        min-width: 12rem;
+      }
+
+      .product-status {
+        flex: 0.5;
+        text-align: end;
       }
     </style>
     <!-- html-webpack-plugin will automatically append bundle file after this line -->
@@ -53,15 +113,28 @@
   <body>
     <main>
       <div class="wrapper">
+        <div class="title-row">
+          <span>Name / Code</span>
+          <span>Price</span>
+          <span>Quantity</span>
+          <span></span>
+          <span>Status</span>
+        </div>
         <!-- REUSABLE ELEMENTS -->
         <div hidden id="product-proto" class="product">
-          <img class="product-img" />
-          <div class="product-info">
-            <span class="product-name"></span>
-            <span class="product-vendor"></span>
-            <span class="product-price"></span>
+          <div class="product-img-name">
+            <img class="product-img" />
+            <div class="product-name-code">
+              <span class="product-name"></span>
+              <span class="product-code"></span>
+            </div>
+          </div>
+          <span class="product-price"></span>
+          <span class="product-quantity"></span>
+          <div class="promote-target-wrapper">
             <div class="promote-target-placeholder"></div>
           </div>
+          <div class="product-status"></div>
         </div>
         <!-- END REUSABLE ELEMENTS -->
       </div>

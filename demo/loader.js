@@ -1,7 +1,7 @@
 /* global TopsortBlocks */
 
 // Demo config
-const imgSize = 160;
+const imgSize = 72;
 const numProducts = 20;
 const isUsingTopsortBlocks = true;
 const isUsingCustomProps = true;
@@ -23,6 +23,7 @@ function createProductElement(num) {
   const product = getNewElement("#product-proto");
 
   const productName = `Product ${num}`;
+  const productId = `product-${num}`;
   const productImgUrl = `https://picsum.photos/${imgSize}?random=${num}`;
 
   const img = product.querySelector(".product-img");
@@ -31,8 +32,10 @@ function createProductElement(num) {
   img.height = imgSize;
 
   product.querySelector(".product-name").innerText = productName;
-  product.querySelector(".product-vendor").innerText = `Vendor ${num}`;
+  product.querySelector(".product-code").innerText = productId;
+  product.querySelector(".product-quantity").innerText = `${num}`;
   product.querySelector(".product-price").innerText = `$${num}.99`;
+  product.querySelector(".product-status").innerText = "Active";
 
   const target = product.querySelector(".promote-target-placeholder");
   target.classList.remove("promote-target-placeholder");
@@ -44,7 +47,7 @@ function createProductElement(num) {
         ? customPromoteTargetClassName
         : TopsortBlocks.promoteTargetClassName
     );
-    target.dataset.tsProductId = `product-${num}`;
+    target.dataset.tsProductId = productId;
     target.dataset.tsProductName = productName;
     target.dataset.tsProductImgUrl = productImgUrl;
   }
