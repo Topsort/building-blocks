@@ -25,11 +25,11 @@
 }
 
 .ts-input[type="text"]::placeholder {
-  color: var(--ts-font-color-70);
+  color: var(--ts-font-color-60);
 }
 
 .ts-input[type="text"]::-ms-input-placeholder {
-  color: var(--ts-font-color-70);
+  color: var(--ts-font-color-60);
 }
 
 .ts-input[type="text"]:focus {
@@ -49,7 +49,7 @@
 
 .ts-input__before,
 .ts-input__after {
-  color: #9e9e9e;
+  color: var(--ts-font-color-70);
   user-select: none;
 }
 
