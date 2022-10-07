@@ -34,10 +34,6 @@
   height: 2rem;
 }
 
-.ts-modal-heading .ts-svg {
-  color: var(--ts-success-color);
-}
-
 .ts-modal-content {
   padding: 0 1.875rem 1.875rem;
 }

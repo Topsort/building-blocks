@@ -17,6 +17,11 @@
   color: var(--ts-primary-color);
 }
 
+.ts-button--inline.ts-button--secondary,
+.ts-button--text.ts-button--secondary {
+  color: var(--ts-secondary-color);
+}
+
 .ts-button--inline.ts-button--danger,
 .ts-button--text.ts-button--danger {
   color: var(--ts-danger-color);
@@ -24,6 +29,10 @@
 
 .ts-button--text:not([disabled]):hover {
   background-color: var(--ts-primary-color-5);
+}
+
+.ts-button--text:not([disabled]):hover.ts-button--secondary {
+  background-color: var(--ts-secondary-color-5);
 }
 
 .ts-button--text:not([disabled]):hover.ts-button--danger {
@@ -49,12 +58,20 @@
   color: #fff;
 }
 
+.ts-button--contained.ts-button--secondary {
+  background-color: var(--ts-secondary-color);
+}
+
 .ts-button--contained.ts-button--danger {
   background-color: var(--ts-danger-color);
 }
 
 .ts-button--contained:not([disabled]):hover {
   background-color: var(--ts-primary-color-90);
+}
+
+.ts-button--contained:not([disabled]):hover.ts-button--secondary {
+  background-color: var(--ts-secondary-color-90);
 }
 
 .ts-button--contained:not([disabled]):hover.ts-button--danger {
@@ -70,6 +87,11 @@
   color: var(--ts-primary-color);
 }
 
+.ts-button--outlined.ts-button--secondary {
+  border-color: var(--ts-secondary-color);
+  color: var(--ts-secondary-color);
+}
+
 .ts-button--outlined.ts-button--danger {
   border-color: var(--ts-danger-color);
   color: var(--ts-danger-color);
@@ -77,6 +99,10 @@
 
 .ts-button--outlined:not([disabled]):hover {
   background-color: var(--ts-primary-color-5);
+}
+
+.ts-button--outlined:not([disabled]):hover.ts-button--secondary {
+  background-color: var(--ts-secondary-color-5);
 }
 
 .ts-button--outlined:not([disabled]):hover.ts-button--danger {
@@ -102,6 +128,17 @@
 
 .ts-promote-button {
   font-weight: 600;
+}
+
+.ts-back-button {
+  padding: 0.5rem 1.125rem;
+  background-color: #fff;
+  border: 1px solid #f5f5f5;
+  border-radius: 4rem;
+}
+
+.ts-back-button:hover {
+  background-color: var(--ts-primary-color-5);
 }
 
 .ts-close-button {

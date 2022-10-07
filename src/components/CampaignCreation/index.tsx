@@ -92,7 +92,7 @@ export const CampaignCreation: FunctionalComponent = () => {
         return {
           title: (
             <Fragment>
-              <Icon size={32} name="tick-circle" />
+              <Icon size={32} name="tick-circle" className="ts-text-success" />
               <span>Your campaign was launched!</span>
             </Fragment>
           ),

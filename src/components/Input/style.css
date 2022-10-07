@@ -1,3 +1,58 @@
+.ts-input-wrapper {
+  padding: 0.625rem 0.75rem;
+  border: 1px solid rgba(38, 42, 73, 0.1);
+  cursor: text;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+}
+
+.ts-input-wrapper:focus-within {
+  border-color: rgba(38, 42, 73, 0.4);
+}
+
+.ts-input[type="text"] {
+  border: none;
+  background-image: none;
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  font-size: inherit;
+  padding: 0;
+  color: var(--ts-font-color);
+}
+
+.ts-input[type="text"]::placeholder {
+  color: var(--ts-font-color-60);
+}
+
+.ts-input[type="text"]::-ms-input-placeholder {
+  color: var(--ts-font-color-60);
+}
+
+.ts-input[type="text"]:focus {
+  outline: none;
+}
+
+.ts-input__before {
+  margin-right: 0.3rem;
+}
+
+/*
+  TODO (samet): Handle margin values after demo
+*/
+.ts-input__after {
+  margin-left: -0.6rem;
+}
+
+.ts-input__before,
+.ts-input__after {
+  color: var(--ts-font-color-70);
+  user-select: none;
+}
+
 .ts-input[type="range"] {
   --track-height: 0.3125rem;
   --thumb-size: 1.25rem;

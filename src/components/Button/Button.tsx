@@ -4,7 +4,7 @@ import { h, FunctionalComponent, JSX } from "preact";
 
 export const Button: FunctionalComponent<
   JSX.IntrinsicElements["button"] & {
-    color?: "danger";
+    color?: "secondary" | "danger";
     fullWidth?: boolean;
     variant: "inline" | "text" | "contained" | "outlined";
   }
@@ -20,6 +20,7 @@ export const Button: FunctionalComponent<
         "ts-button--outlined": variant === "outlined",
         "ts-button--rounded-sm": borderRadius === "sm",
         "ts-button--rounded-full": borderRadius === "full",
+        "ts-button--secondary": color === "secondary",
         "ts-button--danger": color === "danger",
         "ts-w-full": fullWidth,
       })}

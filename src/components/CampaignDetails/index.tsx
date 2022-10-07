@@ -1,4 +1,5 @@
 import { Campaign } from "@api/types";
+import { BackButton } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
 import { useProductPromotion } from "@context";
@@ -7,6 +8,7 @@ import { h, FunctionalComponent, Fragment } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
 import { Details } from "./Details";
+import { Edit } from "./Edit";
 import { Ended } from "./Ended";
 import { Ending } from "./Ending";
 import "./style.css";
@@ -80,11 +82,26 @@ export const CampaignDetails: FunctionalComponent<{
           content: <Details campaign={campaign} />,
         };
       }
+      case "editing": {
+        return {
+          title: (
+            <Fragment>
+              <BackButton
+                onClick={() =>
+                  dispatch({ type: "edit campaign back button clicked" })
+                }
+              />
+              <span>Edit Budget/Duration</span>
+            </Fragment>
+          ),
+          content: <Edit campaign={campaign} />,
+        };
+      }
       case "ended": {
         return {
           title: (
             <Fragment>
-              <Icon size={32} name="tick-circle" />
+              <Icon size={32} name="tick-circle" className="ts-text-success" />
               <span>Your campaign ended!</span>
             </Fragment>
           ),
@@ -108,6 +125,8 @@ export const CampaignDetails: FunctionalComponent<{
     switch (step) {
       case "details":
         return "24rem";
+      case "editing":
+        return "fit-content";
       case "ended":
         return "fit-content";
       case "ending":

@@ -21,7 +21,7 @@ type CampaignCreationStep =
   | "confirm"
   | "launched";
 
-type CampaignDetailsStep = "details" | "ending" | "ended";
+type CampaignDetailsStep = "details" | "editing" | "ending" | "ended";
 
 type ProductData = {
   id: string;
@@ -75,6 +75,9 @@ export type Action =
         | "confirm campaign creation back button clicked"
         | "campaign creation reset"
         | "edit campaign button clicked"
+        | "edit campaign back button clicked"
+        | "edit campaign save button clicked"
+        | "edit campaign end button clicked"
         | "end campaign button clicked"
         | "end campaign back button clicked"
         | "campaign details reset";
@@ -231,7 +234,18 @@ export const reducer = (
         break;
       }
       case "edit campaign button clicked": {
-        // TODO: set it as "editing" once edit page is implemented
+        draft.campaignDetails.step = "editing";
+        break;
+      }
+      case "edit campaign back button clicked": {
+        draft.campaignDetails.step = "details";
+        break;
+      }
+      case "edit campaign save button clicked": {
+        // TODO (samet): what to do after saving somponent
+        break;
+      }
+      case "edit campaign end button clicked": {
         draft.campaignDetails.step = "ending";
         break;
       }
@@ -240,8 +254,7 @@ export const reducer = (
         break;
       }
       case "end campaign back button clicked": {
-        // TODO: set it as "editing" once edit page is implemented
-        draft.campaignDetails.step = "details";
+        draft.campaignDetails.step = "editing";
         break;
       }
       case "campaign details reset": {
