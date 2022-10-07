@@ -4,7 +4,7 @@ import { Icon } from "@components/Icon";
 import { Select } from "@components/Select";
 import { CampaignBudget, CampaignSummary } from "@components/common";
 import { useProductPromotion } from "@context";
-import * as services from "@services/central-services";
+import * as services from "@services/central-services/mock";
 import { logger } from "@utils/logger";
 import { h, FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";

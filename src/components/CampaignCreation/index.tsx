@@ -1,7 +1,7 @@
 import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
 import { useProductPromotion } from "@context";
-import * as services from "@services/central-services";
+import * as services from "@services/central-services/mock";
 import { recommendedBudgetUSD, initialDurationDays } from "@state";
 import { assertNever } from "@utils/assert-never";
 import { logger } from "@utils/logger";
@@ -19,6 +19,7 @@ export const CampaignCreation: FunctionalComponent = () => {
   const { authToken, state, dispatch } = useProductPromotion();
   const {
     selectedProductId,
+    paymentMethods,
     campaignCreation: { step },
   } = state;
 
@@ -39,14 +40,18 @@ export const CampaignCreation: FunctionalComponent = () => {
   useEffect(() => {
     const getPaymentMethods = async () => {
       try {
-        const paymentMethods = await services.getPaymentMethods(authToken);
+        if (paymentMethods.length > 0) return;
+
+        const fetchedPaymentMethods = await services.getPaymentMethods(
+          authToken
+        );
 
         dispatch({
           type: "payment methods received",
-          payload: { paymentMethods },
+          payload: { paymentMethods: fetchedPaymentMethods },
         });
 
-        if (paymentMethods.length === 0) {
+        if (fetchedPaymentMethods.length === 0) {
           // To reduce load time later, load Stripe early if we know
           // the user will need to add a card
           getStripe();
@@ -58,7 +63,7 @@ export const CampaignCreation: FunctionalComponent = () => {
     };
 
     getPaymentMethods();
-  }, [dispatch, authToken]);
+  }, [dispatch, authToken, paymentMethods.length]);
 
   useEffect(() => {
     // If the modal for a different product is opened,
