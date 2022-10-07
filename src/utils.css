@@ -82,6 +82,10 @@
   color: var(--ts-danger-color);
 }
 
+.ts-text-success {
+  color: var(--ts-success-color);
+}
+
 .ts-text-xs {
   font-size: 0.75rem;
   line-height: 150%;
