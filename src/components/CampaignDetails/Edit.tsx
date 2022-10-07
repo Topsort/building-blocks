@@ -11,8 +11,24 @@ export const Edit: FunctionalComponent<{
 }> = ({ campaign }) => {
   const { dispatch } = useProductPromotion();
 
-  const [dailyBudget, setDailyBudget] = useState("");
-  const [durationDays, setDurationDays] = useState("");
+  const defaultDailyBudget = () => {
+    return campaign.budget.amount;
+  };
+
+  const defaultDurationDays = () => {
+    // TODO (samet) User time-related utilty functions
+    const startTime = new Date(campaign.startDate).getTime();
+    const endTime = new Date(campaign.endDate).getTime();
+    return (endTime - startTime) / (1000 * 3600 * 24);
+  };
+
+  const [dailyBudget, setDailyBudget] = useState(() => {
+    const budget = defaultDailyBudget();
+    return `${Math.floor(budget / 100)}.${String(budget % 100).padEnd(2, "0")}`;
+  });
+  const [durationDays, setDurationDays] = useState(() => {
+    return String(defaultDurationDays());
+  });
 
   const onBudgetInput = (event: InputEvent) => {
     const target = event.target as HTMLInputElement;
@@ -24,11 +40,55 @@ export const Edit: FunctionalComponent<{
     setDailyBudget(cleanedValue);
   };
 
+  const onBudgetBlur = (event: FocusEvent) => {
+    const target = event.target as HTMLInputElement;
+    const [integer, fractional] = target.value.split(".");
+    let intValue = 0;
+    if (integer) {
+      intValue += Number(integer) * 100;
+    }
+    if (fractional) {
+      if (fractional.length === 1) {
+        intValue += Number(fractional) * 10;
+      } else if (fractional.length === 2) {
+        intValue += Number(fractional);
+      }
+    }
+
+    if (intValue === 0) {
+      intValue = defaultDailyBudget();
+    }
+
+    const finalValue = `${Math.floor(intValue / 100)}.${String(
+      intValue % 100
+    ).padEnd(2, "0")}`;
+    target.value = finalValue;
+    console.log({
+      integer,
+      fractional,
+      finalValue,
+    });
+    setDailyBudget(finalValue);
+  };
+
   const onDayInput = (event: InputEvent) => {
     const target = event.target as HTMLInputElement;
     const cleanedValue = target.value.replace(/[^0-9]/g, "");
-    target.value = cleanedValue;
-    setDurationDays(cleanedValue);
+    const intValue = Number(cleanedValue);
+    const finalValue = !cleanedValue || intValue < 30 ? cleanedValue : "30";
+    target.value = finalValue;
+    setDurationDays(finalValue);
+  };
+
+  const onDayBlur = (event: FocusEvent) => {
+    const target = event.target as HTMLInputElement;
+    const intValue = Number(target.value);
+    const finalValue =
+      !target.value || intValue === 0
+        ? String(defaultDurationDays())
+        : target.value;
+    target.value = finalValue;
+    setDurationDays(finalValue);
   };
 
   const onSave = (event: SubmitEvent) => {
@@ -39,8 +99,8 @@ export const Edit: FunctionalComponent<{
   return (
     <div class="ts-space-y-5">
       <CampaignEstimation
-        dailyBudget={5}
-        durationDays={12}
+        dailyBudget={Number(dailyBudget)}
+        durationDays={Number(durationDays)}
         minEstimatedClick={1000}
         maxEstimatedClick={1500}
       />
@@ -55,6 +115,7 @@ export const Edit: FunctionalComponent<{
             before="$"
             value={dailyBudget}
             onInput={(event) => onBudgetInput(event as unknown as InputEvent)}
+            onBlur={(event) => onBudgetBlur(event as unknown as FocusEvent)}
             type="text"
             placeholder="7.00"
           />
@@ -65,6 +126,7 @@ export const Edit: FunctionalComponent<{
             after="days"
             value={durationDays}
             onInput={(event) => onDayInput(event as unknown as InputEvent)}
+            onBlur={(event) => onDayBlur(event as unknown as FocusEvent)}
             type="text"
             placeholder="15"
           />
