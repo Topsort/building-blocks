@@ -34,7 +34,9 @@ function createProductElement(product) {
   productElement.querySelector(".product-code").innerText = product.id;
   productElement.querySelector(".product-quantity").innerText =
     product.quantity;
-  productElement.querySelector(".product-price").innerText = product.price;
+  productElement.querySelector(
+    ".product-price"
+  ).innerText = `$${product.price}`;
   productElement.querySelector(".product-status").innerText = "Active";
 
   const target = productElement.querySelector(".promote-target-placeholder");
@@ -62,7 +64,7 @@ function getNumberedProducts() {
       id: `product-${i}`,
       imgUrl: `https://picsum.photos/${imgSize}?random=${i}`,
       name: `Product ${i}`,
-      price: `$${i}.99`,
+      price: `${i}.99`,
       quantity: i,
       // to demo NOT putting a promote button on a certain product
       skip: i === 8,
