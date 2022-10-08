@@ -32,17 +32,17 @@ const testCampaignsById: Record<string, Campaign> = {
     endDate: "2022-10-24T14:15:22Z",
     campaignBehaviorData: {
       clicks: {
-        total: 24,
-        charged: 24,
-        adSpent: 24,
+        total: 208,
+        charged: 208,
+        adSpent: 208,
       },
       impressions: {
-        total: 1341,
-        charged: 1341,
-        adSpent: 1341,
+        total: 302,
+        charged: 76,
+        adSpent: 109,
       },
       purchases: {
-        amount: 19,
+        amount: 1045,
         count: 19,
         quantity: 19,
       },
