@@ -31,7 +31,8 @@ export const CampaignEstimation: FunctionalComponent<
       <span className="ts-text-sm ts-font-semimedium">
         With a{" "}
         <span className="ts-font-bold">
-          {dailyBudget} {currencyCode}
+          {/* TODO make it generic */}
+          {dailyBudget.toFixed(2)} {currencyCode}
         </span>{" "}
         <span className="ts-font-bold">{durationDays} days</span> we estimate{" "}
         <span className="ts-text-primary">
