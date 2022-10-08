@@ -29,10 +29,10 @@ const App: FunctionalComponent = () => {
     dispatch,
     state: {
       isModalOpen,
-      isCloseButtonHidden,
       campaignIdsByProductId,
       selectedProductId,
       campaignCreation,
+      campaignDetails,
     },
   } = useProductPromotion();
   const [promoteTargets, setPromoteTargets] = useState<HTMLElement[]>([]);
@@ -165,7 +165,7 @@ const App: FunctionalComponent = () => {
         <Modal
           onClose={() => dispatch({ type: "modal close button clicked" })}
           isOpen={isModalOpen}
-          isCloseButtonHidden={isCloseButtonHidden}
+          isCloseButtonHidden={campaignDetails.step === "ended"}
         >
           {selectedProductId &&
             /*

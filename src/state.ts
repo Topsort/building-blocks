@@ -32,7 +32,6 @@ type ProductData = {
 export type State = {
   productDataById: Record<string, ProductData>;
   isModalOpen: boolean;
-  isCloseButtonHidden: boolean;
   campaignIdsByProductId: Record<string, string | null>;
   campaignsById: Record<string, Campaign>;
   selectedProductId: string | null;
@@ -51,7 +50,6 @@ export type State = {
 export const initialState: State = {
   productDataById: {},
   isModalOpen: false,
-  isCloseButtonHidden: false,
   campaignIdsByProductId: {},
   campaignsById: {},
   selectedProductId: null,
@@ -158,7 +156,6 @@ export const reducer = (
       }
       case "modal close button clicked": {
         draft.isModalOpen = false;
-        draft.isCloseButtonHidden = false;
         draft.selectedProductId = null;
         break;
       }
@@ -169,7 +166,6 @@ export const reducer = (
       case "product selected": {
         draft.selectedProductId = action.payload.productId;
         draft.isModalOpen = true;
-        draft.isCloseButtonHidden = false;
         break;
       }
       case "campaign retrieved": {
@@ -255,7 +251,6 @@ export const reducer = (
       }
       case "end campaign button clicked": {
         draft.campaignDetails.step = "ended";
-        draft.isCloseButtonHidden = true;
         break;
       }
       case "end campaign back button clicked": {
