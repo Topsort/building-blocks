@@ -29,6 +29,7 @@ const App: FunctionalComponent = () => {
     dispatch,
     state: {
       isModalOpen,
+      isCloseButtonHidden,
       campaignIdsByProductId,
       selectedProductId,
       campaignCreation,
@@ -164,6 +165,7 @@ const App: FunctionalComponent = () => {
         <Modal
           onClose={() => dispatch({ type: "modal close button clicked" })}
           isOpen={isModalOpen}
+          isCloseButtonHidden={isCloseButtonHidden}
         >
           {selectedProductId &&
             /*

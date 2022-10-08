@@ -28,7 +28,8 @@ export const ModalContent: FunctionalComponent<{ height?: string }> = ({
 export const Modal: FunctionalComponent<{
   onClose: () => void;
   isOpen: boolean;
-}> = ({ children, onClose, isOpen }) => {
+  isCloseButtonHidden?: boolean;
+}> = ({ children, onClose, isOpen, isCloseButtonHidden = false }) => {
   const focusRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     // Bring focus into the modal upon opening it
@@ -62,7 +63,7 @@ export const Modal: FunctionalComponent<{
       tabIndex={-1}
       ref={focusRef}
     >
-      <CloseButton onClick={onClose} />
+      {!isCloseButtonHidden && <CloseButton onClick={onClose} />}
       {children}
     </div>
   );
