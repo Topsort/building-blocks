@@ -242,7 +242,7 @@ export const reducer = (
         break;
       }
       case "edit campaign save button clicked": {
-        // TODO (samet): what to do after saving somponent
+        // TODO (samet): what to do after saving
         break;
       }
       case "edit campaign end button clicked": {

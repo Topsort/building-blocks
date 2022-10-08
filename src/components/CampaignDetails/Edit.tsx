@@ -75,6 +75,10 @@ export const Edit: FunctionalComponent<{
     // TODO : save campaign
     setDailyBudget(cleanDailyBudget(dailyBudget));
     setDurationDays(cleanDurationDays(durationDays));
+
+    dispatch({
+      type: "modal close button clicked",
+    });
   };
 
   const cleanDailyBudget = (value: string) => {
