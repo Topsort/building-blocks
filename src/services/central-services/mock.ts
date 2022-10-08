@@ -28,8 +28,8 @@ const testCampaignsById: Record<string, Campaign> = {
       amount: 200,
       type: "daily",
     },
-    startDate: "2019-08-22T14:15:22Z",
-    endDate: "2019-08-24T14:15:22Z",
+    startDate: "2022-10-06T14:15:22Z",
+    endDate: "2022-10-24T14:15:22Z",
     campaignBehaviorData: {
       clicks: {
         total: 24,
