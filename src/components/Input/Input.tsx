@@ -25,9 +25,9 @@ export const Input: FunctionalComponent<
       Here, we omit the original "onInput" event listener of "input",
       and define our custom "onInput".
       The reason is that our internal input listener listens "input",
-      perform some operations, and then calls the provided "onInput"
-      listener. However, the code becomes unnecessarily messy when we
-      call original onInput.
+      performs some operations, and then calls the provided "onInput"
+      listener. However, the code becomes unnecessarily messy if we
+      use the original onInput.
       In this way, we pass only string, not the event itself.
       It is and will probably be enough for our use cases.
     */
