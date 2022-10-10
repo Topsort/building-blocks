@@ -40,6 +40,7 @@ export const Edit: FunctionalComponent<{
   });
 
   const budgetInputFilter = (value: string) => {
+    // TODO (samet) Handle the other currencies
     return value.replace(/[^0-9.]/g, "").replace(/(\.[0-9]{0,2}).*/g, "$1");
   };
 
