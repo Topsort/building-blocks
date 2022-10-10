@@ -97,7 +97,8 @@ export const Input: FunctionalComponent<
 
     The width calculation MUST be right after the value change.
     Otherwise, we will see sudden shifts. The reason is that
-    the width of the "input" is smaller than the width of the content.
+    the width of the "input" is smaller than the width of the content
+    for a short period of time if we don't set the width immediately.
   */
   const onInputInternal = () => {
     const currentValue = inputRef.current?.value;
