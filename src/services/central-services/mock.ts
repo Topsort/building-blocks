@@ -7,6 +7,8 @@ import type {
 } from "@api/types";
 import { PaymentMethod as StripePaymentMethod } from "@stripe/stripe-js";
 
+import type { Services } from "./types";
+
 function uuidv4() {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -54,7 +56,7 @@ function delayedResponse<T>(response: T): Promise<T> {
   return new Promise((res) => setTimeout(() => res(response), 1000));
 }
 
-export async function validateVendor(
+async function validateVendor(
   apiKey: string,
   vendorId: string
 ): Promise<ValidateVendor> {
@@ -63,7 +65,18 @@ export async function validateVendor(
   });
 }
 
-export async function getCampaignIdsByProductId(
+async function getPaymentMethods(authToken: string): Promise<PaymentMethod[]> {
+  return delayedResponse([]);
+}
+
+async function createPaymentMethod(
+  authToken: string,
+  paymentMethod: StripePaymentMethod
+): Promise<null> {
+  return delayedResponse(null);
+}
+
+async function getCampaignIdsByProductId(
   authToken: string,
   vendorId: string,
   productIds: string[]
@@ -75,20 +88,15 @@ export async function getCampaignIdsByProductId(
   return delayedResponse(response);
 }
 
-export async function getPaymentMethods(
-  authToken: string
-): Promise<PaymentMethod[]> {
-  return delayedResponse([]);
-}
-
-export async function createPaymentMethod(
+async function getCampaign(
   authToken: string,
-  paymentMethod: StripePaymentMethod
-): Promise<null> {
-  return delayedResponse(null);
+  vendorId: string,
+  campaignId: string
+): Promise<Campaign> {
+  return delayedResponse(testCampaignsById[campaignId]);
 }
 
-export async function createCampaign(
+async function createCampaign(
   authToken: string,
   vendorId: string,
   {
@@ -141,10 +149,11 @@ export async function createCampaign(
   };
 }
 
-export async function getCampaign(
-  authToken: string,
-  vendorId: string,
-  campaignId: string
-): Promise<Campaign> {
-  return delayedResponse(testCampaignsById[campaignId]);
-}
+export const services: Services = {
+  validateVendor,
+  getPaymentMethods,
+  createPaymentMethod,
+  getCampaignIdsByProductId,
+  getCampaign,
+  createCampaign,
+};

@@ -3,7 +3,7 @@ import { BackButton } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
 import { useProductPromotion } from "@context";
-import * as services from "@services/central-services/mock";
+import { services } from "@services/central-services";
 import { h, FunctionalComponent, Fragment } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
