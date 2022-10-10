@@ -80,7 +80,6 @@ export const Input: FunctionalComponent<
         valueStr.length > 0 ? valueStr : placeholder ?? "",
         getComputedStyle(inputRef.current).font
       );
-      console.log(getComputedStyle(inputRef.current).maxWidth);
       inputRef.current.style.width = `${width}px`;
     }
   };
