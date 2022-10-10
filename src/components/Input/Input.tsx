@@ -54,6 +54,9 @@ export const Input: FunctionalComponent<
     the space (column-gap) between "input" and "after"/before.
   */
   useEffect(() => {
+    if (!inputRef.current) {
+      return;
+    }
     let width = 0; // the width except "input" element
     if (afterRef.current) {
       width += afterRef.current.clientWidth + remToPx("0.3rem");
@@ -63,9 +66,7 @@ export const Input: FunctionalComponent<
       width += beforeRef.current.clientWidth + remToPx("0.3rem");
       // column-gap is 0.3rem. It is the space between "before" and "input"
     }
-    if (inputRef.current) {
-      inputRef.current.style.maxWidth = `calc(100% - ${width}px)`;
-    }
+    inputRef.current.style.maxWidth = `calc(100% - ${width}px)`;
   }, [after, before]);
 
   useEffect(() => {
@@ -74,14 +75,15 @@ export const Input: FunctionalComponent<
   }, [placeholder, value]);
 
   const updateWidth = () => {
-    if (inputRef.current) {
-      const valueStr = String(inputRef.current.value);
-      const width = calculateTextWidth(
-        valueStr.length > 0 ? valueStr : placeholder ?? "",
-        getComputedStyle(inputRef.current).font
-      );
-      inputRef.current.style.width = `${width}px`;
+    if (!inputRef.current) {
+      return;
     }
+    const valueStr = String(inputRef.current.value);
+    const width = calculateTextWidth(
+      valueStr.length > 0 ? valueStr : placeholder ?? "",
+      getComputedStyle(inputRef.current).font
+    );
+    inputRef.current.style.width = `${width}px`;
   };
 
   /*
