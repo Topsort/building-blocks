@@ -41,6 +41,7 @@
 .ts-input__after {
   color: var(--ts-font-color-70);
   user-select: none;
+  white-space: nowrap;
 }
 
 .ts-input[type="range"] {
