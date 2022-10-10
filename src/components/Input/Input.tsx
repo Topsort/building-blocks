@@ -21,6 +21,7 @@ export const Input: FunctionalComponent<
     before?: string;
     inputFilter?: (value: string) => string;
     /*
+      NOTE (samet)
       Here, we omit the original "onInput" event listener of "input",
       and define our custom "onInput".
       The reason is that our internal input listener listens "input",
@@ -47,6 +48,7 @@ export const Input: FunctionalComponent<
   const beforeRef = useRef<HTMLInputElement>(null);
 
   /*
+    NOTE (samet)
     This effect calculates the maximum width of the "input".
     It depends on the width of "after"/"before" elements, and
     the space (column-gap) between "input" and "after"/before.
@@ -84,6 +86,7 @@ export const Input: FunctionalComponent<
   };
 
   /*
+    NOTE (samet)
     This is an internal input event listener.
 
     At each input, it applies the given filter on the current input
