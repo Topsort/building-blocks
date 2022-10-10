@@ -39,14 +39,8 @@ export const Edit: FunctionalComponent<{
     return String(defaultDurationDays());
   });
 
-  const onBudgetInput = (event: InputEvent) => {
-    const target = event.target as HTMLInputElement;
-    // TODO (samet) Handle the other currencies
-    const cleanedValue = target.value
-      .replace(/[^0-9.]/g, "")
-      .replace(/(\.[0-9]{0,2}).*/g, "$1");
-    target.value = cleanedValue;
-    setDailyBudget(cleanedValue);
+  const budgetInputFilter = (value: string) => {
+    return value.replace(/[^0-9.]/g, "").replace(/(\.[0-9]{0,2}).*/g, "$1");
   };
 
   const onBudgetBlur = (event: FocusEvent) => {
@@ -55,13 +49,11 @@ export const Edit: FunctionalComponent<{
     setDailyBudget(finalValue);
   };
 
-  const onDayInput = (event: InputEvent) => {
-    const target = event.target as HTMLInputElement;
-    const cleanedValue = target.value.replace(/[^0-9]/g, "");
+  const dayInputFilter = (value: string) => {
+    const cleanedValue = value.replace(/[^0-9]/g, "");
     const intValue = Number(cleanedValue);
     const finalValue = !cleanedValue || intValue < 30 ? cleanedValue : "30";
-    target.value = finalValue;
-    setDurationDays(finalValue);
+    return finalValue;
   };
 
   const onDayBlur = (event: FocusEvent) => {
@@ -125,7 +117,8 @@ export const Edit: FunctionalComponent<{
           <Input
             before="$"
             value={dailyBudget}
-            onInput={(event) => onBudgetInput(event as unknown as InputEvent)}
+            inputFilter={budgetInputFilter}
+            onInput={setDailyBudget}
             onBlur={(event) => onBudgetBlur(event as unknown as FocusEvent)}
             type="text"
             placeholder="7.00"
@@ -136,7 +129,8 @@ export const Edit: FunctionalComponent<{
           <Input
             after="days"
             value={durationDays}
-            onInput={(event) => onDayInput(event as unknown as InputEvent)}
+            inputFilter={dayInputFilter}
+            onInput={setDurationDays}
             onBlur={(event) => onDayBlur(event as unknown as FocusEvent)}
             type="text"
             placeholder="15"

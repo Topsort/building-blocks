@@ -5,6 +5,7 @@
   font-size: 0.875rem;
   display: flex;
   align-items: center;
+  column-gap: 0.3rem;
   border-radius: 0.5rem;
 }
 
@@ -34,17 +35,6 @@
 
 .ts-input[type="text"]:focus {
   outline: none;
-}
-
-.ts-input__before {
-  margin-right: 0.3rem;
-}
-
-/*
-  TODO (samet): Handle margin values after demo
-*/
-.ts-input__after {
-  margin-left: -0.6rem;
 }
 
 .ts-input__before,
