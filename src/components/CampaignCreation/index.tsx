@@ -1,7 +1,7 @@
 import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
 import { useProductPromotion } from "@context";
-import * as services from "@services/central-services/mock";
+import { services } from "@services/central-services";
 import { recommendedBudgetUSD, initialDurationDays } from "@state";
 import { assertNever } from "@utils/assert-never";
 import { logger } from "@utils/logger";
