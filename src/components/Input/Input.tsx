@@ -118,9 +118,9 @@ export const Input: FunctionalComponent<
   return (
     <div className="ts-input-wrapper">
       {before && (
-        <div className="ts-input__before" ref={beforeRef}>
+        <span className="ts-input__before" ref={beforeRef}>
           {before}{" "}
-        </div>
+        </span>
       )}
       <input
         ref={inputRef}
@@ -131,10 +131,10 @@ export const Input: FunctionalComponent<
         {...props}
       />
       {after && (
-        <div className="ts-input__after" ref={afterRef}>
+        <span className="ts-input__after" ref={afterRef}>
           {" "}
           {after}
-        </div>
+        </span>
       )}
     </div>
   );
