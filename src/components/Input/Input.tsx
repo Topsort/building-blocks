@@ -15,25 +15,25 @@ const calculateTextWidth = (text: string, font: string): number => {
   return canvasContext?.measureText(text).width ?? 0;
 };
 
-export const Input: FunctionalComponent<
-  Omit<JSX.IntrinsicElements["input"], "onInput"> & {
-    after?: string;
-    before?: string;
-    inputFilter?: (value: string) => string;
-    /*
-      NOTE (samet)
-      Here, we omit the original "onInput" event listener of "input",
-      and define our custom "onInput".
-      The reason is that our internal input listener listens "input",
-      performs some operations, and then calls the provided "onInput"
-      listener. However, the code becomes unnecessarily messy if we
-      use the original onInput.
-      In this way, we pass only string, not the event itself.
-      It is and will probably be enough for our use cases.
-    */
-    onInput?: (value: string) => void;
-  }
-> = ({
+export type InputProps = Omit<JSX.IntrinsicElements["input"], "onInput"> & {
+  after?: string;
+  before?: string;
+  inputFilter?: (value: string) => string;
+  /*
+    NOTE (samet)
+    Here, we omit the original "onInput" event listener of "input",
+    and define our custom "onInput".
+    The reason is that our internal input listener listens "input",
+    performs some operations, and then calls the provided "onInput"
+    listener. However, the code becomes unnecessarily messy if we
+    use the original onInput.
+    In this way, we pass only string, not the event itself.
+    It is and will probably be enough for our use cases.
+  */
+  onInput?: (value: string) => void;
+};
+
+export const Input: FunctionalComponent<InputProps> = ({
   after,
   before,
   className,
