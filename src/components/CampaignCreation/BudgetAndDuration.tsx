@@ -18,8 +18,6 @@ export const BudgetAndDuration: FunctionalComponent = () => {
   } = state;
   const formattedDailyBudget =
     currencyCode === "USD" ? dailyBudget / 100 : dailyBudget;
-  const formattedDefaultBudget =
-    currencyCode === "USD" ? defaultBudget / 100 : defaultBudget;
 
   return (
     <div className="ts-campaign-creation__content ts-space-y-8">
@@ -39,25 +37,23 @@ export const BudgetAndDuration: FunctionalComponent = () => {
         <div className="ts-campaign-creation__range">
           <span className="ts-text-sm ts-font-medium">Set a daily budget</span>
           <RangeInputWithTooltip
-            value={formattedDailyBudget}
-            min={getMinBudget(formattedDefaultBudget)}
-            max={getMaxBudget(formattedDefaultBudget)}
+            value={dailyBudget}
+            min={getMinBudget(currencyCode)}
+            max={getMaxBudget(defaultBudget)}
             onInput={(event: ChangeEvent<HTMLInputElement>) => {
-              // Casting needing due to preact bug:
-              // https://github.com/preactjs/preact/issues/1930
-              const value = Number((event.target as HTMLInputElement).value);
-              const amount = currencyCode === "USD" ? value * 100 : value;
               dispatch({
                 type: "campaign creation daily budget updated",
                 payload: {
-                  amount,
+                  // Casting needing due to preact bug:
+                  // https://github.com/preactjs/preact/issues/1930
+                  amount: Number((event.target as HTMLInputElement).value),
                 },
               });
             }}
             tooltipProps={{
-              content: `${formattedDailyBudget} ${currencyCode}`,
+              content: `${formattedDailyBudget.toFixed(2)} ${currencyCode}`,
               alwaysShow: true,
-              hidden: formattedDailyBudget === 0,
+              hidden: dailyBudget === 0,
               light: true,
             }}
           />
