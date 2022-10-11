@@ -1,3 +1,5 @@
+import { Button } from "@components/Button";
+import { Icon } from "@components/Icon";
 import { remToPx } from "@utils/css-unit-converter";
 import cx from "classnames";
 import { h, FunctionalComponent, JSX } from "preact";
@@ -40,12 +42,15 @@ export const Input: FunctionalComponent<InputProps> = ({
   onInput,
   inputFilter,
   placeholder,
+  type = "text",
   value,
   ...props
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const afterRef = useRef<HTMLInputElement>(null);
   const beforeRef = useRef<HTMLInputElement>(null);
+  const innerWrapperRef = useRef<HTMLDivElement>(null);
+  const buttonContainerRef = useRef<HTMLDivElement>(null);
 
   /*
     NOTE (samet)
@@ -73,6 +78,21 @@ export const Input: FunctionalComponent<InputProps> = ({
     updateWidth();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [placeholder, value]);
+
+  /*
+    NOTE (samet)
+    This effect calculates the maximum width of the inner wrapper.
+    The inner wrapper contains "after", "before" and the native
+    "input" element.
+  */
+  useEffect(() => {
+    if (!innerWrapperRef.current) {
+      return;
+    }
+    innerWrapperRef.current.style.maxWidth = `calc(100% - ${
+      buttonContainerRef.current?.clientWidth ?? 0
+    }px)`;
+  }, [type]);
 
   const updateWidth = () => {
     if (!inputRef.current) {
@@ -117,24 +137,62 @@ export const Input: FunctionalComponent<InputProps> = ({
 
   return (
     <div className="ts-input-wrapper">
-      {before && (
-        <span className="ts-input__before" ref={beforeRef}>
-          {before}{" "}
-        </span>
-      )}
-      <input
-        ref={inputRef}
-        value={value}
-        placeholder={placeholder}
-        className={cx("ts-input", className)}
-        onInput={onInputInternal}
-        {...props}
-      />
-      {after && (
-        <span className="ts-input__after" ref={afterRef}>
-          {" "}
-          {after}
-        </span>
+      <div className="ts-input-inner-wrapper" ref={innerWrapperRef}>
+        {before && (
+          <span className="ts-input__before" ref={beforeRef}>
+            {before}{" "}
+          </span>
+        )}
+        <input
+          ref={inputRef}
+          value={value}
+          placeholder={placeholder}
+          className={cx("ts-input", className)}
+          onInput={onInputInternal}
+          type={type}
+          {...props}
+        />
+        {after && (
+          <span className="ts-input__after" ref={afterRef}>
+            {" "}
+            {after}
+          </span>
+        )}
+      </div>
+      {type === "number" && (
+        <div className="ts-input__button-container" ref={buttonContainerRef}>
+          <Button
+            type="button"
+            variant="text"
+            onClick={() => {
+              if (inputRef.current) {
+                inputRef.current.stepUp();
+                onInputInternal();
+                inputRef.current.focus();
+              }
+            }}
+          >
+            <Icon
+              name="arrow-down-bold"
+              className="ts-rotate-180"
+              width="20"
+              height="20"
+            />
+          </Button>
+          <Button
+            type="button"
+            variant="text"
+            onClick={() => {
+              if (inputRef.current) {
+                inputRef.current.stepDown();
+                onInputInternal();
+                inputRef.current.focus();
+              }
+            }}
+          >
+            <Icon name="arrow-down-bold" width="20" height="20" />
+          </Button>
+        </div>
       )}
     </div>
   );

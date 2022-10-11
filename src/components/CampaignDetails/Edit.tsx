@@ -121,7 +121,6 @@ export const Edit: FunctionalComponent<{
             inputFilter={budgetInputFilter}
             onInput={setDailyBudget}
             onBlur={(event) => onBudgetBlur(event as unknown as FocusEvent)}
-            type="text"
             placeholder="7.00"
           />
         </label>
@@ -133,7 +132,9 @@ export const Edit: FunctionalComponent<{
             inputFilter={dayInputFilter}
             onInput={setDurationDays}
             onBlur={(event) => onDayBlur(event as unknown as FocusEvent)}
-            type="text"
+            min="1"
+            max="30"
+            type="number"
             placeholder="15"
           />
         </label>

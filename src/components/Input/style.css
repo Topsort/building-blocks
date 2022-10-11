@@ -5,7 +5,6 @@
   font-size: 0.875rem;
   display: flex;
   align-items: center;
-  column-gap: 0.3rem;
   border-radius: 0.5rem;
 }
 
@@ -13,7 +12,14 @@
   border-color: rgba(38, 42, 73, 0.4);
 }
 
-.ts-input[type="text"] {
+.ts-input-inner-wrapper {
+  flex: 1 1 auto;
+  display: flex;
+  column-gap: 0.3rem;
+}
+
+.ts-input[type="text"],
+.ts-input[type="number"] {
   border: none;
   background-image: none;
   background-color: transparent;
@@ -25,15 +31,30 @@
   color: var(--ts-font-color);
 }
 
-.ts-input[type="text"]::placeholder {
+.ts-input[type="number"]::-webkit-inner-spin-button,
+.ts-input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.ts-input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.ts-input[type="text"]::placeholder,
+.ts-input[type="number"]::placeholder {
   color: var(--ts-font-color-60);
 }
 
-.ts-input[type="text"]::-ms-input-placeholder {
+.ts-input[type="text"]::-ms-input-placeholder,
+.ts-input[type="number"]::-ms-input-placeholder {
   color: var(--ts-font-color-60);
 }
 
-.ts-input[type="text"]:focus {
+.ts-input[type="text"]:focus,
+.ts-input[type="number"]:focus {
   outline: none;
 }
 
@@ -42,6 +63,18 @@
   color: var(--ts-font-color-70);
   user-select: none;
   white-space: nowrap;
+}
+
+.ts-input__button-container {
+  height: 0;
+  overflow-y: visible;
+  align-self: flex-start;
+  margin-top: -0.8rem;
+  color: var(--ts-primary-color);
+}
+
+.ts-input__button-container > .ts-button {
+  padding: 0;
 }
 
 .ts-input[type="range"] {
