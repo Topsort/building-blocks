@@ -12,15 +12,25 @@ export const CampaignEstimation: FunctionalComponent<
 > = ({ className, dailyBudget, durationDays, ...props }) => {
   const {
     currencyCode,
+    numberFormater,
     state: { marketplaceCpc },
   } = useProductPromotion();
 
   const { minClicks, maxClicks } = useMemo(
     () => ({
-      minClicks: Math.round(dailyBudget / marketplaceCpc.upperBound),
-      maxClicks: Math.round(dailyBudget / marketplaceCpc.lowerBound),
+      minClicks: Math.round(
+        durationDays * (dailyBudget / marketplaceCpc.upperBound)
+      ),
+      maxClicks: Math.round(
+        durationDays * (dailyBudget / marketplaceCpc.lowerBound)
+      ),
     }),
-    [dailyBudget, marketplaceCpc.lowerBound, marketplaceCpc.upperBound]
+    [
+      durationDays,
+      dailyBudget,
+      marketplaceCpc.lowerBound,
+      marketplaceCpc.upperBound,
+    ]
   );
 
   const formattedDailyBudget =
@@ -48,8 +58,10 @@ export const CampaignEstimation: FunctionalComponent<
         we estimate{" "}
         <span className="ts-text-primary">
           {minClicks === maxClicks
-            ? minClicks
-            : `between ${minClicks} and ${maxClicks}`}
+            ? numberFormater.format(minClicks)
+            : `between ${numberFormater.format(
+                minClicks
+              )} and ${numberFormater.format(maxClicks)}`}
         </span>{" "}
         clicks.
       </span>
