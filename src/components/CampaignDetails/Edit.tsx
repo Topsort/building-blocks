@@ -14,7 +14,7 @@ import { useState, useMemo } from "preact/hooks";
 export const Edit: FunctionalComponent<{
   campaign: Campaign;
 }> = ({ campaign }) => {
-  const { authToken, vendorId, dispatch } = useProductPromotion();
+  const { authToken, currencyCode, vendorId, dispatch } = useProductPromotion();
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -136,13 +136,15 @@ export const Edit: FunctionalComponent<{
     }
   };
 
+  const dailyBudgetNum = Number(dailyBudget);
+
   return (
     <div class="ts-space-y-5">
       <CampaignEstimation
-        dailyBudget={Number(dailyBudget)}
+        dailyBudget={
+          currencyCode === "USD" ? dailyBudgetNum * 100 : dailyBudgetNum
+        }
         durationDays={Number(durationDays)}
-        minEstimatedClick={1000}
-        maxEstimatedClick={1500}
       />
       <form
         className="ts-edit-form ts-space-y-5"

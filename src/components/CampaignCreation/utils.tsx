@@ -24,3 +24,7 @@ export const PaymentMethodIcon: FunctionalComponent<{
       return <Icon name="credit-card" viewBox="0 0 32 21" />;
   }
 };
+
+export const getMinBudget = (budget: number) => Math.floor(budget * 0.75);
+
+export const getMaxBudget = (budget: number) => Math.ceil(budget * 1.25);

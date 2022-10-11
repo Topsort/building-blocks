@@ -1,6 +1,7 @@
 import {
   Campaign,
   CampaignIdsByProductId,
+  DefaultBudgetAndCpc,
   PartialCampaign,
   PaymentMethod,
   ValidateVendor,
@@ -9,6 +10,10 @@ import { PaymentMethod as StripePaymentMethod } from "@stripe/stripe-js";
 
 export type Services = {
   validateVendor(apiKey: string, vendorId: string): Promise<ValidateVendor>;
+  getDefaultBudgetAndCpc(
+    authToken: string,
+    vendorId: string
+  ): Promise<DefaultBudgetAndCpc>;
   getPaymentMethods(authToken: string): Promise<PaymentMethod[]>;
   createPaymentMethod(
     authToken: string,

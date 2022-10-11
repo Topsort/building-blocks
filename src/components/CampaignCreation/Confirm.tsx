@@ -89,7 +89,7 @@ export const Confirm: FunctionalComponent = () => {
         payload: { campaign, productId: selectedProductId },
       });
     } catch (error) {
-      logger.error("Failed to create campaign", error);
+      logger.error("Failed to create campaign.", error);
       setHasError(true);
     } finally {
       setIsLoading(false);
@@ -101,7 +101,7 @@ export const Confirm: FunctionalComponent = () => {
       <div className="ts-space-y-8">
         <CampaignSummary />
         <CampaignBudget
-          budget={dailyBudget * 100}
+          budget={dailyBudget}
           days={durationDays}
           showTargetingText
         />

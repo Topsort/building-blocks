@@ -2,23 +2,30 @@ import { Icon } from "@components/Icon";
 import { useProductPromotion } from "@context";
 import cx from "classnames";
 import { h, FunctionalComponent, JSX } from "preact";
+import { useMemo } from "preact/hooks";
 
 export const CampaignEstimation: FunctionalComponent<
   JSX.IntrinsicElements["div"] & {
     dailyBudget: number;
     durationDays: number;
-    minEstimatedClick: number;
-    maxEstimatedClick: number;
   }
-> = ({
-  className,
-  dailyBudget,
-  durationDays,
-  minEstimatedClick,
-  maxEstimatedClick,
-  ...props
-}) => {
-  const { currencyCode } = useProductPromotion();
+> = ({ className, dailyBudget, durationDays, ...props }) => {
+  const {
+    currencyCode,
+    state: { marketplaceCpc },
+  } = useProductPromotion();
+
+  const { minClicks, maxClicks } = useMemo(
+    () => ({
+      minClicks: Math.round(dailyBudget / marketplaceCpc.upperBound),
+      maxClicks: Math.round(dailyBudget / marketplaceCpc.lowerBound),
+    }),
+    [dailyBudget, marketplaceCpc.lowerBound, marketplaceCpc.upperBound]
+  );
+
+  const formattedDailyBudget =
+    currencyCode === "USD" ? dailyBudget / 100 : dailyBudget;
+
   return (
     <div
       className={cx(
@@ -32,11 +39,17 @@ export const CampaignEstimation: FunctionalComponent<
         With a{" "}
         <span className="ts-font-bold">
           {/* TODO make it generic */}
-          {dailyBudget.toFixed(2)} {currencyCode}
+          {formattedDailyBudget.toFixed(2)} {currencyCode}
         </span>{" "}
-        <span className="ts-font-bold">{durationDays} days</span> we estimate{" "}
+        budget in{" "}
+        <span className="ts-font-bold">
+          {durationDays} {durationDays === 1 ? "day" : "days"}
+        </span>{" "}
+        we estimate{" "}
         <span className="ts-text-primary">
-          between {minEstimatedClick} and {maxEstimatedClick}
+          {minClicks === maxClicks
+            ? minClicks
+            : `between ${minClicks} and ${maxClicks}`}
         </span>{" "}
         clicks.
       </span>

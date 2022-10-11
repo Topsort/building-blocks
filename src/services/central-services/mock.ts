@@ -4,6 +4,7 @@ import type {
   ValidateVendor,
   PaymentMethod,
   Campaign,
+  DefaultBudgetAndCpc,
   PartialCampaign,
 } from "@api/types";
 import { PaymentMethod as StripePaymentMethod } from "@stripe/stripe-js";
@@ -96,6 +97,19 @@ async function validateVendor(
   });
 }
 
+async function getDefaultBudgetAndCpc(
+  authToken: string,
+  vendorId: string
+): Promise<DefaultBudgetAndCpc> {
+  return delayedResponse({
+    cpc: {
+      lowerBound: 1,
+      upperBound: 6,
+    },
+    defaultBudget: 400,
+  });
+}
+
 async function getPaymentMethods(authToken: string): Promise<PaymentMethod[]> {
   return delayedResponse([]);
 }
@@ -159,7 +173,7 @@ async function createCampaign(
     campaignId: uuidv4(),
     budget: {
       type: "daily" as Campaign["budget"]["type"],
-      amount: dailyBudget * 100,
+      amount: dailyBudget,
     },
     startDate,
     endDate,
@@ -229,6 +243,7 @@ async function updateCampaign(
 
 export const services: Services = {
   validateVendor,
+  getDefaultBudgetAndCpc,
   getPaymentMethods,
   createPaymentMethod,
   getCampaignIdsByProductId,

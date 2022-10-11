@@ -6,6 +6,7 @@ import type {
   ValidateVendor,
   PaymentMethod,
   Campaign,
+  DefaultBudgetAndCpc,
   PartialCampaign,
 } from "@api/types";
 import { PaymentMethod as StripePaymentMethod } from "@stripe/stripe-js";
@@ -27,6 +28,20 @@ async function validateVendor(
     method: "GET",
     headers: getHeaders(apiKey),
   });
+}
+
+async function getDefaultBudgetAndCpc(
+  authToken: string,
+  vendorId: string
+): Promise<DefaultBudgetAndCpc> {
+  return await api(
+    schemas.defaultBudgetAndCpcSchema,
+    paths.defaultBudget(vendorId),
+    {
+      method: "GET",
+      headers: getHeaders(authToken),
+    }
+  );
 }
 
 async function getPaymentMethods(authToken: string): Promise<PaymentMethod[]> {
@@ -185,7 +200,6 @@ async function createCampaign(
     currencyCode: string;
   }
 ): Promise<Campaign> {
-  const budgetAmount = currencyCode === "USD" ? dailyBudget * 100 : dailyBudget;
   const response = await api(
     schemas.campaignPartialSchema,
     paths.campaigns(vendorId),
@@ -195,7 +209,7 @@ async function createCampaign(
       body: JSON.stringify({
         name,
         budget: {
-          amount: budgetAmount,
+          amount: dailyBudget,
           type: "daily",
         },
         startDate,
@@ -207,7 +221,7 @@ async function createCampaign(
         },
         bids: [
           {
-            amount: budgetAmount,
+            amount: dailyBudget,
             target: {
               id: productId,
               type: "product",
@@ -303,6 +317,7 @@ async function updateCampaign(
 
 export const services: Services = {
   validateVendor,
+  getDefaultBudgetAndCpc,
   getPaymentMethods,
   createPaymentMethod,
   getCampaignIdsByProductId,

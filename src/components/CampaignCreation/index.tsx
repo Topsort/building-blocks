@@ -2,7 +2,6 @@ import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
 import { useProductPromotion } from "@context";
 import { services } from "@services/central-services";
-import { recommendedBudgetUSD, initialDurationDays } from "@state";
 import { assertNever } from "@utils/assert-never";
 import { logger } from "@utils/logger";
 import { getStripe } from "@utils/payment";
@@ -22,20 +21,6 @@ export const CampaignCreation: FunctionalComponent = () => {
     paymentMethods,
     campaignCreation: { step },
   } = state;
-
-  useEffect(() => {
-    dispatch({
-      type: "campaign creation daily budget updated",
-      payload: { amount: recommendedBudgetUSD },
-    });
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch({
-      type: "campaign creation duration updated",
-      payload: { days: initialDurationDays },
-    });
-  }, [dispatch]);
 
   useEffect(() => {
     const getPaymentMethods = async () => {
@@ -58,7 +43,7 @@ export const CampaignCreation: FunctionalComponent = () => {
         }
       } catch (error) {
         // TODO(christopherbot) display an error
-        logger.error("Failed to fetch payment methods", error);
+        logger.error("Failed to fetch payment methods.", error);
       }
     };
 
