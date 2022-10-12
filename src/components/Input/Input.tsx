@@ -164,7 +164,6 @@ export const Input: FunctionalComponent<InputProps> = ({
               if (inputRef.current) {
                 inputRef.current.stepUp();
                 onInputInternal();
-                inputRef.current.focus();
               }
             }}
           >
@@ -182,7 +181,6 @@ export const Input: FunctionalComponent<InputProps> = ({
               if (inputRef.current) {
                 inputRef.current.stepDown();
                 onInputInternal();
-                inputRef.current.focus();
               }
             }}
           >
