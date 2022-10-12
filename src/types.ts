@@ -3,6 +3,7 @@ import { ComponentChildren } from "preact";
 declare global {
   const CENTRAL_SERVICES_BASE_URL: string;
   const STRIPE_PUBLIC_KEY: string;
+  const USE_MOCK_SERVER: string;
 }
 
 export type DocumentStyleProperty = "--ts-primary-rgb" | "--ts-font-rgb";

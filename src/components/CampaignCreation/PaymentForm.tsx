@@ -1,7 +1,7 @@
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { useProductPromotion } from "@context";
-import * as services from "@services/central-services/mock";
+import { services } from "@services/central-services";
 import {
   Elements,
   useStripe,

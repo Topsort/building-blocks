@@ -5,7 +5,7 @@ import { Modal } from "@components/Modal";
 import Portal from "@components/Portal";
 import { defaultPromoteTargetClassName } from "@constants";
 import { ProductPromotionContext, useProductPromotion } from "@context";
-import * as services from "@services/central-services/mock";
+import { services } from "@services/central-services";
 import { initialState, reducer, State } from "@state";
 import { CustomText, RequestStatus, Style } from "@types";
 import {
