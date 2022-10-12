@@ -38,6 +38,7 @@ export const campaignPartialSchema = z.object({
 });
 
 export const campaignSchema = campaignPartialSchema.extend({
+  activeBidsCount: z.number().int().min(0),
   campaignBehaviorData: z.object({
     clicks: z.object({
       total: z.number().min(0),
