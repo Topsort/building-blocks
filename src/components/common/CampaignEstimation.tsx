@@ -18,10 +18,10 @@ export const CampaignEstimation: FunctionalComponent<
 
   const { minClicks, maxClicks } = useMemo(
     () => ({
-      minClicks: Math.round(
+      minClicks: Math.floor(
         durationDays * (dailyBudget / marketplaceCpc.upperBound)
       ),
-      maxClicks: Math.round(
+      maxClicks: Math.ceil(
         durationDays * (dailyBudget / marketplaceCpc.lowerBound)
       ),
     }),
