@@ -1,16 +1,23 @@
 import { Campaign } from "@api/types";
 import { Button } from "@components/Button";
+import { Icon } from "@components/Icon";
 import { Input } from "@components/Input";
 import { CampaignEstimation } from "@components/common/CampaignEstimation";
 import { useProductPromotion } from "@context";
+import { services } from "@services/central-services";
 import { minDurationDays, maxDurationDays } from "@state";
+import { stringToInt } from "@utils/currency";
+import { logger } from "@utils/logger";
 import { h, FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
 
 export const Edit: FunctionalComponent<{
   campaign: Campaign;
 }> = ({ campaign }) => {
-  const { dispatch } = useProductPromotion();
+  const { authToken, vendorId, dispatch } = useProductPromotion();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const defaultDailyBudget = () => {
     const budget = campaign.budget.amount;
@@ -69,28 +76,23 @@ export const Edit: FunctionalComponent<{
 
   const onSave = (event: SubmitEvent) => {
     event.preventDefault();
-    // TODO : save campaign
-    setDailyBudget(cleanDailyBudget(dailyBudget));
-    setDurationDays(cleanDurationDays(durationDays));
 
-    dispatch({
-      type: "modal close button clicked",
-    });
+    let dailyBudgetInt = stringToInt(dailyBudget);
+    if (dailyBudgetInt === 0) {
+      dailyBudgetInt = defaultDailyBudget();
+    }
+    let durationDaysInt = Number(durationDays);
+    if (!durationDays || durationDaysInt === 0) {
+      durationDaysInt = defaultDurationDays();
+    }
+
+    setDailyBudget((dailyBudgetInt / 100).toFixed(2));
+    setDurationDays(String(durationDaysInt));
+    editCampaign(dailyBudgetInt, durationDaysInt);
   };
 
   const cleanDailyBudget = (value: string) => {
-    const [integer, fractional] = value.split(".");
-    let intValue = 0;
-    if (integer) {
-      intValue += Number(integer) * 100;
-    }
-    if (fractional) {
-      if (fractional.length === 1) {
-        intValue += Number(fractional) * 10;
-      } else if (fractional.length === 2) {
-        intValue += Number(fractional);
-      }
-    }
+    let intValue = stringToInt(value);
 
     if (intValue === 0) {
       intValue = defaultDailyBudget();
@@ -102,6 +104,43 @@ export const Edit: FunctionalComponent<{
   const cleanDurationDays = (value: string) => {
     const intValue = Number(value);
     return !value || intValue === 0 ? String(defaultDurationDays()) : value;
+  };
+
+  const editCampaign = async (dailyBudget: number, durationDays: number) => {
+    setIsLoading(true);
+    setHasError(false);
+
+    const endDate = new Date(campaign.startDate);
+    endDate.setDate(endDate.getDate() + durationDays);
+
+    console.log({
+      campaignStartDate: campaign.startDate,
+      startDate: endDate,
+      endDate,
+      dailyBudget,
+    });
+
+    try {
+      const editedCampaign = await services.updateCampaign(
+        authToken,
+        vendorId,
+        campaign.campaignId,
+        {
+          dailyBudget,
+          endDate: endDate.toISOString(),
+        }
+      );
+
+      dispatch({
+        type: "campaign edited",
+        payload: { campaign: editedCampaign },
+      });
+    } catch (error) {
+      logger.error("Failed to edit campaign", error);
+      setHasError(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -142,10 +181,21 @@ export const Edit: FunctionalComponent<{
             placeholder="15"
           />
         </label>
-        <Button type="submit" fullWidth variant="contained">
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          disabled={isLoading}
+        >
           Save
         </Button>
       </form>
+      {hasError && (
+        <span className="ts-flex ts-items-center ts-text-danger ts-space-x-2">
+          <Icon name="info-circle-bold" />
+          <span>Something went wrong.</span>
+        </span>
+      )}
       <hr class="ts-hr" />
       <div class="ts-flex ts-justify-center">Or</div>
       <Button
@@ -153,6 +203,7 @@ export const Edit: FunctionalComponent<{
         fullWidth
         variant="contained"
         onClick={() => dispatch({ type: "edit campaign end button clicked" })}
+        disabled={isLoading}
       >
         End Campaign
       </Button>
