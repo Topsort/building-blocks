@@ -15,7 +15,6 @@
 .ts-input-inner-wrapper {
   flex: 1 1 auto;
   display: flex;
-  column-gap: 0.3rem;
 }
 
 .ts-input[type="text"],
