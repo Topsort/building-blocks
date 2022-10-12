@@ -62,7 +62,7 @@
 .ts-input__after {
   color: var(--ts-font-color-70);
   user-select: none;
-  white-space: nowrap;
+  white-space: pre;
 }
 
 .ts-input__button-container {

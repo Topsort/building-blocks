@@ -1,6 +1,5 @@
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
-import { remToPx } from "@utils/css-unit-converter";
 import cx from "classnames";
 import { h, FunctionalComponent, JSX } from "preact";
 import { useEffect, useRef } from "preact/hooks";
@@ -55,8 +54,7 @@ export const Input: FunctionalComponent<InputProps> = ({
   /*
     NOTE (samet)
     This effect calculates the maximum width of the "input".
-    It depends on the width of "after"/"before" elements, and
-    the space (column-gap) between "input" and "after"/before.
+    It depends on the width of "after"/"before" elements.
   */
   useEffect(() => {
     if (!inputRef.current) {
@@ -64,12 +62,10 @@ export const Input: FunctionalComponent<InputProps> = ({
     }
     let width = 0; // the width except "input" element
     if (afterRef.current) {
-      width += afterRef.current.clientWidth + remToPx("0.3rem");
-      // column-gap is 0.3rem. It is the space between "after" and "input"
+      width += afterRef.current.clientWidth;
     }
     if (beforeRef.current) {
-      width += beforeRef.current.clientWidth + remToPx("0.3rem");
-      // column-gap is 0.3rem. It is the space between "before" and "input"
+      width += beforeRef.current.clientWidth;
     }
     inputRef.current.style.maxWidth = `calc(100% - ${width}px)`;
   }, [after, before]);
