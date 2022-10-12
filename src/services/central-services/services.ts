@@ -278,7 +278,7 @@ async function updateCampaign(
     schemas.campaignPartialSchema,
     paths.campaign(vendorId, campaignId),
     {
-      method: "POST",
+      method: "PATCH",
       headers: getHeaders(authToken),
       body: JSON.stringify({
         name,
