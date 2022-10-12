@@ -12,6 +12,8 @@ import {
 
 import "./style.css";
 
+export * from "./Input";
+
 export const RangeInput = forwardRef<
   HTMLInputElement,
   JSX.IntrinsicElements["input"]
@@ -88,51 +90,5 @@ export const RangeInputWithTooltip: FunctionalComponent<
     >
       <RangeInput ref={ref} {...props} />
     </Tooltip>
-  );
-};
-
-export const Input: FunctionalComponent<
-  JSX.IntrinsicElements["input"] & {
-    after?: string;
-    before?: string;
-  }
-> = ({ after, before, className, placeholder, value, ...props }) => {
-  const [width, setWidth] = useState(0);
-  const [afterBeforeWidth, setAfterBeforeWidth] = useState(0);
-  useEffect(() => {
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d");
-    if (context) {
-      // TODO (samet): get font size and font family instead of hardcoding it
-      context.font = "0.875rem Arial";
-    }
-    const text = value ? String(value) : placeholder ?? "";
-    const afterBeforeText = `${after ? after : ""}${before ? before : ""}  `;
-    /*
-        NOTE (samet)
-        The width of "W" character is added to the width of the text.
-        Otherwise, when a new character is appended, we will see a sudden
-        shift.
-      */
-    setWidth(context?.measureText(`${text}W`).width ?? 0);
-    setAfterBeforeWidth(context?.measureText(`${afterBeforeText}`).width ?? 0);
-  }, [after, before, value, placeholder]);
-
-  return (
-    <div className="ts-input-wrapper">
-      {before && <span className="ts-input__before">{before} </span>}
-      <input
-        value={value}
-        placeholder={placeholder}
-        className={cx("ts-input", className)}
-        {...props}
-        style={{
-          width: `${width}px`,
-          // TODO (samet): adjust maxWidth and margins better
-          maxWidth: `calc(100% - ${afterBeforeWidth}px)`,
-        }}
-      />
-      {after && <span className="ts-input__after"> {after}</span>}
-    </div>
   );
 };

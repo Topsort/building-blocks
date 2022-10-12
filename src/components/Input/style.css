@@ -36,21 +36,11 @@
   outline: none;
 }
 
-.ts-input__before {
-  margin-right: 0.3rem;
-}
-
-/*
-  TODO (samet): Handle margin values after demo
-*/
-.ts-input__after {
-  margin-left: -0.6rem;
-}
-
 .ts-input__before,
 .ts-input__after {
   color: var(--ts-font-color-70);
   user-select: none;
+  white-space: pre;
 }
 
 .ts-input[type="range"] {
