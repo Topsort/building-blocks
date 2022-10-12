@@ -3,6 +3,7 @@ import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import { CampaignEstimation } from "@components/common/CampaignEstimation";
 import { useProductPromotion } from "@context";
+import { minDurationDays, maxDurationDays } from "@state";
 import { h, FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
 
@@ -53,7 +54,10 @@ export const Edit: FunctionalComponent<{
   const dayInputFilter = (value: string) => {
     const cleanedValue = value.replace(/[^0-9]/g, "");
     const intValue = Number(cleanedValue);
-    const finalValue = !cleanedValue || intValue < 30 ? cleanedValue : "30";
+    const finalValue =
+      !cleanedValue || intValue < maxDurationDays
+        ? cleanedValue
+        : String(maxDurationDays);
     return finalValue;
   };
 
@@ -121,7 +125,6 @@ export const Edit: FunctionalComponent<{
             inputFilter={budgetInputFilter}
             onInput={setDailyBudget}
             onBlur={(event) => onBudgetBlur(event as unknown as FocusEvent)}
-            type="text"
             placeholder="7.00"
           />
         </label>
@@ -133,7 +136,9 @@ export const Edit: FunctionalComponent<{
             inputFilter={dayInputFilter}
             onInput={setDurationDays}
             onBlur={(event) => onDayBlur(event as unknown as FocusEvent)}
-            type="text"
+            min={minDurationDays}
+            max={maxDurationDays}
+            type="number"
             placeholder="15"
           />
         </label>
