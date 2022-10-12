@@ -8,10 +8,10 @@ export const validateVendorSchema = z.object({
 
 export const defaultBudgetAndCpcSchema = z.object({
   cpc: z.object({
-    upperBound: z.number(),
-    lowerBound: z.number(),
+    upperBound: z.number().int(),
+    lowerBound: z.number().int(),
   }),
-  defaultBudget: z.number(),
+  defaultBudget: z.number().int(),
 });
 
 export const campaignIdsByProductIdSchema = z.record(
