@@ -36,7 +36,7 @@ export const Edit: FunctionalComponent<{
     const startTime = new Date(campaign.startDate).getTime();
     const endTime = new Date(campaign.endDate).getTime();
     const days = Math.ceil((endTime - startTime) / (1000 * 3600 * 24));
-    return days < 30 ? days : 30;
+    return days < maxDurationDays ? days : maxDurationDays;
   }, [campaign.startDate, campaign.endDate]);
 
   const [dailyBudget, setDailyBudget] = useState(() => {
