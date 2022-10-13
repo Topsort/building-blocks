@@ -1,6 +1,7 @@
 import {
   Campaign,
   CampaignIdsByProductId,
+  PartialCampaign,
   PaymentMethod,
   ValidateVendor,
 } from "@api/types";
@@ -36,4 +37,20 @@ export type Services = {
       currencyCode: string;
     }
   ): Promise<Campaign>;
+  updateCampaign(
+    authToken: string,
+    vendorId: string,
+    campaignId: string,
+    data: {
+      name?: string;
+      dailyBudget?: number;
+      startDate?: string;
+      endDate?: string;
+      isActive?: boolean;
+      isSmart?: boolean;
+      campaignType?: "manual" | "autobidding";
+      status?: "approved" | "pending" | "rejected" | "terminated";
+      statusUpdatedBy?: string;
+    }
+  ): Promise<PartialCampaign>;
 };

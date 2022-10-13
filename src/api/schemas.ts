@@ -31,7 +31,7 @@ export const campaignPartialSchema = z.object({
   name: z.string(),
   budget: z.object({
     amount: z.number(),
-    type: z.enum(["daily", "weekly", "monthly", "fixed"]),
+    type: z.enum(["daily", "weekly", "monthly"]),
   }),
   startDate: z.string(),
   endDate: z.string(),

@@ -1,4 +1,4 @@
-import { Campaign, PaymentMethod } from "@api/types";
+import { Campaign, PartialCampaign, PaymentMethod } from "@api/types";
 import { produce } from "immer";
 
 // TODO(samet) recommendedBudget and estimatedClick will change.
@@ -76,7 +76,6 @@ export type Action =
         | "campaign creation reset"
         | "edit campaign button clicked"
         | "edit campaign back button clicked"
-        | "edit campaign save button clicked"
         | "edit campaign end button clicked"
         | "end campaign button clicked"
         | "end campaign back button clicked"
@@ -141,6 +140,12 @@ export type Action =
       payload: {
         campaign: Campaign;
         productId: string;
+      };
+    }
+  | {
+      type: "campaign edited";
+      payload: {
+        campaignUpdate: PartialCampaign;
       };
     };
 
@@ -237,12 +242,17 @@ export const reducer = (
         draft.campaignDetails.step = "editing";
         break;
       }
-      case "edit campaign back button clicked": {
+      case "campaign edited": {
+        const { campaignUpdate } = action.payload;
+        Object.assign(
+          draft.campaignsById[campaignUpdate.campaignId],
+          campaignUpdate
+        );
         draft.campaignDetails.step = "details";
         break;
       }
-      case "edit campaign save button clicked": {
-        // TODO (samet): what to do after saving
+      case "edit campaign back button clicked": {
+        draft.campaignDetails.step = "details";
         break;
       }
       case "edit campaign end button clicked": {

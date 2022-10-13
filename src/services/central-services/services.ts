@@ -6,6 +6,7 @@ import type {
   ValidateVendor,
   PaymentMethod,
   Campaign,
+  PartialCampaign,
 } from "@api/types";
 import { PaymentMethod as StripePaymentMethod } from "@stripe/stripe-js";
 
@@ -247,6 +248,56 @@ async function createCampaign(
   };
 }
 
+async function updateCampaign(
+  authToken: string,
+  vendorId: string,
+  campaignId: string,
+  {
+    name,
+    dailyBudget,
+    startDate,
+    endDate,
+    isActive,
+    isSmart,
+    campaignType,
+    status,
+    statusUpdatedBy,
+  }: {
+    name?: string;
+    dailyBudget?: number;
+    startDate?: string;
+    endDate?: string;
+    isActive?: boolean;
+    isSmart?: boolean;
+    campaignType?: "manual" | "autobidding";
+    status?: "approved" | "pending" | "rejected" | "terminated";
+    statusUpdatedBy?: string;
+  }
+): Promise<PartialCampaign> {
+  return await api(
+    schemas.campaignPartialSchema,
+    paths.campaign(vendorId, campaignId),
+    {
+      method: "PATCH",
+      headers: getHeaders(authToken),
+      body: JSON.stringify({
+        name,
+        budget: {
+          amount: dailyBudget,
+          type: "daily",
+        },
+        startDate,
+        endDate,
+        isActive,
+        isSmart,
+        campaignType,
+        status,
+        statusUpdatedBy,
+      }),
+    }
+  );
+}
+
 export const services: Services = {
   validateVendor,
   getPaymentMethods,
@@ -254,4 +305,5 @@ export const services: Services = {
   getCampaignIdsByProductId,
   getCampaign,
   createCampaign,
+  updateCampaign,
 };
