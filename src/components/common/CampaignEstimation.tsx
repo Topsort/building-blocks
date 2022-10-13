@@ -16,22 +16,30 @@ export const CampaignEstimation: FunctionalComponent<
     state: { marketplaceCpc },
   } = useProductPromotion();
 
-  const { minClicks, maxClicks } = useMemo(
-    () => ({
-      minClicks: Math.floor(
-        durationDays * (dailyBudget / marketplaceCpc.upperBound)
-      ),
-      maxClicks: Math.ceil(
-        durationDays * (dailyBudget / marketplaceCpc.lowerBound)
-      ),
-    }),
-    [
-      durationDays,
-      dailyBudget,
-      marketplaceCpc.lowerBound,
-      marketplaceCpc.upperBound,
-    ]
-  );
+  const { minClicks, maxClicks } = useMemo(() => {
+    const maxClicks = Math.ceil(
+      durationDays * (dailyBudget / marketplaceCpc.lowerBound)
+    );
+
+    /*
+     * If the upper and lower CPCs are the same, this likely means there isn't
+     * enough marketplace data to make a ranged estimate, so simply divide the
+     * max click estimate in half for the min click estimate.
+     */
+    const minClicks =
+      marketplaceCpc.lowerBound === marketplaceCpc.upperBound
+        ? maxClicks / 2
+        : Math.floor(durationDays * (dailyBudget / marketplaceCpc.upperBound));
+
+    return { minClicks, maxClicks };
+  }, [
+    durationDays,
+    dailyBudget,
+    marketplaceCpc.lowerBound,
+    marketplaceCpc.upperBound,
+  ]);
+
+  console.log("~~~~~~ min/max", minClicks, maxClicks);
 
   const formattedDailyBudget =
     currencyCode === "USD" ? dailyBudget / 100 : dailyBudget;
@@ -57,11 +65,8 @@ export const CampaignEstimation: FunctionalComponent<
         </span>{" "}
         we estimate{" "}
         <span className="ts-text-primary">
-          {minClicks === maxClicks
-            ? numberFormater.format(minClicks)
-            : `between ${numberFormater.format(
-                minClicks
-              )} and ${numberFormater.format(maxClicks)}`}
+          between {numberFormater.format(minClicks)} and{" "}
+          {numberFormater.format(maxClicks)}
         </span>{" "}
         clicks.
       </span>
