@@ -110,7 +110,7 @@ export const Edit: FunctionalComponent<{
     setHasError(false);
 
     const startDate = new Date(campaign.startDate);
-    const newEndDate = new Date();
+    const newEndDate = new Date(startDate);
     newEndDate.setDate(startDate.getDate() + durationDays);
 
     try {
