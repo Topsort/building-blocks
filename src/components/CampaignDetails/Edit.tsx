@@ -113,13 +113,6 @@ export const Edit: FunctionalComponent<{
     const endDate = new Date(campaign.startDate);
     endDate.setDate(endDate.getDate() + durationDays);
 
-    console.log({
-      campaignStartDate: campaign.startDate,
-      startDate: endDate,
-      endDate,
-      dailyBudget,
-    });
-
     try {
       const editedCampaign = await services.updateCampaign(
         authToken,
