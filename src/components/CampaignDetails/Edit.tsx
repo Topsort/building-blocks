@@ -6,7 +6,7 @@ import { CampaignEstimation } from "@components/common/CampaignEstimation";
 import { useProductPromotion } from "@context";
 import { services } from "@services/central-services";
 import { minDurationDays, maxDurationDays } from "@state";
-import { stringToInt } from "@utils/currency";
+import { currencyStringToInt } from "@utils/currency";
 import { logger } from "@utils/logger";
 import { h, FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
@@ -77,7 +77,7 @@ export const Edit: FunctionalComponent<{
   const onSave = (event: SubmitEvent) => {
     event.preventDefault();
 
-    let dailyBudgetInt = stringToInt(dailyBudget);
+    let dailyBudgetInt = currencyStringToInt(dailyBudget);
     if (dailyBudgetInt === 0) {
       dailyBudgetInt = defaultDailyBudget();
     }
@@ -92,7 +92,7 @@ export const Edit: FunctionalComponent<{
   };
 
   const cleanDailyBudget = (value: string) => {
-    let intValue = stringToInt(value);
+    let intValue = currencyStringToInt(value);
 
     if (intValue === 0) {
       intValue = defaultDailyBudget();

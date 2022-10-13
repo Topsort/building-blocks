@@ -1,4 +1,4 @@
-export const stringToInt: (value: string) => number = (value) => {
+export const currencyStringToInt: (value: string) => number = (value) => {
   const [integer, fractional] = value.split(".");
 
   let intValue = 0;
