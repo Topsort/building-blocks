@@ -6,7 +6,7 @@ import { CampaignEstimation } from "@components/common/CampaignEstimation";
 import { useProductPromotion } from "@context";
 import { services } from "@services/central-services";
 import { minDurationDays, maxDurationDays } from "@state";
-import { stringToInt } from "@utils/currency";
+import { currencyStringToInt } from "@utils/currency";
 import { logger } from "@utils/logger";
 import { h, FunctionalComponent } from "preact";
 import { useState, useMemo } from "preact/hooks";
@@ -76,7 +76,7 @@ export const Edit: FunctionalComponent<{
   const onSave = (event: SubmitEvent) => {
     event.preventDefault();
 
-    let dailyBudgetInt = stringToInt(dailyBudget);
+    let dailyBudgetInt = currencyStringToInt(dailyBudget);
     if (dailyBudgetInt === 0) {
       dailyBudgetInt = defaultDailyBudget;
     }
@@ -91,7 +91,7 @@ export const Edit: FunctionalComponent<{
   };
 
   const cleanDailyBudget = (value: string) => {
-    let intValue = stringToInt(value);
+    let intValue = currencyStringToInt(value);
 
     if (intValue === 0) {
       intValue = defaultDailyBudget;
@@ -109,15 +109,9 @@ export const Edit: FunctionalComponent<{
     setIsLoading(true);
     setHasError(false);
 
-    const endDate = new Date(campaign.startDate);
-    endDate.setDate(endDate.getDate() + durationDays);
-
-    console.log({
-      campaignStartDate: campaign.startDate,
-      startDate: endDate,
-      endDate,
-      dailyBudget,
-    });
+    const startDate = new Date(campaign.startDate);
+    const newEndDate = new Date();
+    newEndDate.setDate(startDate.getDate() + durationDays);
 
     try {
       const editedCampaign = await services.updateCampaign(
@@ -126,16 +120,16 @@ export const Edit: FunctionalComponent<{
         campaign.campaignId,
         {
           dailyBudget,
-          endDate: endDate.toISOString(),
+          endDate: newEndDate.toISOString(),
         }
       );
 
       dispatch({
         type: "campaign edited",
-        payload: { campaign: editedCampaign },
+        payload: { campaignUpdate: editedCampaign },
       });
     } catch (error) {
-      logger.error("Failed to edit campaign", error);
+      logger.error("Failed to edit campaign.", error);
       setHasError(true);
     } finally {
       setIsLoading(false);
