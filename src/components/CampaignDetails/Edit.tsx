@@ -2,7 +2,7 @@ import { Campaign } from "@api/types";
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { Input } from "@components/Input";
-import { CampaignEstimation } from "@components/common/CampaignEstimation";
+import { CampaignEstimation } from "@components/common";
 import { useProductPromotion } from "@context";
 import { services } from "@services/central-services";
 import { minDurationDays, maxDurationDays } from "@state";
