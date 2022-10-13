@@ -129,7 +129,7 @@ export const Edit: FunctionalComponent<{
         payload: { campaign: editedCampaign },
       });
     } catch (error) {
-      logger.error("Failed to edit campaign", error);
+      logger.error("Failed to edit campaign.", error);
       setHasError(true);
     } finally {
       setIsLoading(false);
