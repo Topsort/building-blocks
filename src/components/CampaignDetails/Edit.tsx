@@ -110,8 +110,9 @@ export const Edit: FunctionalComponent<{
     setIsLoading(true);
     setHasError(false);
 
-    const endDate = new Date(campaign.startDate);
-    endDate.setDate(endDate.getDate() + durationDays);
+    const startDate = new Date(campaign.startDate);
+    const newEndDate = new Date();
+    newEndDate.setDate(startDate.getDate() + durationDays);
 
     try {
       const editedCampaign = await services.updateCampaign(
@@ -120,7 +121,7 @@ export const Edit: FunctionalComponent<{
         campaign.campaignId,
         {
           dailyBudget,
-          endDate: endDate.toISOString(),
+          endDate: newEndDate.toISOString(),
         }
       );
 
