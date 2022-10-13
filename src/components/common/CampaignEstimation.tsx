@@ -39,8 +39,6 @@ export const CampaignEstimation: FunctionalComponent<
     marketplaceCpc.upperBound,
   ]);
 
-  console.log("~~~~~~ min/max", minClicks, maxClicks);
-
   const formattedDailyBudget =
     currencyCode === "USD" ? dailyBudget / 100 : dailyBudget;
 
