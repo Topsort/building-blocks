@@ -9,7 +9,7 @@ import { minDurationDays, maxDurationDays } from "@state";
 import { currencyStringToInt } from "@utils/currency";
 import { logger } from "@utils/logger";
 import { h, FunctionalComponent } from "preact";
-import { useState } from "preact/hooks";
+import { useState, useMemo } from "preact/hooks";
 
 export const Edit: FunctionalComponent<{
   campaign: Campaign;
@@ -19,7 +19,7 @@ export const Edit: FunctionalComponent<{
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  const defaultDailyBudget = () => {
+  const defaultDailyBudget = useMemo(() => {
     const budget = campaign.budget.amount;
     switch (campaign.budget.type) {
       case "daily":
@@ -29,22 +29,21 @@ export const Edit: FunctionalComponent<{
       default:
         return budget / 30;
     }
-  };
+  }, [campaign.budget]);
 
-  const defaultDurationDays = () => {
+  const defaultDurationDays = useMemo(() => {
     // TODO (samet) User time-related utilty functions
     const startTime = new Date(campaign.startDate).getTime();
     const endTime = new Date(campaign.endDate).getTime();
     const days = Math.ceil((endTime - startTime) / (1000 * 3600 * 24));
     return days < 30 ? days : 30;
-  };
+  }, [campaign.startDate, campaign.endDate]);
 
   const [dailyBudget, setDailyBudget] = useState(() => {
-    const budget = defaultDailyBudget();
-    return (budget / 100).toFixed(2);
+    return (defaultDailyBudget / 100).toFixed(2);
   });
   const [durationDays, setDurationDays] = useState(() => {
-    return String(defaultDurationDays());
+    return String(defaultDurationDays);
   });
 
   const budgetInputFilter = (value: string) => {
@@ -79,11 +78,11 @@ export const Edit: FunctionalComponent<{
 
     let dailyBudgetInt = currencyStringToInt(dailyBudget);
     if (dailyBudgetInt === 0) {
-      dailyBudgetInt = defaultDailyBudget();
+      dailyBudgetInt = defaultDailyBudget;
     }
     let durationDaysInt = Number(durationDays);
     if (!durationDays || durationDaysInt === 0) {
-      durationDaysInt = defaultDurationDays();
+      durationDaysInt = defaultDurationDays;
     }
 
     setDailyBudget((dailyBudgetInt / 100).toFixed(2));
@@ -95,7 +94,7 @@ export const Edit: FunctionalComponent<{
     let intValue = currencyStringToInt(value);
 
     if (intValue === 0) {
-      intValue = defaultDailyBudget();
+      intValue = defaultDailyBudget;
     }
 
     return (intValue / 100).toFixed(2);
@@ -103,7 +102,7 @@ export const Edit: FunctionalComponent<{
 
   const cleanDurationDays = (value: string) => {
     const intValue = Number(value);
-    return !value || intValue === 0 ? String(defaultDurationDays()) : value;
+    return !value || intValue === 0 ? String(defaultDurationDays) : value;
   };
 
   const editCampaign = async (dailyBudget: number, durationDays: number) => {
@@ -111,7 +110,7 @@ export const Edit: FunctionalComponent<{
     setHasError(false);
 
     const startDate = new Date(campaign.startDate);
-    const newEndDate = new Date();
+    const newEndDate = new Date(startDate);
     newEndDate.setDate(startDate.getDate() + durationDays);
 
     try {
@@ -158,7 +157,7 @@ export const Edit: FunctionalComponent<{
             inputFilter={budgetInputFilter}
             onInput={setDailyBudget}
             onBlur={(event) => onBudgetBlur(event as unknown as FocusEvent)}
-            placeholder="7.00"
+            placeholder={(defaultDailyBudget / 100).toFixed(2)}
           />
         </label>
         <label class="ts-edit-form__item">
@@ -172,7 +171,7 @@ export const Edit: FunctionalComponent<{
             min={minDurationDays}
             max={maxDurationDays}
             type="number"
-            placeholder="15"
+            placeholder={String(defaultDurationDays)}
           />
         </label>
         <Button
