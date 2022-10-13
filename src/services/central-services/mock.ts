@@ -22,6 +22,7 @@ function uuidv4() {
 }
 
 const testCampaignId = uuidv4();
+const testMultiProductCampaignId = uuidv4();
 
 const testCampaignsById: Record<string, Campaign> = {
   [testCampaignId]: {
@@ -33,6 +34,35 @@ const testCampaignsById: Record<string, Campaign> = {
     },
     startDate: "2022-10-06T14:15:22Z",
     endDate: "2022-10-24T14:15:22Z",
+    activeBidsCount: 1,
+    campaignBehaviorData: {
+      clicks: {
+        total: 208,
+        charged: 208,
+        adSpent: 208,
+      },
+      impressions: {
+        total: 302,
+        charged: 76,
+        adSpent: 109,
+      },
+      purchases: {
+        amount: 1045,
+        count: 19,
+        quantity: 19,
+      },
+    },
+  },
+  [testMultiProductCampaignId]: {
+    campaignId: testMultiProductCampaignId,
+    name: "Autumn Pullie",
+    budget: {
+      amount: 200,
+      type: "daily",
+    },
+    startDate: "2022-10-08T14:15:22Z",
+    endDate: "2022-10-22T14:15:22Z",
+    activeBidsCount: 2,
     campaignBehaviorData: {
       clicks: {
         total: 208,
@@ -83,7 +113,13 @@ async function getCampaignIdsByProductId(
   productIds: string[]
 ): Promise<CampaignIdsByProductId> {
   const response = productIds.reduce((acc, id) => {
-    acc[id] = id === "WH10" ? testCampaignId : null;
+    if (id === "WH10") {
+      acc[id] = testCampaignId;
+    } else if (id === "WH03") {
+      acc[id] = testMultiProductCampaignId;
+    } else {
+      acc[id] = null;
+    }
     return acc;
   }, {} as CampaignIdsByProductId);
   return delayedResponse(response);
@@ -130,6 +166,7 @@ async function createCampaign(
   });
   return {
     ...response,
+    activeBidsCount: 1,
     campaignBehaviorData: {
       clicks: {
         total: 0,

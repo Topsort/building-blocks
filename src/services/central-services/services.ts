@@ -96,6 +96,7 @@ const fakeCampaignsById: Record<string, Campaign> = {
     },
     startDate: "2019-08-22T14:15:22Z",
     endDate: "2019-08-24T14:15:22Z",
+    activeBidsCount: 1,
     campaignBehaviorData: {
       clicks: {
         total: 24,
@@ -123,6 +124,7 @@ const fakeCampaignsById: Record<string, Campaign> = {
     },
     startDate: "2019-08-11T14:15:22Z",
     endDate: "2019-08-24T20:54:10Z",
+    activeBidsCount: 1,
     campaignBehaviorData: {
       clicks: {
         total: 42,
@@ -228,6 +230,7 @@ async function createCampaign(
   // filled with zeros for a consistent data format
   return {
     ...response,
+    activeBidsCount: 1,
     campaignBehaviorData: {
       clicks: {
         total: 0,

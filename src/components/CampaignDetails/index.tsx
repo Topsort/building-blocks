@@ -4,6 +4,7 @@ import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
 import { useProductPromotion } from "@context";
 import { services } from "@services/central-services";
+import { logger } from "@utils/logger";
 import { h, FunctionalComponent, Fragment } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
@@ -11,6 +12,7 @@ import { Details } from "./Details";
 import { Edit } from "./Edit";
 import { Ended } from "./Ended";
 import { Ending } from "./Ending";
+import { MultiProduct } from "./MultiProduct";
 import "./style.css";
 
 export const CampaignDetails: FunctionalComponent<{
@@ -41,6 +43,7 @@ export const CampaignDetails: FunctionalComponent<{
           payload: { campaign },
         });
       } catch (error) {
+        logger.error(`Failed to get campaign (id="${campaignId}").`, error);
         setHasError(true);
       }
     }
@@ -72,6 +75,13 @@ export const CampaignDetails: FunctionalComponent<{
             )}
           </div>
         ),
+      };
+    }
+
+    if (campaign.activeBidsCount > 1) {
+      return {
+        title: "This product is already under an active campaign",
+        content: <MultiProduct />,
       };
     }
 
@@ -120,6 +130,10 @@ export const CampaignDetails: FunctionalComponent<{
   const contentHeight = (() => {
     if (!campaign) {
       return "8rem";
+    }
+
+    if (campaign.activeBidsCount > 1) {
+      return "fit-content";
     }
 
     switch (step) {

@@ -66,6 +66,10 @@
   color: var(--ts-primary-color);
 }
 
+.ts-text-secondary {
+  color: var(--ts-secondary-color);
+}
+
 .ts-text-100 {
   color: var(--ts-font-color);
 }
