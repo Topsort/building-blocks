@@ -6,6 +6,14 @@ export const validateVendorSchema = z.object({
   authToken: z.string().min(1),
 });
 
+export const defaultBudgetAndCpcSchema = z.object({
+  cpc: z.object({
+    upperBound: z.number().int(),
+    lowerBound: z.number().int(),
+  }),
+  defaultBudget: z.number().int(),
+});
+
 export const campaignIdsByProductIdSchema = z.record(
   z.string().min(1),
   z.string().uuid().nullable()

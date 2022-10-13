@@ -4,20 +4,20 @@ import { RangeInputWithTooltip } from "@components/Input";
 import { Tooltip } from "@components/Tooltip";
 import { CampaignEstimation } from "@components/common/CampaignEstimation";
 import { useProductPromotion } from "@context";
-import {
-  minBudgetUSD,
-  maxBudgetUSD,
-  minDurationDays,
-  maxDurationDays,
-  minEstimatedClick,
-  maxEstimatedClick,
-} from "@state";
+import { minDurationDays, maxDurationDays } from "@state";
 import { h, FunctionalComponent } from "preact";
 import { ChangeEvent } from "preact/compat";
 
+import { getMaxBudget, getMinBudget } from "./utils";
+
 export const BudgetAndDuration: FunctionalComponent = () => {
   const { state, dispatch, currencyCode } = useProductPromotion();
-  const { dailyBudget, durationDays } = state.campaignCreation;
+  const {
+    defaultBudget,
+    campaignCreation: { dailyBudget, durationDays },
+  } = state;
+  const formattedDailyBudget =
+    currencyCode === "USD" ? dailyBudget / 100 : dailyBudget;
 
   return (
     <div className="ts-campaign-creation__content ts-space-y-8">
@@ -38,8 +38,8 @@ export const BudgetAndDuration: FunctionalComponent = () => {
           <span className="ts-text-sm ts-font-medium">Set a daily budget</span>
           <RangeInputWithTooltip
             value={dailyBudget}
-            min={minBudgetUSD}
-            max={maxBudgetUSD}
+            min={getMinBudget(currencyCode)}
+            max={getMaxBudget(defaultBudget)}
             onInput={(event: ChangeEvent<HTMLInputElement>) => {
               dispatch({
                 type: "campaign creation daily budget updated",
@@ -51,7 +51,7 @@ export const BudgetAndDuration: FunctionalComponent = () => {
               });
             }}
             tooltipProps={{
-              content: `${dailyBudget} ${currencyCode}`,
+              content: `${formattedDailyBudget.toFixed(2)} ${currencyCode}`,
               alwaysShow: true,
               hidden: dailyBudget === 0,
               light: true,
@@ -75,7 +75,7 @@ export const BudgetAndDuration: FunctionalComponent = () => {
               });
             }}
             tooltipProps={{
-              content: `${durationDays} Days`,
+              content: `${durationDays} ${durationDays === 1 ? "Day" : "Days"}`,
               alwaysShow: true,
               hidden: durationDays === 0,
               light: true,
@@ -86,8 +86,6 @@ export const BudgetAndDuration: FunctionalComponent = () => {
           className="ts-campaign-creation__details-callout"
           dailyBudget={dailyBudget}
           durationDays={durationDays}
-          minEstimatedClick={minEstimatedClick}
-          maxEstimatedClick={maxEstimatedClick}
         />
       </div>
       <div className="ts-campaign-creation__footer ts-space-x-2">

@@ -10,7 +10,7 @@ export const Launched: FunctionalComponent = () => {
     <div className="ts-campaign-creation__content ts-space-y-8">
       <div className="ts-space-y-8">
         <CampaignSummary />
-        <CampaignBudget budget={dailyBudget * 100} days={durationDays} />
+        <CampaignBudget budget={dailyBudget} days={durationDays} />
       </div>
     </div>
   );

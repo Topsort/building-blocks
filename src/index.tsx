@@ -108,6 +108,25 @@ const App: FunctionalComponent = () => {
   }, [dispatch, promoteTargetClassName]);
 
   useEffect(() => {
+    const getDefaultBudgetAndCpc = async () => {
+      try {
+        const response = await services.getDefaultBudgetAndCpc(
+          authToken,
+          vendorId
+        );
+        dispatch({
+          type: "default budget and cpc retrieved",
+          payload: response,
+        });
+      } catch (error) {
+        logger.error("Failed to get default budget and CPC.", error);
+      }
+    };
+
+    getDefaultBudgetAndCpc();
+  }, [dispatch, authToken, vendorId]);
+
+  useEffect(() => {
     const getCampaignIdsByProductId = async () => {
       if (promoteTargets.length === 0) return;
 
@@ -128,7 +147,7 @@ const App: FunctionalComponent = () => {
         });
       } catch (error) {
         setCampaignIdsByProductIdStatus("error");
-        logger.error("Failed to get campaign ids by product id", error);
+        logger.error("Failed to get campaign ids by product id.", error);
       }
     };
 
@@ -275,7 +294,7 @@ export default class TopsortBlocks {
       );
       this.authToken = authToken;
     } catch (error) {
-      logger.error("[validateVendor]", error);
+      logger.error("Failed to validate vendor.", error);
     }
   }
 

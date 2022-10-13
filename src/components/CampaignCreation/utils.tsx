@@ -24,3 +24,15 @@ export const PaymentMethodIcon: FunctionalComponent<{
       return <Icon name="credit-card" viewBox="0 0 32 21" />;
   }
 };
+
+export const getMinBudget = (currencyCode: string) => {
+  switch (currencyCode) {
+    case "USD":
+      return 100;
+    default:
+      throw new Error(`Unsupported currency code: ${currencyCode}`);
+  }
+};
+
+// TODO(christopherbot) figure out what the max budget should be
+export const getMaxBudget = (budget: number) => Math.ceil(budget * 3);

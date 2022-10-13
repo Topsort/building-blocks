@@ -1,19 +1,14 @@
-import { Campaign, PartialCampaign, PaymentMethod } from "@api/types";
+import {
+  Campaign,
+  DefaultBudgetAndCpc,
+  PartialCampaign,
+  PaymentMethod,
+} from "@api/types";
 import { produce } from "immer";
 
-// TODO(samet) recommendedBudget and estimatedClick will change.
-export const recommendedBudgetUSD = 5;
-export const minBudgetUSD = Math.floor(
-  recommendedBudgetUSD - 1 - recommendedBudgetUSD * 0.25
-);
-export const maxBudgetUSD = Math.ceil(
-  recommendedBudgetUSD + 1 + recommendedBudgetUSD * 0.25
-);
 export const initialDurationDays = 15;
 export const minDurationDays = 1;
 export const maxDurationDays = 30;
-export const minEstimatedClick = 1000;
-export const maxEstimatedClick = 1500;
 
 type CampaignCreationStep =
   | "budget and duration"
@@ -30,6 +25,8 @@ type ProductData = {
 };
 
 export type State = {
+  defaultBudget: DefaultBudgetAndCpc["defaultBudget"];
+  marketplaceCpc: DefaultBudgetAndCpc["cpc"];
   productDataById: Record<string, ProductData>;
   isModalOpen: boolean;
   campaignIdsByProductId: Record<string, string | null>;
@@ -48,6 +45,11 @@ export type State = {
 };
 
 export const initialState: State = {
+  defaultBudget: 0,
+  marketplaceCpc: {
+    lowerBound: 0,
+    upperBound: 0,
+  },
   productDataById: {},
   isModalOpen: false,
   campaignIdsByProductId: {},
@@ -58,7 +60,7 @@ export const initialState: State = {
   campaignCreation: {
     step: "budget and duration",
     dailyBudget: 0,
-    durationDays: 0,
+    durationDays: initialDurationDays,
   },
   campaignDetails: {
     step: "details",
@@ -86,6 +88,10 @@ export type Action =
       payload: {
         productDataById: Record<string, ProductData>;
       };
+    }
+  | {
+      type: "default budget and cpc retrieved";
+      payload: DefaultBudgetAndCpc;
     }
   | {
       type: "campaign ids by product id retrieved";
@@ -164,6 +170,13 @@ export const reducer = (
         draft.selectedProductId = null;
         break;
       }
+      case "default budget and cpc retrieved": {
+        const { defaultBudget, cpc } = action.payload;
+        draft.defaultBudget = defaultBudget;
+        draft.marketplaceCpc = cpc;
+        draft.campaignCreation.dailyBudget = defaultBudget;
+        break;
+      }
       case "campaign ids by product id retrieved": {
         draft.campaignIdsByProductId = action.payload.campaignIdsByProductId;
         break;
@@ -227,7 +240,7 @@ export const reducer = (
       }
       case "campaign creation reset": {
         draft.campaignCreation.step = "budget and duration";
-        draft.campaignCreation.dailyBudget = recommendedBudgetUSD;
+        draft.campaignCreation.dailyBudget = state.defaultBudget;
         draft.campaignCreation.durationDays = initialDurationDays;
         break;
       }
