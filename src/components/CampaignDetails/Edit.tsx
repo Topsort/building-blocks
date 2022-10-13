@@ -126,7 +126,7 @@ export const Edit: FunctionalComponent<{
 
       dispatch({
         type: "campaign edited",
-        payload: { campaign: editedCampaign },
+        payload: { campaignUpdate: editedCampaign },
       });
     } catch (error) {
       logger.error("Failed to edit campaign.", error);

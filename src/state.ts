@@ -145,7 +145,7 @@ export type Action =
   | {
       type: "campaign edited";
       payload: {
-        campaign: PartialCampaign;
+        campaignUpdate: PartialCampaign;
       };
     };
 
@@ -243,8 +243,11 @@ export const reducer = (
         break;
       }
       case "campaign edited": {
-        const { campaign } = action.payload;
-        Object.assign(draft.campaignsById[campaign.campaignId], campaign);
+        const { campaignUpdate } = action.payload;
+        Object.assign(
+          draft.campaignsById[campaignUpdate.campaignId],
+          campaignUpdate
+        );
         draft.campaignDetails.step = "details";
         break;
       }
