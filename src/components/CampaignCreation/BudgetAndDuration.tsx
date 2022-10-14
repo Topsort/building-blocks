@@ -2,7 +2,7 @@ import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { RangeInputWithTooltip } from "@components/Input";
 import { Tooltip } from "@components/Tooltip";
-import { CampaignEstimation } from "@components/common/CampaignEstimation";
+import { CampaignEstimation } from "@components/common";
 import { useProductPromotion } from "@context";
 import { minDurationDays, maxDurationDays } from "@state";
 import { h, FunctionalComponent } from "preact";

@@ -33,7 +33,9 @@
   --ts-disabled-color: rgb(var(--ts-disabled-rgb));
 
   --ts-border: 0.0625rem solid var(--ts-primary-color);
-  --ts-radius: 0.5rem;
+  --ts-radius-xs: 0.25rem;
+  --ts-radius-sm: 0.5rem;
+  --ts-radius-md: 0.75rem;
 }
 
 hr.ts-hr {
@@ -44,7 +46,7 @@ hr.ts-hr {
 .ts-campaign-summary {
   background-color: var(--ts-primary-color-5);
   display: flex;
-  border-radius: 0.75rem;
+  border-radius: var(--ts-radius-md);
   padding: 1rem;
 }
 
@@ -53,7 +55,7 @@ hr.ts-hr {
   object-fit: contain;
   box-sizing: border-box;
   border: 1px solid #f0f0f0;
-  border-radius: 0.75rem;
+  border-radius: var(--ts-radius-md);
   width: 4.25rem;
   height: 4.25rem;
 }

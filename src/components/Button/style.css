@@ -115,7 +115,7 @@
 }
 
 .ts-button--rounded-sm {
-  border-radius: var(--ts-radius);
+  border-radius: var(--ts-radius-sm);
 }
 
 .ts-button--rounded-full {

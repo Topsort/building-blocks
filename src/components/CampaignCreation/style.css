@@ -33,7 +33,7 @@
 .ts-stripe-element {
   height: 1.25rem;
   padding: 1rem;
-  border-radius: 0.75rem;
+  border-radius: var(--ts-radius-md);
   border: 0.0625rem solid #c4c4c4;
   margin-top: 0.75rem;
 }
@@ -47,14 +47,14 @@
   align-items: center;
   padding: 1rem 2rem;
   box-shadow: 0px 5px 8px rgb(0 0 0 / 5%);
-  border-radius: var(--ts-radius);
+  border-radius: var(--ts-radius-sm);
 }
 
 .ts-payment-form-error__icon {
   background-color: var(--ts-danger-color-15);
   color: var(--ts-danger-color);
   padding: 0.5rem;
-  border-radius: var(--ts-radius);
+  border-radius: var(--ts-radius-sm);
 }
 
 .ts-payment-form-error__list {

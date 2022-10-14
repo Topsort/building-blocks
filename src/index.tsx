@@ -2,7 +2,7 @@ import { PromoteButton } from "@components/Button";
 import { CampaignCreation } from "@components/CampaignCreation";
 import { CampaignDetails } from "@components/CampaignDetails";
 import { Modal } from "@components/Modal";
-import Portal from "@components/Portal";
+import { Portal } from "@components/Portal";
 import { defaultPromoteTargetClassName } from "@constants";
 import { ProductPromotionContext, useProductPromotion } from "@context";
 import { services } from "@services/central-services";

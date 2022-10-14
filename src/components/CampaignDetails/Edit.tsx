@@ -2,7 +2,7 @@ import { Campaign } from "@api/types";
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { Input } from "@components/Input";
-import { CampaignEstimation } from "@components/common/CampaignEstimation";
+import { CampaignEstimation } from "@components/common";
 import { useProductPromotion } from "@context";
 import { services } from "@services/central-services";
 import { maxDurationDays } from "@state";
@@ -36,7 +36,7 @@ export const Edit: FunctionalComponent<{
     const startDate = new Date(campaign.startDate);
     const endDate = new Date(campaign.endDate);
     const days = Math.ceil(dayDifference(startDate, endDate));
-    return days < 30 ? days : 30;
+    return days < maxDurationDays ? days : maxDurationDays;
   }, [campaign.startDate, campaign.endDate]);
 
   const minDurationDays = useMemo(() => {
@@ -144,6 +144,10 @@ export const Edit: FunctionalComponent<{
   };
 
   const dailyBudgetNum = Number(dailyBudget);
+  const durationAfterText =
+    (durationDays ? Number(durationDays) : defaultDurationDays) === 1
+      ? "day"
+      : "days";
 
   return (
     <div class="ts-space-y-5">
@@ -173,7 +177,7 @@ export const Edit: FunctionalComponent<{
         <label class="ts-edit-form__item">
           <span>Set a duration</span>
           <Input
-            after="days"
+            after={durationAfterText}
             value={durationDays}
             inputFilter={dayInputFilter}
             onInput={setDurationDays}
