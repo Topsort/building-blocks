@@ -28,7 +28,7 @@ export const CampaignEstimation: FunctionalComponent<
      */
     const minClicks =
       marketplaceCpc.lowerBound === marketplaceCpc.upperBound
-        ? maxClicks / 2
+        ? Math.floor(maxClicks / 2)
         : Math.floor(durationDays * (dailyBudget / marketplaceCpc.upperBound));
 
     return { minClicks, maxClicks };
