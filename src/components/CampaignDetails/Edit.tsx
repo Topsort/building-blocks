@@ -51,6 +51,16 @@ export const Edit: FunctionalComponent<{
     return String(defaultDurationDays);
   });
 
+  const isChanged = (() => {
+    const dailyBudgetInt = currencyStringToInt(dailyBudget);
+    const durationDaysInt = Number(durationDays);
+
+    return (
+      defaultDailyBudget !== dailyBudgetInt ||
+      defaultDurationDays !== durationDaysInt
+    );
+  })();
+
   const budgetInputFilter = (value: string) => {
     // TODO (samet) Handle the other currencies
     return value.replace(/[^0-9.]/g, "").replace(/(\.[0-9]{0,2}).*/g, "$1");
@@ -189,7 +199,7 @@ export const Edit: FunctionalComponent<{
           type="submit"
           fullWidth
           variant="contained"
-          disabled={isLoading}
+          disabled={isLoading || !isChanged}
         >
           Save
         </Button>
