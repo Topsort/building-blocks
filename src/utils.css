@@ -140,7 +140,7 @@
 .ts-callout {
   background-color: var(--ts-primary-color-5);
   padding: 1rem;
-  border-radius: 0.75rem;
+  border-radius: var(--ts-radius-md);
 }
 
 .ts-callout .ts-svg {
