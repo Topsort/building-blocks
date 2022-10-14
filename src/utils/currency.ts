@@ -1,15 +1,19 @@
-export const currencyStringToInt = (value: string): number => {
-  const [integer, fractional] = value.split(".");
+export const currencyStringToInt = (
+  value: string,
+  currencyCode = "USD"
+): number => {
+  const [integer, cent] = value.split(".");
+  const hasCent = currencyCode === "USD";
 
   let intValue = 0;
   if (integer) {
-    intValue += Number(integer) * 100;
+    intValue += Number(integer) * (hasCent ? 100 : 1);
   }
-  if (fractional) {
-    if (fractional.length === 1) {
-      intValue += Number(fractional) * 10;
-    } else if (fractional.length === 2) {
-      intValue += Number(fractional);
+  if (hasCent && cent) {
+    if (cent.length === 1) {
+      intValue += Number(cent) * 10;
+    } else if (cent.length === 2) {
+      intValue += Number(cent);
     }
   }
 
