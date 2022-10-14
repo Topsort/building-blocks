@@ -1,4 +1,4 @@
-export default {
+export const paths = {
   campaign: (vendorId: string, campaignId: string) =>
     `${CENTRAL_SERVICES_BASE_URL}/modal-service/vendors/${vendorId}/campaigns/${campaignId}`,
   campaigns: (vendorId: string) =>
