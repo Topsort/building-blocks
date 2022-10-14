@@ -1,6 +1,6 @@
 import { PromoteButton } from "@components/Button";
 import { CampaignCreation } from "@components/CampaignCreation";
-import { CampaignDetails } from "@components/CampaignDetails";
+import { CampaignDetails, CampaignEnded } from "@components/CampaignDetails";
 import { Modal } from "@components/Modal";
 import { Portal } from "@components/Portal";
 import { defaultPromoteTargetClassName } from "@constants";
@@ -32,7 +32,7 @@ const App: FunctionalComponent = () => {
       campaignIdsByProductId,
       selectedProductId,
       campaignCreation,
-      campaignDetails,
+      lastDeletedCampaign,
     },
   } = useProductPromotion();
   const [promoteTargets, setPromoteTargets] = useState<HTMLElement[]>([]);
@@ -184,9 +184,12 @@ const App: FunctionalComponent = () => {
         <Modal
           onClose={() => dispatch({ type: "modal close button clicked" })}
           isOpen={isModalOpen}
-          isCloseButtonHidden={campaignDetails.step === "ended"}
+          isCloseButtonHidden={!!lastDeletedCampaign}
         >
-          {selectedProductId &&
+          {lastDeletedCampaign ? (
+            <CampaignEnded campaign={lastDeletedCampaign} />
+          ) : (
+            selectedProductId &&
             /*
              * Don't show the Details if the campaign was just launched so that
              * the user still sees the Launched screen in the creation flow
@@ -195,7 +198,8 @@ const App: FunctionalComponent = () => {
               <CampaignDetails campaignId={campaignId} />
             ) : (
               <CampaignCreation />
-            ))}
+            ))
+          )}
         </Modal>
       </Portal>
     </Fragment>

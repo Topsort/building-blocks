@@ -16,7 +16,7 @@ type CampaignCreationStep =
   | "confirm"
   | "launched";
 
-type CampaignDetailsStep = "details" | "editing" | "ending" | "ended";
+type CampaignDetailsStep = "details" | "editing" | "ending";
 
 type ProductData = {
   id: string;
@@ -42,6 +42,7 @@ export type State = {
   campaignDetails: {
     step: CampaignDetailsStep;
   };
+  lastDeletedCampaign: Campaign | null;
 };
 
 export const initialState: State = {
@@ -65,6 +66,7 @@ export const initialState: State = {
   campaignDetails: {
     step: "details",
   },
+  lastDeletedCampaign: null,
 };
 
 export type Action =
@@ -79,7 +81,6 @@ export type Action =
         | "edit campaign button clicked"
         | "edit campaign back button clicked"
         | "edit campaign end button clicked"
-        | "end campaign button clicked"
         | "end campaign back button clicked"
         | "campaign details reset";
     }
@@ -153,6 +154,13 @@ export type Action =
       payload: {
         campaignUpdate: PartialCampaign;
       };
+    }
+  | {
+      type: "campaign ended";
+      payload: {
+        campaign: Campaign;
+        productId: string;
+      };
     };
 
 export const reducer = (
@@ -168,6 +176,7 @@ export const reducer = (
       case "modal close button clicked": {
         draft.isModalOpen = false;
         draft.selectedProductId = null;
+        draft.lastDeletedCampaign = null;
         break;
       }
       case "default budget and cpc retrieved": {
@@ -184,6 +193,7 @@ export const reducer = (
       case "product selected": {
         draft.selectedProductId = action.payload.productId;
         draft.isModalOpen = true;
+        draft.lastDeletedCampaign = null;
         break;
       }
       case "campaign retrieved": {
@@ -272,8 +282,11 @@ export const reducer = (
         draft.campaignDetails.step = "ending";
         break;
       }
-      case "end campaign button clicked": {
-        draft.campaignDetails.step = "ended";
+      case "campaign ended": {
+        const { campaign, productId } = action.payload;
+        delete draft.campaignIdsByProductId[productId];
+        delete draft.campaignsById[campaign.campaignId];
+        draft.lastDeletedCampaign = campaign;
         break;
       }
       case "end campaign back button clicked": {
