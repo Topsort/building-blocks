@@ -2,7 +2,7 @@ import { h, Fragment, FunctionalComponent } from "preact";
 import { createPortal } from "preact/compat";
 import { useEffect, useState } from "preact/hooks";
 
-const Portal: FunctionalComponent<{ target: Element | string }> = ({
+export const Portal: FunctionalComponent<{ target: Element | string }> = ({
   children,
   target,
 }) => {
@@ -18,5 +18,3 @@ const Portal: FunctionalComponent<{ target: Element | string }> = ({
 
   return createPortal(<Fragment>{children}</Fragment>, portalRoot);
 };
-
-export default Portal;

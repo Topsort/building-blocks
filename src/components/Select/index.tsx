@@ -1,5 +1,5 @@
 import { Icon } from "@components/Icon";
-import Portal from "@components/Portal";
+import { Portal } from "@components/Portal";
 import {
   autoUpdate,
   useClick,
