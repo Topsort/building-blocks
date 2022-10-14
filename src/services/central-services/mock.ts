@@ -241,6 +241,14 @@ async function updateCampaign(
   });
 }
 
+async function endCampaign(
+  authToken: string,
+  vendorId: string,
+  campaignId: string
+): Promise<null> {
+  return await delayedResponse(null);
+}
+
 export const services: Services = {
   validateVendor,
   getDefaultBudgetAndCpc,
@@ -250,4 +258,5 @@ export const services: Services = {
   getCampaign,
   createCampaign,
   updateCampaign,
+  endCampaign,
 };
