@@ -1,5 +1,5 @@
 import { api } from "@api/index";
-import paths from "@api/paths";
+import { paths } from "@api/paths";
 import * as schemas from "@api/schemas";
 import type {
   CampaignIdsByProductId,

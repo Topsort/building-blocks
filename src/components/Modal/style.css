@@ -7,7 +7,7 @@
   width: 25rem;
   max-width: 95vw;
   max-height: 95vh;
-  border-radius: var(--ts-radius);
+  border-radius: var(--ts-radius-sm);
   background-color: white;
   box-shadow: 0px 5px 8px rgb(0 0 0 / 10%);
   z-index: 1;
