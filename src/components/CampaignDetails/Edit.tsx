@@ -63,7 +63,7 @@ export const Edit: FunctionalComponent<{
   };
 
   const dayInputFilter = (value: string) => {
-    const cleanedValue = value.replace(/[^0-9]/g, "");
+    const cleanedValue = value.replace(/[^0-9]/g, "").replace(/^0+/g, "");
     const intValue = Number(cleanedValue);
     const finalValue =
       !cleanedValue || intValue < maxDurationDays
@@ -103,11 +103,10 @@ export const Edit: FunctionalComponent<{
   };
 
   const cleanDurationDays = (value: string) => {
-    const intValue = Number(value);
-    if (!value || intValue === 0) {
+    if (!value) {
       return String(defaultDurationDays);
     }
-    if (intValue < minDurationDays) {
+    if (Number(value) < minDurationDays) {
       return String(minDurationDays);
     }
     return value;
