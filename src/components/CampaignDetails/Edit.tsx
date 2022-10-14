@@ -137,6 +137,10 @@ export const Edit: FunctionalComponent<{
   };
 
   const dailyBudgetNum = Number(dailyBudget);
+  const durationAfterText =
+    (durationDays ? Number(durationDays) : defaultDurationDays) === 1
+      ? "day"
+      : "days";
 
   return (
     <div class="ts-space-y-5">
@@ -165,7 +169,7 @@ export const Edit: FunctionalComponent<{
         <label class="ts-edit-form__item">
           <span>Set a duration</span>
           <Input
-            after={Number(durationDays) === 1 ? "day" : "days"}
+            after={durationAfterText}
             value={durationDays}
             inputFilter={dayInputFilter}
             onInput={setDurationDays}
