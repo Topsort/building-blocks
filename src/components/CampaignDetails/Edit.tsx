@@ -165,7 +165,7 @@ export const Edit: FunctionalComponent<{
         <label class="ts-edit-form__item">
           <span>Set a duration</span>
           <Input
-            after="days"
+            after={Number(durationDays) === 1 ? "day" : "days"}
             value={durationDays}
             inputFilter={dayInputFilter}
             onInput={setDurationDays}
