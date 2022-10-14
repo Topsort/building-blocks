@@ -5,8 +5,9 @@ import { Input } from "@components/Input";
 import { CampaignEstimation } from "@components/common/CampaignEstimation";
 import { useProductPromotion } from "@context";
 import { services } from "@services/central-services";
-import { minDurationDays, maxDurationDays } from "@state";
+import { maxDurationDays } from "@state";
 import { currencyStringToInt } from "@utils/currency";
+import { dayDifference } from "@utils/datetime";
 import { logger } from "@utils/logger";
 import { h, FunctionalComponent } from "preact";
 import { useState, useMemo } from "preact/hooks";
@@ -32,12 +33,16 @@ export const Edit: FunctionalComponent<{
   }, [campaign.budget]);
 
   const defaultDurationDays = useMemo(() => {
-    // TODO (samet) User time-related utilty functions
-    const startTime = new Date(campaign.startDate).getTime();
-    const endTime = new Date(campaign.endDate).getTime();
-    const days = Math.ceil((endTime - startTime) / (1000 * 3600 * 24));
+    const startDate = new Date(campaign.startDate);
+    const endDate = new Date(campaign.endDate);
+    const days = Math.ceil(dayDifference(startDate, endDate));
     return days < 30 ? days : 30;
   }, [campaign.startDate, campaign.endDate]);
+
+  const minDurationDays = useMemo(() => {
+    const startDate = new Date(campaign.startDate);
+    return Math.ceil(dayDifference(startDate, new Date()));
+  }, [campaign.startDate]);
 
   const [dailyBudget, setDailyBudget] = useState(() => {
     return (defaultDailyBudget / 100).toFixed(2);
@@ -80,10 +85,7 @@ export const Edit: FunctionalComponent<{
     if (dailyBudgetInt === 0) {
       dailyBudgetInt = defaultDailyBudget;
     }
-    let durationDaysInt = Number(durationDays);
-    if (!durationDays || durationDaysInt === 0) {
-      durationDaysInt = defaultDurationDays;
-    }
+    const durationDaysInt = Number(durationDays);
 
     setDailyBudget((dailyBudgetInt / 100).toFixed(2));
     setDurationDays(String(durationDaysInt));
@@ -102,7 +104,13 @@ export const Edit: FunctionalComponent<{
 
   const cleanDurationDays = (value: string) => {
     const intValue = Number(value);
-    return !value || intValue === 0 ? String(defaultDurationDays) : value;
+    if (!value || intValue === 0) {
+      return String(defaultDurationDays);
+    }
+    if (intValue < minDurationDays) {
+      return String(minDurationDays);
+    }
+    return value;
   };
 
   const editCampaign = async (dailyBudget: number, durationDays: number) => {
@@ -159,6 +167,7 @@ export const Edit: FunctionalComponent<{
             inputFilter={budgetInputFilter}
             onInput={setDailyBudget}
             onBlur={(event) => onBudgetBlur(event as unknown as FocusEvent)}
+            required
             placeholder={(defaultDailyBudget / 100).toFixed(2)}
           />
         </label>
@@ -173,6 +182,7 @@ export const Edit: FunctionalComponent<{
             min={minDurationDays}
             max={maxDurationDays}
             type="number"
+            required
             placeholder={String(defaultDurationDays)}
           />
         </label>
