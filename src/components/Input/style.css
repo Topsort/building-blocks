@@ -15,6 +15,7 @@
 .ts-input-inner-wrapper {
   flex: 1 1 auto;
   display: flex;
+  align-items: center;
 }
 
 .ts-input[type="text"],
