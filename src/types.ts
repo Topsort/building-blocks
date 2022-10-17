@@ -30,7 +30,7 @@ export type RequestStatus = "idle" | "pending" | "success" | "error";
 export type Currency = {
   code: MarketplaceDetails["currencyCode"];
   divisor: number;
-  exponent: number;
+  exponent: MarketplaceDetails["currencyExponent"];
   decimalSeparator?: string;
   groupSeparator?: string;
   symbol: string;
