@@ -11,8 +11,9 @@ export const CampaignEstimation: FunctionalComponent<
   }
 > = ({ className, dailyBudget, durationDays, ...props }) => {
   const {
-    currencyCode,
-    numberFormater,
+    currency,
+    formatNumber,
+    formatMoney,
     state: { marketplaceCpc },
   } = useProductPromotion();
 
@@ -39,9 +40,6 @@ export const CampaignEstimation: FunctionalComponent<
     marketplaceCpc.upperBound,
   ]);
 
-  const formattedDailyBudget =
-    currencyCode === "USD" ? dailyBudget / 100 : dailyBudget;
-
   return (
     <div
       className={cx(
@@ -54,8 +52,7 @@ export const CampaignEstimation: FunctionalComponent<
       <span className="ts-text-sm ts-font-semimedium">
         With a{" "}
         <span className="ts-font-bold">
-          {/* TODO make it generic */}
-          {formattedDailyBudget.toFixed(2)} {currencyCode}
+          {formatMoney(dailyBudget)} {currency.code}
         </span>{" "}
         budget in{" "}
         <span className="ts-font-bold">
@@ -63,8 +60,7 @@ export const CampaignEstimation: FunctionalComponent<
         </span>{" "}
         we estimate{" "}
         <span className="ts-text-primary">
-          between {numberFormater.format(minClicks)} and{" "}
-          {numberFormater.format(maxClicks)}
+          between {formatNumber(minClicks)} and {formatNumber(maxClicks)}
         </span>{" "}
         clicks.
       </span>

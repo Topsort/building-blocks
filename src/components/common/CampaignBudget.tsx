@@ -8,8 +8,7 @@ export const CampaignBudget: FunctionalComponent<{
   onEdit?: () => void;
   showTargetingText?: boolean;
 }> = ({ budget, days, onEdit, showTargetingText = false }) => {
-  const { moneyFormater, currencyCode } = useProductPromotion();
-  const formattedBudget = currencyCode === "USD" ? budget / 100 : budget;
+  const { formatMoney } = useProductPromotion();
   return (
     <div className="ts-campaign-budget-duration">
       <div className="ts-campaign-budget-duration-title">
@@ -25,7 +24,7 @@ export const CampaignBudget: FunctionalComponent<{
         )}
       </div>
       <div class="ts-budget-duration">
-        {moneyFormater.format(formattedBudget)} over{" "}
+        {formatMoney(budget)} over{" "}
         {typeof days === "number" ? days : "infinite"}{" "}
         {days === 1 ? "day" : "days"}
         {showTargetingText ? <span>with automatic targeting.</span> : "."}

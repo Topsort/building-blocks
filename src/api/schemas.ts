@@ -6,6 +6,12 @@ export const validateVendorSchema = z.object({
   authToken: z.string().min(1),
 });
 
+export const marketplaceDetailsSchema = z.object({
+  currencyCode: z.string().length(3),
+  currencyExponent: z.number().int().min(0).max(4),
+  languagePreference: z.string().min(1),
+});
+
 export const defaultBudgetAndCpcSchema = z.object({
   cpc: z.object({
     upperBound: z.number().int(),
