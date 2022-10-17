@@ -19,15 +19,22 @@ export const campaignIdsByProductIdSchema = z.record(
   z.string().uuid().nullable()
 );
 
+const cardDataSchema = z.object({
+  id: z.string().min(1),
+  type: z.literal("card"),
+  brand: z.string().min(1),
+  last4: z.string().length(4),
+});
+
+const topsortBalanceDataSchema = z.object({
+  id: z.string().min(1),
+  type: z.literal("balance"),
+});
+
 export const paymentMethodSchema = z.object({
   id: z.string().min(1),
   provider: z.string().min(1),
-  data: z.object({
-    id: z.string().min(1),
-    type: z.string().min(1),
-    brand: z.string().min(1),
-    last4: z.string().length(4),
-  }),
+  data: z.union([cardDataSchema, topsortBalanceDataSchema]),
 });
 
 export const paymentMethodsSchema = z.object({

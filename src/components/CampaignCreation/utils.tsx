@@ -5,6 +5,11 @@ import { h, FunctionalComponent } from "preact";
 export const PaymentMethodIcon: FunctionalComponent<{
   paymentMethod: PaymentMethod;
 }> = ({ paymentMethod }) => {
+  if (paymentMethod.data.type === "balance") {
+    // TODO(christopherbot) Topsort logo
+    return null;
+  }
+
   switch (paymentMethod.data.brand) {
     case "visa":
       return <Icon name="visa" viewBox="71.75 85 72.75 45.96" />;
