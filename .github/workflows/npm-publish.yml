@@ -1,14 +1,15 @@
 name: npm-publish
 
-# on:
-#   release:
-#     types: [published]
 on:
-  pull_request:
-    branches:
-      - main
+  release:
+    types: [published]
 
 jobs:
+  # TODO(christopherbot) Would prefer to use this reusable sanity workflow but
+  # having the checkout/install steps separate from the publish job causes the
+  # publish not to work. Is it a matter of passing "results" of one workflow to
+  # the next?
+
   # sanity:
   #   uses: ./.github/workflows/sanity.yml
 
@@ -37,6 +38,7 @@ jobs:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this as is, it's automatically generated
       #     NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # You need to set this in your repo settings
 
+      # START copy of sanity.yml steps
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -71,6 +73,7 @@ jobs:
 
       - name: Run type checks
         run: npx tsc
+      # END copy of sanity.yml steps
 
       - name: Publish to npm
         id: publish
