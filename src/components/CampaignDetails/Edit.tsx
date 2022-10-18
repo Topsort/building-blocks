@@ -242,7 +242,7 @@ export const Edit: FunctionalComponent<{
       <hr class="ts-hr" />
       <div class="ts-flex ts-justify-center">Or</div>
       <Button
-        color="secondary"
+        color="font"
         fullWidth
         variant="contained"
         onClick={() => dispatch({ type: "edit campaign end button clicked" })}

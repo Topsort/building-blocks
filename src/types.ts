@@ -7,12 +7,16 @@ declare global {
   const USE_MOCK_SERVER: string;
 }
 
-export type DocumentStyleProperty = "--ts-primary-rgb" | "--ts-font-rgb";
+export type DocumentStyleProperty =
+  | "--ts-primary-rgb"
+  | "--ts-secondary-rgb"
+  | "--ts-font-rgb";
 
 export type Rgb = string | [number, number, number];
 
 export type Style = {
   primaryColorRgb?: Rgb;
+  secondaryColorRgb?: Rgb;
   fontColorRgb?: Rgb;
   button?: {
     borderRadius: "none" | "sm" | "full";

@@ -43,6 +43,7 @@
      style: {
        // color RGBs acceptable in either format:
        primaryColorRgb: "50, 175, 200",
+       secondaryColorRgb: "50, 175, 200",
        fontColorRgb: [50, 175, 200],
 
        button: {

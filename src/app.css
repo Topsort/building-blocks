@@ -7,17 +7,19 @@
   --ts-primary-color-40: rgba(var(--ts-primary-rgb), 0.4);
   --ts-primary-color-5: rgba(var(--ts-primary-rgb), 0.05);
 
-  --ts-secondary-rgb: 39, 42, 71;
+  --ts-secondary-rgb: 24, 144, 255;
   --ts-secondary-color: rgb(var(--ts-secondary-rgb));
   --ts-secondary-color-90: rgb(var(--ts-secondary-rgb), 0.9);
   --ts-secondary-color-5: rgb(var(--ts-secondary-rgb), 0.05);
 
   /* Default font rgb: */
-  --ts-font-rgb: 0, 0, 0;
+  --ts-font-rgb: 39, 42, 71;
   --ts-font-color: rgb(var(--ts-font-rgb));
+  --ts-font-color-90: rgba(var(--ts-font-rgb), 0.9);
   --ts-font-color-70: rgba(var(--ts-font-rgb), 0.7);
   --ts-font-color-60: rgba(var(--ts-font-rgb), 0.6);
   --ts-font-color-40: rgba(var(--ts-font-rgb), 0.4);
+  --ts-font-color-5: rgba(var(--ts-font-rgb), 0.05);
 
   --ts-success-rgb: 95, 205, 15;
   --ts-success-color: rgb(var(--ts-success-rgb));
@@ -44,7 +46,7 @@ hr.ts-hr {
 }
 
 .ts-campaign-summary {
-  background-color: var(--ts-primary-color-5);
+  background-color: var(--ts-secondary-color-5);
   display: flex;
   border-radius: var(--ts-radius-md);
   padding: 1rem;
