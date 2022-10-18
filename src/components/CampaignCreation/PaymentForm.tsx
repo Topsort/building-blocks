@@ -70,7 +70,7 @@ const StripePaymentForm = () => {
         fontSmoothing: "antialiased",
         fontSize: "1rem",
         "::placeholder": {
-          color: style.getPropertyValue("--ts-font-color"),
+          color: style.getPropertyValue("--ts-font-color-60"),
         },
       },
       invalid: {
