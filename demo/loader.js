@@ -120,6 +120,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       promoteTargetClassName: customPromoteTargetClassName,
       style: {
         primaryColorRgb: "120, 170, 50",
+        secondaryColorRgb: "253, 218, 13",
         fontColorRgb: [200, 80, 215],
         button: {
           borderRadius: "none",
