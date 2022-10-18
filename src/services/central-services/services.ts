@@ -329,6 +329,17 @@ async function updateCampaign(
   );
 }
 
+async function endCampaign(
+  authToken: string,
+  vendorId: string,
+  campaignId: string
+): Promise<null> {
+  return await api(schemas.nullSchema, paths.campaign(vendorId, campaignId), {
+    method: "DELETE",
+    headers: getHeaders(authToken),
+  });
+}
+
 export const services: Services = {
   validateVendor,
   getMarketplaceDetails,
@@ -339,4 +350,5 @@ export const services: Services = {
   getCampaign,
   createCampaign,
   updateCampaign,
+  endCampaign,
 };

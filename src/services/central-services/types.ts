@@ -60,4 +60,9 @@ export type Services = {
       statusUpdatedBy?: string;
     }
   ): Promise<PartialCampaign>;
+  endCampaign(
+    authToken: string,
+    vendorId: string,
+    campaignId: string
+  ): Promise<null>;
 };
