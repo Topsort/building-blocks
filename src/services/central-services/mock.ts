@@ -102,8 +102,8 @@ async function getMarketplaceDetails(
   authToken: string
 ): Promise<MarketplaceDetails> {
   return delayedResponse({
-    currencyCode: "JPY",
-    currencyExponent: 0,
+    currencyCode: "USD",
+    currencyExponent: 2,
     languagePreference: "en",
   });
 }
