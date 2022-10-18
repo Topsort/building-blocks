@@ -9,16 +9,16 @@
 1. [Development](#development)
    1. [Running the demo](#running-the-demo)
    1. [Adding new environment variables](#adding-new-environment-variables)
-   1. [TODOs](#todos)
 
 ## Integration
 
 1. _TODO script with cdn link_
 
-1. After the script is loaded, initialize the `TopsortBlocks` library:
+1. After the script is loaded, create an instance of the `TopsortBlocks` library and initialize it:
 
    ```js
-   const tsBlocks = new TopsortBlocks({
+   const tsBlocks = new TopsortBlocks();
+   await tsBlocks.init({
      apiKey: "api-key-123",
      externalVendorId: "vendor-id-123",
    });
@@ -38,21 +38,24 @@
 
    ```js
    tsBlocks.initProductPromotion(
-    promoteTargetClassName: "my-custom-promote-target",
-      style: {
-        // color RGBs acceptable in either format:
-        primaryColorRgb: "50, 175, 200",
-        fontColorRgb: [50, 175, 200],
+     // if you want to use a custom target class:
+     promoteTargetClassName: "my-custom-promote-target",
+     style: {
+       // color RGBs acceptable in either format:
+       primaryColorRgb: "50, 175, 200",
+       fontColorRgb: [50, 175, 200],
 
-        button: {
-          // defaults to "sm":
-          borderRadius: "none" | "sm" | "full"
-        },
-      },
-      text: {
-        promoteButton: "Create Campaign",
-        detailButton: "View Campaign",
-      },
+       button: {
+         // defaults to "sm":
+         borderRadius: "none" | "sm" | "full"
+       },
+     },
+     text: {
+       // defaults to "Promote":
+       promoteButton: "Create Campaign",
+       // defaults to "See Campaign":
+       detailButton: "View Campaign",
+     },
    );
    ```
 
@@ -167,21 +170,3 @@ To add a new env var:
    ```
 
 1. Ensure you restart your dev server so webpack can pick up the latest changes.
-
-### TODOs
-
-- write documentation for methods and props
-- sanitize custom text
-- i18n
-  - do we allow custom text at all? Or require them to translate? Otherwise it won't be consistent with translations that our app does.
-  - We can use the JS I18n API
-  - We can detect the browser's locale (https://stackoverflow.com/a/31135571/9717640) but it might be better to allow the marketplace to pass in their preferred locale to the `new TopsortBlocks()` call so each marketplace user has a consistent experience. Not sure if that would be better because then if one user has a different preferred locale that their browser is set to, it won't be used.
-- finalize consumer-facing prop names
-  - prefix is currently `ts`, should it be `tsb` (which stands for "topsort blocks")?
-- expose method to just re-attach buttons incase of virtualized lists
-  - or use a MutationObserver and do it ourselves:
-    https://stackoverflow.com/questions/69781031/inserting-dom-elements-using-content-script-in-chrome-extension
-- publish to s3 instead of unpkg so that marketplaces don't have to whitelist unpkg
-- use typescript for demo/loader.js
-- consider not storing apiToken on TopsortBlocks instance
-- figure out how to use Fragment shorthand (<></>)
