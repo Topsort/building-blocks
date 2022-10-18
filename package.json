@@ -1,6 +1,6 @@
 {
   "name": "@topsort/building-blocks",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Topsort's JS library for building individual and easily integratable widgets.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
