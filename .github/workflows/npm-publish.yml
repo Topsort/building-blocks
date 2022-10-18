@@ -78,4 +78,4 @@ jobs:
           token: ${{ secrets.NPM_TOKEN }}
           access: public
           # check-version: True
-          dry-run: True
+          # dry-run: True
