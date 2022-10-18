@@ -34,7 +34,7 @@
   height: 1.25rem;
   padding: 1rem;
   border-radius: var(--ts-radius-md);
-  border: 0.0625rem solid #c4c4c4;
+  border: 0.0625rem solid var(--ts-font-color-70);
   margin-top: 0.75rem;
 }
 

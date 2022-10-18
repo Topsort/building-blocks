@@ -1,6 +1,6 @@
 .ts-input-wrapper {
   padding: 1rem 0.75rem;
-  border: 1px solid rgba(38, 42, 73, 0.1);
+  border: 0.0625rem solid var(--ts-font-color-40);
   cursor: text;
   font-size: 0.875rem;
   display: flex;
@@ -9,7 +9,7 @@
 }
 
 .ts-input-wrapper:focus-within {
-  border-color: rgba(38, 42, 73, 0.4);
+  border-color: var(--ts-font-color-70);
 }
 
 .ts-input-inner-wrapper {
