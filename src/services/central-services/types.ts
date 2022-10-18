@@ -1,6 +1,7 @@
 import {
   Campaign,
   CampaignIdsByProductId,
+  MarketplaceDetails,
   DefaultBudgetAndCpc,
   PartialCampaign,
   PaymentMethod,
@@ -10,6 +11,7 @@ import { PaymentMethod as StripePaymentMethod } from "@stripe/stripe-js";
 
 export type Services = {
   validateVendor(apiKey: string, vendorId: string): Promise<ValidateVendor>;
+  getMarketplaceDetails(authToken: string): Promise<MarketplaceDetails>;
   getDefaultBudgetAndCpc(
     authToken: string,
     vendorId: string
@@ -58,4 +60,9 @@ export type Services = {
       statusUpdatedBy?: string;
     }
   ): Promise<PartialCampaign>;
+  endCampaign(
+    authToken: string,
+    vendorId: string,
+    campaignId: string
+  ): Promise<null>;
 };

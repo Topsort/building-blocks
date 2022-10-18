@@ -10,10 +10,11 @@ import { useEffect, useState } from "preact/hooks";
 
 import { Details } from "./Details";
 import { Edit } from "./Edit";
-import { Ended } from "./Ended";
 import { Ending } from "./Ending";
 import { MultiProduct } from "./MultiProduct";
 import "./style.css";
+
+export { CampaignEnded } from "./CampaignEnded";
 
 export const CampaignDetails: FunctionalComponent<{
   campaignId: Campaign["campaignId"];
@@ -107,17 +108,6 @@ export const CampaignDetails: FunctionalComponent<{
           content: <Edit campaign={campaign} />,
         };
       }
-      case "ended": {
-        return {
-          title: (
-            <Fragment>
-              <Icon size={32} name="tick-circle" className="ts-text-success" />
-              <span>Your campaign ended!</span>
-            </Fragment>
-          ),
-          content: <Ended campaign={campaign} />,
-        };
-      }
       case "ending": {
         return {
           title: "You're about to end this campaign",
@@ -140,8 +130,6 @@ export const CampaignDetails: FunctionalComponent<{
       case "details":
         return "24rem";
       case "editing":
-        return "fit-content";
-      case "ended":
         return "fit-content";
       case "ending":
         return "fit-content";

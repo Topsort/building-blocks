@@ -5,6 +5,11 @@ import { h, FunctionalComponent } from "preact";
 export const PaymentMethodIcon: FunctionalComponent<{
   paymentMethod: PaymentMethod;
 }> = ({ paymentMethod }) => {
+  if (paymentMethod.data.type === "balance") {
+    // TODO(christopherbot) Topsort logo
+    return null;
+  }
+
   switch (paymentMethod.data.brand) {
     case "visa":
       return <Icon name="visa" viewBox="71.75 85 72.75 45.96" />;
@@ -22,15 +27,6 @@ export const PaymentMethodIcon: FunctionalComponent<{
       return <Icon name="union-pay" viewBox="0 0 35 24" />;
     default:
       return <Icon name="credit-card" viewBox="0 0 32 21" />;
-  }
-};
-
-export const getMinBudget = (currencyCode: string) => {
-  switch (currencyCode) {
-    case "USD":
-      return 100;
-    default:
-      throw new Error(`Unsupported currency code: ${currencyCode}`);
   }
 };
 

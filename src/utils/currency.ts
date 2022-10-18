@@ -1,20 +1,32 @@
+import { Currency } from "@types";
+
 export const currencyStringToInt = (
   value: string,
-  currencyCode = "USD"
+  currency: Currency
 ): number => {
-  const [integer, cent] = value.split(".");
-  const hasCent = currencyCode === "USD";
+  if (currency.groupSeparator) {
+    const regex = new RegExp(`\\${currency.groupSeparator}`, "g");
+    value = value.replace(regex, "");
+  }
+
+  if (!currency.decimalSeparator) {
+    return Number(value);
+  }
+
+  const parts = value.split(currency.decimalSeparator);
+  const integer = parts[0];
+  let fractional = parts[1];
 
   let intValue = 0;
   if (integer) {
-    intValue += Number(integer) * (hasCent ? 100 : 1);
+    intValue += Number(integer) * currency.divisor;
   }
-  if (hasCent && cent) {
-    if (cent.length === 1) {
-      intValue += Number(cent) * 10;
-    } else if (cent.length === 2) {
-      intValue += Number(cent);
+
+  if (fractional) {
+    if (fractional.length !== currency.exponent) {
+      fractional = fractional.padEnd(currency.exponent, "0");
     }
+    intValue += Number(fractional);
   }
 
   return intValue;

@@ -1,3 +1,4 @@
+import { MarketplaceDetails } from "@api/types";
 import { ComponentChildren } from "preact";
 
 declare global {
@@ -25,3 +26,13 @@ export type CustomText = Partial<
 export type PropsWithChildren<T> = T & { children?: ComponentChildren };
 
 export type RequestStatus = "idle" | "pending" | "success" | "error";
+
+export type Currency = {
+  code: MarketplaceDetails["currencyCode"];
+  divisor: number;
+  exponent: MarketplaceDetails["currencyExponent"];
+  decimalSeparator?: string;
+  groupSeparator?: string;
+  symbol: string;
+  isSymbolAtStart: boolean;
+};

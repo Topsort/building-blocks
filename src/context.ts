@@ -1,5 +1,5 @@
-import { Action, initialState, State } from "@state";
-import { CustomText, Style } from "@types";
+import { Action, State } from "@state";
+import { Currency, CustomText, Style } from "@types";
 import { createContext } from "preact";
 import { useContext } from "preact/hooks";
 
@@ -7,9 +7,9 @@ type ProductPromotionContextValue = {
   authToken: string;
   vendorId: string;
   language: string;
-  currencyCode: string;
-  numberFormater: Intl.NumberFormat;
-  moneyFormater: Intl.NumberFormat;
+  currency: Currency;
+  formatNumber: Intl.NumberFormat["format"];
+  formatMoney: (number: number) => ReturnType<Intl.NumberFormat["format"]>;
   promoteTargetClassName: string;
   style: Style;
   text: CustomText;
@@ -17,26 +17,20 @@ type ProductPromotionContextValue = {
   state: State;
 };
 
-export const ProductPromotionContext =
-  createContext<ProductPromotionContextValue>({
-    authToken: "",
-    vendorId: "",
-    language: "",
-    currencyCode: "",
-    numberFormater: new Intl.NumberFormat(),
-    moneyFormater: new Intl.NumberFormat(),
-    promoteTargetClassName: "",
-    style: {},
-    text: {},
-    dispatch: () => {
-      throw new Error(
-        "ProductPromotionContext: 'dispatch()' must be used inside functional component only!"
-      );
-    },
-    state: initialState,
-  });
+export const ProductPromotionContext = createContext<
+  ProductPromotionContextValue | undefined
+>(undefined);
 
 type UseProductPromotion = () => ProductPromotionContextValue;
 
-export const useProductPromotion: UseProductPromotion = () =>
-  useContext<ProductPromotionContextValue>(ProductPromotionContext);
+export const useProductPromotion: UseProductPromotion = () => {
+  const context = useContext(ProductPromotionContext);
+
+  if (context === undefined) {
+    throw new Error(
+      "ProductPromotionContext must be used within ProductPromotionContext.Provider"
+    );
+  }
+
+  return context;
+};

@@ -19,7 +19,7 @@ export const getStripe = () => {
 export const formatPaymentMethod = (
   paymentMethod: StripePaymentMethod
 ): PaymentMethod => {
-  if (paymentMethod.card) {
+  if (paymentMethod.type === "card" && paymentMethod.card) {
     return {
       id: paymentMethod.id,
       provider: "stripe",

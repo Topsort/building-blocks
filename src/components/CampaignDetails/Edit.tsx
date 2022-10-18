@@ -10,15 +10,25 @@ import { currencyStringToInt } from "@utils/currency";
 import { dayDifference } from "@utils/datetime";
 import { logger } from "@utils/logger";
 import { h, FunctionalComponent } from "preact";
-import { useState, useMemo } from "preact/hooks";
+import { useState, useMemo, useCallback } from "preact/hooks";
 
 export const Edit: FunctionalComponent<{
   campaign: Campaign;
 }> = ({ campaign }) => {
-  const { authToken, currencyCode, vendorId, dispatch } = useProductPromotion();
+  const { authToken, currency, vendorId, dispatch, language } =
+    useProductPromotion();
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
+
+  const formatCurrencyWithoutSymbol = useCallback(
+    (number: number) =>
+      number.toLocaleString(language, {
+        minimumFractionDigits: currency.exponent,
+        maximumFractionDigits: currency.exponent,
+      }),
+    [language, currency.exponent]
+  );
 
   const defaultDailyBudget = useMemo(() => {
     const budget = campaign.budget.amount;
@@ -28,6 +38,7 @@ export const Edit: FunctionalComponent<{
       case "weekly":
         return budget / 7;
       default:
+        // TODO(christopherbot) do we need to handle 28, 30, 31 days depending on month?
         return budget / 30;
     }
   }, [campaign.budget]);
@@ -45,13 +56,13 @@ export const Edit: FunctionalComponent<{
   }, [campaign.startDate]);
 
   const [dailyBudget, setDailyBudget] = useState(() => {
-    return (defaultDailyBudget / 100).toFixed(2);
+    return formatCurrencyWithoutSymbol(defaultDailyBudget / currency.divisor);
   });
   const [durationDays, setDurationDays] = useState(() => {
     return String(defaultDurationDays);
   });
 
-  const dailyBudgetInt = currencyStringToInt(dailyBudget, currencyCode);
+  const dailyBudgetInt = currencyStringToInt(dailyBudget, currency);
   const durationDaysInt = Number(durationDays);
 
   const isChanged =
@@ -59,8 +70,23 @@ export const Edit: FunctionalComponent<{
     defaultDurationDays !== durationDaysInt;
 
   const budgetInputFilter = (value: string) => {
-    // TODO (samet) Handle the other currencies
-    return value.replace(/[^0-9.]/g, "").replace(/(\.[0-9]{0,2}).*/g, "$1");
+    const decimal = currency.decimalSeparator;
+    const exponent = currency.exponent;
+
+    if (decimal) {
+      const disallowedCharacters = new RegExp(`[^0-9\\${decimal}]`, "g");
+      // This regex is used to prevent more digits after the decimal than allowed
+      const afterDecimalRegex = new RegExp(
+        `(\\${decimal}[0-9]{0,${exponent}}).*`,
+        "g"
+      );
+      return value
+        .replace(disallowedCharacters, "")
+        .replace(afterDecimalRegex, "$1");
+    }
+
+    const disallowedCharacters = new RegExp(`[^0-9]`, "g");
+    return value.replace(disallowedCharacters, "");
   };
 
   const onBudgetBlur = (event: FocusEvent) => {
@@ -88,25 +114,27 @@ export const Edit: FunctionalComponent<{
   const onSave = (event: SubmitEvent) => {
     event.preventDefault();
 
-    let dailyBudgetInt = currencyStringToInt(dailyBudget);
+    let dailyBudgetInt = currencyStringToInt(dailyBudget, currency);
     if (dailyBudgetInt === 0) {
       dailyBudgetInt = defaultDailyBudget;
     }
     const durationDaysInt = Number(durationDays);
 
-    setDailyBudget((dailyBudgetInt / 100).toFixed(2));
+    setDailyBudget(
+      formatCurrencyWithoutSymbol(dailyBudgetInt / currency.divisor)
+    );
     setDurationDays(String(durationDaysInt));
     editCampaign(dailyBudgetInt, durationDaysInt);
   };
 
   const cleanDailyBudget = (value: string) => {
-    let intValue = currencyStringToInt(value);
+    let intValue = currencyStringToInt(value, currency);
 
     if (intValue === 0) {
       intValue = defaultDailyBudget;
     }
 
-    return (intValue / 100).toFixed(2);
+    return formatCurrencyWithoutSymbol(intValue / currency.divisor);
   };
 
   const cleanDurationDays = (value: string) => {
@@ -167,15 +195,18 @@ export const Edit: FunctionalComponent<{
       >
         <label class="ts-edit-form__item">
           <span>Set a daily budget</span>
-          {/* TODO(samet): Handle the other currencies */}
           <Input
-            before="$"
+            {...(currency.isSymbolAtStart
+              ? { before: currency.symbol }
+              : { after: currency.symbol })}
             value={dailyBudget}
             inputFilter={budgetInputFilter}
             onInput={setDailyBudget}
             onBlur={(event) => onBudgetBlur(event as unknown as FocusEvent)}
             required
-            placeholder={(defaultDailyBudget / 100).toFixed(2)}
+            placeholder={formatCurrencyWithoutSymbol(
+              defaultDailyBudget / currency.divisor
+            )}
           />
         </label>
         <label class="ts-edit-form__item">

@@ -8,16 +8,14 @@ import { minDurationDays, maxDurationDays } from "@state";
 import { h, FunctionalComponent } from "preact";
 import { ChangeEvent } from "preact/compat";
 
-import { getMaxBudget, getMinBudget } from "./utils";
+import { getMaxBudget } from "./utils";
 
 export const BudgetAndDuration: FunctionalComponent = () => {
-  const { state, dispatch, currencyCode } = useProductPromotion();
+  const { state, dispatch, currency, formatMoney } = useProductPromotion();
   const {
     defaultBudget,
     campaignCreation: { dailyBudget, durationDays },
   } = state;
-  const formattedDailyBudget =
-    currencyCode === "USD" ? dailyBudget / 100 : dailyBudget;
 
   return (
     <div className="ts-campaign-creation__content ts-space-y-8">
@@ -38,7 +36,7 @@ export const BudgetAndDuration: FunctionalComponent = () => {
           <span className="ts-text-sm ts-font-medium">Set a daily budget</span>
           <RangeInputWithTooltip
             value={dailyBudget}
-            min={getMinBudget(currencyCode)}
+            min={currency.divisor}
             max={getMaxBudget(defaultBudget)}
             onInput={(event: ChangeEvent<HTMLInputElement>) => {
               dispatch({
@@ -51,7 +49,7 @@ export const BudgetAndDuration: FunctionalComponent = () => {
               });
             }}
             tooltipProps={{
-              content: `${formattedDailyBudget.toFixed(2)} ${currencyCode}`,
+              content: `${formatMoney(dailyBudget)} ${currency.code}`,
               alwaysShow: true,
               hidden: dailyBudget === 0,
               light: true,
