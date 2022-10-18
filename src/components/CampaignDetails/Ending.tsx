@@ -20,7 +20,7 @@ export const Ending: FunctionalComponent<{
   const [hasError, setHasError] = useState(false);
 
   // TODO (samet): Fetch the email from central services or somewhere else
-  const email = "example@domain.com";
+  // const email = "example@domain.com";
 
   const endCampaign = async () => {
     if (selectedProductId === null) {
@@ -55,9 +55,11 @@ export const Ending: FunctionalComponent<{
       <CampaignSummary />
       <Metrics title="Final Metrics" campaign={campaign} />
       <div className="ts-space-y-2-5">
-        <span className="ts-campaign-ending__email-text">
+        {/*
+          TODO (samet) Uncomment this once we fetch email from central-services
+          <span className="ts-campaign-ending__email-text">
           We will send a summary of metrics to your email ({email}).
-        </span>
+          </span>*/}
         {hasError && (
           <span className="ts-flex ts-items-center ts-text-danger ts-space-x-2">
             <Icon name="info-circle-bold" />
