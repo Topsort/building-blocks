@@ -62,15 +62,12 @@ export const Edit: FunctionalComponent<{
     return String(defaultDurationDays);
   });
 
-  const isChanged = (() => {
-    const dailyBudgetInt = currencyStringToInt(dailyBudget, currency);
-    const durationDaysInt = Number(durationDays);
+  const dailyBudgetInt = currencyStringToInt(dailyBudget, currency);
+  const durationDaysInt = Number(durationDays);
 
-    return (
-      defaultDailyBudget !== dailyBudgetInt ||
-      defaultDurationDays !== durationDaysInt
-    );
-  })();
+  const isChanged =
+    defaultDailyBudget !== dailyBudgetInt ||
+    defaultDurationDays !== durationDaysInt;
 
   const budgetInputFilter = (value: string) => {
     const decimal = currency.decimalSeparator;
@@ -182,15 +179,15 @@ export const Edit: FunctionalComponent<{
   };
 
   const durationAfterText =
-    (durationDays ? Number(durationDays) : defaultDurationDays) === 1
+    (durationDays ? durationDaysInt : defaultDurationDays) === 1
       ? "day"
       : "days";
 
   return (
     <div class="ts-space-y-5">
       <CampaignEstimation
-        dailyBudget={currencyStringToInt(dailyBudget, currency)}
-        durationDays={Number(durationDays)}
+        dailyBudget={dailyBudgetInt}
+        durationDays={durationDaysInt}
       />
       <form
         className="ts-edit-form ts-space-y-5"
