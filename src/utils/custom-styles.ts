@@ -18,6 +18,7 @@ const invalidRgbWarningTypes: Record<
   [string, keyof Style]
 > = {
   "--ts-primary-rgb": ["primary", "primaryColorRgb"],
+  "--ts-secondary-rgb": ["secondary", "secondaryColorRgb"],
   "--ts-font-rgb": ["font", "fontColorRgb"],
 };
 

@@ -59,7 +59,7 @@ export const CampaignEstimation: FunctionalComponent<
           {durationDays} {durationDays === 1 ? "day" : "days"}
         </span>{" "}
         we estimate{" "}
-        <span className="ts-text-primary">
+        <span className="ts-text-secondary">
           between {formatNumber(minClicks)} and {formatNumber(maxClicks)}
         </span>{" "}
         clicks.

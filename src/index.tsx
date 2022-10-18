@@ -47,13 +47,22 @@ const App: FunctionalComponent = () => {
   useEffect(() => {
     if (!style) return;
 
-    const { primaryColorRgb, fontColorRgb } = style;
+    const { primaryColorRgb, secondaryColorRgb, fontColorRgb } = style;
 
     if (primaryColorRgb) {
       if (isRgbValid(primaryColorRgb)) {
         setDocumentStyleProperty("--ts-primary-rgb", primaryColorRgb);
       } else {
         logger.warn(getInvalidRgbWarning("--ts-primary-rgb", primaryColorRgb));
+      }
+    }
+    if (secondaryColorRgb) {
+      if (isRgbValid(secondaryColorRgb)) {
+        setDocumentStyleProperty("--ts-secondary-rgb", secondaryColorRgb);
+      } else {
+        logger.warn(
+          getInvalidRgbWarning("--ts-secondary-rgb", secondaryColorRgb)
+        );
       }
     }
     if (fontColorRgb) {
