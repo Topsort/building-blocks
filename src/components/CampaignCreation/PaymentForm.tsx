@@ -19,22 +19,7 @@ import {
 import { formatPaymentMethod, getStripe } from "@utils/payment";
 import cx from "classnames";
 import { Fragment, h, JSX } from "preact";
-import { useState } from "preact/hooks";
-
-const stripeElementStyle = {
-  base: {
-    color: "#272A47",
-    fontSmoothing: "antialiased",
-    fontSize: "16px",
-    "::placeholder": {
-      color: "#777777",
-    },
-  },
-  invalid: {
-    color: "#c62828",
-    iconColor: "#c62828",
-  },
-};
+import { useMemo, useState } from "preact/hooks";
 
 type CardElement = "number" | "expiry" | "cvc";
 
@@ -75,6 +60,25 @@ const StripePaymentForm = () => {
     Record<CardElement | "api", ErrorCode | null>
   >(initialErrorCodesByType);
   const [isSavingCard, setIsSavingCard] = useState(false);
+
+  const stripeElementStyle = useMemo(() => {
+    const style = getComputedStyle(document.documentElement);
+    const dangerColor = style.getPropertyValue("--ts-danger-color");
+    return {
+      base: {
+        color: style.getPropertyValue("--ts-font-color"),
+        fontSmoothing: "antialiased",
+        fontSize: "1rem",
+        "::placeholder": {
+          color: style.getPropertyValue("--ts-font-color"),
+        },
+      },
+      invalid: {
+        color: dangerColor,
+        iconColor: dangerColor,
+      },
+    };
+  }, []);
 
   const isStripeLoading =
     !stripe ||
