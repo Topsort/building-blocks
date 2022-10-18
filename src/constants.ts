@@ -11,3 +11,5 @@ export const defaultText = {
 
 /* DOM Targets */
 export const defaultPromoteTargetClassName = "ts-promote-target";
+
+export const largeNumberWithDecimals = 1234567.89;

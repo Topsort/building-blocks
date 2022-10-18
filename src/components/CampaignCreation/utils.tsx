@@ -30,14 +30,5 @@ export const PaymentMethodIcon: FunctionalComponent<{
   }
 };
 
-export const getMinBudget = (currencyCode: string) => {
-  switch (currencyCode) {
-    case "USD":
-      return 100;
-    default:
-      throw new Error(`Unsupported currency code: ${currencyCode}`);
-  }
-};
-
 // TODO(christopherbot) figure out what the max budget should be
 export const getMaxBudget = (budget: number) => Math.ceil(budget * 3);

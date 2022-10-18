@@ -1,13 +1,17 @@
+import { MarketplaceDetails } from "@api/types";
 import { PromoteButton } from "@components/Button";
 import { CampaignCreation } from "@components/CampaignCreation";
 import { CampaignDetails } from "@components/CampaignDetails";
 import { Modal } from "@components/Modal";
 import { Portal } from "@components/Portal";
-import { defaultPromoteTargetClassName } from "@constants";
+import {
+  defaultPromoteTargetClassName,
+  largeNumberWithDecimals,
+} from "@constants";
 import { ProductPromotionContext, useProductPromotion } from "@context";
 import { services } from "@services/central-services";
 import { initialState, reducer, State } from "@state";
-import { CustomText, RequestStatus, Style } from "@types";
+import { Currency, CustomText, RequestStatus, Style } from "@types";
 import {
   getInvalidRgbWarning,
   isRgbValid,
@@ -209,16 +213,16 @@ const AppWithContext: FunctionalComponent<{
   style: Style;
   text: CustomText;
   language: string;
-  currencyCode: string;
-  numberFormater: Intl.NumberFormat;
-  moneyFormater: Intl.NumberFormat;
+  currency: Currency;
+  formatNumber: Intl.NumberFormat["format"];
+  formatMoney: (number: number) => ReturnType<Intl.NumberFormat["format"]>;
 }> = ({
   authToken,
   vendorId,
   language,
-  currencyCode,
-  numberFormater,
-  moneyFormater,
+  currency,
+  formatNumber,
+  formatMoney,
   promoteTargetClassName,
   style,
   text,
@@ -231,9 +235,9 @@ const AppWithContext: FunctionalComponent<{
         authToken,
         vendorId,
         language,
-        currencyCode,
-        numberFormater,
-        moneyFormater,
+        currency,
+        formatNumber,
+        formatMoney,
         promoteTargetClassName,
         style,
         text,
@@ -260,6 +264,7 @@ type InitProductPromotion = {
 export default class TopsortBlocks {
   private authToken?: string;
   private vendorId?: string;
+  private marketplaceDetails?: MarketplaceDetails;
 
   static promoteTargetClassName = defaultPromoteTargetClassName;
 
@@ -296,6 +301,17 @@ export default class TopsortBlocks {
     } catch (error) {
       logger.error("Failed to validate vendor.", error);
     }
+
+    try {
+      if (this.authToken) {
+        const marketplaceDetails = await services.getMarketplaceDetails(
+          this.authToken
+        );
+        this.marketplaceDetails = marketplaceDetails;
+      }
+    } catch (error) {
+      logger.error("Failed to get marketplace details.", error);
+    }
   }
 
   initProductPromotion({
@@ -303,7 +319,7 @@ export default class TopsortBlocks {
     style,
     text,
   }: InitProductPromotion = {}) {
-    if (!this.authToken || !this.vendorId) {
+    if (!this.authToken || !this.vendorId || !this.marketplaceDetails) {
       if (!this.authToken) {
         logger.warn(
           'Cannot call "initProductPromotion" without an authToken set.'
@@ -316,24 +332,47 @@ export default class TopsortBlocks {
         );
       }
 
+      if (!this.marketplaceDetails) {
+        logger.warn(
+          'Cannot call "initProductPromotion" without marketplace details.'
+        );
+      }
+
       return;
     }
 
-    const language = "en"; // TODO(christopherbot) get from marketplace or browser
-    const currencyCode = "USD"; // TODO(christopherbot) get from marketplace
+    const language = this.marketplaceDetails.languagePreference;
+    const currencyExponent = this.marketplaceDetails.currencyExponent;
+    const currencyDivisor = Math.pow(10, currencyExponent);
+    const numberFormat = new Intl.NumberFormat(language);
+    const moneyFormat = new Intl.NumberFormat(language, {
+      style: "currency",
+      currency: this.marketplaceDetails.currencyCode,
+    });
+    const moneyParts = moneyFormat.formatToParts(largeNumberWithDecimals);
 
     render(
       <AppWithContext
         authToken={this.authToken}
         vendorId={this.vendorId}
         language={language}
-        currencyCode={currencyCode}
-        numberFormater={new Intl.NumberFormat(language)}
-        moneyFormater={
-          new Intl.NumberFormat(language, {
-            style: "currency",
-            currency: currencyCode,
-          })
+        currency={{
+          code: this.marketplaceDetails.currencyCode,
+          divisor: currencyDivisor,
+          exponent: currencyExponent,
+          decimalSeparator: moneyParts.find((part) => part.type === "decimal")
+            ?.value,
+          groupSeparator: moneyParts.find((part) => part.type === "group")
+            ?.value,
+          symbol:
+            moneyParts.find((part) => part.type === "currency")?.value || "$",
+          isSymbolAtStart:
+            moneyParts.findIndex((part) => part.type === "currency") <
+            moneyParts.findIndex((part) => part.type === "integer"),
+        }}
+        formatNumber={numberFormat.format}
+        formatMoney={(number: number) =>
+          moneyFormat.format(number / currencyDivisor)
         }
         promoteTargetClassName={
           promoteTargetClassName || defaultPromoteTargetClassName

@@ -31,7 +31,7 @@ const FormattedPaymentMethod: FunctionalComponent<{
 };
 
 export const Confirm: FunctionalComponent = () => {
-  const { authToken, vendorId, currencyCode, state, dispatch } =
+  const { authToken, vendorId, currency, state, dispatch } =
     useProductPromotion();
   const {
     productDataById,
@@ -85,7 +85,7 @@ export const Confirm: FunctionalComponent = () => {
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
         paymentMethod,
-        currencyCode,
+        currencyCode: currency.code,
       });
 
       dispatch({

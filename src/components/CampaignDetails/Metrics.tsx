@@ -7,7 +7,7 @@ export const Metrics: FunctionalComponent<{
   campaign: Campaign;
   title: string;
 }> = ({ campaign, title }) => {
-  const { numberFormater, moneyFormater } = useProductPromotion();
+  const { formatMoney, formatNumber } = useProductPromotion();
   const { impressions, clicks, purchases } = campaign.campaignBehaviorData;
   return (
     <div className="ts-metrics">
@@ -15,36 +15,36 @@ export const Metrics: FunctionalComponent<{
       <div class="ts-metrics__grid">
         <Metric
           title="Impressions"
-          value={numberFormater.format(impressions.total)}
+          value={formatNumber(impressions.total)}
           iconName="eye"
         />
         <Metric
           title="Clicks"
-          value={numberFormater.format(clicks.total)}
+          value={formatNumber(clicks.total)}
           iconName="mouse-square"
         />
         <Metric
           title="Purchases"
           // TODO(christophber) should this be `purchases.quantity` or `purchases.count`?
           // e.g. 6 coca colas being 6 or 1. This is a product decision.
-          value={numberFormater.format(purchases.quantity)}
+          value={formatNumber(purchases.quantity)}
           iconName="bag"
         />
         <Metric
           title="Total spend"
           // TODO(christopherbot) is this right? Tomi says: "we're not charging by impressions AFAIK"
-          value={moneyFormater.format(clicks.adSpent + impressions.adSpent)}
+          value={formatMoney(clicks.adSpent + impressions.adSpent)}
           iconName="money"
         />
         <Metric
           title="Total sales"
-          value={moneyFormater.format(purchases.amount)}
+          value={formatMoney(purchases.amount)}
           iconName="message-add"
         />
         <Metric
           title="ROAS"
           // TODO(christopherbot) is this right? Tomi says: "there's no impressions at purchases attribution"
-          value={`${numberFormater.format(
+          value={`${formatNumber(
             clicks.adSpent > 0 ? purchases.amount / clicks.adSpent : 0
           )}x`}
           iconName="back-square"
