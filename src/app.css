@@ -13,7 +13,7 @@
   --ts-secondary-color-5: rgb(var(--ts-secondary-rgb), 0.05);
 
   /* Default font rgb: */
-  --ts-font-rgb: 0, 0, 0;
+  --ts-font-rgb: 39, 42, 71;
   --ts-font-color: rgb(var(--ts-font-rgb));
   --ts-font-color-90: rgba(var(--ts-font-rgb), 0.9);
   --ts-font-color-70: rgba(var(--ts-font-rgb), 0.7);
