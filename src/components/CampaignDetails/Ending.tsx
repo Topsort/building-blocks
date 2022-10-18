@@ -25,6 +25,7 @@ export const Ending: FunctionalComponent<{
   const endCampaign = async () => {
     if (selectedProductId === null) {
       logger.error("Failed to end campaign. No product is selected.");
+      setHasError(true);
       return;
     }
 
@@ -43,6 +44,7 @@ export const Ending: FunctionalComponent<{
       });
     } catch (error) {
       logger.error("Failed to end campaign.", error);
+      setHasError(true);
     } finally {
       setIsLoading(false);
     }
