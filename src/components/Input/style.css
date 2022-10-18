@@ -1,6 +1,6 @@
 .ts-input-wrapper {
   padding: 1rem 0.75rem;
-  border: 0.0625rem solid var(--ts-font-color-10);
+  border: 0.0625rem solid var(--ts-font-color-40);
   cursor: text;
   font-size: 0.875rem;
   display: flex;
