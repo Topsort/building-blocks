@@ -8,6 +8,7 @@ import type {
   Campaign,
   DefaultBudgetAndCpc,
   PartialCampaign,
+  MarketplaceDetails,
 } from "@api/types";
 import { PaymentMethod as StripePaymentMethod } from "@stripe/stripe-js";
 
@@ -28,6 +29,19 @@ async function validateVendor(
     method: "GET",
     headers: getHeaders(apiKey),
   });
+}
+
+async function getMarketplaceDetails(
+  authToken: string
+): Promise<MarketplaceDetails> {
+  return await api(
+    schemas.marketplaceDetailsSchema,
+    paths.marketplaceDetails(),
+    {
+      method: "GET",
+      headers: getHeaders(authToken),
+    }
+  );
 }
 
 async function getDefaultBudgetAndCpc(
@@ -328,6 +342,7 @@ async function endCampaign(
 
 export const services: Services = {
   validateVendor,
+  getMarketplaceDetails,
   getDefaultBudgetAndCpc,
   getPaymentMethods,
   createPaymentMethod,

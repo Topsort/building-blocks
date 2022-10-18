@@ -14,20 +14,24 @@ import { PaymentMethodIcon } from "./utils";
 const FormattedPaymentMethod: FunctionalComponent<{
   paymentMethod: PaymentMethod;
 }> = ({ paymentMethod }) => {
-  if (paymentMethod.data.type !== "card") {
-    return <span>payment method of type "{paymentMethod.data.type}"</span>;
+  if (paymentMethod.data.type === "card") {
+    return (
+      <div className="ts-payment-method ts-space-x-2">
+        <PaymentMethodIcon paymentMethod={paymentMethod} />
+        <span>**** **** **** {paymentMethod.data.last4}</span>
+      </div>
+    );
   }
 
-  return (
-    <div className="ts-payment-method ts-space-x-2">
-      <PaymentMethodIcon paymentMethod={paymentMethod} />
-      <span>**** **** **** {paymentMethod.data.last4}</span>
-    </div>
-  );
+  if (paymentMethod.data.type === "balance") {
+    return <span>Topsort Balance</span>;
+  }
+
+  return <span>Unknown payment method</span>;
 };
 
 export const Confirm: FunctionalComponent = () => {
-  const { authToken, vendorId, currencyCode, state, dispatch } =
+  const { authToken, vendorId, currency, state, dispatch } =
     useProductPromotion();
   const {
     productDataById,
@@ -81,7 +85,7 @@ export const Confirm: FunctionalComponent = () => {
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
         paymentMethod,
-        currencyCode,
+        currencyCode: currency.code,
       });
 
       dispatch({
@@ -113,7 +117,9 @@ export const Confirm: FunctionalComponent = () => {
             value={paymentMethods.find(
               (paymentMethod) => paymentMethod.id === selectedPaymentMethodId
             )}
-            options={paymentMethods}
+            options={paymentMethods.filter(
+              (paymentMethod) => paymentMethod.data.type === "card"
+            )}
             selectRenderer={(selectedOption) =>
               selectedOption ? (
                 <FormattedPaymentMethod paymentMethod={selectedOption} />

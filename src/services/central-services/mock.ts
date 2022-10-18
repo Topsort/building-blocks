@@ -6,6 +6,7 @@ import type {
   Campaign,
   DefaultBudgetAndCpc,
   PartialCampaign,
+  MarketplaceDetails,
 } from "@api/types";
 import { PaymentMethod as StripePaymentMethod } from "@stripe/stripe-js";
 
@@ -94,6 +95,16 @@ async function validateVendor(
 ): Promise<ValidateVendor> {
   return delayedResponse({
     authToken: "auth-token-123",
+  });
+}
+
+async function getMarketplaceDetails(
+  authToken: string
+): Promise<MarketplaceDetails> {
+  return delayedResponse({
+    currencyCode: "JPY",
+    currencyExponent: 0,
+    languagePreference: "en",
   });
 }
 
@@ -251,6 +262,7 @@ async function endCampaign(
 
 export const services: Services = {
   validateVendor,
+  getMarketplaceDetails,
   getDefaultBudgetAndCpc,
   getPaymentMethods,
   createPaymentMethod,
