@@ -5,8 +5,9 @@ import { lumaProducts } from "./lumaProducts.js";
 // Demo config
 const imgSize = 72;
 const numProducts = 20;
+const productsPerPage = 10;
 const isUsingTopsortBlocks = true;
-const isUsingCustomProps = false;
+const isUsingCustomProps = true;
 const useLumaProducts = true;
 const customPromoteTargetClassName = "my-custom-promote-target";
 
@@ -85,38 +86,80 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const products = useLumaProducts ? lumaProducts : getNumberedProducts();
 
-  const productElements = products.map((product) =>
-    createProductElement(product)
-  );
-  productElements.forEach((productElement) => {
-    wrapper.appendChild(productElement);
-  });
+  let filter = "";
+  let page = 1;
 
+  const pageSelect = document.getElementById("product-pager");
   const searchInput = document.getElementById("product-search");
-  searchInput.addEventListener("input", (event) => {
-    productElements.forEach((productElement) => {
-      const productName =
-        productElement.querySelector(".product-name").innerText;
-      if (
-        productName.toLowerCase().includes(event.target.value.toLowerCase())
-      ) {
-        productElement.classList.remove("product-hide");
-      } else {
-        productElement.classList.add("product-hide");
+
+  const updateProductElements = () => {
+    // remove all products except product-proto
+    document.querySelectorAll(".product").forEach((productElement) => {
+      if (!productElement.id) {
+        wrapper.removeChild(productElement);
       }
     });
+
+    // filter products based on the entered filter
+    const filteredProducts = products.filter((product) =>
+      product.name.toLowerCase().includes(filter)
+    );
+
+    // it indicates the starting index of the products to be displayed
+    const offset = (page - 1) * productsPerPage;
+
+    // create product elements
+    const productElements = filteredProducts
+      .slice(offset, offset + productsPerPage)
+      .map((product) => createProductElement(product));
+    productElements.forEach((productElement) => {
+      wrapper.appendChild(productElement);
+    });
+
+    // update the page numbers in select component
+    // first remove all page numbers
+    // then add new numbers based on the number of products
+    pageSelect.querySelectorAll("option").forEach((option) => {
+      pageSelect.removeChild(option);
+    });
+
+    [
+      ...Array(Math.ceil(filteredProducts.length / productsPerPage)).keys(),
+    ].forEach((pageNumber) => {
+      const option = document.createElement("option");
+      option.value = pageNumber + 1;
+      option.text = pageNumber + 1;
+      pageSelect.appendChild(option);
+    });
+    pageSelect.value = page;
+  };
+
+  updateProductElements();
+
+  searchInput.addEventListener("input", (event) => {
+    filter = event.target.value.toLowerCase();
+    page = 1;
+    updateProductElements();
+    if (isUsingTopsortBlocks) {
+      tsBlocks.useProductPromotion();
+    }
+  });
+
+  pageSelect.addEventListener("change", (event) => {
+    page = parseInt(event.target.value, 10);
+    updateProductElements();
+    if (isUsingTopsortBlocks) {
+      tsBlocks.useProductPromotion();
+    }
   });
 
   if (!isUsingTopsortBlocks) return;
 
   const tsBlocks = new TopsortBlocks();
   await tsBlocks.init({
-    apiKey: "abc123",
-    externalVendorId: "vendor-id",
-  });
-
-  if (isUsingCustomProps) {
-    tsBlocks.initProductPromotion({
+    apiKey: "29ac2ca2-7533-458f-8cd3-fcc2671691b7",
+    externalVendorId: "212",
+    ...(isUsingCustomProps && {
       promoteTargetClassName: customPromoteTargetClassName,
       style: {
         primaryColorRgb: "120, 170, 50",
@@ -130,8 +173,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         promoteButton: "Create Campaign",
         detailButton: "View Campaign",
       },
-    });
-  } else {
-    tsBlocks.initProductPromotion();
-  }
+    }),
+  });
+
+  tsBlocks.useProductPromotion();
 });
