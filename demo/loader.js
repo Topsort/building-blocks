@@ -7,7 +7,7 @@ const imgSize = 72;
 const numProducts = 20;
 const productsPerPage = 10;
 const isUsingTopsortBlocks = true;
-const isUsingCustomProps = true;
+const isUsingCustomProps = false;
 const useLumaProducts = true;
 const customPromoteTargetClassName = "my-custom-promote-target";
 
