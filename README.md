@@ -14,7 +14,7 @@
 
 1. _TODO script with cdn link_
 
-1. After the script is loaded, create an instance of the `TopsortBlocks` library and initialize it:
+1. After the script is loaded, create an instance of the `TopsortBlocks` library:
 
    ```js
    const tsBlocks = new TopsortBlocks();
@@ -24,20 +24,23 @@
    });
    ```
 
-### Product Promotion Modal
-
-1. Initialize product promotion:
+1. Initialize it:
 
    With defaults:
 
    ```js
-   tsBlocks.initProductPromotion();
+   await tsBlocks.init({
+     apiKey: "api-key-123",
+     externalVendorId: "vendor-id-123",
+   });
    ```
 
    With custom props:
 
    ```js
-   tsBlocks.initProductPromotion(
+   await tsBlocks.init({
+     apiKey: "api-key-123",
+     externalVendorId: "vendor-id-123",
      // if you want to use a custom target class:
      promoteTargetClassName: "my-custom-promote-target",
      style: {
@@ -57,8 +60,10 @@
        // defaults to "See Campaign":
        detailButton: "View Campaign",
      },
-   );
+   });
    ```
+
+### Product Promotion Modal
 
 1. In your markup, add the following HTML class and data attributes to the element(s) you want a Promote button appended to:
 
@@ -99,6 +104,11 @@
    </div>
    ```
 
+1. Call `useProductPromotion` at each time you want to refresh Promote buttons:
+
+   ```js
+   tsBlocks.useProductPromotion();
+   ```
 ## Development
 
 ### Running the demo
