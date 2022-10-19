@@ -12,7 +12,7 @@
 
 ## Integration
 
-1. Insert a script in your site's `<head>` tag to load the Topsort Building Blocks library. Ensure the script has `defer` to load it be using it. Replace `x.y.z` with the desired version, or use `@latest` to use the latest version of the library at all times.
+1. Insert a script in your site's `<head>` tag to load the Topsort Building Blocks library. Ensure the script has `defer` to load it without affecting your site load times. Replace `x.y.z` with the desired version, or use `@latest` to use the latest version of the library at all times.
 
    ```html
    <head>
