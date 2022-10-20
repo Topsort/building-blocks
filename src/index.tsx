@@ -303,7 +303,7 @@ export default class TopsortBlocks {
     NOTE (samet)
     We are increasing the counter variable when the library consumer
     calls "useProductPromotion".
-    The purpose is that to run some of the effects in the "App" component.
+    The purpose is to run some of the effects in the "App" component.
   */
   private counter = 0;
 
