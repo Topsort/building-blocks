@@ -16,6 +16,7 @@ import {
   StripeCardNumberElement,
   StripeCardNumberElementChangeEvent,
 } from "@stripe/stripe-js";
+import { remToPx } from "@utils/css-unit-converter";
 import { formatPaymentMethod, getStripe } from "@utils/payment";
 import cx from "classnames";
 import { Fragment, h, JSX } from "preact";
@@ -68,7 +69,7 @@ const StripePaymentForm = () => {
       base: {
         color: style.getPropertyValue("--ts-font-color"),
         fontSmoothing: "antialiased",
-        fontSize: "1rem",
+        fontSize: `${remToPx("1rem")}px`,
         "::placeholder": {
           color: style.getPropertyValue("--ts-font-color-60"),
         },
