@@ -1,0 +1,73 @@
+name: npm-publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  # TODO(christopherbot) Would prefer to use this reusable sanity workflow but
+  # having the checkout/install steps separate from the publish job causes the
+  # publish not to work. Is it a matter of passing "results" of one workflow to
+  # the next?
+
+  # sanity:
+  #   uses: ./.github/workflows/sanity.yml
+
+  npm-publish:
+    runs-on: ubuntu-latest
+
+    environment: production
+
+    env:
+      CENTRAL_SERVICES_BASE_URL: ${{ secrets.CENTRAL_SERVICES_BASE_URL }}
+      STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
+      USE_MOCK_SERVER: ${{ secrets.USE_MOCK_SERVER }}
+
+    steps:
+      # START copy of sanity.yml steps
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.2
+
+      - name: Cache node modules
+        id: cache-node-modules
+        uses: actions/cache@v3.0.5
+        with:
+          path: node_modules
+          key: v1-npm-deps-sanity-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            v1-npm-deps-sanity-
+            v1-npm-deps-
+
+      - name: Cache eslint
+        uses: actions/cache@v3.0.5
+        with:
+          path: .eslintcache
+          key: v1-eslint-${{ github.sha }}
+          restore-keys: v1-eslint-
+
+      - name: Install dependencies
+        run: npm ci
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Run type checks
+        run: npx tsc
+      # END copy of sanity.yml steps
+
+      - name: Publish to npm
+        id: publish
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          access: public
+
+      - if: steps.publish.outputs.type != 'none'
+        run: |
+          echo "Version changed: ${{ steps.publish.outputs.old-version }} => ${{ steps.publish.outputs.version }}"

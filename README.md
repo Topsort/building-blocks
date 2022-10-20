@@ -12,15 +12,23 @@
 
 ## Integration
 
-1. _TODO script with cdn link_
+1. Insert a script in your site's `<head>` tag to load the Topsort Building Blocks library. Ensure the script has `defer` to load it without affecting your site load times. Replace `x.y.z` with the desired version, or use `@latest` to use the latest version of the library at all times.
 
-1. After the script is loaded, create an instance of the `TopsortBlocks` library:
+   ```html
+   <head>
+     <!-- The rest -->
+     <script
+       defer
+       src="https://unpkg.com/@topsort/building-blocks@x.y.z/dist/index.js"
+     ></script>
+   </head>
+   ```
+
+1. After the DOM is loaded, create an instance of the `TopsortBlocks` library. For example:
 
    ```js
-   const tsBlocks = new TopsortBlocks();
-   await tsBlocks.init({
-     apiKey: "api-key-123",
-     externalVendorId: "vendor-id-123",
+   document.addEventListener("DOMContentLoaded", async () => {
+     const tsBlocks = new TopsortBlocks();
    });
    ```
 

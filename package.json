@@ -1,6 +1,6 @@
 {
   "name": "@topsort/building-blocks",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0",
   "description": "Topsort's JS library for building individual and easily integratable widgets.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,6 +8,7 @@
     "build": "webpack --config webpack.prod.js",
     "build:demo": "webpack --config webpack.demo.js",
     "lint": "eslint . --cache --cache-strategy content --max-warnings 0",
+    "prepublishOnly": "npm run build",
     "start": "webpack serve --config webpack.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
