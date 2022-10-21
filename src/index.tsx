@@ -19,7 +19,7 @@ import {
 } from "@utils/custom-styles";
 import { logger } from "@utils/logger";
 import { Fragment, FunctionalComponent, h, render } from "preact";
-import { useEffect, useReducer, useState } from "preact/hooks";
+import { useEffect, useReducer, useRef, useState } from "preact/hooks";
 
 import "./app.css";
 import "./utils.css";
@@ -41,8 +41,10 @@ const App: FunctionalComponent = () => {
     },
   } = useProductPromotion();
   const [promoteTargets, setPromoteTargets] = useState<HTMLElement[]>([]);
-  const [campaignIdsByProductIdStatus, setCampaignIdsByProductIdStatus] =
-    useState<RequestStatus>("idle");
+  const [statusesByProductId, setStatusesByProductId] = useState<
+    Record<string, RequestStatus>
+  >({});
+  const lastCounter = useRef(counter);
 
   // Set up color variables for custom theming
   useEffect(() => {
@@ -154,32 +156,66 @@ const App: FunctionalComponent = () => {
     getDefaultBudgetAndCpc();
   }, [dispatch, authToken, vendorId]);
 
+  const updateStatuses = (productIds: string[], status: RequestStatus) => {
+    setStatusesByProductId({
+      ...statusesByProductId,
+      ...productIds.reduce(
+        (statuses, productId) =>
+          Object.assign(statuses, { [productId]: status }),
+        {} as Record<string, RequestStatus>
+      ),
+    });
+  };
+
   useEffect(() => {
     const getCampaignIdsByProductId = async () => {
       if (promoteTargets.length === 0) return;
 
-      setCampaignIdsByProductIdStatus("pending");
+      lastCounter.current = Math.max(lastCounter.current, counter);
+
+      const newProductIds = promoteTargets
+        .map((promoteTarget) => promoteTarget.dataset.tsProductId)
+        .filter((productId): productId is string => !!productId)
+        .filter((productId) => !(productId in campaignIdsByProductId));
+
+      updateStatuses(newProductIds, "pending");
 
       try {
         const campaignIdsByProductId = await services.getCampaignIdsByProductId(
           authToken,
           vendorId,
-          promoteTargets
-            .map((promoteTarget) => promoteTarget.dataset.tsProductId)
-            .filter((productId): productId is string => !!productId)
+          newProductIds
         );
-        setCampaignIdsByProductIdStatus("success");
+
+        if (counter < lastCounter.current) {
+          return;
+        }
+
+        updateStatuses(newProductIds, "success");
         dispatch({
           type: "campaign ids by product id retrieved",
           payload: { campaignIdsByProductId },
         });
       } catch (error) {
-        setCampaignIdsByProductIdStatus("error");
+        if (counter < lastCounter.current) {
+          return;
+        }
+
+        updateStatuses(newProductIds, "error");
         logger.error("Failed to get campaign ids by product id.", error);
       }
     };
 
     getCampaignIdsByProductId();
+    /*
+      NOTE (samet)
+      The reason for the following eslint-disable-next-line:
+      It is not necessary to run this effect when new products
+      are added to campaignIdsByProductId.
+      We are using it to determine which products are already fetched
+      when this effect runs.
+    */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, authToken, vendorId, promoteTargets, counter]);
 
   const campaignId = selectedProductId
@@ -202,7 +238,7 @@ const App: FunctionalComponent = () => {
               onClick={() =>
                 dispatch({ type: "product selected", payload: { productId } })
               }
-              status={campaignIdsByProductIdStatus}
+              status={statusesByProductId[productId]}
               hasCampaign={!!campaignIdsByProductId[productId]}
             />
           </Portal>
