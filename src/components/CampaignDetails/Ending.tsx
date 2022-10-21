@@ -56,7 +56,8 @@ export const Ending: FunctionalComponent<{
       <Metrics title="Final Metrics" campaign={campaign} />
       <div className="ts-space-y-2-5">
         {/*
-          TODO (samet) Uncomment this once we fetch email from central-services
+          TODO (samet) Uncomment this and the related css once we fetch email
+          from central-services
           <span className="ts-campaign-ending__email-text">
           We will send a summary of metrics to your email ({email}).
           </span>*/}
