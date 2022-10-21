@@ -238,7 +238,7 @@ const App: FunctionalComponent = () => {
               onClick={() =>
                 dispatch({ type: "product selected", payload: { productId } })
               }
-              status={statusesByProductId[productId]}
+              status={statusesByProductId[productId] || "idle"}
               hasCampaign={!!campaignIdsByProductId[productId]}
             />
           </Portal>
