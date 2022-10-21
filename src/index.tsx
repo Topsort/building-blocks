@@ -127,10 +127,10 @@ const App: FunctionalComponent = () => {
     setPromoteTargets(promoteTargets);
     /*
       NOTE (samet)
+      The reason for the following eslint-disable-next-line:
       We don't need to run this effect after selectedProductId changes.
       We are using it to check if the selected product is still
       in the view when this effect runs.
-      It is the reason of the following eslint-disable-next-line.
     */
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, promoteTargetClassName, counter]);
@@ -243,7 +243,7 @@ const AppWithContext: FunctionalComponent<{
   language: string;
   currency: Currency;
   formatNumber: Intl.NumberFormat["format"];
-  formatMoney: Intl.NumberFormat["format"];
+  formatMoney: (number: number) => ReturnType<Intl.NumberFormat["format"]>;
   counter: number;
 }> = ({
   authToken,
@@ -296,8 +296,10 @@ export default class TopsortBlocks {
   private promoteTargetClassName: InitParams["promoteTargetClassName"];
   private style: InitParams["style"];
   private text: InitParams["text"];
-  private numberFormatter?: Intl.NumberFormat["format"];
-  private moneyFormatter?: Intl.NumberFormat["format"];
+  private formatNumber?: Intl.NumberFormat["format"];
+  private formatMoney?: (
+    number: number
+  ) => ReturnType<Intl.NumberFormat["format"]>;
   private currency?: Currency;
   /*
     NOTE (samet)
@@ -360,12 +362,14 @@ export default class TopsortBlocks {
         currency: currencyCode,
       });
       const moneyParts = moneyFormat.formatToParts(largeNumberWithDecimals);
+      const currencyDivisor = Math.pow(10, currencyExponent);
 
-      this.numberFormatter = new Intl.NumberFormat(languagePreference).format;
-      this.moneyFormatter = moneyFormat.format;
+      this.formatNumber = new Intl.NumberFormat(languagePreference).format;
+      this.formatMoney = (number: number) =>
+        moneyFormat.format(number / currencyDivisor);
       this.currency = {
         code: currencyCode,
-        divisor: Math.pow(10, currencyExponent),
+        divisor: currencyDivisor,
         exponent: currencyExponent,
         decimalSeparator: moneyParts.find((part) => part.type === "decimal")
           ?.value,
@@ -391,8 +395,8 @@ export default class TopsortBlocks {
       !this.vendorId ||
       !this.marketplaceDetails ||
       !this.currency ||
-      !this.numberFormatter ||
-      !this.moneyFormatter
+      !this.formatNumber ||
+      !this.formatMoney
     ) {
       if (!this.authToken) {
         logger.warn(
@@ -423,8 +427,8 @@ export default class TopsortBlocks {
         vendorId={this.vendorId}
         language={this.marketplaceDetails.languagePreference}
         currency={this.currency}
-        formatNumber={this.numberFormatter}
-        formatMoney={this.moneyFormatter}
+        formatNumber={this.formatNumber}
+        formatMoney={this.formatMoney}
         promoteTargetClassName={
           this.promoteTargetClassName || defaultPromoteTargetClassName
         }

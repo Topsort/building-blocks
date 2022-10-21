@@ -89,13 +89,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   let filter = "";
   let page = 1;
 
-  const pageSelect = document.getElementById("product-pager");
+  const pageSelect = document.getElementById("page-select");
   const searchInput = document.getElementById("product-search");
 
   const updateProductElements = () => {
-    // remove all products except product-proto
     document.querySelectorAll(".product").forEach((productElement) => {
-      if (!productElement.id) {
+      if (productElement.id !== "product-proto") {
         wrapper.removeChild(productElement);
       }
     });
@@ -125,10 +124,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     [
       ...Array(Math.ceil(filteredProducts.length / productsPerPage)).keys(),
-    ].forEach((pageNumber) => {
+    ].forEach((pageIndex) => {
       const option = document.createElement("option");
-      option.value = pageNumber + 1;
-      option.text = pageNumber + 1;
+      option.value = pageIndex + 1;
+      option.text = pageIndex + 1;
       pageSelect.appendChild(option);
     });
     pageSelect.value = page;
@@ -157,8 +156,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const tsBlocks = new TopsortBlocks();
   await tsBlocks.init({
-    apiKey: "29ac2ca2-7533-458f-8cd3-fcc2671691b7",
-    externalVendorId: "212",
+    apiKey: "abc123",
+    externalVendorId: "vendor-id",
     ...(isUsingCustomProps && {
       promoteTargetClassName: customPromoteTargetClassName,
       style: {

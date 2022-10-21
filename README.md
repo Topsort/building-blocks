@@ -71,7 +71,7 @@
    });
    ```
 
-### Product Promotion Modal
+### Product Promotion Button and Modal
 
 1. In your markup, add the following HTML class and data attributes to the element(s) you want a Promote button appended to:
 
@@ -112,7 +112,7 @@
    </div>
    ```
 
-1. Call `useProductPromotion` at each time you want to refresh Promote buttons:
+1. Call `useProductPromotion` to have the Promote buttons rendered, and each time you want to have the Promote buttons rerendered such as after navigating to a new page of products or filtering the product list:
 
    ```js
    tsBlocks.useProductPromotion();
