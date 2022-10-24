@@ -19,7 +19,7 @@ import {
 } from "@utils/custom-styles";
 import { logger } from "@utils/logger";
 import { Fragment, FunctionalComponent, h, render } from "preact";
-import { useEffect, useReducer, useRef, useState } from "preact/hooks";
+import { useEffect, useMemo, useReducer, useRef, useState } from "preact/hooks";
 
 import "./app.css";
 import "./utils.css";
@@ -44,7 +44,14 @@ const App: FunctionalComponent = () => {
   const [statusesByProductId, setStatusesByProductId] = useState<
     Record<string, RequestStatus>
   >({});
-  const lastCounter = useRef(counter);
+  const currentCounter = useRef(counter);
+
+  const promoteTargetIds = useMemo(() => {
+    return promoteTargets
+      .map((promoteTarget) => promoteTarget.dataset.tsProductId ?? "")
+      .sort()
+      .join("-");
+  }, [promoteTargets]);
 
   // Set up color variables for custom theming
   useEffect(() => {
@@ -83,13 +90,10 @@ const App: FunctionalComponent = () => {
     ] as HTMLElement[];
 
     if (promoteTargets.length === 0) {
-      logger.warn(
-        "No promote targets found. Did you add the right className to the promote targets?\n\n" +
-          "If you are using a custom className, make sure to pass it in the `useProductPromotion` options."
-      );
       if (selectedProductId) {
         dispatch({ type: "modal close button clicked" });
       }
+      setPromoteTargets([]);
       return;
     }
 
@@ -171,7 +175,7 @@ const App: FunctionalComponent = () => {
     const getCampaignIdsByProductId = async () => {
       if (promoteTargets.length === 0) return;
 
-      lastCounter.current = Math.max(lastCounter.current, counter);
+      currentCounter.current = counter;
 
       const newProductIds = promoteTargets
         .map((promoteTarget) => promoteTarget.dataset.tsProductId)
@@ -191,17 +195,13 @@ const App: FunctionalComponent = () => {
           newProductIds
         );
 
-        if (counter < lastCounter.current) {
-          return;
-        }
-
         updateStatuses(newProductIds, "success");
         dispatch({
           type: "campaign ids by product id retrieved",
           payload: { campaignIdsByProductId },
         });
       } catch (error) {
-        if (counter < lastCounter.current) {
+        if (counter < currentCounter.current) {
           return;
         }
 
@@ -220,7 +220,7 @@ const App: FunctionalComponent = () => {
       when this effect runs.
     */
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, authToken, vendorId, promoteTargets, counter]);
+  }, [dispatch, authToken, vendorId, promoteTargetIds]);
 
   const campaignId = selectedProductId
     ? campaignIdsByProductId[selectedProductId]
