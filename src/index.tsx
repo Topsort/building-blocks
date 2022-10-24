@@ -157,14 +157,14 @@ const App: FunctionalComponent = () => {
   }, [dispatch, authToken, vendorId]);
 
   const updateStatuses = (productIds: string[], status: RequestStatus) => {
-    setStatusesByProductId({
-      ...statusesByProductId,
+    setStatusesByProductId((prev) => ({
+      ...prev,
       ...productIds.reduce(
         (statuses, productId) =>
           Object.assign(statuses, { [productId]: status }),
         {} as Record<string, RequestStatus>
       ),
-    });
+    }));
   };
 
   useEffect(() => {
@@ -175,8 +175,12 @@ const App: FunctionalComponent = () => {
 
       const newProductIds = promoteTargets
         .map((promoteTarget) => promoteTarget.dataset.tsProductId)
-        .filter((productId): productId is string => !!productId)
-        .filter((productId) => !(productId in campaignIdsByProductId));
+        .filter(
+          (productId): productId is string =>
+            !!productId && !(productId in campaignIdsByProductId)
+        );
+
+      if (newProductIds.length === 0) return;
 
       updateStatuses(newProductIds, "pending");
 
