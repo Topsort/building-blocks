@@ -13,6 +13,7 @@ type ProductPromotionContextValue = {
   promoteTargetClassName: string;
   style: Style;
   text: CustomText;
+  counter: number;
   dispatch: (action: Action) => void;
   state: State;
 };

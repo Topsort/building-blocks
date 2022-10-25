@@ -19,7 +19,7 @@ import {
 } from "@utils/custom-styles";
 import { logger } from "@utils/logger";
 import { Fragment, FunctionalComponent, h, render } from "preact";
-import { useEffect, useReducer, useState } from "preact/hooks";
+import { useEffect, useMemo, useReducer, useRef, useState } from "preact/hooks";
 
 import "./app.css";
 import "./utils.css";
@@ -30,6 +30,7 @@ const App: FunctionalComponent = () => {
     vendorId,
     promoteTargetClassName,
     style,
+    counter,
     dispatch,
     state: {
       isModalOpen,
@@ -40,8 +41,17 @@ const App: FunctionalComponent = () => {
     },
   } = useProductPromotion();
   const [promoteTargets, setPromoteTargets] = useState<HTMLElement[]>([]);
-  const [campaignIdsByProductIdStatus, setCampaignIdsByProductIdStatus] =
-    useState<RequestStatus>("idle");
+  const [statusesByProductId, setStatusesByProductId] = useState<
+    Record<string, RequestStatus>
+  >({});
+  const currentCounter = useRef(counter);
+
+  const promoteTargetIds = useMemo(() => {
+    return promoteTargets
+      .map((promoteTarget) => promoteTarget.dataset.tsProductId ?? "")
+      .sort()
+      .join("-");
+  }, [promoteTargets]);
 
   // Set up color variables for custom theming
   useEffect(() => {
@@ -80,11 +90,10 @@ const App: FunctionalComponent = () => {
     ] as HTMLElement[];
 
     if (promoteTargets.length === 0) {
-      logger.warn(
-        "No promote targets found. Did you add the right className to the promote targets?\n\n" +
-          "If you are using a custom className, make sure to pass it in the `initProductPromotion` options."
-      );
-
+      if (selectedProductId) {
+        dispatch({ type: "modal close button clicked" });
+      }
+      setPromoteTargets([]);
       return;
     }
 
@@ -110,6 +119,10 @@ const App: FunctionalComponent = () => {
       return dataById;
     }, {} as State["productDataById"]);
 
+    if (selectedProductId && !(selectedProductId in productDataById)) {
+      dispatch({ type: "modal close button clicked" });
+    }
+
     dispatch({
       type: "promote targets retrieved",
       payload: {
@@ -118,7 +131,15 @@ const App: FunctionalComponent = () => {
     });
 
     setPromoteTargets(promoteTargets);
-  }, [dispatch, promoteTargetClassName]);
+    /*
+      NOTE (samet)
+      The reason for the following eslint-disable-next-line:
+      We don't need to run this effect after selectedProductId changes.
+      We are using it to check if the selected product is still
+      in the view when this effect runs.
+    */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, promoteTargetClassName, counter]);
 
   useEffect(() => {
     const getDefaultBudgetAndCpc = async () => {
@@ -139,33 +160,67 @@ const App: FunctionalComponent = () => {
     getDefaultBudgetAndCpc();
   }, [dispatch, authToken, vendorId]);
 
+  const updateStatuses = (productIds: string[], status: RequestStatus) => {
+    setStatusesByProductId((prev) => ({
+      ...prev,
+      ...productIds.reduce(
+        (statuses, productId) =>
+          Object.assign(statuses, { [productId]: status }),
+        {} as Record<string, RequestStatus>
+      ),
+    }));
+  };
+
   useEffect(() => {
     const getCampaignIdsByProductId = async () => {
       if (promoteTargets.length === 0) return;
 
-      setCampaignIdsByProductIdStatus("pending");
+      currentCounter.current = counter;
+
+      const newProductIds = promoteTargets
+        .map((promoteTarget) => promoteTarget.dataset.tsProductId)
+        .filter(
+          (productId): productId is string =>
+            !!productId && !(productId in campaignIdsByProductId)
+        );
+
+      if (newProductIds.length === 0) return;
+
+      updateStatuses(newProductIds, "pending");
 
       try {
         const campaignIdsByProductId = await services.getCampaignIdsByProductId(
           authToken,
           vendorId,
-          promoteTargets
-            .map((promoteTarget) => promoteTarget.dataset.tsProductId)
-            .filter((productId): productId is string => !!productId)
+          newProductIds
         );
-        setCampaignIdsByProductIdStatus("success");
+
+        updateStatuses(newProductIds, "success");
         dispatch({
           type: "campaign ids by product id retrieved",
           payload: { campaignIdsByProductId },
         });
       } catch (error) {
-        setCampaignIdsByProductIdStatus("error");
+        if (counter < currentCounter.current) {
+          return;
+        }
+
+        updateStatuses(newProductIds, "error");
         logger.error("Failed to get campaign ids by product id.", error);
       }
     };
 
     getCampaignIdsByProductId();
-  }, [dispatch, authToken, vendorId, promoteTargets]);
+    /*
+      NOTE (samet)
+      The reason for the following eslint-disable-next-line:
+      It is not necessary to run this effect when new products
+      are added to campaignIdsByProductId.
+      We are using it to determine which products are already fetched
+      when this effect runs.
+    */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, authToken, vendorId, promoteTargetIds]);
 
   const campaignId = selectedProductId
     ? campaignIdsByProductId[selectedProductId]
@@ -187,7 +242,7 @@ const App: FunctionalComponent = () => {
               onClick={() =>
                 dispatch({ type: "product selected", payload: { productId } })
               }
-              status={campaignIdsByProductIdStatus}
+              status={statusesByProductId[productId] || "idle"}
               hasCampaign={!!campaignIdsByProductId[productId]}
             />
           </Portal>
@@ -229,6 +284,7 @@ const AppWithContext: FunctionalComponent<{
   currency: Currency;
   formatNumber: Intl.NumberFormat["format"];
   formatMoney: (number: number) => ReturnType<Intl.NumberFormat["format"]>;
+  counter: number;
 }> = ({
   authToken,
   vendorId,
@@ -239,6 +295,7 @@ const AppWithContext: FunctionalComponent<{
   promoteTargetClassName,
   style,
   text,
+  counter,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -256,6 +313,7 @@ const AppWithContext: FunctionalComponent<{
         text,
         state,
         dispatch,
+        counter,
       }}
     >
       <App />
@@ -266,9 +324,6 @@ const AppWithContext: FunctionalComponent<{
 type InitParams = {
   apiKey: string;
   externalVendorId: string;
-};
-
-type InitProductPromotion = {
   promoteTargetClassName?: string;
   style?: Style;
   text?: CustomText;
@@ -278,6 +333,21 @@ export default class TopsortBlocks {
   private authToken?: string;
   private vendorId?: string;
   private marketplaceDetails?: MarketplaceDetails;
+  private promoteTargetClassName: InitParams["promoteTargetClassName"];
+  private style: InitParams["style"];
+  private text: InitParams["text"];
+  private formatNumber?: Intl.NumberFormat["format"];
+  private formatMoney?: (
+    number: number
+  ) => ReturnType<Intl.NumberFormat["format"]>;
+  private currency?: Currency;
+  /*
+    NOTE (samet)
+    We are increasing the counter variable when the library consumer
+    calls "useProductPromotion".
+    The purpose is to run some of the effects in the "App" component.
+  */
+  private counter = 0;
 
   static promoteTargetClassName = defaultPromoteTargetClassName;
 
@@ -316,82 +386,95 @@ export default class TopsortBlocks {
     }
 
     try {
-      if (this.authToken) {
-        const marketplaceDetails = await services.getMarketplaceDetails(
-          this.authToken
-        );
-        this.marketplaceDetails = marketplaceDetails;
+      if (!this.authToken) {
+        return;
       }
+
+      const marketplaceDetails = await services.getMarketplaceDetails(
+        this.authToken
+      );
+      this.marketplaceDetails = marketplaceDetails;
+      const { currencyCode, currencyExponent, languagePreference } =
+        this.marketplaceDetails;
+
+      const moneyFormat = new Intl.NumberFormat(languagePreference, {
+        style: "currency",
+        currency: currencyCode,
+      });
+      const moneyParts = moneyFormat.formatToParts(largeNumberWithDecimals);
+      const currencyDivisor = Math.pow(10, currencyExponent);
+
+      this.formatNumber = new Intl.NumberFormat(languagePreference).format;
+      this.formatMoney = (number: number) =>
+        moneyFormat.format(number / currencyDivisor);
+      this.currency = {
+        code: currencyCode,
+        divisor: currencyDivisor,
+        exponent: currencyExponent,
+        decimalSeparator: moneyParts.find((part) => part.type === "decimal")
+          ?.value,
+        groupSeparator: moneyParts.find((part) => part.type === "group")?.value,
+        symbol:
+          moneyParts.find((part) => part.type === "currency")?.value || "$",
+        isSymbolAtStart:
+          moneyParts.findIndex((part) => part.type === "currency") <
+          moneyParts.findIndex((part) => part.type === "integer"),
+      };
     } catch (error) {
       logger.error("Failed to get marketplace details.", error);
     }
+
+    this.promoteTargetClassName = params.promoteTargetClassName;
+    this.style = params.style;
+    this.text = params.text;
   }
 
-  initProductPromotion({
-    promoteTargetClassName,
-    style,
-    text,
-  }: InitProductPromotion = {}) {
-    if (!this.authToken || !this.vendorId || !this.marketplaceDetails) {
+  useProductPromotion() {
+    if (
+      !this.authToken ||
+      !this.vendorId ||
+      !this.marketplaceDetails ||
+      !this.currency ||
+      !this.formatNumber ||
+      !this.formatMoney
+    ) {
       if (!this.authToken) {
         logger.warn(
-          'Cannot call "initProductPromotion" without an authToken set.'
+          'Cannot call "useProductPromotion" without an authToken set.'
         );
       }
 
       if (!this.vendorId) {
         logger.warn(
-          'Cannot call "initProductPromotion" without a vendorId set.'
+          'Cannot call "useProductPromotion" without a vendorId set.'
         );
       }
 
       if (!this.marketplaceDetails) {
         logger.warn(
-          'Cannot call "initProductPromotion" without marketplace details.'
+          'Cannot call "useProductPromotion" without marketplace details.'
         );
       }
 
       return;
     }
 
-    const language = this.marketplaceDetails.languagePreference;
-    const currencyExponent = this.marketplaceDetails.currencyExponent;
-    const currencyDivisor = Math.pow(10, currencyExponent);
-    const numberFormat = new Intl.NumberFormat(language);
-    const moneyFormat = new Intl.NumberFormat(language, {
-      style: "currency",
-      currency: this.marketplaceDetails.currencyCode,
-    });
-    const moneyParts = moneyFormat.formatToParts(largeNumberWithDecimals);
+    this.counter++;
 
     render(
       <AppWithContext
         authToken={this.authToken}
         vendorId={this.vendorId}
-        language={language}
-        currency={{
-          code: this.marketplaceDetails.currencyCode,
-          divisor: currencyDivisor,
-          exponent: currencyExponent,
-          decimalSeparator: moneyParts.find((part) => part.type === "decimal")
-            ?.value,
-          groupSeparator: moneyParts.find((part) => part.type === "group")
-            ?.value,
-          symbol:
-            moneyParts.find((part) => part.type === "currency")?.value || "$",
-          isSymbolAtStart:
-            moneyParts.findIndex((part) => part.type === "currency") <
-            moneyParts.findIndex((part) => part.type === "integer"),
-        }}
-        formatNumber={numberFormat.format}
-        formatMoney={(number: number) =>
-          moneyFormat.format(number / currencyDivisor)
-        }
+        language={this.marketplaceDetails.languagePreference}
+        currency={this.currency}
+        formatNumber={this.formatNumber}
+        formatMoney={this.formatMoney}
         promoteTargetClassName={
-          promoteTargetClassName || defaultPromoteTargetClassName
+          this.promoteTargetClassName || defaultPromoteTargetClassName
         }
-        style={style || {}}
-        text={text || {}}
+        style={this.style || {}}
+        text={this.text || {}}
+        counter={this.counter}
       />,
       document.body
     );

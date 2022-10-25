@@ -24,32 +24,31 @@
    </head>
    ```
 
-1. After the DOM is loaded, create an instance of the `TopsortBlocks` library and initialize it. For example:
+1. After the DOM is loaded, create an instance of the `TopsortBlocks` library. For example:
 
    ```js
    document.addEventListener("DOMContentLoaded", async () => {
      const tsBlocks = new TopsortBlocks();
-     await tsBlocks.init({
-       apiKey: "api-key-123",
-       externalVendorId: "vendor-id-123",
-     });
    });
    ```
 
-### Product Promotion Modal
-
-1. Initialize product promotion:
+1. Initialize it:
 
    With defaults:
 
    ```js
-   tsBlocks.initProductPromotion();
+   await tsBlocks.init({
+     apiKey: "api-key-123",
+     externalVendorId: "vendor-id-123",
+   });
    ```
 
    With custom props:
 
    ```js
-   tsBlocks.initProductPromotion(
+   await tsBlocks.init({
+     apiKey: "api-key-123",
+     externalVendorId: "vendor-id-123",
      // if you want to use a custom target class:
      promoteTargetClassName: "my-custom-promote-target",
      style: {
@@ -69,8 +68,10 @@
        // defaults to "See Campaign":
        detailButton: "View Campaign",
      },
-   );
+   });
    ```
+
+### Product Promotion Button and Modal
 
 1. In your markup, add the following HTML class and data attributes to the element(s) you want a Promote button appended to:
 
@@ -111,6 +112,11 @@
    </div>
    ```
 
+1. Call `useProductPromotion` to have the Promote buttons rendered, and each time you want to have the Promote buttons rerendered such as after navigating to a new page of products or filtering the product list:
+
+   ```js
+   tsBlocks.useProductPromotion();
+   ```
 ## Development
 
 ### Running the demo

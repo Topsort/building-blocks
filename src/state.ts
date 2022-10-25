@@ -187,7 +187,10 @@ export const reducer = (
         break;
       }
       case "campaign ids by product id retrieved": {
-        draft.campaignIdsByProductId = action.payload.campaignIdsByProductId;
+        Object.assign(
+          draft.campaignIdsByProductId,
+          action.payload.campaignIdsByProductId
+        );
         break;
       }
       case "product selected": {

@@ -40,12 +40,14 @@
   line-height: 24px;
 }
 
+/*
 .ts-campaign-ending__email-text {
   font-size: 0.75rem;
   font-weight: 450;
   line-height: 150%;
   color: var(--ts-font-color-40);
 }
+*/
 
 .ts-edit-form {
   display: flex;

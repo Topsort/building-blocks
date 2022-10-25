@@ -5,6 +5,7 @@ import { lumaProducts } from "./lumaProducts.js";
 // Demo config
 const imgSize = 72;
 const numProducts = 20;
+const productsPerPage = 10;
 const isUsingTopsortBlocks = true;
 const isUsingCustomProps = false;
 const useLumaProducts = true;
@@ -85,26 +86,70 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const products = useLumaProducts ? lumaProducts : getNumberedProducts();
 
-  const productElements = products.map((product) =>
-    createProductElement(product)
-  );
-  productElements.forEach((productElement) => {
-    wrapper.appendChild(productElement);
-  });
+  let filter = "";
+  let page = 1;
 
+  const pageSelect = document.getElementById("page-select");
   const searchInput = document.getElementById("product-search");
-  searchInput.addEventListener("input", (event) => {
-    productElements.forEach((productElement) => {
-      const productName =
-        productElement.querySelector(".product-name").innerText;
-      if (
-        productName.toLowerCase().includes(event.target.value.toLowerCase())
-      ) {
-        productElement.classList.remove("product-hide");
-      } else {
-        productElement.classList.add("product-hide");
+
+  const updateProductElements = () => {
+    document.querySelectorAll(".product").forEach((productElement) => {
+      if (productElement.id !== "product-proto") {
+        wrapper.removeChild(productElement);
       }
     });
+
+    // filter products based on the entered filter
+    const filteredProducts = products.filter((product) =>
+      product.name.toLowerCase().includes(filter)
+    );
+
+    // it indicates the starting index of the products to be displayed
+    const offset = (page - 1) * productsPerPage;
+
+    // create product elements
+    const productElements = filteredProducts
+      .slice(offset, offset + productsPerPage)
+      .map((product) => createProductElement(product));
+    productElements.forEach((productElement) => {
+      wrapper.appendChild(productElement);
+    });
+
+    // update the page numbers in select component
+    // first remove all page numbers
+    // then add new numbers based on the number of products
+    pageSelect.querySelectorAll("option").forEach((option) => {
+      pageSelect.removeChild(option);
+    });
+
+    [
+      ...Array(Math.ceil(filteredProducts.length / productsPerPage)).keys(),
+    ].forEach((pageIndex) => {
+      const option = document.createElement("option");
+      option.value = pageIndex + 1;
+      option.text = pageIndex + 1;
+      pageSelect.appendChild(option);
+    });
+    pageSelect.value = page;
+  };
+
+  updateProductElements();
+
+  searchInput.addEventListener("input", (event) => {
+    filter = event.target.value.toLowerCase();
+    page = 1;
+    updateProductElements();
+    if (isUsingTopsortBlocks) {
+      tsBlocks.useProductPromotion();
+    }
+  });
+
+  pageSelect.addEventListener("change", (event) => {
+    page = parseInt(event.target.value, 10);
+    updateProductElements();
+    if (isUsingTopsortBlocks) {
+      tsBlocks.useProductPromotion();
+    }
   });
 
   if (!isUsingTopsortBlocks) return;
@@ -113,10 +158,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await tsBlocks.init({
     apiKey: "abc123",
     externalVendorId: "vendor-id",
-  });
-
-  if (isUsingCustomProps) {
-    tsBlocks.initProductPromotion({
+    ...(isUsingCustomProps && {
       promoteTargetClassName: customPromoteTargetClassName,
       style: {
         primaryColorRgb: "120, 170, 50",
@@ -130,8 +172,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         promoteButton: "Create Campaign",
         detailButton: "View Campaign",
       },
-    });
-  } else {
-    tsBlocks.initProductPromotion();
-  }
+    }),
+  });
+
+  tsBlocks.useProductPromotion();
 });
