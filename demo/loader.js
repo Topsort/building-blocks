@@ -156,8 +156,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const tsBlocks = new TopsortBlocks();
   await tsBlocks.init({
-    apiKey: "abc123",
-    externalVendorId: "vendor-id",
+    apiKey: "17d96c62-5498-11ed-bdc3-0242ac120002",
+    externalVendorId: "212",
+    marketplaceAuthUrl:
+      "https://buildingblocks.api.demo.topsort.ai/auth/vendors",
     ...(isUsingCustomProps && {
       promoteTargetClassName: customPromoteTargetClassName,
       style: {
