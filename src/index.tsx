@@ -359,17 +359,7 @@ export default class TopsortBlocks {
       return;
     }
 
-    if (
-      !params.apiKey ||
-      !params.externalVendorId ||
-      !params.marketplaceAuthUrl
-    ) {
-      if (!params.apiKey) {
-        logger.error(
-          'Method "init" is missing the required apiKey in the params object.'
-        );
-      }
-
+    if (!params.externalVendorId || !params.marketplaceAuthUrl) {
       if (!params.externalVendorId) {
         logger.error(
           'Method "init" is missing the required externalVendorId in the params object.'
@@ -386,9 +376,9 @@ export default class TopsortBlocks {
     this.vendorId = params.externalVendorId;
     try {
       const { authToken } = await services.validateVendor(
-        params.apiKey,
         params.externalVendorId,
-        params.marketplaceAuthUrl
+        params.marketplaceAuthUrl,
+        params.apiKey
       );
       this.authToken = authToken;
     } catch (error) {

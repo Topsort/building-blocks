@@ -40,6 +40,8 @@
    await tsBlocks.init({
      apiKey: "api-key-123",
      externalVendorId: "vendor-id-123",
+     marketplaceAuthUrl:
+      "https://marketplace-auth.api.com",
    });
    ```
 

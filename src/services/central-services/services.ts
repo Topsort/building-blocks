@@ -22,16 +22,16 @@ function getHeaders(token: string) {
 }
 
 async function validateVendor(
-  apiKey: string,
   vendorId: string,
-  marketplaceAuthUrl: string
+  marketplaceAuthUrl: string,
+  apiKey?: string
 ): Promise<ValidateVendor> {
   return await api(
     schemas.validateVendorSchema,
     paths.validate(vendorId, marketplaceAuthUrl),
     {
       method: "GET",
-      headers: getHeaders(apiKey),
+      headers: getHeaders(apiKey ? apiKey : ""),
     }
   );
 }
