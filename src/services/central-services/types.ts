@@ -5,7 +5,6 @@ import {
   DefaultBudgetAndCpc,
   PartialCampaign,
   PaymentMethod,
-  ValidateVendor,
 } from "@api/types";
 import { PaymentMethod as StripePaymentMethod } from "@stripe/stripe-js";
 

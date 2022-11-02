@@ -3,7 +3,6 @@ import { paths } from "@api/paths";
 import * as schemas from "@api/schemas";
 import type {
   CampaignIdsByProductId,
-  ValidateVendor,
   PaymentMethod,
   Campaign,
   DefaultBudgetAndCpc,

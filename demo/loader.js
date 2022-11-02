@@ -1,5 +1,5 @@
 import { lumaProducts } from "./lumaProducts.js";
-import { validateVendor } from "./validateVendor.js"
+import { validateVendor } from "./validateVendor.js";
 
 /* global TopsortBlocks */
 
