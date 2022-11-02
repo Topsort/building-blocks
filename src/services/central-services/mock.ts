@@ -89,15 +89,6 @@ function delayedResponse<T>(response: T): Promise<T> {
   return new Promise((res) => setTimeout(() => res(response), 1000));
 }
 
-async function validateVendor(
-  apiKey: string,
-  vendorId: string
-): Promise<ValidateVendor> {
-  return delayedResponse({
-    authToken: "auth-token-123",
-  });
-}
-
 async function getMarketplaceDetails(
   authToken: string
 ): Promise<MarketplaceDetails> {
@@ -261,7 +252,6 @@ async function endCampaign(
 }
 
 export const services: Services = {
-  validateVendor,
   getMarketplaceDetails,
   getDefaultBudgetAndCpc,
   getPaymentMethods,
