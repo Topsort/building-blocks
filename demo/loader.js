@@ -157,9 +157,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const tsBlocks = new TopsortBlocks();
   await tsBlocks.init({
-    // This helper calls our demo marketplace backend to retrieve the authToken. 
-    // You can manually set an auth token here for development purposes. 
-    authToken: validateVendor("https://demo-marketplace-api.ai", "some-api-key"),
+    // This helper calls our demo marketplace backend to retrieve the authToken.
+    // You can manually set an auth token here for development purposes.
+    authToken: validateVendor(
+      "https://demo-marketplace-api.ai",
+      "some-api-key"
+    ),
     externalVendorId: "vendor-id-123",
     ...(isUsingCustomProps && {
       promoteTargetClassName: customPromoteTargetClassName,

@@ -374,7 +374,6 @@ export default class TopsortBlocks {
     this.vendorId = params.externalVendorId;
     this.authToken = params.authToken;
 
-
     try {
       if (!this.authToken) {
         return;
