@@ -38,10 +38,8 @@
 
    ```js
    await tsBlocks.init({
-     apiKey: "api-key-123",
+     authToken: "api-key-123",
      externalVendorId: "vendor-id-123",
-     marketplaceAuthUrl:
-      "https://marketplace-auth.api.com",
    });
    ```
 
@@ -49,10 +47,8 @@
 
    ```js
    await tsBlocks.init({
-     apiKey: "api-key-123",
+     authToken: "api-key-123",
      externalVendorId: "vendor-id-123",
-     marketplaceAuthUrl:
-      "https://marketplace-auth.api.com",
      // if you want to use a custom target class:
      promoteTargetClassName: "my-custom-promote-target",
      style: {

@@ -11,6 +11,4 @@ export const paths = {
     `${CENTRAL_SERVICES_BASE_URL}/payment-service/payment_methods`,
   products: (vendorId: string) =>
     `${CENTRAL_SERVICES_BASE_URL}/modal-service/vendors/${vendorId}/products`,
-  validate: (vendorId: string, marketplaceAuthUrl: string) =>
-    `${marketplaceAuthUrl}/${vendorId}`,
 };

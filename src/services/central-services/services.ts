@@ -21,21 +21,6 @@ function getHeaders(token: string) {
   };
 }
 
-async function validateVendor(
-  vendorId: string,
-  marketplaceAuthUrl: string,
-  apiKey?: string
-): Promise<ValidateVendor> {
-  return await api(
-    schemas.validateVendorSchema,
-    paths.validate(vendorId, marketplaceAuthUrl),
-    {
-      method: "GET",
-      headers: getHeaders(apiKey ? apiKey : ""),
-    }
-  );
-}
-
 async function getMarketplaceDetails(
   authToken: string
 ): Promise<MarketplaceDetails> {
@@ -346,7 +331,6 @@ async function endCampaign(
 }
 
 export const services: Services = {
-  validateVendor,
   getMarketplaceDetails,
   getDefaultBudgetAndCpc,
   getPaymentMethods,

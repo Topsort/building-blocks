@@ -322,9 +322,8 @@ const AppWithContext: FunctionalComponent<{
 };
 
 type InitParams = {
-  apiKey: string;
+  authToken: string;
   externalVendorId: string;
-  marketplaceAuthUrl: string;
   promoteTargetClassName?: string;
   style?: Style;
   text?: CustomText;
@@ -333,7 +332,6 @@ type InitParams = {
 export default class TopsortBlocks {
   private authToken?: string;
   private vendorId?: string;
-  private marketplaceAuthUrl?: string;
   private marketplaceDetails?: MarketplaceDetails;
   private promoteTargetClassName: InitParams["promoteTargetClassName"];
   private style: InitParams["style"];
@@ -359,31 +357,23 @@ export default class TopsortBlocks {
       return;
     }
 
-    if (!params.externalVendorId || !params.marketplaceAuthUrl) {
+    if (!params.externalVendorId || !params.authToken) {
       if (!params.externalVendorId) {
         logger.error(
           'Method "init" is missing the required externalVendorId in the params object.'
         );
       }
-      if (!params.marketplaceAuthUrl) {
+      if (!params.authToken) {
         logger.error(
-          'Method "init" is missing the required marketplaceAuthUrl in the params object.'
+          'Method "init" is missing the required authToken in the params object.'
         );
       }
       return;
     }
 
     this.vendorId = params.externalVendorId;
-    try {
-      const { authToken } = await services.validateVendor(
-        params.externalVendorId,
-        params.marketplaceAuthUrl,
-        params.apiKey
-      );
-      this.authToken = authToken;
-    } catch (error) {
-      logger.error("Failed to validate vendor.", error);
-    }
+    this.authToken = params.authToken;
+
 
     try {
       if (!this.authToken) {
