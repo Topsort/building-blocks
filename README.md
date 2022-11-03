@@ -38,7 +38,7 @@
 
    ```js
    await tsBlocks.init({
-     authToken: "api-key-123",
+     authToken: "auth-token-123",
      externalVendorId: "vendor-id-123",
    });
    ```
