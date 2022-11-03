@@ -1,8 +1,6 @@
 import * as schemas from "@api/schemas";
 import { z } from "zod";
 
-export type ValidateVendor = z.infer<typeof schemas.validateVendorSchema>;
-
 export type MarketplaceDetails = z.infer<
   typeof schemas.marketplaceDetailsSchema
 >;

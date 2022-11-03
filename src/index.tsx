@@ -357,15 +357,15 @@ export default class TopsortBlocks {
       return;
     }
 
-    if (!params.externalVendorId || !params.authToken) {
-      if (!params.externalVendorId) {
-        logger.error(
-          'Method "init" is missing the required externalVendorId in the params object.'
-        );
-      }
+    if (!params.authToken || !params.externalVendorId) {
       if (!params.authToken) {
         logger.error(
           'Method "init" is missing the required authToken in the params object.'
+        );
+      }
+      if (!params.externalVendorId) {
+        logger.error(
+          'Method "init" is missing the required externalVendorId in the params object.'
         );
       }
       return;
@@ -375,10 +375,6 @@ export default class TopsortBlocks {
     this.authToken = params.authToken;
 
     try {
-      if (!this.authToken) {
-        return;
-      }
-
       const marketplaceDetails = await services.getMarketplaceDetails(
         this.authToken
       );

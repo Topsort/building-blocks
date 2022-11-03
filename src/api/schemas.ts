@@ -2,10 +2,6 @@ import { z } from "zod";
 
 export const nullSchema = z.null();
 
-export const validateVendorSchema = z.object({
-  authToken: z.string().min(1),
-});
-
 export const marketplaceDetailsSchema = z.object({
   currencyCode: z.string().length(3),
   currencyExponent: z.number().int().min(0).max(4),

@@ -4,4 +4,4 @@ export function validateVendor(url, apiKey) {
   request.setRequestHeader("Authorization", `Bearer ${apiKey}`);
   request.send(null);
   return JSON.parse(request.responseText).authToken;
-};
+}
