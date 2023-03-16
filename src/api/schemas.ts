@@ -74,3 +74,8 @@ export const campaignSchema = campaignPartialSchema.extend({
     }),
   }),
 });
+
+export const validationSchema = z.object({
+  authToken: z.string(),
+  authorized: z.boolean(),
+});

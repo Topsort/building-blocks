@@ -17,3 +17,5 @@ export type PartialCampaign = z.infer<typeof schemas.campaignPartialSchema>;
 export type Campaign = z.infer<typeof schemas.campaignSchema>;
 
 export type PaymentMethod = z.infer<typeof schemas.paymentMethodSchema>;
+
+export type ValidationResponse = z.infer<typeof schemas.validationSchema>;

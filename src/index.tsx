@@ -10,8 +10,16 @@ import {
 } from "@constants";
 import { ProductPromotionContext, useProductPromotion } from "@context";
 import { services } from "@services/central-services";
+import { validationService } from "@services/validation-service";
 import { initialState, reducer, State } from "@state";
-import { Currency, CustomText, RequestStatus, Style } from "@types";
+import {
+  Currency,
+  CustomText,
+  initialParamsSchema,
+  InitParams,
+  RequestStatus,
+  Style,
+} from "@types";
 import {
   getInvalidRgbWarning,
   isRgbValid,
@@ -321,14 +329,6 @@ const AppWithContext: FunctionalComponent<{
   );
 };
 
-type InitParams = {
-  authToken: string;
-  externalVendorId: string;
-  promoteTargetClassName?: string;
-  style?: Style;
-  text?: CustomText;
-};
-
 export default class TopsortBlocks {
   private authToken?: string;
   private vendorId?: string;
@@ -352,7 +352,7 @@ export default class TopsortBlocks {
   static promoteTargetClassName = defaultPromoteTargetClassName;
 
   async init(params: InitParams) {
-    if (typeof params !== "object") {
+    /* if (typeof params !== "object") {
       logger.error('Method "init" is missing the required params object.');
       return;
     }
@@ -369,12 +369,19 @@ export default class TopsortBlocks {
         );
       }
       return;
-    }
-
-    this.vendorId = params.externalVendorId;
-    this.authToken = params.authToken;
+    } */
 
     try {
+      const { apiKey, externalVendorId } = initialParamsSchema.parse(params);
+      const { authToken, authorized } =
+        await validationService.getValidationToken(apiKey, externalVendorId);
+
+      if (!authorized) {
+        throw new Error("Api Key not valid");
+      }
+
+      this.vendorId = externalVendorId;
+      this.authToken = authToken;
       const marketplaceDetails = await services.getMarketplaceDetails(
         this.authToken
       );

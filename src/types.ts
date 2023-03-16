@@ -1,7 +1,9 @@
 import { MarketplaceDetails } from "@api/types";
 import { ComponentChildren } from "preact";
+import { z } from "zod";
 
 declare global {
+  const AUTH_BASE_URL: string;
   const CENTRAL_SERVICES_BASE_URL: string;
   const STRIPE_PUBLIC_KEY: string;
   const USE_MOCK_SERVER: string;
@@ -11,17 +13,6 @@ export type DocumentStyleProperty =
   | "--ts-primary-rgb"
   | "--ts-secondary-rgb"
   | "--ts-font-rgb";
-
-export type Rgb = string | [number, number, number];
-
-export type Style = {
-  primaryColorRgb?: Rgb;
-  secondaryColorRgb?: Rgb;
-  fontColorRgb?: Rgb;
-  button?: {
-    borderRadius: "none" | "sm" | "full";
-  };
-};
 
 export type CustomText = Partial<
   Record<"promoteButton" | "detailButton", string>
@@ -40,3 +31,42 @@ export type Currency = {
   symbol: string;
   isSymbolAtStart: boolean;
 };
+
+const rgbSchema = z.union([
+  z.string(),
+  z.tuple([z.number(), z.number(), z.number()]),
+]);
+
+export type Rgb = z.infer<typeof rgbSchema>;
+
+const borderRadiusSchema = z.enum(["none", "sm", "full"]);
+
+export type ButtonSizes = z.infer<typeof borderRadiusSchema>;
+
+const styleSchema = z.object({
+  primaryColorRgb: rgbSchema.optional(),
+  secondaryColorRgb: rgbSchema.optional(),
+  fontColorRgb: rgbSchema.optional(),
+  button: z
+    .object({
+      borderRadius: borderRadiusSchema,
+    })
+    .optional(),
+});
+
+export type Style = z.infer<typeof styleSchema>;
+
+export const initialParamsSchema = z.object({
+  apiKey: z.string(),
+  externalVendorId: z.string(),
+  promoteTargetClassName: z.string().optional(),
+  style: styleSchema.optional(),
+  text: z
+    .object({
+      promoteButton: z.string().default("Promote"),
+      detailButton: z.string().default("See Campaign"),
+    })
+    .optional(),
+});
+
+export type InitParams = z.infer<typeof initialParamsSchema>;
