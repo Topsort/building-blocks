@@ -352,27 +352,9 @@ export default class TopsortBlocks {
   static promoteTargetClassName = defaultPromoteTargetClassName;
 
   async init(params: InitParams) {
-    /* if (typeof params !== "object") {
-      logger.error('Method "init" is missing the required params object.');
-      return;
-    }
-
-    if (!params.authToken || !params.externalVendorId) {
-      if (!params.authToken) {
-        logger.error(
-          'Method "init" is missing the required authToken in the params object.'
-        );
-      }
-      if (!params.externalVendorId) {
-        logger.error(
-          'Method "init" is missing the required externalVendorId in the params object.'
-        );
-      }
-      return;
-    } */
-
     try {
-      const { apiKey, externalVendorId } = initialParamsSchema.parse(params);
+      const { apiKey, externalVendorId, promoteTargetClassName, style, text } =
+        initialParamsSchema.parse(params);
       const { authToken, authorized } =
         await validationService.getValidationToken(apiKey, externalVendorId);
 
@@ -412,13 +394,12 @@ export default class TopsortBlocks {
           moneyParts.findIndex((part) => part.type === "currency") <
           moneyParts.findIndex((part) => part.type === "integer"),
       };
+      this.promoteTargetClassName = promoteTargetClassName;
+      this.style = style;
+      this.text = text;
     } catch (error) {
       logger.error("Failed to get marketplace details.", error);
     }
-
-    this.promoteTargetClassName = params.promoteTargetClassName;
-    this.style = params.style;
-    this.text = params.text;
   }
 
   useProductPromotion() {
