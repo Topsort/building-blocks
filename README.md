@@ -38,7 +38,7 @@
 
    ```js
    await tsBlocks.init({
-     authToken: "auth-token-123",
+     apiKey: "api-key-123",
      externalVendorId: "vendor-id-123",
    });
    ```
@@ -47,7 +47,7 @@
 
    ```js
    await tsBlocks.init({
-     authToken: "auth-token-123",
+     apiKey: "api-key-123",
      externalVendorId: "vendor-id-123",
      // if you want to use a custom target class:
      promoteTargetClassName: "my-custom-promote-target",
@@ -59,7 +59,7 @@
 
        button: {
          // defaults to "sm":
-         borderRadius: "none" | "sm" | "full"
+         borderRadius: "none" | "sm" | "full",
        },
      },
      text: {
@@ -117,6 +117,7 @@
    ```js
    tsBlocks.useProductPromotion();
    ```
+
 ## Development
 
 ### Running the demo

@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // This helper calls our demo marketplace backend to retrieve the authToken.
     // You can manually set an auth token here for development purposes.
     apiKey: "api-key-123",
-    externalVendorId: "auth-token-123",
+    externalVendorId: "vendor-id-123",
     ...(isUsingCustomProps && {
       promoteTargetClassName: customPromoteTargetClassName,
       style: {
