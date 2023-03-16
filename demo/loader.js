@@ -84,7 +84,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const wrapper = document.querySelector(".wrapper");
 
-  const products = useTopsortedProducts ? topsortedProducts : getNumberedProducts();
+  const products = useTopsortedProducts
+    ? topsortedProducts
+    : getNumberedProducts();
 
   let filter = "";
   let page = 1;
