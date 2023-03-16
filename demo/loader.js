@@ -101,9 +101,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 
-    // filter products based on the entered filter
-    const filteredProducts = products.filter((product) =>
-      product.name.toLowerCase().includes(filter)
+    // filter products by name/id based on the entered filter
+    const filteredProducts = products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(filter) ||
+        product.id.toLowerCase().includes(filter)
     );
 
     // it indicates the starting index of the products to be displayed
