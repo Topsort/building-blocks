@@ -21,7 +21,7 @@ export const RangeInput = forwardRef<
   <input
     ref={ref}
     type="range"
-    className={cx("ts-input ts-draggable", className)}
+    className={cx("ts-input ts-draggable", className?.toString())}
     {...props}
   />
 ));

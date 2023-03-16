@@ -10,7 +10,7 @@ export const Link: FunctionalComponent<JSX.IntrinsicElements["a"]> = ({
 }) => {
   return (
     <a
-      className={cx("ts-link ts-text-primary", className)}
+      className={cx("ts-link ts-text-primary", className?.toString())}
       target="_blank"
       rel="noopener noreferrer"
       {...props}

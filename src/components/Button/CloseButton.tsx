@@ -8,7 +8,7 @@ export const CloseButton: FunctionalComponent<
 > = ({ className, ...props }) => {
   return (
     <Button
-      className={cx("ts-close-button", className)}
+      className={cx("ts-close-button", className?.toString())}
       variant="text"
       {...props}
     >

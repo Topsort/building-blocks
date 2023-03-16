@@ -101,9 +101,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 
-    // filter products based on the entered filter
-    const filteredProducts = products.filter((product) =>
-      product.name.toLowerCase().includes(filter)
+    // filter products by name/id based on the entered filter
+    const filteredProducts = products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(filter) ||
+        product.id.toLowerCase().includes(filter)
     );
 
     // it indicates the starting index of the products to be displayed
@@ -158,8 +160,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const tsBlocks = new TopsortBlocks();
   await tsBlocks.init({
-    apiKey: "abc123",
-    externalVendorId: "vendor-id",
+    apiKey: "4ce9c755-dfe9-45ec-be96-6f3d85d843fd",
+    externalVendorId: "1",
     ...(isUsingCustomProps && {
       promoteTargetClassName: customPromoteTargetClassName,
       style: {
