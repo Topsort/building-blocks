@@ -160,8 +160,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const tsBlocks = new TopsortBlocks();
   await tsBlocks.init({
-    apiKey: "abc123",
-    externalVendorId: "vendor-id",
+    apiKey: "4ce9c755-dfe9-45ec-be96-6f3d85d843fd",
+    externalVendorId: "1",
     ...(isUsingCustomProps && {
       promoteTargetClassName: customPromoteTargetClassName,
       style: {

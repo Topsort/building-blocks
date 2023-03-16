@@ -9,7 +9,7 @@ export const BackButton: FunctionalComponent<
 > = ({ className, ...props }) => {
   return (
     <Button
-      className={cx("ts-back-button", className)}
+      className={cx("ts-back-button", className?.toString())}
       variant="inline"
       {...props}
     >
