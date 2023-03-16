@@ -1,4 +1,4 @@
-import { lumaProducts } from "./lumaProducts.js";
+import { topsortedProducts } from "./topsortedProducts.js";
 
 /* global TopsortBlocks */
 
@@ -8,7 +8,7 @@ const numProducts = 20;
 const productsPerPage = 10;
 const isUsingTopsortBlocks = true;
 const isUsingCustomProps = false;
-const useLumaProducts = true;
+const useTopsortedProducts = true;
 const customPromoteTargetClassName = "my-custom-promote-target";
 
 function getNewElement(selector) {
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const wrapper = document.querySelector(".wrapper");
 
-  const products = useLumaProducts ? lumaProducts : getNumberedProducts();
+  const products = useTopsortedProducts ? topsortedProducts : getNumberedProducts();
 
   let filter = "";
   let page = 1;

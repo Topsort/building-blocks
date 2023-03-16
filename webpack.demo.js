@@ -14,7 +14,7 @@ module.exports = merge(common, {
     new CopyPlugin({
       patterns: [
         { from: "./demo/loader.js" },
-        { from: "./demo/lumaProducts.js" },
+        { from: "./demo/topsortedProducts.js" },
       ],
     }),
   ],

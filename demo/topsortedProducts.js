@@ -1,9 +1,9 @@
-export const lumaProducts = [
+export const topsortedProducts = [
   {
     id: "WH12",
     url: "https://demo.topsort.com/circe-hooded-ice-fleece.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/h/wh12-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wh12-gray_main_1.jpg",
     name: "Circe Hooded Ice Fleece",
     price: 68,
     quantity: 7,
@@ -12,7 +12,7 @@ export const lumaProducts = [
     id: "WH11",
     url: "https://demo.topsort.com/eos-v-neck-hoodie.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/h/wh11-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wh11-blue_main_1.jpg",
     name: "Eos V-Neck Hoodie",
     price: 54,
     quantity: 15,
@@ -21,7 +21,7 @@ export const lumaProducts = [
     id: "WH10",
     url: "https://demo.topsort.com/helena-hooded-fleece.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/h/wh10-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wh10-gray_main_1.jpg",
     name: "Helena Hooded Fleece",
     price: 55,
     quantity: 6,
@@ -30,7 +30,7 @@ export const lumaProducts = [
     id: "WH09",
     url: "https://demo.topsort.com/ariel-roll-sleeve-sweatshirt.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/h/wh09-purple_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wh09-purple_main_1.jpg",
     name: "Ariel Roll Sleeve Sweatshirt",
     price: 39,
     quantity: 19,
@@ -39,7 +39,7 @@ export const lumaProducts = [
     id: "WH08",
     url: "https://demo.topsort.com/cassia-funnel-sweatshirt.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/h/wh08-white_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wh08-white_main_1.jpg",
     name: "Cassia Funnel Sweatshirt",
     price: 48,
     quantity: 1,
@@ -48,7 +48,7 @@ export const lumaProducts = [
     id: "WH07",
     url: "https://demo.topsort.com/phoebe-zipper-sweatshirt.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/h/wh07-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wh07-gray_main_1.jpg",
     name: "Phoebe Zipper Sweatshirt",
     price: 59,
     quantity: 17,
@@ -57,7 +57,7 @@ export const lumaProducts = [
     id: "WH06",
     url: "https://demo.topsort.com/daphne-full-zip-hoodie.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/h/wh06-purple_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wh06-purple_main_1.jpg",
     name: "Daphne Full-Zip Hoodie",
     price: 59,
     quantity: 10,
@@ -66,7 +66,7 @@ export const lumaProducts = [
     id: "WH05",
     url: "https://demo.topsort.com/selene-yoga-hoodie.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/h/wh05-white_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wh05-white_main_1.jpg",
     name: "Selene Yoga Hoodie",
     price: 42,
     quantity: 18,
@@ -75,7 +75,7 @@ export const lumaProducts = [
     id: "WH04",
     url: "https://demo.topsort.com/miko-pullover-hoodie.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/h/wh04-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wh04-blue_main_1.jpg",
     name: "Miko Pullover Hoodie",
     price: 69,
     quantity: 24,
@@ -84,7 +84,7 @@ export const lumaProducts = [
     id: "WH03",
     url: "https://demo.topsort.com/autumn-pullie.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/h/wh03-red_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wh03-red_main_1.jpg",
     name: "Autumn Pullie",
     price: 57,
     quantity: 24,
@@ -93,7 +93,7 @@ export const lumaProducts = [
     id: "WH02",
     url: "https://demo.topsort.com/hera-pullover-hoodie.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/h/wh02-blue_main_2.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wh02-blue_main_2.jpg",
     name: "Hera Pullover Hoodie",
     price: 48,
     quantity: 24,
@@ -102,7 +102,7 @@ export const lumaProducts = [
     id: "WH01",
     url: "https://demo.topsort.com/mona-pullover-hoodlie.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/h/wh01-green_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wh01-green_main_1.jpg",
     name: "Mona Pullover Hoodlie",
     price: 57,
     quantity: 6,
@@ -111,7 +111,7 @@ export const lumaProducts = [
     id: "WJ12",
     url: "https://demo.topsort.com/olivia-1-4-zip-light-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/j/wj12-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wj12-blue_main_1.jpg",
     name: "Olivia 1/4 Zip Light Jacket",
     price: 77,
     quantity: 4,
@@ -120,7 +120,7 @@ export const lumaProducts = [
     id: "WJ06",
     url: "https://demo.topsort.com/juno-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/j/wj06-purple_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wj06-purple_main_1.jpg",
     name: "Juno Jacket",
     price: 77,
     quantity: 22,
@@ -129,7 +129,7 @@ export const lumaProducts = [
     id: "WJ11",
     url: "https://demo.topsort.com/neve-studio-dance-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/j/wj11-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wj11-blue_main_1.jpg",
     name: "Neve Studio Dance Jacket",
     price: 69,
     quantity: 22,
@@ -138,7 +138,7 @@ export const lumaProducts = [
     id: "WJ10",
     url: "https://demo.topsort.com/nadia-elements-shell.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/j/wj10-yellow_main_2.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wj10-yellow_main_2.jpg",
     name: "Nadia Elements Shell",
     price: 69,
     quantity: 15,
@@ -147,7 +147,7 @@ export const lumaProducts = [
     id: "WJ09",
     url: "https://demo.topsort.com/jade-yoga-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/j/wj09-green_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wj09-green_main_1.jpg",
     name: "Jade Yoga Jacket",
     price: 32,
     quantity: 11,
@@ -156,7 +156,7 @@ export const lumaProducts = [
     id: "WJ08",
     url: "https://demo.topsort.com/adrienne-trek-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/j/wj08-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wj08-gray_main_1.jpg",
     name: "Adrienne Trek Jacket",
     price: 57,
     quantity: 22,
@@ -165,7 +165,7 @@ export const lumaProducts = [
     id: "WJ07",
     url: "https://demo.topsort.com/inez-full-zip-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/j/wj07-purple_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wj07-purple_main_1.jpg",
     name: "Inez Full Zip Jacket",
     price: 59,
     quantity: 25,
@@ -174,7 +174,7 @@ export const lumaProducts = [
     id: "WJ05",
     url: "https://demo.topsort.com/riona-full-zip-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/j/wj05-brown_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wj05-brown_main_1.jpg",
     name: "Riona Full Zip Jacket",
     price: 60,
     quantity: 25,
@@ -183,7 +183,7 @@ export const lumaProducts = [
     id: "WJ04",
     url: "https://demo.topsort.com/ingrid-running-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/j/wj04-white_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wj04-white_main_1.jpg",
     name: "Ingrid Running Jacket",
     price: 84,
     quantity: 14,
@@ -192,7 +192,7 @@ export const lumaProducts = [
     id: "WJ03",
     url: "https://demo.topsort.com/augusta-pullover-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/j/wj03-red_main_2.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wj03-red_main_2.jpg",
     name: "Augusta Pullover Jacket",
     price: 57,
     quantity: 4,
@@ -201,7 +201,7 @@ export const lumaProducts = [
     id: "WJ02",
     url: "https://demo.topsort.com/josie-yoga-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/j/wj02-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wj02-gray_main_1.jpg",
     name: "Josie Yoga Jacket",
     price: 56.25,
     quantity: 20,
@@ -210,7 +210,7 @@ export const lumaProducts = [
     id: "WJ01",
     url: "https://demo.topsort.com/stellar-solar-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/j/wj01-red_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wj01-red_main_1.jpg",
     name: "Stellar Solar Jacket",
     price: 75,
     quantity: 25,
@@ -219,7 +219,7 @@ export const lumaProducts = [
     id: "WJ09",
     url: "https://demo.topsort.com/jade-yoga-jacket.html?auction_id=0634065d-b1e6-7611-a304-faeaf0c5341e",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/j/wj09-green_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wj09-green_main_1.jpg",
     name: "Jade Yoga Jacket",
     price: 32,
     quantity: 2,
@@ -228,7 +228,7 @@ export const lumaProducts = [
     id: "WJ06",
     url: "https://demo.topsort.com/juno-jacket.html?auction_id=0634065d-b1e6-7611-a304-faeaf0c5341e",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/j/wj06-purple_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wj06-purple_main_1.jpg",
     name: "Juno Jacket",
     price: 77,
     quantity: 3,
@@ -237,7 +237,7 @@ export const lumaProducts = [
     id: "WS05",
     url: "https://demo.topsort.com/desiree-fitness-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/ws05-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ws05-black_main_1.jpg",
     name: "Desiree Fitness Tee",
     price: 24,
     quantity: 21,
@@ -246,7 +246,7 @@ export const lumaProducts = [
     id: "WS01",
     url: "https://demo.topsort.com/gwyn-endurance-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/ws01-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ws01-black_main_1.jpg",
     name: "Gwyn Endurance Tee",
     price: 24,
     quantity: 7,
@@ -255,7 +255,7 @@ export const lumaProducts = [
     id: "WS12",
     url: "https://demo.topsort.com/radiant-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/ws12-orange_main_2.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ws12-orange_main_2.jpg",
     name: "Radiant Tee",
     price: 22,
     quantity: 21,
@@ -264,7 +264,7 @@ export const lumaProducts = [
     id: "WS11",
     url: "https://demo.topsort.com/diva-gym-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/ws11-yellow_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ws11-yellow_main_1.jpg",
     name: "Diva Gym Tee",
     price: 32,
     quantity: 8,
@@ -273,7 +273,7 @@ export const lumaProducts = [
     id: "WS10",
     url: "https://demo.topsort.com/karissa-v-neck-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/ws10-red_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ws10-red_main_1.jpg",
     name: "Karissa V-Neck Tee",
     price: 32,
     quantity: 3,
@@ -282,7 +282,7 @@ export const lumaProducts = [
     id: "WS09",
     url: "https://demo.topsort.com/tiffany-fitness-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/ws09-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ws09-blue_main_1.jpg",
     name: "Tiffany Fitness Tee",
     price: 28,
     quantity: 20,
@@ -291,7 +291,7 @@ export const lumaProducts = [
     id: "WS08",
     url: "https://demo.topsort.com/minerva-lumatech-trade-v-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/ws08-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ws08-blue_main_1.jpg",
     name: "Minerva LumaTech™ V-Tee",
     price: 32,
     quantity: 12,
@@ -300,7 +300,7 @@ export const lumaProducts = [
     id: "WS07",
     url: "https://demo.topsort.com/juliana-short-sleeve-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/ws07-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ws07-black_main_1.jpg",
     name: "Juliana Short-Sleeve Tee",
     price: 42,
     quantity: 17,
@@ -309,7 +309,7 @@ export const lumaProducts = [
     id: "WS06",
     url: "https://demo.topsort.com/elisa-evercool-trade-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/ws06-purple_main_2.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ws06-purple_main_2.jpg",
     name: "Elisa EverCool™ Tee",
     price: 29,
     quantity: 14,
@@ -318,7 +318,7 @@ export const lumaProducts = [
     id: "WS04",
     url: "https://demo.topsort.com/layla-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/ws04-green_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ws04-green_main_1.jpg",
     name: "Layla Tee",
     price: 29,
     quantity: 13,
@@ -327,7 +327,7 @@ export const lumaProducts = [
     id: "WS03",
     url: "https://demo.topsort.com/iris-workout-top.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/ws03-red_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ws03-red_main_1.jpg",
     name: "Iris Workout Top",
     price: 29,
     quantity: 1,
@@ -336,7 +336,7 @@ export const lumaProducts = [
     id: "WS02",
     url: "https://demo.topsort.com/gabrielle-micro-sleeve-top.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/ws02-green_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ws02-green_main_1.jpg",
     name: "Gabrielle Micro Sleeve Top",
     price: 28,
     quantity: 8,
@@ -345,7 +345,7 @@ export const lumaProducts = [
     id: "WT07",
     url: "https://demo.topsort.com/maya-tunic.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/t/wt07-green_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wt07-green_main_1.jpg",
     name: "Maya Tunic",
     price: 29,
     quantity: 17,
@@ -354,7 +354,7 @@ export const lumaProducts = [
     id: "WT06",
     url: "https://demo.topsort.com/chloe-compete-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/t/wt06-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wt06-blue_main_1.jpg",
     name: "Chloe Compete Tank",
     price: 39,
     quantity: 3,
@@ -363,7 +363,7 @@ export const lumaProducts = [
     id: "WT05",
     url: "https://demo.topsort.com/leah-yoga-top.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/t/wt05-purple_main_2.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wt05-purple_main_2.jpg",
     name: "Leah Yoga Top",
     price: 39,
     quantity: 22,
@@ -372,7 +372,7 @@ export const lumaProducts = [
     id: "WT04",
     url: "https://demo.topsort.com/nona-fitness-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/t/wt04-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wt04-blue_main_1.jpg",
     name: "Nona Fitness Tank",
     price: 39,
     quantity: 23,
@@ -381,7 +381,7 @@ export const lumaProducts = [
     id: "WT03",
     url: "https://demo.topsort.com/nora-practice-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/t/wt03-red_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wt03-red_main_1.jpg",
     name: "Nora Practice Tank",
     price: 39,
     quantity: 18,
@@ -390,7 +390,7 @@ export const lumaProducts = [
     id: "WT02",
     url: "https://demo.topsort.com/zoe-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/t/wt02-orange_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wt02-orange_main_1.jpg",
     name: "Zoe Tank",
     price: 29,
     quantity: 10,
@@ -399,7 +399,7 @@ export const lumaProducts = [
     id: "WT01",
     url: "https://demo.topsort.com/bella-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/t/wt01-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wt01-blue_main_1.jpg",
     name: "Bella Tank",
     price: 29,
     quantity: 19,
@@ -408,7 +408,7 @@ export const lumaProducts = [
     id: "WB05",
     url: "https://demo.topsort.com/lucia-cross-fit-bra.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/b/wb05-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wb05-black_main_1.jpg",
     name: "Lucia Cross-Fit Bra",
     price: 39,
     quantity: 14,
@@ -417,7 +417,7 @@ export const lumaProducts = [
     id: "WB04",
     url: "https://demo.topsort.com/prima-compete-bra-top.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/b/wb04-blue_main_2.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wb04-blue_main_2.jpg",
     name: "Prima Compete Bra Top",
     price: 24,
     quantity: 6,
@@ -426,7 +426,7 @@ export const lumaProducts = [
     id: "WB03",
     url: "https://demo.topsort.com/celeste-sports-bra.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/b/wb03-green_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wb03-green_main_1.jpg",
     name: "Celeste Sports Bra",
     price: 39,
     quantity: 9,
@@ -435,7 +435,7 @@ export const lumaProducts = [
     id: "WB02",
     url: "https://demo.topsort.com/erica-evercool-sports-bra.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/b/wb02-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wb02-blue_main_1.jpg",
     name: "Erica Evercool Sports Bra",
     price: 39,
     quantity: 15,
@@ -444,7 +444,7 @@ export const lumaProducts = [
     id: "WB01",
     url: "https://demo.topsort.com/electra-bra-top.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/b/wb01-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wb01-gray_main_1.jpg",
     name: "Electra Bra Top",
     price: 39,
     quantity: 23,
@@ -453,7 +453,7 @@ export const lumaProducts = [
     id: "WP12",
     url: "https://demo.topsort.com/deirdre-relaxed-fit-capri.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/p/wp12-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wp12-gray_main_1.jpg",
     name: "Deirdre Relaxed-Fit Capri",
     price: 63,
     quantity: 14,
@@ -462,7 +462,7 @@ export const lumaProducts = [
     id: "WP11",
     url: "https://demo.topsort.com/sylvia-capri.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/p/wp11-green_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wp11-green_main_1.jpg",
     name: "Sylvia Capri",
     price: 42,
     quantity: 4,
@@ -471,7 +471,7 @@ export const lumaProducts = [
     id: "WP10",
     url: "https://demo.topsort.com/daria-bikram-pant.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/p/wp10-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wp10-gray_main_1.jpg",
     name: "Daria Bikram Pant",
     price: 51,
     quantity: 15,
@@ -480,7 +480,7 @@ export const lumaProducts = [
     id: "WP09",
     url: "https://demo.topsort.com/carina-basic-capri.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/p/wp09-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wp09-black_main_1.jpg",
     name: "Carina Basic Capri",
     price: 51,
     quantity: 22,
@@ -489,7 +489,7 @@ export const lumaProducts = [
     id: "WP08",
     url: "https://demo.topsort.com/bardot-capri.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/p/wp08-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wp08-black_main_1.jpg",
     name: "Bardot Capri",
     price: 48,
     quantity: 9,
@@ -498,7 +498,7 @@ export const lumaProducts = [
     id: "WP07",
     url: "https://demo.topsort.com/aeon-capri.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/p/wp07-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wp07-black_main_1.jpg",
     name: "Aeon Capri",
     price: 48,
     quantity: 18,
@@ -507,7 +507,7 @@ export const lumaProducts = [
     id: "WP06",
     url: "https://demo.topsort.com/diana-tights.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/p/wp06-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wp06-black_main_1.jpg",
     name: "Diana Tights",
     price: 59,
     quantity: 2,
@@ -516,7 +516,7 @@ export const lumaProducts = [
     id: "WP05",
     url: "https://demo.topsort.com/sahara-leggings.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/p/wp05-gray_main_2.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wp05-gray_main_2.jpg",
     name: "Sahara Leggings",
     price: 75,
     quantity: 22,
@@ -525,7 +525,7 @@ export const lumaProducts = [
     id: "WP04",
     url: "https://demo.topsort.com/cora-parachute-pant.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/p/wp04-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wp04-blue_main_1.jpg",
     name: "Cora Parachute Pant",
     price: 75,
     quantity: 21,
@@ -534,7 +534,7 @@ export const lumaProducts = [
     id: "WP03",
     url: "https://demo.topsort.com/ida-workout-parachute-pant.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/p/wp03-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wp03-blue_main_1.jpg",
     name: "Ida Workout Parachute Pant",
     price: 48,
     quantity: 2,
@@ -543,7 +543,7 @@ export const lumaProducts = [
     id: "WP02",
     url: "https://demo.topsort.com/emma-leggings.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/p/wp02-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wp02-blue_main_1.jpg",
     name: "Emma Leggings",
     price: 42,
     quantity: 4,
@@ -552,7 +552,7 @@ export const lumaProducts = [
     id: "WP01",
     url: "https://demo.topsort.com/karmen-yoga-pant.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/p/wp01-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wp01-gray_main_1.jpg",
     name: "Karmen Yoga Pant",
     price: 39,
     quantity: 12,
@@ -561,7 +561,7 @@ export const lumaProducts = [
     id: "WP12",
     url: "https://demo.topsort.com/deirdre-relaxed-fit-capri.html?auction_id=06340674-6990-7d18-8b04-fb10f0c5341e",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/p/wp12-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wp12-gray_main_1.jpg",
     name: "Deirdre Relaxed-Fit Capri",
     price: 63,
     quantity: 12,
@@ -570,7 +570,7 @@ export const lumaProducts = [
     id: "WSH12",
     url: "https://demo.topsort.com/erika-running-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/wsh12-green_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wsh12-green_main_1.jpg",
     name: "Erika Running Short",
     price: 45,
     quantity: 11,
@@ -579,7 +579,7 @@ export const lumaProducts = [
     id: "WSH11",
     url: "https://demo.topsort.com/ina-compression-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/wsh11-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wsh11-blue_main_1.jpg",
     name: "Ina Compression Short",
     price: 49,
     quantity: 7,
@@ -588,7 +588,7 @@ export const lumaProducts = [
     id: "WSH10",
     url: "https://demo.topsort.com/ana-running-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/wsh10-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wsh10-black_main_1.jpg",
     name: "Ana Running Short",
     price: 40,
     quantity: 17,
@@ -597,7 +597,7 @@ export const lumaProducts = [
     id: "WSH09",
     url: "https://demo.topsort.com/mimi-all-purpose-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/wsh09-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wsh09-gray_main_1.jpg",
     name: "Mimi All-Purpose Short",
     price: 44,
     quantity: 14,
@@ -606,7 +606,7 @@ export const lumaProducts = [
     id: "WSH08",
     url: "https://demo.topsort.com/sybil-running-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/wsh08-purple_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wsh08-purple_main_1.jpg",
     name: "Sybil Running Short",
     price: 44,
     quantity: 20,
@@ -615,7 +615,7 @@ export const lumaProducts = [
     id: "WSH07",
     url: "https://demo.topsort.com/echo-fit-compression-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/wsh07-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wsh07-black_main_1.jpg",
     name: "Echo Fit Compression Short",
     price: 24,
     quantity: 10,
@@ -624,7 +624,7 @@ export const lumaProducts = [
     id: "WSH06",
     url: "https://demo.topsort.com/angel-light-running-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/wsh06-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wsh06-gray_main_1.jpg",
     name: "Angel Light Running Short",
     price: 42,
     quantity: 3,
@@ -633,7 +633,7 @@ export const lumaProducts = [
     id: "WSH05",
     url: "https://demo.topsort.com/bess-yoga-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/wsh05-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wsh05-blue_main_1.jpg",
     name: "Bess Yoga Short",
     price: 28,
     quantity: 18,
@@ -642,7 +642,7 @@ export const lumaProducts = [
     id: "WSH04",
     url: "https://demo.topsort.com/artemis-running-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/wsh04-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wsh04-black_main_1.jpg",
     name: "Artemis Running Short",
     price: 45,
     quantity: 24,
@@ -651,7 +651,7 @@ export const lumaProducts = [
     id: "WSH03",
     url: "https://demo.topsort.com/gwen-drawstring-bike-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/wsh03-gray_main_2.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wsh03-gray_main_2.jpg",
     name: "Gwen Drawstring Bike Short",
     price: 50,
     quantity: 8,
@@ -660,7 +660,7 @@ export const lumaProducts = [
     id: "WSH02",
     url: "https://demo.topsort.com/maxima-drawstring-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/wsh02-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wsh02-gray_main_1.jpg",
     name: "Maxima Drawstring Short",
     price: 28,
     quantity: 7,
@@ -669,7 +669,7 @@ export const lumaProducts = [
     id: "WSH01",
     url: "https://demo.topsort.com/fiona-fitness-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/w/s/wsh01-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/wsh01-black_main_1.jpg",
     name: "Fiona Fitness Short",
     price: 29,
     quantity: 18,
@@ -678,7 +678,7 @@ export const lumaProducts = [
     id: "MJ12",
     url: "https://demo.topsort.com/proteus-fitness-jackshirt.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/j/mj12-orange_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mj12-orange_main_1.jpg",
     name: "Proteus Fitness Jackshirt",
     price: 45,
     quantity: 21,
@@ -687,7 +687,7 @@ export const lumaProducts = [
     id: "MJ03",
     url: "https://demo.topsort.com/montana-wind-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/j/mj03-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mj03-black_main_1.jpg",
     name: "Montana Wind Jacket",
     price: 49,
     quantity: 16,
@@ -696,7 +696,7 @@ export const lumaProducts = [
     id: "MJ06",
     url: "https://demo.topsort.com/jupiter-all-weather-trainer.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/j/mj06-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mj06-blue_main_1.jpg",
     name: "Jupiter All-Weather Trainer",
     price: 56.99,
     quantity: 3,
@@ -705,7 +705,7 @@ export const lumaProducts = [
     id: "MJ11",
     url: "https://demo.topsort.com/typhon-performance-fleece-lined-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/j/mj11-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mj11-black_main_1.jpg",
     name: "Typhon Performance Fleece-lined Jacket",
     price: 60,
     quantity: 18,
@@ -714,7 +714,7 @@ export const lumaProducts = [
     id: "MJ10",
     url: "https://demo.topsort.com/mars-heattech-trade-pullover.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/j/mj10-red_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mj10-red_main_1.jpg",
     name: "Mars HeatTech™ Pullover",
     price: 66,
     quantity: 13,
@@ -723,7 +723,7 @@ export const lumaProducts = [
     id: "MJ09",
     url: "https://demo.topsort.com/taurus-elements-shell.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/j/mj09-yellow_main_2.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mj09-yellow_main_2.jpg",
     name: "Taurus Elements Shell",
     price: 65,
     quantity: 24,
@@ -732,7 +732,7 @@ export const lumaProducts = [
     id: "MJ08",
     url: "https://demo.topsort.com/lando-gym-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/j/mj08-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mj08-gray_main_1.jpg",
     name: "Lando Gym Jacket",
     price: 99,
     quantity: 25,
@@ -741,7 +741,7 @@ export const lumaProducts = [
     id: "MJ07",
     url: "https://demo.topsort.com/orion-two-tone-fitted-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/j/mj07-red_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mj07-red_main_1.jpg",
     name: "Orion Two-Tone Fitted Jacket",
     price: 72,
     quantity: 2,
@@ -750,7 +750,7 @@ export const lumaProducts = [
     id: "MJ04",
     url: "https://demo.topsort.com/kenobi-trail-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/j/mj04-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mj04-black_main_1.jpg",
     name: "Kenobi Trail Jacket",
     price: 47,
     quantity: 23,
@@ -759,7 +759,7 @@ export const lumaProducts = [
     id: "MJ02",
     url: "https://demo.topsort.com/hyperion-elements-jacket.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/j/mj02-green_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mj02-green_main_1.jpg",
     name: "Hyperion Elements Jacket",
     price: 51,
     quantity: 2,
@@ -768,7 +768,7 @@ export const lumaProducts = [
     id: "MJ01",
     url: "https://demo.topsort.com/beaumont-summit-kit.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/j/mj01-yellow_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mj01-yellow_main_1.jpg",
     name: "Beaumont Summit Kit",
     price: 42,
     quantity: 5,
@@ -777,7 +777,7 @@ export const lumaProducts = [
     id: "MH12",
     url: "https://demo.topsort.com/ajax-full-zip-sweatshirt.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/h/mh12-green_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mh12-green_main_1.jpg",
     name: "Ajax Full-Zip Sweatshirt",
     price: 69,
     quantity: 21,
@@ -786,7 +786,7 @@ export const lumaProducts = [
     id: "MH11",
     url: "https://demo.topsort.com/grayson-crewneck-sweatshirt.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/h/mh11-white_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mh11-white_main_1.jpg",
     name: "Grayson Crewneck Sweatshirt",
     price: 64,
     quantity: 8,
@@ -795,7 +795,7 @@ export const lumaProducts = [
     id: "MH10",
     url: "https://demo.topsort.com/mach-street-sweatshirt.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/h/mh10-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mh10-blue_main_1.jpg",
     name: "Mach Street Sweatshirt",
     price: 62,
     quantity: 8,
@@ -804,7 +804,7 @@ export const lumaProducts = [
     id: "MH09",
     url: "https://demo.topsort.com/abominable-hoodie.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/h/mh09-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mh09-blue_main_1.jpg",
     name: "Abominable Hoodie",
     price: 69,
     quantity: 11,
@@ -813,7 +813,7 @@ export const lumaProducts = [
     id: "MH08",
     url: "https://demo.topsort.com/oslo-trek-hoodie.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/h/mh08-brown_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mh08-brown_main_1.jpg",
     name: "Oslo Trek Hoodie",
     price: 42,
     quantity: 5,
@@ -822,7 +822,7 @@ export const lumaProducts = [
     id: "MH07",
     url: "https://demo.topsort.com/hero-hoodie.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/h/mh07-gray_main_2.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mh07-gray_main_2.jpg",
     name: "Hero Hoodie",
     price: 54,
     quantity: 19,
@@ -831,7 +831,7 @@ export const lumaProducts = [
     id: "MH06",
     url: "https://demo.topsort.com/stark-fundamental-hoodie.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/h/mh06-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mh06-blue_main_1.jpg",
     name: "Stark Fundamental Hoodie",
     price: 42,
     quantity: 1,
@@ -840,7 +840,7 @@ export const lumaProducts = [
     id: "MH05",
     url: "https://demo.topsort.com/hollister-backyard-sweatshirt.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/h/mh05-white_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mh05-white_main_1.jpg",
     name: "Hollister Backyard Sweatshirt",
     price: 52,
     quantity: 23,
@@ -849,7 +849,7 @@ export const lumaProducts = [
     id: "MH04",
     url: "https://demo.topsort.com/frankie-sweatshirt.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/h/mh04-green_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mh04-green_main_1.jpg",
     name: "Frankie Sweatshirt",
     price: 60,
     quantity: 16,
@@ -858,7 +858,7 @@ export const lumaProducts = [
     id: "MH03",
     url: "https://demo.topsort.com/bruno-compete-hoodie.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/h/mh03-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mh03-black_main_1.jpg",
     name: "Bruno Compete Hoodie",
     price: 63,
     quantity: 16,
@@ -867,7 +867,7 @@ export const lumaProducts = [
     id: "MH02",
     url: "https://demo.topsort.com/teton-pullover-hoodie.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/h/mh02-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mh02-black_main_1.jpg",
     name: "Teton Pullover Hoodie",
     price: 70,
     quantity: 24,
@@ -876,7 +876,7 @@ export const lumaProducts = [
     id: "MH01",
     url: "https://demo.topsort.com/chaz-kangeroo-hoodie.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/h/mh01-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mh01-gray_main_1.jpg",
     name: "Chaz Kangeroo Hoodie",
     price: 52,
     quantity: 25,
@@ -885,7 +885,7 @@ export const lumaProducts = [
     id: "MS08",
     url: "https://demo.topsort.com/strike-endurance-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/ms08-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ms08-black_main_1.jpg",
     name: "Strike Endurance Tee",
     price: 39,
     quantity: 3,
@@ -894,7 +894,7 @@ export const lumaProducts = [
     id: "MS07",
     url: "https://demo.topsort.com/deion-long-sleeve-evercool-trade-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/ms07-green_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ms07-green_main_1.jpg",
     name: "Deion Long-Sleeve EverCool™ Tee",
     price: 39,
     quantity: 17,
@@ -903,7 +903,7 @@ export const lumaProducts = [
     id: "MS10",
     url: "https://demo.topsort.com/logan-heattec-reg-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/ms10-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ms10-blue_main_1.jpg",
     name: "Logan HeatTec® Tee",
     price: 24,
     quantity: 23,
@@ -912,7 +912,7 @@ export const lumaProducts = [
     id: "MS02",
     url: "https://demo.topsort.com/ryker-lumatech-trade-tee-v-neck.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/ms02-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ms02-gray_main_1.jpg",
     name: "Ryker LumaTech™ Tee (V-neck)",
     price: 28,
     quantity: 1,
@@ -921,7 +921,7 @@ export const lumaProducts = [
     id: "MS01",
     url: "https://demo.topsort.com/aero-daily-fitness-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/ms01-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ms01-blue_main_1.jpg",
     name: "Aero Daily Fitness Tee",
     price: 24,
     quantity: 6,
@@ -930,7 +930,7 @@ export const lumaProducts = [
     id: "MS06",
     url: "https://demo.topsort.com/zoltan-gym-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/ms06-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ms06-blue_main_1.jpg",
     name: "Zoltan Gym Tee",
     price: 29,
     quantity: 16,
@@ -939,7 +939,7 @@ export const lumaProducts = [
     id: "MS03",
     url: "https://demo.topsort.com/balboa-persistence-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/ms03-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ms03-black_main_1.jpg",
     name: "Balboa Persistence Tee",
     price: 29,
     quantity: 6,
@@ -948,7 +948,7 @@ export const lumaProducts = [
     id: "MS12",
     url: "https://demo.topsort.com/atomic-endurance-running-tee-crew-neck.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/ms12-red_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ms12-red_main_1.jpg",
     name: "Atomic Endurance Running Tee (Crew-Neck)",
     price: 29,
     quantity: 12,
@@ -957,7 +957,7 @@ export const lumaProducts = [
     id: "MS11",
     url: "https://demo.topsort.com/atomic-endurance-running-tee-v-neck.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/ms11-green_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ms11-green_main_1.jpg",
     name: "Atomic Endurance Running Tee (V-neck)",
     price: 28,
     quantity: 19,
@@ -966,7 +966,7 @@ export const lumaProducts = [
     id: "MS09",
     url: "https://demo.topsort.com/ryker-lumatech-trade-tee-crew-neck.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/ms09-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ms09-blue_main_1.jpg",
     name: "Ryker LumaTech™ Tee (Crew-neck)",
     price: 32,
     quantity: 16,
@@ -975,7 +975,7 @@ export const lumaProducts = [
     id: "MS05",
     url: "https://demo.topsort.com/helios-evercool-trade-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/ms05-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ms05-blue_main_1.jpg",
     name: "Helios EverCool™ Tee",
     price: 24,
     quantity: 21,
@@ -984,7 +984,7 @@ export const lumaProducts = [
     id: "MS04",
     url: "https://demo.topsort.com/gobi-heattec-reg-tee.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/ms04-orange_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/ms04-orange_main_1.jpg",
     name: "Gobi HeatTec® Tee",
     price: 29,
     quantity: 13,
@@ -993,7 +993,7 @@ export const lumaProducts = [
     id: "MT12",
     url: "https://demo.topsort.com/cassius-sparring-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/t/mt12-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mt12-blue_main_1.jpg",
     name: "Cassius Sparring Tank",
     price: 18,
     quantity: 11,
@@ -1002,7 +1002,7 @@ export const lumaProducts = [
     id: "MT11",
     url: "https://demo.topsort.com/atlas-fitness-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/t/mt11-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mt11-blue_main_1.jpg",
     name: "Atlas Fitness Tank",
     price: 18,
     quantity: 19,
@@ -1011,7 +1011,7 @@ export const lumaProducts = [
     id: "MT10",
     url: "https://demo.topsort.com/tiberius-gym-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/t/mt10-yellow_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mt10-yellow_main_1.jpg",
     name: "Tiberius Gym Tank",
     price: 18,
     quantity: 13,
@@ -1020,7 +1020,7 @@ export const lumaProducts = [
     id: "MT09",
     url: "https://demo.topsort.com/sinbad-fitness-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/t/mt09-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mt09-blue_main_1.jpg",
     name: "Sinbad Fitness Tank",
     price: 29,
     quantity: 4,
@@ -1029,7 +1029,7 @@ export const lumaProducts = [
     id: "MT08",
     url: "https://demo.topsort.com/sparta-gym-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/t/mt08-green_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mt08-green_main_1.jpg",
     name: "Sparta Gym Tank",
     price: 29,
     quantity: 3,
@@ -1038,7 +1038,7 @@ export const lumaProducts = [
     id: "MT07",
     url: "https://demo.topsort.com/argus-all-weather-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/t/mt07-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mt07-gray_main_1.jpg",
     name: "Argus All-Weather Tank",
     price: 22,
     quantity: 15,
@@ -1047,7 +1047,7 @@ export const lumaProducts = [
     id: "MT06",
     url: "https://demo.topsort.com/vulcan-weightlifting-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/t/mt06-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mt06-black_main_1.jpg",
     name: "Vulcan Weightlifting Tank",
     price: 28,
     quantity: 11,
@@ -1056,7 +1056,7 @@ export const lumaProducts = [
     id: "MT05",
     url: "https://demo.topsort.com/rocco-gym-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/t/mt05-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mt05-blue_main_1.jpg",
     name: "Rocco Gym Tank",
     price: 24,
     quantity: 22,
@@ -1065,7 +1065,7 @@ export const lumaProducts = [
     id: "MT04",
     url: "https://demo.topsort.com/helios-endurance-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/t/mt04-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mt04-blue_main_1.jpg",
     name: "Helios Endurance Tank",
     price: 32,
     quantity: 2,
@@ -1074,7 +1074,7 @@ export const lumaProducts = [
     id: "MT03",
     url: "https://demo.topsort.com/primo-endurance-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/t/mt03-red_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mt03-red_main_1.jpg",
     name: "Primo Endurance Tank",
     price: 29,
     quantity: 21,
@@ -1083,7 +1083,7 @@ export const lumaProducts = [
     id: "MT02",
     url: "https://demo.topsort.com/tristan-endurance-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/t/mt02-white_main_2.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mt02-white_main_2.jpg",
     name: "Tristan Endurance Tank",
     price: 29,
     quantity: 15,
@@ -1092,7 +1092,7 @@ export const lumaProducts = [
     id: "MT01",
     url: "https://demo.topsort.com/erikssen-cooltech-trade-fitness-tank.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/t/mt01-red_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mt01-red_main_1.jpg",
     name: "Erikssen CoolTech™ Fitness Tank",
     price: 29,
     quantity: 10,
@@ -1101,7 +1101,7 @@ export const lumaProducts = [
     id: "MP12",
     url: "https://demo.topsort.com/cronus-yoga-pant.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/p/mp12-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mp12-black_main_1.jpg",
     name: "Cronus Yoga Pant",
     price: 48,
     quantity: 3,
@@ -1110,7 +1110,7 @@ export const lumaProducts = [
     id: "MP11",
     url: "https://demo.topsort.com/aether-gym-pant.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/p/mp11-brown_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mp11-brown_main_1.jpg",
     name: "Aether Gym Pant",
     price: 74,
     quantity: 16,
@@ -1119,7 +1119,7 @@ export const lumaProducts = [
     id: "MP10",
     url: "https://demo.topsort.com/orestes-yoga-pant.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/p/mp10-black_main_2.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mp10-black_main_2.jpg",
     name: "Orestes Yoga Pant",
     price: 66,
     quantity: 3,
@@ -1128,7 +1128,7 @@ export const lumaProducts = [
     id: "MP09",
     url: "https://demo.topsort.com/livingston-all-purpose-tight.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/p/mp09-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mp09-blue_main_1.jpg",
     name: "Livingston All-Purpose Tight",
     price: 75,
     quantity: 18,
@@ -1137,7 +1137,7 @@ export const lumaProducts = [
     id: "MP08",
     url: "https://demo.topsort.com/zeppelin-yoga-pant.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/p/mp08-green_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mp08-green_main_1.jpg",
     name: "Zeppelin Yoga Pant",
     price: 82,
     quantity: 4,
@@ -1146,7 +1146,7 @@ export const lumaProducts = [
     id: "MP07",
     url: "https://demo.topsort.com/thorpe-track-pant.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/p/mp07-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mp07-blue_main_1.jpg",
     name: "Thorpe Track Pant",
     price: 68,
     quantity: 12,
@@ -1155,7 +1155,7 @@ export const lumaProducts = [
     id: "MP06",
     url: "https://demo.topsort.com/mithra-warmup-pant.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/p/mp06-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mp06-gray_main_1.jpg",
     name: "Mithra Warmup Pant",
     price: 28,
     quantity: 2,
@@ -1164,7 +1164,7 @@ export const lumaProducts = [
     id: "MP05",
     url: "https://demo.topsort.com/kratos-gym-pant.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/p/mp05-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mp05-blue_main_1.jpg",
     name: "Kratos Gym Pant",
     price: 57,
     quantity: 25,
@@ -1173,7 +1173,7 @@ export const lumaProducts = [
     id: "MP04",
     url: "https://demo.topsort.com/supernova-sport-pant.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/p/mp04-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mp04-gray_main_1.jpg",
     name: "Supernova Sport Pant",
     price: 45,
     quantity: 20,
@@ -1182,7 +1182,7 @@ export const lumaProducts = [
     id: "MP03",
     url: "https://demo.topsort.com/geo-insulated-jogging-pant.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/p/mp03-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mp03-black_main_1.jpg",
     name: "Geo Insulated Jogging Pant",
     price: 51,
     quantity: 4,
@@ -1191,7 +1191,7 @@ export const lumaProducts = [
     id: "MP02",
     url: "https://demo.topsort.com/viktor-lumatech-trade-pant.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/p/mp02-gray_main_2.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mp02-gray_main_2.jpg",
     name: "Viktor LumaTech™ Pant",
     price: 46,
     quantity: 8,
@@ -1200,7 +1200,7 @@ export const lumaProducts = [
     id: "MP01",
     url: "https://demo.topsort.com/caesar-warm-up-pant.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/p/mp01-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/mp01-gray_main_1.jpg",
     name: "Caesar Warm-Up Pant",
     price: 35,
     quantity: 8,
@@ -1209,7 +1209,7 @@ export const lumaProducts = [
     id: "MSH12",
     url: "https://demo.topsort.com/pierce-gym-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/msh12-red_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/msh12-red_main_1.jpg",
     name: "Pierce Gym Short",
     price: 27,
     quantity: 8,
@@ -1218,7 +1218,7 @@ export const lumaProducts = [
     id: "MSH11",
     url: "https://demo.topsort.com/arcadio-gym-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/msh11-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/msh11-blue_main_1.jpg",
     name: "Arcadio Gym Short",
     price: 20,
     quantity: 1,
@@ -1227,7 +1227,7 @@ export const lumaProducts = [
     id: "MSH10",
     url: "https://demo.topsort.com/sol-active-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/msh10-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/msh10-blue_main_1.jpg",
     name: "Sol Active Short",
     price: 32,
     quantity: 8,
@@ -1236,7 +1236,7 @@ export const lumaProducts = [
     id: "MSH09",
     url: "https://demo.topsort.com/troy-yoga-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/msh09-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/msh09-blue_main_1.jpg",
     name: "Troy Yoga Short",
     price: 24,
     quantity: 17,
@@ -1245,7 +1245,7 @@ export const lumaProducts = [
     id: "MSH08",
     url: "https://demo.topsort.com/orestes-fitness-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/msh08-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/msh08-black_main_1.jpg",
     name: "Orestes Fitness Short",
     price: 35,
     quantity: 20,
@@ -1254,7 +1254,7 @@ export const lumaProducts = [
     id: "MSH07",
     url: "https://demo.topsort.com/rapha-sports-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/msh07-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/msh07-black_main_1.jpg",
     name: "Rapha Sports Short",
     price: 35,
     quantity: 18,
@@ -1263,7 +1263,7 @@ export const lumaProducts = [
     id: "MSH06",
     url: "https://demo.topsort.com/lono-yoga-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/msh06-gray_main_2.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/msh06-gray_main_2.jpg",
     name: "Lono Yoga Short",
     price: 32,
     quantity: 22,
@@ -1272,7 +1272,7 @@ export const lumaProducts = [
     id: "MSH05",
     url: "https://demo.topsort.com/hawkeye-yoga-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/msh05-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/msh05-gray_main_1.jpg",
     name: "Hawkeye Yoga Short",
     price: 29,
     quantity: 11,
@@ -1281,7 +1281,7 @@ export const lumaProducts = [
     id: "MSH04",
     url: "https://demo.topsort.com/torque-power-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/msh04-gray_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/msh04-gray_main_1.jpg",
     name: "Torque Power Short",
     price: 32.5,
     quantity: 7,
@@ -1290,7 +1290,7 @@ export const lumaProducts = [
     id: "MSH03",
     url: "https://demo.topsort.com/meteor-workout-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/msh03-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/msh03-blue_main_1.jpg",
     name: "Meteor Workout Short",
     price: 32.5,
     quantity: 7,
@@ -1299,7 +1299,7 @@ export const lumaProducts = [
     id: "MSH02",
     url: "https://demo.topsort.com/apollo-running-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/msh02-black_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/msh02-black_main_1.jpg",
     name: "Apollo Running Short",
     price: 32.5,
     quantity: 12,
@@ -1308,7 +1308,7 @@ export const lumaProducts = [
     id: "MSH01",
     url: "https://demo.topsort.com/cobalt-cooltech-trade-fitness-short.html",
     imgUrl:
-      "https://demo.topsort.com/media/catalog/product/cache/aa9aafb6a4706fae003d9ec8034d6da2/m/s/msh01-blue_main_1.jpg",
+      "https://topsorted-assets.s3.amazonaws.com/assets/msh01-blue_main_1.jpg",
     name: "Cobalt CoolTech™ Fitness Short",
     price: 44,
     quantity: 22,
