@@ -13,7 +13,7 @@ import { PaymentMethod as StripePaymentMethod } from "@stripe/stripe-js";
 
 import type { Services } from "./types";
 
-function getHeaders(token: string) {
+export function getHeaders(token: string) {
   return {
     authorization: `Bearer ${token}`,
     "Content-Type": "application/json",

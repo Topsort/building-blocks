@@ -2,15 +2,9 @@ import { api } from "@api/index";
 import { paths } from "@api/paths";
 import * as schemas from "@api/schemas";
 import { ValidationResponse } from "@api/types";
+import { getHeaders } from "@services/central-services/services";
 
 import { ValidationService } from "./types";
-
-function getHeaders(token: string) {
-  return {
-    authorization: `Bearer ${token}`,
-    "Content-Type": "application/json",
-  };
-}
 
 async function getValidationToken(
   apiKey: string,
