@@ -29,7 +29,7 @@ import { Visa } from "./icons/Visa";
 // NOTE(christopherbot) All keys are wrapped in quotes for easier programmatic sorting
 // prettier-ignore
 /* eslint-disable quote-props */
-const icons = {
+const icons: Record<string, () => h.JSX.Element> = {
   "amex": Amex,
   "arrow-circle-up-bold": ArrowCircleUpBold,
   "arrow-down-bold": ArrowDownBold,
@@ -62,7 +62,7 @@ export const Icon: FunctionalComponent<
     name: IconName;
   }
 > = ({ name, ...props }) => {
-  const IconComponent = useMemo(() => icons[name], [name]);
+  const IconComponent: () => h.JSX.Element = useMemo(() => icons[name], [name]);
 
   if (!IconComponent) return <div />;
 

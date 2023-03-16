@@ -96,7 +96,7 @@ export const Input: FunctionalComponent<InputProps> = ({
     }
     const valueStr = String(inputRef.current.value);
     const width = calculateTextWidth(
-      valueStr.length > 0 ? valueStr : placeholder ?? "",
+      valueStr.length > 0 ? valueStr : placeholder?.toString() ?? "",
       getComputedStyle(inputRef.current).font
     );
     inputRef.current.style.width = `${width}px`;
@@ -143,7 +143,7 @@ export const Input: FunctionalComponent<InputProps> = ({
           ref={inputRef}
           value={value}
           placeholder={placeholder}
-          className={cx("ts-input", className)}
+          className={cx("ts-input", className?.toString())}
           onInput={onInputInternal}
           type={type}
           {...props}

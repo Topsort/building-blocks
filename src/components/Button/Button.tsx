@@ -13,7 +13,7 @@ export const Button: FunctionalComponent<
   const borderRadius = style.button?.borderRadius || "sm";
   return (
     <button
-      className={cx("ts-button", className, {
+      className={cx("ts-button", className?.toString(), {
         "ts-button--inline": variant === "inline",
         "ts-button--text": variant === "text",
         "ts-button--contained": variant === "contained",

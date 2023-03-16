@@ -44,7 +44,7 @@ export const CampaignEstimation: FunctionalComponent<
     <div
       className={cx(
         "ts-callout ts-flex ts-items-center ts-space-x-4",
-        className
+        className?.toString()
       )}
       {...props}
     >

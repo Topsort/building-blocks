@@ -1,4 +1,4 @@
-import { lumaProducts } from "./lumaProducts.js";
+import { topsortedProducts } from "./topsortedProducts.js";
 import { validateVendor } from "./validateVendor.js";
 
 /* global TopsortBlocks */
@@ -9,7 +9,7 @@ const numProducts = 20;
 const productsPerPage = 10;
 const isUsingTopsortBlocks = true;
 const isUsingCustomProps = false;
-const useLumaProducts = true;
+const useTopsortedProducts = true;
 const customPromoteTargetClassName = "my-custom-promote-target";
 
 function getNewElement(selector) {
@@ -85,7 +85,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const wrapper = document.querySelector(".wrapper");
 
-  const products = useLumaProducts ? lumaProducts : getNumberedProducts();
+  const products = useTopsortedProducts
+    ? topsortedProducts
+    : getNumberedProducts();
 
   let filter = "";
   let page = 1;
@@ -100,9 +102,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 
-    // filter products based on the entered filter
-    const filteredProducts = products.filter((product) =>
-      product.name.toLowerCase().includes(filter)
+    // filter products by name/id based on the entered filter
+    const filteredProducts = products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(filter) ||
+        product.id.toLowerCase().includes(filter)
     );
 
     // it indicates the starting index of the products to be displayed
