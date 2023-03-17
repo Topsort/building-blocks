@@ -365,8 +365,7 @@ export default class TopsortBlocks {
       this.vendorId = externalVendorId;
       this.authToken = authToken;
       const marketplaceDetails = await services.getMarketplaceDetails(
-        this.authToken,
-        this.vendorId
+        this.authToken
       );
       this.marketplaceDetails = marketplaceDetails;
       const { currencyCode, currencyExponent, languagePreference } =

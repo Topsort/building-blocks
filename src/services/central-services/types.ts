@@ -9,10 +9,7 @@ import {
 import { PaymentMethod as StripePaymentMethod } from "@stripe/stripe-js";
 
 export type Services = {
-  getMarketplaceDetails(
-    authToken: string,
-    vendorId: string
-  ): Promise<MarketplaceDetails>;
+  getMarketplaceDetails(authToken: string): Promise<MarketplaceDetails>;
   getDefaultBudgetAndCpc(
     authToken: string,
     vendorId: string

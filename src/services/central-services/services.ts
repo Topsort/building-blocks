@@ -21,12 +21,11 @@ export function getHeaders(token: string) {
 }
 
 async function getMarketplaceDetails(
-  authToken: string,
-  vendorId: string
+  authToken: string
 ): Promise<MarketplaceDetails> {
   return await api(
     schemas.marketplaceDetailsSchema,
-    paths.marketplaceDetails(vendorId),
+    paths.marketplaceDetails(),
     {
       method: "GET",
       headers: getHeaders(authToken),
