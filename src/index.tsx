@@ -10,8 +10,16 @@ import {
 } from "@constants";
 import { ProductPromotionContext, useProductPromotion } from "@context";
 import { services } from "@services/central-services";
+import { validationService } from "@services/validation-service";
 import { initialState, reducer, State } from "@state";
-import { Currency, CustomText, RequestStatus, Style } from "@types";
+import {
+  Currency,
+  CustomText,
+  initialParamsSchema,
+  InitParams,
+  RequestStatus,
+  Style,
+} from "@types";
 import {
   getInvalidRgbWarning,
   isRgbValid,
@@ -321,14 +329,6 @@ const AppWithContext: FunctionalComponent<{
   );
 };
 
-type InitParams = {
-  apiKey: string;
-  externalVendorId: string;
-  promoteTargetClassName?: string;
-  style?: Style;
-  text?: CustomText;
-};
-
 export default class TopsortBlocks {
   private authToken?: string;
   private vendorId?: string;
@@ -352,44 +352,18 @@ export default class TopsortBlocks {
   static promoteTargetClassName = defaultPromoteTargetClassName;
 
   async init(params: InitParams) {
-    if (typeof params !== "object") {
-      logger.error('Method "init" is missing the required params object.');
-      return;
-    }
-
-    if (!params.apiKey || !params.externalVendorId) {
-      if (!params.apiKey) {
-        logger.error(
-          'Method "init" is missing the required apiKey in the params object.'
-        );
-      }
-
-      if (!params.externalVendorId) {
-        logger.error(
-          'Method "init" is missing the required externalVendorId in the params object.'
-        );
-      }
-
-      return;
-    }
-
-    this.vendorId = params.externalVendorId;
-
     try {
-      const { authToken } = await services.validateVendor(
-        params.apiKey,
-        params.externalVendorId
-      );
+      const { apiKey, externalVendorId, promoteTargetClassName, style, text } =
+        initialParamsSchema.parse(params);
+      const { authToken, authorized } =
+        await validationService.getValidationToken(apiKey, externalVendorId);
+
+      if (!authorized) {
+        throw new Error("Api Key not valid");
+      }
+
+      this.vendorId = externalVendorId;
       this.authToken = authToken;
-    } catch (error) {
-      logger.error("Failed to validate vendor.", error);
-    }
-
-    try {
-      if (!this.authToken) {
-        return;
-      }
-
       const marketplaceDetails = await services.getMarketplaceDetails(
         this.authToken
       );
@@ -420,13 +394,12 @@ export default class TopsortBlocks {
           moneyParts.findIndex((part) => part.type === "currency") <
           moneyParts.findIndex((part) => part.type === "integer"),
       };
+      this.promoteTargetClassName = promoteTargetClassName;
+      this.style = style;
+      this.text = text;
     } catch (error) {
       logger.error("Failed to get marketplace details.", error);
     }
-
-    this.promoteTargetClassName = params.promoteTargetClassName;
-    this.style = params.style;
-    this.text = params.text;
   }
 
   useProductPromotion() {

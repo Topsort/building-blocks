@@ -59,7 +59,7 @@
 
        button: {
          // defaults to "sm":
-         borderRadius: "none" | "sm" | "full"
+         borderRadius: "none" | "sm" | "full",
        },
      },
      text: {
@@ -117,6 +117,7 @@
    ```js
    tsBlocks.useProductPromotion();
    ```
+
 ## Development
 
 ### Running the demo

@@ -3,7 +3,6 @@ import { paths } from "@api/paths";
 import * as schemas from "@api/schemas";
 import type {
   CampaignIdsByProductId,
-  ValidateVendor,
   PaymentMethod,
   Campaign,
   DefaultBudgetAndCpc,
@@ -14,21 +13,11 @@ import { PaymentMethod as StripePaymentMethod } from "@stripe/stripe-js";
 
 import type { Services } from "./types";
 
-function getHeaders(token: string) {
+export function getHeaders(token: string) {
   return {
     authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
   };
-}
-
-async function validateVendor(
-  apiKey: string,
-  vendorId: string
-): Promise<ValidateVendor> {
-  return await api(schemas.validateVendorSchema, paths.validate(vendorId), {
-    method: "GET",
-    headers: getHeaders(apiKey),
-  });
 }
 
 async function getMarketplaceDetails(
@@ -341,7 +330,6 @@ async function endCampaign(
 }
 
 export const services: Services = {
-  validateVendor,
   getMarketplaceDetails,
   getDefaultBudgetAndCpc,
   getPaymentMethods,

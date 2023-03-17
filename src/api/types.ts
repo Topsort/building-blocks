@@ -1,8 +1,6 @@
 import * as schemas from "@api/schemas";
 import { z } from "zod";
 
-export type ValidateVendor = z.infer<typeof schemas.validateVendorSchema>;
-
 export type MarketplaceDetails = z.infer<
   typeof schemas.marketplaceDetailsSchema
 >;
@@ -19,3 +17,5 @@ export type PartialCampaign = z.infer<typeof schemas.campaignPartialSchema>;
 export type Campaign = z.infer<typeof schemas.campaignSchema>;
 
 export type PaymentMethod = z.infer<typeof schemas.paymentMethodSchema>;
+
+export type ValidationResponse = z.infer<typeof schemas.validationSchema>;

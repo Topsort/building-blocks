@@ -80,6 +80,7 @@ module.exports = {
       ),
       STRIPE_PUBLIC_KEY: JSON.stringify(process.env.STRIPE_PUBLIC_KEY),
       USE_MOCK_SERVER: JSON.stringify(process.env.USE_MOCK_SERVER),
+      AUTH_BASE_URL: JSON.stringify(process.env.AUTH_BASE_URL),
     }),
   ],
   output: {
