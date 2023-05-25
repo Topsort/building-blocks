@@ -1,7 +1,6 @@
 import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
 import { useProductPromotion } from "@context";
-import { services } from "@services/central-services";
 import { assertNever } from "@utils/assert-never";
 import { logger } from "@utils/logger";
 import { getStripe } from "@utils/payment";
