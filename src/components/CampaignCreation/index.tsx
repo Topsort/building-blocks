@@ -27,9 +27,8 @@ export const CampaignCreation: FunctionalComponent = () => {
       try {
         if (paymentMethods.length > 0) return;
 
-        const fetchedPaymentMethods = await services.getPaymentMethods(
-          authToken
-        );
+        // TODO: get payments method from billing API
+        const fetchedPaymentMethods: any[] = [];
 
         dispatch({
           type: "payment methods received",

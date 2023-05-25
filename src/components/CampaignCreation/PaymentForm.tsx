@@ -139,7 +139,7 @@ const StripePaymentForm = () => {
     setErrorCodesByType(initialErrorCodesByType);
 
     try {
-      await services.createPaymentMethod(authToken, paymentMethod);
+      // TODO: save payments method in billing API
       dispatch({
         type: "payment method saved",
         payload: {
