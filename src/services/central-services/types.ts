@@ -6,7 +6,6 @@ import {
   PartialCampaign,
   PaymentMethod,
 } from "@api/types";
-import { PaymentMethod as StripePaymentMethod } from "@stripe/stripe-js";
 
 export type Services = {
   getMarketplaceDetails(authToken: string): Promise<MarketplaceDetails>;
