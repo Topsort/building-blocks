@@ -14,11 +14,6 @@ export type Services = {
     authToken: string,
     vendorId: string
   ): Promise<DefaultBudgetAndCpc>;
-  getPaymentMethods(authToken: string): Promise<PaymentMethod[]>;
-  createPaymentMethod(
-    authToken: string,
-    paymentMethod: StripePaymentMethod
-  ): Promise<null>;
   getCampaignIdsByProductId(
     authToken: string,
     vendorId: string,
