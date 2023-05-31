@@ -1,7 +1,6 @@
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { useProductPromotion } from "@context";
-import { services } from "@services/central-services";
 import {
   Elements,
   useStripe,
@@ -47,7 +46,7 @@ const errorText = {
 };
 
 const StripePaymentForm = () => {
-  const { authToken, dispatch } = useProductPromotion();
+  const { dispatch } = useProductPromotion();
   const stripe = useStripe();
   const elements = useElements();
   const [loadingElements, setLoadingElements] = useState<
@@ -139,7 +138,7 @@ const StripePaymentForm = () => {
     setErrorCodesByType(initialErrorCodesByType);
 
     try {
-      await services.createPaymentMethod(authToken, paymentMethod);
+      // TODO: save payments method in billing API
       dispatch({
         type: "payment method saved",
         payload: {

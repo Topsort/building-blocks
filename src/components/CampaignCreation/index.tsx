@@ -1,7 +1,6 @@
 import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
 import { useProductPromotion } from "@context";
-import { services } from "@services/central-services";
 import { assertNever } from "@utils/assert-never";
 import { logger } from "@utils/logger";
 import { getStripe } from "@utils/payment";
@@ -27,9 +26,8 @@ export const CampaignCreation: FunctionalComponent = () => {
       try {
         if (paymentMethods.length > 0) return;
 
-        const fetchedPaymentMethods = await services.getPaymentMethods(
-          authToken
-        );
+        // TODO: get payments method from billing API
+        const fetchedPaymentMethods: any[] = [];
 
         dispatch({
           type: "payment methods received",

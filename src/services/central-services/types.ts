@@ -6,7 +6,6 @@ import {
   PartialCampaign,
   PaymentMethod,
 } from "@api/types";
-import { PaymentMethod as StripePaymentMethod } from "@stripe/stripe-js";
 
 export type Services = {
   getMarketplaceDetails(authToken: string): Promise<MarketplaceDetails>;
@@ -14,11 +13,6 @@ export type Services = {
     authToken: string,
     vendorId: string
   ): Promise<DefaultBudgetAndCpc>;
-  getPaymentMethods(authToken: string): Promise<PaymentMethod[]>;
-  createPaymentMethod(
-    authToken: string,
-    paymentMethod: StripePaymentMethod
-  ): Promise<null>;
   getCampaignIdsByProductId(
     authToken: string,
     vendorId: string,
