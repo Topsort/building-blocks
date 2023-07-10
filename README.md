@@ -71,7 +71,11 @@
    });
    ```
 
-### Product Promotion Button and Modal
+### Product Promotion Button and Modal (Optional)
+
+If there is no product related markup added, the only option to promote a product would be through a 'Promote My Shop' button which will add all vendor products to a campaign.
+
+If you decide to integrate the product promotion feature, follow these steps:
 
 1. In your markup, add the following HTML class and data attributes to the element(s) you want a Promote button appended to:
 
