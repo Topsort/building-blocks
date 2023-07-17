@@ -1,4 +1,3 @@
-import { PaymentMethod } from "@api/types";
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { Select } from "@components/Select";
@@ -9,35 +8,12 @@ import { logger } from "@utils/logger";
 import { h, FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
 
-import { PaymentMethodIcon } from "./utils";
-
-const FormattedPaymentMethod: FunctionalComponent<{
-  paymentMethod: PaymentMethod;
-}> = ({ paymentMethod }) => {
-  if (paymentMethod.data.type === "card") {
-    return (
-      <div className="ts-payment-method ts-space-x-2">
-        <PaymentMethodIcon paymentMethod={paymentMethod} />
-        <span>**** **** **** {paymentMethod.data.last4}</span>
-      </div>
-    );
-  }
-
-  if (paymentMethod.data.type === "balance") {
-    return <span>Topsort Balance</span>;
-  }
-
-  return <span>Unknown payment method</span>;
-};
-
 export const Confirm: FunctionalComponent = () => {
   const { authToken, vendorId, currency, state, dispatch } =
     useProductPromotion();
   const {
     productDataById,
     selectedProductId,
-    paymentMethods,
-    selectedPaymentMethodId,
     campaignCreation: { dailyBudget, durationDays },
   } = state;
 
@@ -51,19 +27,8 @@ export const Confirm: FunctionalComponent = () => {
     setIsLoading(true);
     setHasError(false);
 
-    const paymentMethod = paymentMethods.find(
-      ({ id }) => id === selectedPaymentMethodId
-    );
-
-    if (!selectedProductId || !paymentMethod) {
-      if (!selectedProductId) {
-        logger.error("Cannot create campaign without a product selected.");
-      }
-      if (!paymentMethod) {
-        logger.error(
-          "Cannot create campaign without a payment method selected."
-        );
-      }
+    if (!selectedProductId) {
+      logger.error("Cannot create campaign without a product selected.");
       setIsLoading(false);
       setHasError(true);
       return;
@@ -84,7 +49,6 @@ export const Confirm: FunctionalComponent = () => {
         dailyBudget,
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
-        paymentMethod,
         currencyCode: currency.code,
       });
 
@@ -109,45 +73,6 @@ export const Confirm: FunctionalComponent = () => {
           days={durationDays}
           showTargetingText
         />
-        <div className="ts-space-y-2">
-          <span className="ts-block ts-text-md ts-font-medium">
-            Payment method
-          </span>
-          <Select
-            value={paymentMethods.find(
-              (paymentMethod) => paymentMethod.id === selectedPaymentMethodId
-            )}
-            options={paymentMethods.filter(
-              (paymentMethod) => paymentMethod.data.type === "card"
-            )}
-            selectRenderer={(selectedOption) =>
-              selectedOption ? (
-                <FormattedPaymentMethod paymentMethod={selectedOption} />
-              ) : (
-                <span>Select a payment method</span>
-              )
-            }
-            optionRenderer={(option) => (
-              <FormattedPaymentMethod paymentMethod={option} />
-            )}
-            onChange={(option) =>
-              dispatch({
-                type: "payment method selected",
-                payload: {
-                  paymentMethod: option,
-                },
-              })
-            }
-          />
-          <Button
-            variant="inline"
-            onClick={() =>
-              dispatch({ type: "add new payment method button clicked" })
-            }
-          >
-            + Add new payment method
-          </Button>
-        </div>
         {hasError && (
           <span className="ts-flex ts-items-center ts-text-danger ts-space-x-2">
             <Icon name="info-circle-bold" />

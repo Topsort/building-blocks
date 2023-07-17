@@ -4,7 +4,6 @@ import {
   MarketplaceDetails,
   DefaultBudgetAndCpc,
   PartialCampaign,
-  PaymentMethod,
 } from "@api/types";
 
 export type Services = {
@@ -32,7 +31,6 @@ export type Services = {
       dailyBudget: number;
       startDate: string;
       endDate: string;
-      paymentMethod: PaymentMethod;
       currencyCode: string;
     }
   ): Promise<Campaign>;

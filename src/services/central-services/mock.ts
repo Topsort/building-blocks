@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type {
   CampaignIdsByProductId,
-  PaymentMethod,
   Campaign,
   DefaultBudgetAndCpc,
   PartialCampaign,
@@ -145,7 +144,6 @@ async function createCampaign(
     dailyBudget,
     startDate,
     endDate,
-    paymentMethod,
     currencyCode,
   }: {
     productId: string;
@@ -153,7 +151,6 @@ async function createCampaign(
     dailyBudget: number;
     startDate: string;
     endDate: string;
-    paymentMethod: PaymentMethod;
     currencyCode: string;
   }
 ): Promise<Campaign> {
