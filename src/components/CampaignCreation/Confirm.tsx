@@ -1,6 +1,5 @@
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
-import { Select } from "@components/Select";
 import { CampaignBudget, CampaignSummary } from "@components/common";
 import { useProductPromotion } from "@context";
 import { services } from "@services/central-services";

@@ -187,7 +187,6 @@ async function createCampaign(
         },
         bids: [
           {
-            amount: dailyBudget,
             target: {
               id: productId,
               type: "product",
