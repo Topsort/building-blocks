@@ -1,20 +1,11 @@
-import {
-  Campaign,
-  DefaultBudgetAndCpc,
-  PartialCampaign,
-  PaymentMethod,
-} from "@api/types";
+import { Campaign, DefaultBudgetAndCpc, PartialCampaign } from "@api/types";
 import { produce } from "immer";
 
 export const initialDurationDays = 15;
 export const minDurationDays = 1;
 export const maxDurationDays = 30;
 
-type CampaignCreationStep =
-  | "budget and duration"
-  | "add payment"
-  | "confirm"
-  | "launched";
+type CampaignCreationStep = "budget and duration" | "confirm" | "launched";
 
 type CampaignDetailsStep = "details" | "editing" | "ending";
 
@@ -32,8 +23,6 @@ export type State = {
   campaignIdsByProductId: Record<string, string | null>;
   campaignsById: Record<string, Campaign>;
   selectedProductId: string | null;
-  paymentMethods: PaymentMethod[];
-  selectedPaymentMethodId: PaymentMethod["id"] | null;
   campaignCreation: {
     step: CampaignCreationStep;
     dailyBudget: number;
@@ -56,8 +45,6 @@ export const initialState: State = {
   campaignIdsByProductId: {},
   campaignsById: {},
   selectedProductId: null,
-  paymentMethods: [],
-  selectedPaymentMethodId: null,
   campaignCreation: {
     step: "budget and duration",
     dailyBudget: 0,
@@ -74,8 +61,6 @@ export type Action =
       type:
         | "modal close button clicked"
         | "budget and duration next button clicked"
-        | "payment form back button clicked"
-        | "add new payment method button clicked"
         | "confirm campaign creation back button clicked"
         | "campaign creation reset"
         | "edit campaign button clicked"
@@ -110,24 +95,6 @@ export type Action =
       type: "campaign retrieved";
       payload: {
         campaign: Campaign;
-      };
-    }
-  | {
-      type: "payment methods received";
-      payload: {
-        paymentMethods: PaymentMethod[];
-      };
-    }
-  | {
-      type: "payment method saved";
-      payload: {
-        paymentMethod: PaymentMethod;
-      };
-    }
-  | {
-      type: "payment method selected";
-      payload: {
-        paymentMethod: PaymentMethod;
       };
     }
   | {
@@ -213,38 +180,7 @@ export const reducer = (
         break;
       }
       case "budget and duration next button clicked": {
-        draft.campaignCreation.step = state.paymentMethods.length
-          ? "confirm"
-          : "add payment";
-        break;
-      }
-      case "payment form back button clicked": {
-        draft.campaignCreation.step = state.paymentMethods.length
-          ? "confirm"
-          : "budget and duration";
-        break;
-      }
-      case "payment methods received": {
-        draft.paymentMethods = action.payload.paymentMethods;
-        draft.selectedPaymentMethodId =
-          state.selectedPaymentMethodId ||
-          action.payload.paymentMethods[0]?.id ||
-          null;
-        break;
-      }
-      case "payment method saved": {
-        const { paymentMethod } = action.payload;
-        draft.paymentMethods.push(paymentMethod);
-        draft.selectedPaymentMethodId = paymentMethod.id;
         draft.campaignCreation.step = "confirm";
-        break;
-      }
-      case "payment method selected": {
-        draft.selectedPaymentMethodId = action.payload.paymentMethod.id;
-        break;
-      }
-      case "add new payment method button clicked": {
-        draft.campaignCreation.step = "add payment";
         break;
       }
       case "confirm campaign creation back button clicked": {

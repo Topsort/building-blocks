@@ -3,7 +3,6 @@ import { paths } from "@api/paths";
 import * as schemas from "@api/schemas";
 import type {
   CampaignIdsByProductId,
-  PaymentMethod,
   Campaign,
   DefaultBudgetAndCpc,
   PartialCampaign,
@@ -157,7 +156,6 @@ async function createCampaign(
     dailyBudget,
     startDate,
     endDate,
-    paymentMethod,
     currencyCode,
   }: {
     productId: string;
@@ -165,7 +163,6 @@ async function createCampaign(
     dailyBudget: number;
     startDate: string;
     endDate: string;
-    paymentMethod: PaymentMethod;
     currencyCode: string;
   }
 ): Promise<Campaign> {
@@ -190,7 +187,6 @@ async function createCampaign(
         },
         bids: [
           {
-            amount: dailyBudget,
             target: {
               id: productId,
               type: "product",
@@ -203,7 +199,6 @@ async function createCampaign(
             },
           },
         ],
-        paymentMethod,
         currencyCode,
       }),
     }
