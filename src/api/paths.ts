@@ -9,5 +9,5 @@ export const paths = {
     `${CENTRAL_SERVICES_BASE_URL}/modal-service/vendors/${vendorId}/default-budget`,
   products: (vendorId: string) =>
     `${CENTRAL_SERVICES_BASE_URL}/modal-service/vendors/${vendorId}/products`,
-  validate: (vendorId: string) => `${AUTH_BASE_URL}/auth/vendors/${vendorId}`,
+  validate: (authUrl: string, vendorId: string) => `${authUrl}/${vendorId}`,
 };

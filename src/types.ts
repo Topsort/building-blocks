@@ -56,6 +56,7 @@ const styleSchema = z.object({
 export type Style = z.infer<typeof styleSchema>;
 
 export const initialParamsSchema = z.object({
+  authUrl: z.string(),
   apiKey: z.string(),
   externalVendorId: z.string(),
   promoteTargetClassName: z.string().optional(),

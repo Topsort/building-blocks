@@ -162,6 +162,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await tsBlocks.init({
     // This helper calls our demo marketplace backend to retrieve the authToken.
     // You can manually set an auth token here for development purposes.
+    authUrl: "http://localhost:8000/auth/vendors",
     apiKey: "api-key-123",
     externalVendorId: "wendys",
     ...(isUsingCustomProps && {

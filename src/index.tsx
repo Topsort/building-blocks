@@ -353,10 +353,20 @@ export default class TopsortBlocks {
 
   async init(params: InitParams) {
     try {
-      const { apiKey, externalVendorId, promoteTargetClassName, style, text } =
-        initialParamsSchema.parse(params);
+      const {
+        authUrl,
+        apiKey,
+        externalVendorId,
+        promoteTargetClassName,
+        style,
+        text,
+      } = initialParamsSchema.parse(params);
       const { authToken, authorized } =
-        await validationService.getValidationToken(apiKey, externalVendorId);
+        await validationService.getValidationToken(
+          authUrl,
+          apiKey,
+          externalVendorId
+        );
 
       if (!authorized) {
         throw new Error("Api Key not valid");
