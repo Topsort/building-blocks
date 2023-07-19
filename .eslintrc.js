@@ -12,7 +12,6 @@ module.exports = {
   ],
   globals: {
     CENTRAL_SERVICES_BASE_URL: "readonly",
-    STRIPE_PUBLIC_KEY: "readonly",
     USE_MOCK_SERVER: "readonly",
     AUTH_BASE_URL: "readonly",
   },
