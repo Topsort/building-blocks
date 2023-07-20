@@ -20,7 +20,6 @@ jobs:
 
     env:
       CENTRAL_SERVICES_BASE_URL: ${{ secrets.CENTRAL_SERVICES_BASE_URL }}
-      STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
       USE_MOCK_SERVER: ${{ secrets.USE_MOCK_SERVER }}
 
     steps:
