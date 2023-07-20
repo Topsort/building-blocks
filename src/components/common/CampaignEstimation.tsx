@@ -49,7 +49,7 @@ export const CampaignEstimation: FunctionalComponent<
       {...props}
     >
       <Icon name="info-circle" className="ts-rotate-180" />
-      <span className="ts-text-sm ts-font-semimedium">
+      <span className="ts-text-sm ts-font-medium ts-estimation-info">
         With a{" "}
         <span className="ts-font-bold">
           {formatMoney(dailyBudget)} {currency.code}

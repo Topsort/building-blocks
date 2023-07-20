@@ -19,7 +19,7 @@ export const ModalHeading: FunctionalComponent<{
 
 export const ModalContent: FunctionalComponent<{ height?: string }> = ({
   children,
-  height = "30rem",
+  height = "26rem",
 }) => {
   return (
     <div className="ts-modal-content ts-scroll" style={{ height }}>

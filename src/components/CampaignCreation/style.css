@@ -9,7 +9,7 @@
 .ts-campaign-creation__range {
   display: flex;
   flex-direction: column;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 
 .ts-campaign-creation__range span {
@@ -17,15 +17,16 @@
 }
 
 .ts-campaign-creation__range .ts-tooltip-wrapper {
-  margin-top: 3.5rem;
+  margin-top: 2.5rem;
 }
 
 .ts-campaign-creation__details-callout {
-  margin-top: 2rem;
+  margin-top: 0.75rem;
 }
 
 .ts-campaign-creation__footer {
   display: flex;
   justify-content: flex-end;
   margin-top: 2.75rem;
+  margin-bottom: 2rem;
 }

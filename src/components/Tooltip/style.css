@@ -11,7 +11,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: var(--ts-radius-sm);
+  border-radius: var(--ts-radius-xs);
   padding: 0.5rem 0.75rem;
   color: var(--tooltip-text-color);
   background: var(--tooltip-background-color);

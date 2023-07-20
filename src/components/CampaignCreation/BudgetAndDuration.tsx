@@ -33,7 +33,7 @@ export const BudgetAndDuration: FunctionalComponent = () => {
           </Tooltip>
         </div>
         <div className="ts-campaign-creation__range">
-          <span className="ts-text-sm ts-font-medium">Set a daily budget</span>
+          <span className="ts-text-sm ts-font-bold">Set a daily budget</span>
           <RangeInputWithTooltip
             value={dailyBudget}
             min={currency.divisor}
@@ -57,7 +57,7 @@ export const BudgetAndDuration: FunctionalComponent = () => {
           />
         </div>
         <div className="ts-campaign-creation__range">
-          <span className="ts-text-sm ts-font-medium">Set a duration</span>
+          <span className="ts-text-sm ts-font-bold">Set a duration</span>
           <RangeInputWithTooltip
             value={durationDays}
             min={minDurationDays}
