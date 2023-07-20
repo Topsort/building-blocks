@@ -52,7 +52,7 @@ export const CampaignDetails: FunctionalComponent<{
     }
 
     getCampaign();
-  }, [authToken, vendorId, campaign, campaignId, dispatch]);
+  }, [authToken, vendorId, campaign, campaignId, dispatch, centralServicesUrl]);
 
   useEffect(() => {
     // If the modal for a different campaign is opened,
