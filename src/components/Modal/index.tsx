@@ -12,7 +12,7 @@ export const ModalHeading: FunctionalComponent<{
   return (
     <div className="ts-modal-heading">
       <h2>{title}</h2>
-      {subtitle && <h4>{subtitle}</h4>}
+      {subtitle && <h5>{subtitle}</h5>}
     </div>
   );
 };

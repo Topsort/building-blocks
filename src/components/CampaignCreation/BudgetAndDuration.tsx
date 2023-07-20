@@ -21,15 +21,15 @@ export const BudgetAndDuration: FunctionalComponent = () => {
     <div className="ts-campaign-creation__content ts-space-y-8">
       <div>
         <div className="ts-flex ts-space-x-2">
-          <span className="ts-text-md ts-font-medium">Budget and duration</span>
+          <span className="ts-text-md ts-font-bold">Budget and duration</span>
           <Tooltip
-            content="The average amount you're willing to spend on your ads & the length of days you want the ads to show"
+            content="Budget is the amount of money you are willing to spend on ads; duration is the number of days of promotion."
             placement="bottom"
             offsetOptions={{
               mainAxis: 5,
             }}
           >
-            <Icon name="message-question" />
+            <Icon size={24} name="message-question" />
           </Tooltip>
         </div>
         <div className="ts-campaign-creation__range">
