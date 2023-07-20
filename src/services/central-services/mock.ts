@@ -110,6 +110,7 @@ async function getDefaultBudgetAndCpc(
 }
 
 async function getCampaignIdsByProductId(
+  centralServicesUrl: string,
   authToken: string,
   vendorId: string,
   productIds: string[]
@@ -136,6 +137,7 @@ async function getCampaign(
 }
 
 async function createCampaign(
+  centralServicesUrl: string,
   authToken: string,
   vendorId: string,
   {
@@ -188,6 +190,7 @@ async function createCampaign(
 }
 
 async function updateCampaign(
+  centralServicesUrl: string,
   authToken: string,
   vendorId: string,
   campaignId: string,

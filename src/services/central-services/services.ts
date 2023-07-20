@@ -19,11 +19,12 @@ export function getHeaders(token: string) {
 }
 
 async function getMarketplaceDetails(
+  centralServicesUrl: string,
   authToken: string
 ): Promise<MarketplaceDetails> {
   return await api(
     schemas.marketplaceDetailsSchema,
-    paths.marketplaceDetails(),
+    paths.marketplaceDetails(centralServicesUrl),
     {
       method: "GET",
       headers: getHeaders(authToken),
@@ -32,12 +33,13 @@ async function getMarketplaceDetails(
 }
 
 async function getDefaultBudgetAndCpc(
+  centralServicesUrl: string,
   authToken: string,
   vendorId: string
 ): Promise<DefaultBudgetAndCpc> {
   return await api(
     schemas.defaultBudgetAndCpcSchema,
-    paths.defaultBudget(vendorId),
+    paths.defaultBudget(centralServicesUrl, vendorId),
     {
       method: "GET",
       headers: getHeaders(authToken),
@@ -46,13 +48,14 @@ async function getDefaultBudgetAndCpc(
 }
 
 async function getCampaignIdsByProductId(
+  centralServicesUrl: string,
   authToken: string,
   vendorId: string,
   productIds: string[]
 ): Promise<CampaignIdsByProductId> {
   const response = await api(
     schemas.campaignIdsByProductIdSchema,
-    paths.products(vendorId),
+    paths.products(centralServicesUrl, vendorId),
     {
       method: "POST",
       headers: getHeaders(authToken),
@@ -129,6 +132,7 @@ const fakeCampaignsById: Record<string, Campaign> = {
 };
 
 async function getCampaign(
+  centralServicesUrl: string,
   authToken: string,
   vendorId: string,
   campaignId: string
@@ -139,7 +143,7 @@ async function getCampaign(
   // });
   return await api(
     schemas.campaignSchema,
-    paths.campaign(vendorId, campaignId),
+    paths.campaign(centralServicesUrl, vendorId, campaignId),
     {
       method: "GET",
       headers: getHeaders(authToken),
@@ -148,6 +152,7 @@ async function getCampaign(
 }
 
 async function createCampaign(
+  centralServicesUrl: string,
   authToken: string,
   vendorId: string,
   {
@@ -168,7 +173,7 @@ async function createCampaign(
 ): Promise<Campaign> {
   const response = await api(
     schemas.campaignPartialSchema,
-    paths.campaigns(vendorId),
+    paths.campaigns(centralServicesUrl, vendorId),
     {
       method: "POST",
       headers: getHeaders(authToken),
@@ -230,6 +235,7 @@ async function createCampaign(
 }
 
 async function updateCampaign(
+  centralServicesUrl: string,
   authToken: string,
   vendorId: string,
   campaignId: string,
@@ -257,7 +263,7 @@ async function updateCampaign(
 ): Promise<PartialCampaign> {
   return await api(
     schemas.campaignPartialSchema,
-    paths.campaign(vendorId, campaignId),
+    paths.campaign(centralServicesUrl, vendorId, campaignId),
     {
       method: "PATCH",
       headers: getHeaders(authToken),
@@ -280,14 +286,19 @@ async function updateCampaign(
 }
 
 async function endCampaign(
+  centralServicesUrl: string,
   authToken: string,
   vendorId: string,
   campaignId: string
 ): Promise<null> {
-  return await api(schemas.nullSchema, paths.campaign(vendorId, campaignId), {
-    method: "DELETE",
-    headers: getHeaders(authToken),
-  });
+  return await api(
+    schemas.nullSchema,
+    paths.campaign(centralServicesUrl, vendorId, campaignId),
+    {
+      method: "DELETE",
+      headers: getHeaders(authToken),
+    }
+  );
 }
 
 export const services: Services = {

@@ -34,6 +34,7 @@ import "./utils.css";
 
 const App: FunctionalComponent = () => {
   const {
+    centralServicesUrl,
     authToken,
     vendorId,
     promoteTargetClassName,
@@ -153,6 +154,7 @@ const App: FunctionalComponent = () => {
     const getDefaultBudgetAndCpc = async () => {
       try {
         const response = await services.getDefaultBudgetAndCpc(
+          centralServicesUrl,
           authToken,
           vendorId
         );
@@ -166,7 +168,7 @@ const App: FunctionalComponent = () => {
     };
 
     getDefaultBudgetAndCpc();
-  }, [dispatch, authToken, vendorId]);
+  }, [dispatch, authToken, vendorId, centralServicesUrl]);
 
   const updateStatuses = (productIds: string[], status: RequestStatus) => {
     setStatusesByProductId((prev) => ({
@@ -198,6 +200,7 @@ const App: FunctionalComponent = () => {
 
       try {
         const campaignIdsByProductId = await services.getCampaignIdsByProductId(
+          centralServicesUrl,
           authToken,
           vendorId,
           newProductIds
@@ -283,6 +286,7 @@ const App: FunctionalComponent = () => {
 };
 
 const AppWithContext: FunctionalComponent<{
+  centralServicesUrl: string;
   authToken: string;
   vendorId: string;
   promoteTargetClassName: string;
@@ -294,6 +298,7 @@ const AppWithContext: FunctionalComponent<{
   formatMoney: (number: number) => ReturnType<Intl.NumberFormat["format"]>;
   counter: number;
 }> = ({
+  centralServicesUrl,
   authToken,
   vendorId,
   language,
@@ -310,6 +315,7 @@ const AppWithContext: FunctionalComponent<{
   return (
     <ProductPromotionContext.Provider
       value={{
+        centralServicesUrl,
         authToken,
         vendorId,
         language,
@@ -330,6 +336,7 @@ const AppWithContext: FunctionalComponent<{
 };
 
 export default class TopsortBlocks {
+  private centralServicesUrl?: string;
   private authToken?: string;
   private vendorId?: string;
   private marketplaceDetails?: MarketplaceDetails;
@@ -353,10 +360,21 @@ export default class TopsortBlocks {
 
   async init(params: InitParams) {
     try {
-      const { apiKey, externalVendorId, promoteTargetClassName, style, text } =
-        initialParamsSchema.parse(params);
+      const {
+        apiKey,
+        externalVendorId,
+        promoteTargetClassName,
+        style,
+        text,
+        centralServicesUrl,
+        authUrl,
+      } = initialParamsSchema.parse(params);
       const { authToken, authorized } =
-        await validationService.getValidationToken(apiKey, externalVendorId);
+        await validationService.getValidationToken(
+          authUrl,
+          apiKey,
+          externalVendorId
+        );
 
       if (!authorized) {
         throw new Error("Api Key not valid");
@@ -364,7 +382,9 @@ export default class TopsortBlocks {
 
       this.vendorId = externalVendorId;
       this.authToken = authToken;
+      this.centralServicesUrl = centralServicesUrl;
       const marketplaceDetails = await services.getMarketplaceDetails(
+        this.centralServicesUrl,
         this.authToken
       );
       this.marketplaceDetails = marketplaceDetails;
@@ -404,6 +424,7 @@ export default class TopsortBlocks {
 
   useProductPromotion() {
     if (
+      !this.centralServicesUrl ||
       !this.authToken ||
       !this.vendorId ||
       !this.marketplaceDetails ||
@@ -411,6 +432,11 @@ export default class TopsortBlocks {
       !this.formatNumber ||
       !this.formatMoney
     ) {
+      if (!this.centralServicesUrl) {
+        logger.warn(
+          'Cannot call "useProductPromotion" without centralServicesUrl set'
+        );
+      }
       if (!this.authToken) {
         logger.warn(
           'Cannot call "useProductPromotion" without an authToken set.'
@@ -436,6 +462,7 @@ export default class TopsortBlocks {
 
     render(
       <AppWithContext
+        centralServicesUrl={this.centralServicesUrl}
         authToken={this.authToken}
         vendorId={this.vendorId}
         language={this.marketplaceDetails.languagePreference}

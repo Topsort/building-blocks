@@ -4,6 +4,7 @@ import { createContext } from "preact";
 import { useContext } from "preact/hooks";
 
 type ProductPromotionContextValue = {
+  centralServicesUrl: string;
   authToken: string;
   vendorId: string;
   language: string;
