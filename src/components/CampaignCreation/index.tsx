@@ -66,7 +66,7 @@ export const CampaignCreation: FunctionalComponent = () => {
 
   return (
     <Fragment>
-      <ModalHeading>{title}</ModalHeading>
+      <ModalHeading title={title} subtitle="hola" />
       <ModalContent height={contentHeight}>{content}</ModalContent>
     </Fragment>
   );

@@ -142,7 +142,7 @@ export const CampaignDetails: FunctionalComponent<{
 
   return (
     <Fragment>
-      <ModalHeading>{title}</ModalHeading>
+      <ModalHeading title={title} />
       <ModalContent height={contentHeight}>{content}</ModalContent>
     </Fragment>
   );

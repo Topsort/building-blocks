@@ -5,10 +5,14 @@ import { useEffect, useRef } from "preact/hooks";
 
 import "./style.css";
 
-export const ModalHeading: FunctionalComponent = ({ children }) => {
+export const ModalHeading: FunctionalComponent<{
+  title: string | h.JSX.Element;
+  subtitle?: string;
+}> = ({ title, subtitle }) => {
   return (
     <div className="ts-modal-heading">
-      <h2 className="ts-space-x-3-5">{children}</h2>
+      <h2>{title}</h2>
+      {subtitle && <h4>{subtitle}</h4>}
     </div>
   );
 };
