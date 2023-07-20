@@ -13,7 +13,8 @@ import { Metrics } from "./Metrics";
 export const Ending: FunctionalComponent<{
   campaign: Campaign;
 }> = ({ campaign }) => {
-  const { authToken, vendorId, dispatch, state } = useProductPromotion();
+  const { authToken, vendorId, dispatch, state, centralServicesUrl } =
+    useProductPromotion();
   const { selectedProductId } = state;
 
   const [isLoading, setIsLoading] = useState(false);
@@ -33,7 +34,12 @@ export const Ending: FunctionalComponent<{
     setHasError(false);
 
     try {
-      await services.endCampaign(authToken, vendorId, campaign.campaignId);
+      await services.endCampaign(
+        centralServicesUrl,
+        authToken,
+        vendorId,
+        campaign.campaignId
+      );
 
       dispatch({
         type: "campaign ended",

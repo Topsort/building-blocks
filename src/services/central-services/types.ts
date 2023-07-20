@@ -7,22 +7,29 @@ import {
 } from "@api/types";
 
 export type Services = {
-  getMarketplaceDetails(authToken: string): Promise<MarketplaceDetails>;
+  getMarketplaceDetails(
+    centralServicesUrl: string,
+    authToken: string
+  ): Promise<MarketplaceDetails>;
   getDefaultBudgetAndCpc(
+    centralServicesUrl: string,
     authToken: string,
     vendorId: string
   ): Promise<DefaultBudgetAndCpc>;
   getCampaignIdsByProductId(
+    centralServicesUrl: string,
     authToken: string,
     vendorId: string,
     productIds: string[]
   ): Promise<CampaignIdsByProductId>;
   getCampaign(
+    centralServicesUrl: string,
     authToken: string,
     vendorId: string,
     campaignId: string
   ): Promise<Campaign>;
   createCampaign(
+    centralServicesUrl: string,
     authToken: string,
     vendorId: string,
     data: {
@@ -35,6 +42,7 @@ export type Services = {
     }
   ): Promise<Campaign>;
   updateCampaign(
+    centralServicesUrl: string,
     authToken: string,
     vendorId: string,
     campaignId: string,
@@ -51,6 +59,7 @@ export type Services = {
     }
   ): Promise<PartialCampaign>;
   endCampaign(
+    centralServicesUrl: string,
     authToken: string,
     vendorId: string,
     campaignId: string

@@ -19,7 +19,8 @@ export { CampaignEnded } from "./CampaignEnded";
 export const CampaignDetails: FunctionalComponent<{
   campaignId: Campaign["campaignId"];
 }> = ({ campaignId }) => {
-  const { authToken, vendorId, state, dispatch } = useProductPromotion();
+  const { authToken, vendorId, state, dispatch, centralServicesUrl } =
+    useProductPromotion();
   const {
     campaignsById,
     campaignDetails: { step },
@@ -34,6 +35,7 @@ export const CampaignDetails: FunctionalComponent<{
     async function getCampaign() {
       try {
         const campaign = await services.getCampaign(
+          centralServicesUrl,
           authToken,
           vendorId,
           campaignId
@@ -50,7 +52,7 @@ export const CampaignDetails: FunctionalComponent<{
     }
 
     getCampaign();
-  }, [authToken, vendorId, campaign, campaignId, dispatch]);
+  }, [authToken, vendorId, campaign, campaignId, dispatch, centralServicesUrl]);
 
   useEffect(() => {
     // If the modal for a different campaign is opened,
