@@ -8,7 +8,7 @@ import { h, FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
 
 export const Confirm: FunctionalComponent = () => {
-  const { authToken, vendorId, currency, state, dispatch } =
+  const { authToken, vendorId, currency, state, dispatch, centralServicesUrl } =
     useProductPromotion();
   const {
     productDataById,
@@ -42,14 +42,19 @@ export const Confirm: FunctionalComponent = () => {
     endDate.setDate(startDate.getDate() + durationDays);
 
     try {
-      const campaign = await services.createCampaign(authToken, vendorId, {
-        productId: selectedProductId,
-        name: `${productData?.name || selectedProductId} Campaign`,
-        dailyBudget,
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
-        currencyCode: currency.code,
-      });
+      const campaign = await services.createCampaign(
+        centralServicesUrl,
+        authToken,
+        vendorId,
+        {
+          productId: selectedProductId,
+          name: `${productData?.name || selectedProductId} Campaign`,
+          dailyBudget,
+          startDate: startDate.toISOString(),
+          endDate: endDate.toISOString(),
+          currencyCode: currency.code,
+        }
+      );
 
       dispatch({
         type: "campaign launched",

@@ -15,8 +15,14 @@ import { useState, useMemo, useCallback } from "preact/hooks";
 export const Edit: FunctionalComponent<{
   campaign: Campaign;
 }> = ({ campaign }) => {
-  const { authToken, currency, vendorId, dispatch, language } =
-    useProductPromotion();
+  const {
+    authToken,
+    currency,
+    vendorId,
+    dispatch,
+    language,
+    centralServicesUrl,
+  } = useProductPromotion();
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -157,6 +163,7 @@ export const Edit: FunctionalComponent<{
 
     try {
       const editedCampaign = await services.updateCampaign(
+        centralServicesUrl,
         authToken,
         vendorId,
         campaign.campaignId,

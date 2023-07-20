@@ -19,7 +19,8 @@ export { CampaignEnded } from "./CampaignEnded";
 export const CampaignDetails: FunctionalComponent<{
   campaignId: Campaign["campaignId"];
 }> = ({ campaignId }) => {
-  const { authToken, vendorId, state, dispatch } = useProductPromotion();
+  const { authToken, vendorId, state, dispatch, centralServicesUrl } =
+    useProductPromotion();
   const {
     campaignsById,
     campaignDetails: { step },
@@ -34,6 +35,7 @@ export const CampaignDetails: FunctionalComponent<{
     async function getCampaign() {
       try {
         const campaign = await services.getCampaign(
+          centralServicesUrl,
           authToken,
           vendorId,
           campaignId
