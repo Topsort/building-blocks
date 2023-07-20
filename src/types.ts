@@ -56,7 +56,7 @@ const styleSchema = z.object({
 export type Style = z.infer<typeof styleSchema>;
 
 export const initialParamsSchema = z.object({
-  centralServicesUrl: z.string(),
+  centralServicesUrl: z.string().default("api.topsort.com"),
   authUrl: z.string(),
   apiKey: z.string(),
   externalVendorId: z.string(),
