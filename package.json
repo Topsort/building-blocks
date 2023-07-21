@@ -1,6 +1,6 @@
 {
   "name": "@topsort/building-blocks",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Topsort's JS library for building individual and easily integratable widgets.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,7 +30,9 @@
   ],
   "author": "Topsort",
   "contributors": [
-    "Chris Bot <chris@topsort.com>"
+    "Pablo Reszczynski <pablo@topsort.com>",
+    "Sofia Valenzuela <sofia.valenzuela@topsort.com>",
+    "Joaquin Sanchez <joaquin@topsort.com>"
   ],
   "license": "MIT",
   "bugs": {
