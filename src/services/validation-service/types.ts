@@ -4,6 +4,6 @@ export type ValidationService = {
   getValidationToken: (
     authUrl: string,
     externalVendorId: string,
-    bearerToken?: string
+    extraAuthHeaders?: Record<string, string>
   ) => Promise<ValidationResponse>;
 };

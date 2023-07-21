@@ -361,7 +361,7 @@ export default class TopsortBlocks {
   async init(params: InitParams) {
     try {
       const {
-        bearerToken,
+        extraAuthHeaders,
         externalVendorId,
         promoteTargetClassName,
         style,
@@ -373,7 +373,7 @@ export default class TopsortBlocks {
         await validationService.getValidationToken(
           authUrl,
           externalVendorId,
-          bearerToken
+          extraAuthHeaders
         );
 
       if (!authorized) {
