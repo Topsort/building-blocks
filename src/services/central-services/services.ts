@@ -14,6 +14,7 @@ import type { Services } from "./types";
 export function getAuthHeaders(extraAuthHeaders?: Record<string, string>) {
   return {
     "Content-Type": "application/json",
+    "X-User-Agent": "Topsort-Building-Blocks/v2.0.0",
     ...extraAuthHeaders,
   };
 }
@@ -22,6 +23,7 @@ export function getHeaders(token: string) {
   return {
     Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
+    "X-User-Agent": "Topsort-Building-Blocks/v2.0.0",
   };
 }
 
