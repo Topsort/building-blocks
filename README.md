@@ -38,7 +38,7 @@
 
    ```js
    await tsBlocks.init({
-     apiKey: "api-key-123",
+     authUrl: "https://topsort.auth.mymarketplace.com",
      externalVendorId: "vendor-id-123",
    });
    ```
@@ -47,7 +47,8 @@
 
    ```js
    await tsBlocks.init({
-     apiKey: "api-key-123",
+     authUrl: "https://topsort.auth.mymarketplace.com",
+     bearerToken: "api-key-123",
      externalVendorId: "vendor-id-123",
      // if you want to use a custom target class:
      promoteTargetClassName: "my-custom-promote-target",

@@ -8,15 +8,15 @@ import { ValidationService } from "./types";
 
 async function getValidationToken(
   authUrl: string,
-  apiKey: string,
-  externalVendorId: string
+  externalVendorId: string,
+  bearerToken?: string
 ): Promise<ValidationResponse> {
   return await api(
     schemas.validationSchema,
     paths.validate(authUrl, externalVendorId),
     {
       method: "GET",
-      headers: getHeaders(apiKey),
+      headers: getHeaders(bearerToken),
     }
   );
 }

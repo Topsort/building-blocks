@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // You can manually set an auth token here for development purposes.
     centralServicesUrl: `${CENTRAL_SERVICES_URL}`,
     authUrl: `${AUTH_BASE_URL}`,
-    apiKey: "api-key-123",
+    bearerToken: "api-key-123",
     externalVendorId: "wendys",
     ...(isUsingCustomProps && {
       promoteTargetClassName: customPromoteTargetClassName,

@@ -11,11 +11,14 @@ import type {
 
 import type { Services } from "./types";
 
-export function getHeaders(token: string) {
-  return {
-    authorization: `Bearer ${token}`,
+export function getHeaders(token?: string) {
+  const headers: Record<string, string> = {
     "Content-Type": "application/json",
   };
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+  return headers;
 }
 
 async function getMarketplaceDetails(
