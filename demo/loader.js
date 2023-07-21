@@ -10,9 +10,10 @@ const isUsingTopsortBlocks = true;
 const isUsingCustomProps = false;
 const useTopsortedProducts = true;
 const customPromoteTargetClassName = "my-custom-promote-target";
-const CENTRAL_SERVICES_URL = "http://localhost:3003";
-// const CENTRAL_SERVICES_URL = "api.topsort.com";
-const AUTH_BASE_URL = "http://localhost:8000";
+//const CENTRAL_SERVICES_URL = "http://localhost:3003";
+const CENTRAL_SERVICES_URL = "https://api.topsort.com/";
+//const AUTH_BASE_URL = "http://localhost:8000";
+const AUTH_BASE_URL = "https://buildingblocks.api.topsort.ai";
 
 function getNewElement(selector) {
   const proto = document.querySelector(selector);
@@ -167,7 +168,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     // You can manually set an auth token here for development purposes.
     centralServicesUrl: `${CENTRAL_SERVICES_URL}`,
     authUrl: `${AUTH_BASE_URL}`,
-    apiKey: "api-key-123",
+    extraAuthHeaders: {
+      Authorization: `Bearer api-key-123`,
+    },
     externalVendorId: "wendys",
     ...(isUsingCustomProps && {
       promoteTargetClassName: customPromoteTargetClassName,
