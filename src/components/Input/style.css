@@ -28,7 +28,6 @@
   box-shadow: none;
   font-size: inherit;
   padding: 0;
-  color: var(--ts-font-color);
 }
 
 .ts-input[type="number"]::-webkit-inner-spin-button,

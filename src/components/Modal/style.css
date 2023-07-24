@@ -7,7 +7,7 @@
   width: 25rem;
   max-width: 95vw;
   max-height: 95vh;
-  border-radius: var(--ts-radius-sm);
+  border-radius: var(--ts-radius-md);
   background-color: white;
   box-shadow: 0px 5px 8px rgb(0 0 0 / 10%);
   z-index: 1;
@@ -24,14 +24,22 @@
 
 .ts-modal-heading {
   padding: 1.875rem;
+  padding-bottom: 1rem;
 }
 
 .ts-modal-heading h2 {
   display: flex;
   align-items: center;
-  font-weight: 500;
   margin: 0;
-  height: 2rem;
+}
+
+.ts-modal-heading h5 {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  margin-top: 0.5rem;
+  color: var(--ts-font-color-70);
+
 }
 
 .ts-modal-content {

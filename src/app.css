@@ -111,3 +111,7 @@ hr.ts-hr {
   line-height: 150%;
   color: var(--ts-font-color-60);
 }
+
+.ts-estimation-info {
+  margin-right: 2.5rem;
+}

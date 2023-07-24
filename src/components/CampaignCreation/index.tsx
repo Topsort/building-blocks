@@ -13,6 +13,7 @@ import "./style.css";
 export const CampaignCreation: FunctionalComponent = () => {
   const { state, dispatch } = useProductPromotion();
   const {
+    productDataById,
     selectedProductId,
     campaignCreation: { step },
   } = state;
@@ -25,11 +26,18 @@ export const CampaignCreation: FunctionalComponent = () => {
     };
   }, [dispatch, selectedProductId]);
 
-  const { title, content } = (() => {
+  const {
+    title,
+    content,
+    subtitle = undefined,
+  } = (() => {
     switch (step) {
       case "budget and duration": {
         return {
           title: "Promote a product",
+          subtitle: selectedProductId
+            ? productDataById[selectedProductId].name
+            : undefined,
           content: <BudgetAndDuration />,
         };
       }
@@ -66,7 +74,7 @@ export const CampaignCreation: FunctionalComponent = () => {
 
   return (
     <Fragment>
-      <ModalHeading>{title}</ModalHeading>
+      <ModalHeading title={title} subtitle={subtitle} />
       <ModalContent height={contentHeight}>{content}</ModalContent>
     </Fragment>
   );

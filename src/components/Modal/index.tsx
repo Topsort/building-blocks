@@ -5,17 +5,21 @@ import { useEffect, useRef } from "preact/hooks";
 
 import "./style.css";
 
-export const ModalHeading: FunctionalComponent = ({ children }) => {
+export const ModalHeading: FunctionalComponent<{
+  title: string | h.JSX.Element;
+  subtitle?: string;
+}> = ({ title, subtitle }) => {
   return (
     <div className="ts-modal-heading">
-      <h2 className="ts-space-x-3-5">{children}</h2>
+      <h2>{title}</h2>
+      {subtitle && <h5>{subtitle}</h5>}
     </div>
   );
 };
 
 export const ModalContent: FunctionalComponent<{ height?: string }> = ({
   children,
-  height = "30rem",
+  height = "26rem",
 }) => {
   return (
     <div className="ts-modal-content ts-scroll" style={{ height }}>
