@@ -12,7 +12,9 @@ type PromotionContextValue = {
   formatNumber: Intl.NumberFormat["format"];
   formatMoney: (number: number) => ReturnType<Intl.NumberFormat["format"]>;
   promoteTargetClassName: string;
+  promoteShopClassName: string;
   isUsingProductPromotion: boolean;
+  isUsingShopPromotion: boolean;
   style: Style;
   text: CustomText;
   counter: number;

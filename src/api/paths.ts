@@ -5,6 +5,8 @@ export const paths = {
     campaignId: string
   ) =>
     `${centralServicesUrl}/modal-service/vendors/${vendorId}/campaigns/${campaignId}`,
+  campaignByShop: (centralServicesUrl: string, vendorId: string) =>
+    `${centralServicesUrl}/modal-service/vendors/${vendorId}/shop-campaign`,
   campaigns: (centralServicesUrl: string, vendorId: string) =>
     `${centralServicesUrl}/modal-service/vendors/${vendorId}/campaigns`,
   marketplaceDetails: (centralServicesUrl: string) =>

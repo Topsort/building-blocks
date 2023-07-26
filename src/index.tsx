@@ -1,6 +1,7 @@
 import { MarketplaceDetails } from "@api/types";
 import { TopsortPromotionsWithContext } from "@components/Promotions";
 import {
+  defaultPromoteShopClassName,
   defaultPromoteTargetClassName,
   largeNumberWithDecimals,
 } from "@constants";
@@ -19,6 +20,7 @@ export default class TopsortBlocks {
   private vendorId?: string;
   private marketplaceDetails?: MarketplaceDetails;
   private promoteTargetClassName: InitParams["promoteTargetClassName"];
+  private promoteShopClassName: InitParams["promoteShopClassName"];
   private style: InitParams["style"];
   private text: InitParams["text"];
   private formatNumber?: Intl.NumberFormat["format"];
@@ -27,6 +29,7 @@ export default class TopsortBlocks {
   ) => ReturnType<Intl.NumberFormat["format"]>;
   private currency?: Currency;
   private isUsingProductPromotion = false;
+  private isUsingShopPromotion = false;
   /*
     NOTE (samet)
     We are increasing the counter variable when the library consumer
@@ -36,6 +39,7 @@ export default class TopsortBlocks {
   private counter = 0;
 
   static promoteTargetClassName = defaultPromoteTargetClassName;
+  static promoteShopClassName = defaultPromoteShopClassName;
 
   async init(params: InitParams) {
     try {
@@ -43,6 +47,7 @@ export default class TopsortBlocks {
         extraAuthHeaders,
         externalVendorId,
         promoteTargetClassName,
+        promoteShopClassName,
         style,
         text,
         centralServicesUrl,
@@ -94,6 +99,7 @@ export default class TopsortBlocks {
           moneyParts.findIndex((part) => part.type === "integer"),
       };
       this.promoteTargetClassName = promoteTargetClassName;
+      this.promoteShopClassName = promoteShopClassName;
       this.style = style;
       this.text = text;
     } catch (error) {
@@ -151,10 +157,14 @@ export default class TopsortBlocks {
         promoteTargetClassName={
           this.promoteTargetClassName || defaultPromoteTargetClassName
         }
+        promoteShopClassName={
+          this.promoteShopClassName || defaultPromoteShopClassName
+        }
         style={this.style || {}}
         text={this.text || {}}
         counter={this.counter}
         isUsingProductPromotion={this.isUsingProductPromotion}
+        isUsingShopPromotion={this.isUsingShopPromotion}
       />,
       document.body
     );
@@ -162,6 +172,11 @@ export default class TopsortBlocks {
 
   useProductPromotion() {
     this.isUsingProductPromotion = true;
+    this.renderPromotions();
+  }
+
+  useShopPromotion() {
+    this.isUsingShopPromotion = true;
     this.renderPromotions();
   }
 }
