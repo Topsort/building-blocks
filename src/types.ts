@@ -61,6 +61,7 @@ export const initialParamsSchema = z.object({
   extraAuthHeaders: z.record(z.string()).optional(),
   externalVendorId: z.string(),
   promoteTargetClassName: z.string().optional(),
+  promoteShopClassName: z.string().optional(),
   style: styleSchema.optional(),
   text: z
     .object({

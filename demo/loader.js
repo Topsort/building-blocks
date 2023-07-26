@@ -190,4 +190,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   tsBlocks.useProductPromotion();
+  tsBlocks.useShopPromotion();
 });

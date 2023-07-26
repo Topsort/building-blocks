@@ -22,6 +22,11 @@ export type Services = {
     vendorId: string,
     productIds: string[]
   ): Promise<CampaignIdsByProductId>;
+  getShopCampaign(
+    centralServicesUrl: string,
+    authToken: string,
+    vendorId: string
+  ): Promise<Campaign | null>;
   getCampaign(
     centralServicesUrl: string,
     authToken: string,

@@ -135,6 +135,13 @@ async function getCampaign(
 ): Promise<Campaign> {
   return delayedResponse(testCampaignsById[campaignId]);
 }
+async function getShopCampaign(
+  centralServicesUrl: string,
+  authToken: string,
+  vendorId: string
+): Promise<Campaign | null> {
+  return delayedResponse(testCampaignsById[testMultiProductCampaignId]);
+}
 
 async function createCampaign(
   centralServicesUrl: string,
@@ -246,4 +253,5 @@ export const services: Services = {
   createCampaign,
   updateCampaign,
   endCampaign,
+  getShopCampaign,
 };
