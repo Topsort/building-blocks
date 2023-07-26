@@ -1,5 +1,5 @@
 import { Button } from "@components/Button";
-import { useProductPromotion } from "@context";
+import { usePromotionContext } from "@context";
 import { h, FunctionalComponent } from "preact";
 
 export const CampaignBudget: FunctionalComponent<{
@@ -8,7 +8,7 @@ export const CampaignBudget: FunctionalComponent<{
   onEdit?: () => void;
   showTargetingText?: boolean;
 }> = ({ budget, days, onEdit, showTargetingText = false }) => {
-  const { formatMoney } = useProductPromotion();
+  const { formatMoney } = usePromotionContext();
   return (
     <div className="ts-campaign-budget-duration">
       <div className="ts-campaign-budget-duration-title">

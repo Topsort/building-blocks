@@ -3,7 +3,7 @@ import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { Input } from "@components/Input";
 import { CampaignEstimation } from "@components/common";
-import { useProductPromotion } from "@context";
+import { usePromotionContext } from "@context";
 import { services } from "@services/central-services";
 import { maxDurationDays } from "@state";
 import { currencyStringToInt } from "@utils/currency";
@@ -22,7 +22,7 @@ export const Edit: FunctionalComponent<{
     dispatch,
     language,
     centralServicesUrl,
-  } = useProductPromotion();
+  } = usePromotionContext();
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);

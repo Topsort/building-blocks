@@ -1,9 +1,9 @@
 import { CampaignBudget, CampaignSummary } from "@components/common";
-import { useProductPromotion } from "@context";
+import { usePromotionContext } from "@context";
 import { h, FunctionalComponent } from "preact";
 
 export const Launched: FunctionalComponent = () => {
-  const { state } = useProductPromotion();
+  const { state } = usePromotionContext();
   const { dailyBudget, durationDays } = state.campaignCreation;
 
   return (

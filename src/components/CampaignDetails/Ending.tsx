@@ -2,7 +2,7 @@ import { Campaign } from "@api/types";
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { CampaignSummary } from "@components/common";
-import { useProductPromotion } from "@context";
+import { usePromotionContext } from "@context";
 import { services } from "@services/central-services";
 import { logger } from "@utils/logger";
 import { h, FunctionalComponent } from "preact";
@@ -14,7 +14,7 @@ export const Ending: FunctionalComponent<{
   campaign: Campaign;
 }> = ({ campaign }) => {
   const { authToken, vendorId, dispatch, state, centralServicesUrl } =
-    useProductPromotion();
+    usePromotionContext();
   const { selectedProductId } = state;
 
   const [isLoading, setIsLoading] = useState(false);

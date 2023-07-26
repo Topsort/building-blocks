@@ -1,6 +1,6 @@
 import { Button } from "@components/Button";
 import { defaultText } from "@constants";
-import { useProductPromotion } from "@context";
+import { usePromotionContext } from "@context";
 import { RequestStatus } from "@types";
 import { h, FunctionalComponent } from "preact";
 
@@ -9,7 +9,7 @@ export const PromoteButton: FunctionalComponent<{
   status: RequestStatus;
   hasCampaign?: boolean;
 }> = ({ onClick, status, hasCampaign = false }) => {
-  const { text } = useProductPromotion();
+  const { text } = usePromotionContext();
   const content = (() => {
     switch (status) {
       case "pending":

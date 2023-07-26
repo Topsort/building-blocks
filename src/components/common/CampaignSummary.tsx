@@ -1,5 +1,5 @@
 import { MS_PER_DAY, MS_PER_HOUR, MS_PER_MIN, MS_PER_SEC } from "@constants";
-import { useProductPromotion } from "@context";
+import { usePromotionContext } from "@context";
 import cx from "classnames";
 import { h, FunctionalComponent } from "preact";
 import { useMemo } from "preact/hooks";
@@ -9,7 +9,7 @@ const padTime = (num: number) => `0${num}`.slice(-2);
 export const CampaignSummary: FunctionalComponent<{
   startDate?: string;
 }> = ({ startDate }) => {
-  const { state } = useProductPromotion();
+  const { state } = usePromotionContext();
   const { productDataById, selectedProductId } = state;
   const productData = selectedProductId
     ? productDataById[selectedProductId]
