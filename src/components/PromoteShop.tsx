@@ -84,12 +84,10 @@ export const PromoteShop: FunctionalComponent = () => {
           <PromoteButton
             onClick={() => {
               dispatch({ type: "promote shop button clicked" });
-              if (shopCampaignId) {
-                dispatch({
-                  type: "set campaign Id",
-                  payload: { campaignId: shopCampaignId },
-                });
-              }
+              dispatch({
+                type: "set campaign Id",
+                payload: { campaignId: shopCampaignId },
+              });
             }}
             status={status || "idle"}
             hasCampaign={!!shopCampaignId}

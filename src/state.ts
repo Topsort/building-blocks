@@ -180,6 +180,7 @@ export const reducer = (
         break;
       }
       case "promote shop button clicked": {
+        draft.selectedProductId = null;
         draft.isModalOpen = true;
         break;
       }
