@@ -2,11 +2,66 @@ import { PromoteButton } from "@components/Button";
 import { Portal } from "@components/Portal";
 import { usePromotionContext } from "@context";
 import { services } from "@services/central-services";
-import { State } from "@state";
+import { Action, State } from "@state";
 import { RequestStatus } from "@types";
 import { logger } from "@utils/logger";
 import { Fragment, FunctionalComponent, h } from "preact";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
+
+const getProductData = (promoteTargetElements: HTMLElement[]) => {
+  return promoteTargetElements.reduce((dataById, promoteTarget) => {
+    const productId = promoteTarget.dataset.tsProductId;
+    const productName = promoteTarget.dataset.tsProductName;
+    const productImgUrl = promoteTarget.dataset.tsProductImgUrl;
+
+    if (productId && productName && productImgUrl) {
+      dataById[productId] = {
+        id: productId,
+        name: productName,
+        imgUrl: productImgUrl,
+      };
+    } else {
+      logger.warn("Missing data attributes on promote target:", {
+        "ts-product-id": productId || "(missing)",
+        "ts-product-name": productName || "(missing)",
+        "ts-product-img-url": productImgUrl || "(missing)",
+      });
+    }
+
+    return dataById;
+  }, {} as State["productDataById"]);
+};
+
+const getPromotedTargets = (
+  promoteTargetClassName: string,
+  selectedProductId: string | null,
+  dispatch: (action: Action) => void
+) => {
+  const promoteTargets = [
+    ...document.getElementsByClassName(promoteTargetClassName),
+  ] as HTMLElement[];
+
+  if (promoteTargets.length === 0) {
+    if (selectedProductId) {
+      dispatch({ type: "modal close button clicked" });
+    }
+    return [];
+  }
+
+  const productDataById = getProductData(promoteTargets);
+
+  if (selectedProductId && !(selectedProductId in productDataById)) {
+    dispatch({ type: "modal close button clicked" });
+  }
+
+  dispatch({
+    type: "promote targets retrieved",
+    payload: {
+      productDataById,
+    },
+  });
+  return promoteTargets;
+};
 
 export const PromoteProduct: FunctionalComponent = () => {
   const {
@@ -18,10 +73,12 @@ export const PromoteProduct: FunctionalComponent = () => {
     dispatch,
     state: { campaignIdsByProductId, selectedProductId },
   } = usePromotionContext();
+
   const [promoteTargets, setPromoteTargets] = useState<HTMLElement[]>([]);
   const [statusesByProductId, setStatusesByProductId] = useState<
     Record<string, RequestStatus>
   >({});
+
   const currentCounter = useRef(counter);
 
   const promoteTargetIds = useMemo(() => {
@@ -32,61 +89,14 @@ export const PromoteProduct: FunctionalComponent = () => {
   }, [promoteTargets]);
 
   useEffect(() => {
-    const promoteTargets = [
-      ...document.getElementsByClassName(promoteTargetClassName),
-    ] as HTMLElement[];
-
-    if (promoteTargets.length === 0) {
-      if (selectedProductId) {
-        dispatch({ type: "modal close button clicked" });
-      }
-      setPromoteTargets([]);
-      return;
-    }
-
-    const productDataById = promoteTargets.reduce((dataById, promoteTarget) => {
-      const productId = promoteTarget.dataset.tsProductId;
-      const productName = promoteTarget.dataset.tsProductName;
-      const productImgUrl = promoteTarget.dataset.tsProductImgUrl;
-
-      if (productId && productName && productImgUrl) {
-        dataById[productId] = {
-          id: productId,
-          name: productName,
-          imgUrl: productImgUrl,
-        };
-      } else {
-        logger.warn("Missing data attributes on promote target:", {
-          "ts-product-id": productId || "(missing)",
-          "ts-product-name": productName || "(missing)",
-          "ts-product-img-url": productImgUrl || "(missing)",
-        });
-      }
-
-      return dataById;
-    }, {} as State["productDataById"]);
-
-    if (selectedProductId && !(selectedProductId in productDataById)) {
-      dispatch({ type: "modal close button clicked" });
-    }
-
-    dispatch({
-      type: "promote targets retrieved",
-      payload: {
-        productDataById,
-      },
-    });
-
+    const promoteTargets = getPromotedTargets(
+      promoteTargetClassName,
+      selectedProductId,
+      dispatch
+    );
     setPromoteTargets(promoteTargets);
-    /*
-      NOTE (samet)
-      The reason for the following eslint-disable-next-line:
-      We don't need to run this effect after selectedProductId changes.
-      We are using it to check if the selected product is still
-      in the view when this effect runs.
-    */
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, promoteTargetClassName, counter]);
+  }, [promoteTargetClassName, counter]);
 
   const updateStatuses = (productIds: string[], status: RequestStatus) => {
     setStatusesByProductId((prev) => ({
@@ -99,57 +109,49 @@ export const PromoteProduct: FunctionalComponent = () => {
     }));
   };
 
-  useEffect(() => {
-    const getCampaignIdsByProductId = async () => {
-      if (promoteTargets.length === 0) return;
+  const getCampaignIdsByProductId = async () => {
+    if (promoteTargets.length === 0) return;
 
-      currentCounter.current = counter;
+    currentCounter.current = counter;
 
-      const newProductIds = promoteTargets
-        .map((promoteTarget) => promoteTarget.dataset.tsProductId)
-        .filter(
-          (productId): productId is string =>
-            !!productId && !(productId in campaignIdsByProductId)
-        );
+    const newProductIds = promoteTargets
+      .map((promoteTarget) => promoteTarget.dataset.tsProductId)
+      .filter(
+        (productId): productId is string =>
+          !!productId && !(productId in campaignIdsByProductId)
+      );
 
-      if (newProductIds.length === 0) return;
+    if (newProductIds.length === 0) return;
 
-      updateStatuses(newProductIds, "pending");
+    updateStatuses(newProductIds, "pending");
 
-      try {
-        const campaignIdsByProductId = await services.getCampaignIdsByProductId(
-          centralServicesUrl,
-          authToken,
-          vendorId,
-          newProductIds
-        );
+    try {
+      const campaignIdsByProductId = await services.getCampaignIdsByProductId(
+        centralServicesUrl,
+        authToken,
+        vendorId,
+        newProductIds
+      );
 
-        updateStatuses(newProductIds, "success");
-        dispatch({
-          type: "campaign ids by product id retrieved",
-          payload: { campaignIdsByProductId },
-        });
-      } catch (error) {
-        if (counter < currentCounter.current) {
-          return;
-        }
-
-        updateStatuses(newProductIds, "error");
-        logger.error("Failed to get campaign ids by product id.", error);
+      updateStatuses(newProductIds, "success");
+      dispatch({
+        type: "campaign ids by product id retrieved",
+        payload: { campaignIdsByProductId },
+      });
+    } catch (error) {
+      if (counter < currentCounter.current) {
+        return;
       }
-    };
 
+      updateStatuses(newProductIds, "error");
+      logger.error("Failed to get campaign ids by product id.", error);
+    }
+  };
+
+  useEffect(() => {
     getCampaignIdsByProductId();
-    /*
-      NOTE (samet)
-      The reason for the following eslint-disable-next-line:
-      It is not necessary to run this effect when new products
-      are added to campaignIdsByProductId.
-      We are using it to determine which products are already fetched
-      when this effect runs.
-    */
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, authToken, vendorId, promoteTargetIds]);
+  }, [authToken, promoteTargetIds]);
 
   return (
     <Fragment>
