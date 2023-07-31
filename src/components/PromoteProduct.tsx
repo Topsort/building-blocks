@@ -9,27 +9,43 @@ import { Fragment, FunctionalComponent, h } from "preact";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 
 const getProductData = (promoteTargetElements: HTMLElement[]) => {
-  return promoteTargetElements.reduce((dataById, promoteTarget) => {
-    const productId = promoteTarget.dataset.tsProductId;
-    const productName = promoteTarget.dataset.tsProductName;
-    const productImgUrl = promoteTarget.dataset.tsProductImgUrl;
+  const missingAttributes: {
+    "ts-product-id": string;
+    "ts-product-name": string;
+    "ts-product-img-url": string;
+  }[] = [];
+  const productsData = promoteTargetElements.reduce(
+    (dataById, promoteTarget) => {
+      const productId = promoteTarget.dataset.tsProductId;
+      const productName = promoteTarget.dataset.tsProductName;
+      const productImgUrl = promoteTarget.dataset.tsProductImgUrl;
 
-    if (productId && productName && productImgUrl) {
-      dataById[productId] = {
-        id: productId,
-        name: productName,
-        imgUrl: productImgUrl,
-      };
-    } else {
-      logger.warn("Missing data attributes on promote target:", {
-        "ts-product-id": productId || "(missing)",
-        "ts-product-name": productName || "(missing)",
-        "ts-product-img-url": productImgUrl || "(missing)",
-      });
-    }
+      if (productId && productName && productImgUrl) {
+        dataById[productId] = {
+          id: productId,
+          name: productName,
+          imgUrl: productImgUrl,
+        };
+      } else {
+        missingAttributes.push({
+          "ts-product-id": productId || "(missing)",
+          "ts-product-name": productName || "(missing)",
+          "ts-product-img-url": productImgUrl || "(missing)",
+        });
+      }
 
-    return dataById;
-  }, {} as State["productDataById"]);
+      return dataById;
+    },
+    {} as State["productDataById"]
+  );
+  if (missingAttributes.length > 0) {
+    logger.warn(
+      "Missing data attributes on promote target:",
+      missingAttributes
+    );
+  }
+
+  return productsData;
 };
 
 const getPromotedTargets = (
