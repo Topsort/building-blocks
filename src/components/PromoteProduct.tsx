@@ -8,7 +8,15 @@ import { logger } from "@utils/logger";
 import { Fragment, FunctionalComponent, h } from "preact";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 
-const getProductData = (promoteTargetElements: HTMLElement[]) => {
+const getProductData = (
+  promoteTargetElements: {
+    dataset: {
+      tsProductId?: string;
+      tsProductName?: string;
+      tsProductImgUrl?: string;
+    };
+  }[]
+) => {
   const missingAttributes: {
     "ts-product-id": string;
     "ts-product-name": string;
