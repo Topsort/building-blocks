@@ -1,5 +1,5 @@
 import { Icon } from "@components/Icon";
-import { useProductPromotion } from "@context";
+import { usePromotionContext } from "@context";
 import cx from "classnames";
 import { h, FunctionalComponent, JSX } from "preact";
 import { useMemo } from "preact/hooks";
@@ -15,7 +15,7 @@ export const CampaignEstimation: FunctionalComponent<
     formatNumber,
     formatMoney,
     state: { marketplaceCpc },
-  } = useProductPromotion();
+  } = usePromotionContext();
 
   const { minClicks, maxClicks } = useMemo(() => {
     const maxClicks = Math.ceil(

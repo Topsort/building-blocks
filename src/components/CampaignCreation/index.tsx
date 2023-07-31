@@ -1,6 +1,6 @@
 import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
-import { useProductPromotion } from "@context";
+import { usePromotionContext } from "@context";
 import { assertNever } from "@utils/assert-never";
 import { h, FunctionalComponent, Fragment } from "preact";
 import { useEffect } from "preact/hooks";
@@ -11,7 +11,7 @@ import { Launched } from "./Launched";
 import "./style.css";
 
 export const CampaignCreation: FunctionalComponent = () => {
-  const { state, dispatch } = useProductPromotion();
+  const { state, dispatch } = usePromotionContext();
   const {
     productDataById,
     selectedProductId,

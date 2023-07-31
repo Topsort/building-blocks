@@ -1,13 +1,13 @@
 import { Campaign } from "@api/types";
 import { Icon, IconName } from "@components/Icon";
-import { useProductPromotion } from "@context";
+import { usePromotionContext } from "@context";
 import { h, FunctionalComponent } from "preact";
 
 export const Metrics: FunctionalComponent<{
   campaign: Campaign;
   title: string;
 }> = ({ campaign, title }) => {
-  const { formatMoney, formatNumber } = useProductPromotion();
+  const { formatMoney, formatNumber } = usePromotionContext();
   const { impressions, clicks, purchases } = campaign.campaignBehaviorData;
   return (
     <div className="ts-metrics">

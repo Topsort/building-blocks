@@ -1,7 +1,7 @@
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { CampaignBudget, CampaignSummary } from "@components/common";
-import { useProductPromotion } from "@context";
+import { usePromotionContext } from "@context";
 import { services } from "@services/central-services";
 import { logger } from "@utils/logger";
 import { h, FunctionalComponent } from "preact";
@@ -9,7 +9,7 @@ import { useState } from "preact/hooks";
 
 export const Confirm: FunctionalComponent = () => {
   const { authToken, vendorId, currency, state, dispatch, centralServicesUrl } =
-    useProductPromotion();
+    usePromotionContext();
   const {
     productDataById,
     selectedProductId,

@@ -3,7 +3,7 @@ import { Icon } from "@components/Icon";
 import { RangeInputWithTooltip } from "@components/Input";
 import { Tooltip } from "@components/Tooltip";
 import { CampaignEstimation } from "@components/common";
-import { useProductPromotion } from "@context";
+import { usePromotionContext } from "@context";
 import { minDurationDays, maxDurationDays } from "@state";
 import { h, FunctionalComponent } from "preact";
 import { ChangeEvent } from "preact/compat";
@@ -11,7 +11,7 @@ import { ChangeEvent } from "preact/compat";
 import { getMaxBudget } from "./utils";
 
 export const BudgetAndDuration: FunctionalComponent = () => {
-  const { state, dispatch, currency, formatMoney } = useProductPromotion();
+  const { state, dispatch, currency, formatMoney } = usePromotionContext();
   const {
     defaultBudget,
     campaignCreation: { dailyBudget, durationDays },

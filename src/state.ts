@@ -32,6 +32,7 @@ export type State = {
     step: CampaignDetailsStep;
   };
   lastDeletedCampaign: Campaign | null;
+  selectedCampaignId: string | null;
 };
 
 export const initialState: State = {
@@ -54,6 +55,7 @@ export const initialState: State = {
     step: "details",
   },
   lastDeletedCampaign: null,
+  selectedCampaignId: null,
 };
 
 export type Action =
@@ -89,6 +91,12 @@ export type Action =
       type: "product selected";
       payload: {
         productId: string;
+      };
+    }
+  | {
+      type: "set campaign Id";
+      payload: {
+        campaignId: string | null;
       };
     }
   | {
@@ -164,6 +172,10 @@ export const reducer = (
         draft.selectedProductId = action.payload.productId;
         draft.isModalOpen = true;
         draft.lastDeletedCampaign = null;
+        break;
+      }
+      case "set campaign Id": {
+        draft.selectedCampaignId = action.payload.campaignId;
         break;
       }
       case "campaign retrieved": {

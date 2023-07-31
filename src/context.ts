@@ -3,7 +3,7 @@ import { Currency, CustomText, Style } from "@types";
 import { createContext } from "preact";
 import { useContext } from "preact/hooks";
 
-type ProductPromotionContextValue = {
+type PromotionContextValue = {
   centralServicesUrl: string;
   authToken: string;
   vendorId: string;
@@ -12,6 +12,7 @@ type ProductPromotionContextValue = {
   formatNumber: Intl.NumberFormat["format"];
   formatMoney: (number: number) => ReturnType<Intl.NumberFormat["format"]>;
   promoteTargetClassName: string;
+  isUsingProductPromotion: boolean;
   style: Style;
   text: CustomText;
   counter: number;
@@ -19,14 +20,14 @@ type ProductPromotionContextValue = {
   state: State;
 };
 
-export const ProductPromotionContext = createContext<
-  ProductPromotionContextValue | undefined
+export const PromotionContext = createContext<
+  PromotionContextValue | undefined
 >(undefined);
 
-type UseProductPromotion = () => ProductPromotionContextValue;
+type UsePromotionContext = () => PromotionContextValue;
 
-export const useProductPromotion: UseProductPromotion = () => {
-  const context = useContext(ProductPromotionContext);
+export const usePromotionContext: UsePromotionContext = () => {
+  const context = useContext(PromotionContext);
 
   if (context === undefined) {
     throw new Error(

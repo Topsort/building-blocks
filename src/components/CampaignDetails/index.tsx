@@ -2,7 +2,7 @@ import { Campaign } from "@api/types";
 import { BackButton } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
-import { useProductPromotion } from "@context";
+import { usePromotionContext } from "@context";
 import { services } from "@services/central-services";
 import { logger } from "@utils/logger";
 import { h, FunctionalComponent, Fragment } from "preact";
@@ -20,7 +20,7 @@ export const CampaignDetails: FunctionalComponent<{
   campaignId: Campaign["campaignId"];
 }> = ({ campaignId }) => {
   const { authToken, vendorId, state, dispatch, centralServicesUrl } =
-    useProductPromotion();
+    usePromotionContext();
   const {
     campaignsById,
     campaignDetails: { step },

@@ -1,4 +1,4 @@
-import { useProductPromotion } from "@context";
+import { usePromotionContext } from "@context";
 import cx from "classnames";
 import { h, FunctionalComponent, JSX } from "preact";
 
@@ -9,7 +9,7 @@ export const Button: FunctionalComponent<
     variant: "inline" | "text" | "contained" | "outlined";
   }
 > = ({ children, className, color, fullWidth = false, variant, ...props }) => {
-  const { style } = useProductPromotion();
+  const { style } = usePromotionContext();
   const borderRadius = style.button?.borderRadius || "sm";
   return (
     <button
