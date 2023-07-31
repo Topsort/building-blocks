@@ -8,28 +8,51 @@ import { logger } from "@utils/logger";
 import { Fragment, FunctionalComponent, h } from "preact";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 
-const getProductData = (promoteTargetElements: HTMLElement[]) => {
-  return promoteTargetElements.reduce((dataById, promoteTarget) => {
-    const productId = promoteTarget.dataset.tsProductId;
-    const productName = promoteTarget.dataset.tsProductName;
-    const productImgUrl = promoteTarget.dataset.tsProductImgUrl;
+const getProductData = (
+  promoteTargetElements: {
+    dataset: {
+      tsProductId?: string;
+      tsProductName?: string;
+      tsProductImgUrl?: string;
+    };
+  }[]
+) => {
+  const productsData = promoteTargetElements.reduce(
+    (dataById, promoteTarget, index) => {
+      const productId = promoteTarget.dataset.tsProductId;
+      const productName = promoteTarget.dataset.tsProductName;
+      const productImgUrl = promoteTarget.dataset.tsProductImgUrl;
 
-    if (productId && productName && productImgUrl) {
-      dataById[productId] = {
-        id: productId,
-        name: productName,
-        imgUrl: productImgUrl,
-      };
-    } else {
-      logger.warn("Missing data attributes on promote target:", {
-        "ts-product-id": productId || "(missing)",
-        "ts-product-name": productName || "(missing)",
-        "ts-product-img-url": productImgUrl || "(missing)",
-      });
-    }
+      if (productId && productName && productImgUrl) {
+        dataById[productId] = {
+          id: productId,
+          name: productName,
+          imgUrl: productImgUrl,
+        };
+      } else {
+        dataById[`ts-missing-attributes-${index}`] = {
+          id: productId || "(missing)",
+          name: productName || "(missing)",
+          imgUrl: productImgUrl || "(missing)",
+        };
+      }
 
-    return dataById;
-  }, {} as State["productDataById"]);
+      return dataById;
+    },
+    {} as State["productDataById"]
+  );
+
+  const missingAttributes = Object.entries(productsData).filter(([key]) =>
+    key.includes("ts-missing-attributes-")
+  );
+  if (missingAttributes.length > 0) {
+    logger.warn(
+      "Missing data attributes on promote target:",
+      missingAttributes
+    );
+  }
+
+  return productsData;
 };
 
 const getPromotedTargets = (

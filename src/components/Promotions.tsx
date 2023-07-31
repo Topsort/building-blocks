@@ -140,8 +140,8 @@ export const TopsortPromotionsWithContext: FunctionalComponent<{
   style,
   text,
   counter,
-  promoteShopClassName,
   isUsingProductPromotion,
+  promoteShopClassName,
   isUsingShopPromotion,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
