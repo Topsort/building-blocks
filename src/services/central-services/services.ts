@@ -315,7 +315,6 @@ async function getShopCampaign(
   authToken: string,
   vendorId: string
 ): Promise<Campaign | null> {
-  console.log([centralServicesUrl, authToken, vendorId]);
   return Promise.resolve(null);
   // return await api(
   //   schemas.campaignSchema,
