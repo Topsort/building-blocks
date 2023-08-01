@@ -16,6 +16,7 @@ import { Fragment, FunctionalComponent, h } from "preact";
 import { useEffect, useReducer } from "preact/hooks";
 
 import { PromoteProduct } from "./PromoteProduct";
+import { PromoteShop } from "./PromoteShop";
 
 const TopsortPromotions: FunctionalComponent = () => {
   const {
@@ -25,6 +26,7 @@ const TopsortPromotions: FunctionalComponent = () => {
     style,
     dispatch,
     isUsingProductPromotion,
+    isUsingShopPromotion,
     state: {
       isModalOpen,
       selectedCampaignId,
@@ -87,6 +89,7 @@ const TopsortPromotions: FunctionalComponent = () => {
   return (
     <Fragment>
       {isUsingProductPromotion && <PromoteProduct />}
+      {isUsingShopPromotion && <PromoteShop />}
       <Portal target={document.body}>
         <Modal
           onClose={() => dispatch({ type: "modal close button clicked" })}
@@ -115,6 +118,7 @@ export const TopsortPromotionsWithContext: FunctionalComponent<{
   authToken: string;
   vendorId: string;
   promoteTargetClassName: string;
+  promoteShopClassName: string;
   style: Style;
   text: CustomText;
   language: string;
@@ -123,6 +127,7 @@ export const TopsortPromotionsWithContext: FunctionalComponent<{
   formatMoney: (number: number) => ReturnType<Intl.NumberFormat["format"]>;
   counter: number;
   isUsingProductPromotion: boolean;
+  isUsingShopPromotion: boolean;
 }> = ({
   centralServicesUrl,
   authToken,
@@ -136,6 +141,8 @@ export const TopsortPromotionsWithContext: FunctionalComponent<{
   text,
   counter,
   isUsingProductPromotion,
+  promoteShopClassName,
+  isUsingShopPromotion,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -150,12 +157,14 @@ export const TopsortPromotionsWithContext: FunctionalComponent<{
         formatNumber,
         formatMoney,
         promoteTargetClassName,
+        promoteShopClassName,
         style,
         text,
         state,
         dispatch,
         counter,
         isUsingProductPromotion,
+        isUsingShopPromotion,
       }}
     >
       <TopsortPromotions />

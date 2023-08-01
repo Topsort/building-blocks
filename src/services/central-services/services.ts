@@ -310,6 +310,22 @@ async function endCampaign(
   );
 }
 
+async function getShopCampaign(
+  centralServicesUrl: string,
+  authToken: string,
+  vendorId: string
+): Promise<Campaign | null> {
+  // TODO (sofia):change path when we integrate with cs
+  return await api(
+    schemas.campaignSchema,
+    paths.campaignByShop(centralServicesUrl, vendorId),
+    {
+      method: "GET",
+      headers: getHeaders(authToken),
+    }
+  );
+}
+
 export const services: Services = {
   getMarketplaceDetails,
   getDefaultBudgetAndCpc,
@@ -318,4 +334,5 @@ export const services: Services = {
   createCampaign,
   updateCampaign,
   endCampaign,
+  getShopCampaign,
 };

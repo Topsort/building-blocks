@@ -99,6 +99,7 @@ export type Action =
         campaignId: string | null;
       };
     }
+  | { type: "promote shop button clicked" }
   | {
       type: "campaign retrieved";
       payload: {
@@ -176,6 +177,10 @@ export const reducer = (
       }
       case "set campaign Id": {
         draft.selectedCampaignId = action.payload.campaignId;
+        break;
+      }
+      case "promote shop button clicked": {
+        draft.isModalOpen = true;
         break;
       }
       case "campaign retrieved": {
