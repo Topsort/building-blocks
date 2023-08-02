@@ -338,7 +338,7 @@ async function endCampaign(
 
 async function getShopCampaign(
   centralServicesUrl: string,
-  authToken: string,
+  authToken: string
 ): Promise<Campaign | null> {
   return await api(
     schemas.campaignSchema,

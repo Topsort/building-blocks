@@ -24,7 +24,7 @@ export type Services = {
   ): Promise<CampaignIdsByProductId>;
   getShopCampaign(
     centralServicesUrl: string,
-    authToken: string,
+    authToken: string
   ): Promise<Campaign | null>;
   getCampaign(
     centralServicesUrl: string,
