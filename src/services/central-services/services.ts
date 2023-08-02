@@ -315,15 +315,16 @@ async function getShopCampaign(
   authToken: string,
   vendorId: string
 ): Promise<Campaign | null> {
+  return Promise.resolve(null);
   // TODO (sofia):change path when we integrate with cs
-  return await api(
-    schemas.campaignSchema,
-    paths.campaignByShop(centralServicesUrl, vendorId),
-    {
-      method: "GET",
-      headers: getHeaders(authToken),
-    }
-  );
+  // return await api(
+  //   schemas.campaignSchema,
+  //   paths.campaignByShop(centralServicesUrl, vendorId),
+  //   {
+  //     method: "GET",
+  //     headers: getHeaders(authToken),
+  //   }
+  // );
 }
 
 export const services: Services = {
