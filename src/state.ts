@@ -27,12 +27,14 @@ export type State = {
     step: CampaignCreationStep;
     dailyBudget: number;
     durationDays: number;
+    type: "shop" | "product";
   };
   campaignDetails: {
     step: CampaignDetailsStep;
   };
   lastDeletedCampaign: Campaign | null;
   selectedCampaignId: string | null;
+  shopCampaignLaunched: boolean;
 };
 
 export const initialState: State = {
@@ -50,12 +52,14 @@ export const initialState: State = {
     step: "budget and duration",
     dailyBudget: 0,
     durationDays: initialDurationDays,
+    type: "product",
   },
   campaignDetails: {
     step: "details",
   },
   lastDeletedCampaign: null,
   selectedCampaignId: null,
+  shopCampaignLaunched: false,
 };
 
 export type Action =
@@ -119,11 +123,14 @@ export type Action =
       };
     }
   | {
-      type: "campaign launched";
+      type: "product campaign launched";
       payload: {
         campaign: Campaign;
         productId: string;
       };
+    }
+  | {
+      type: "shop campaign launched";
     }
   | {
       type: "campaign edited";
@@ -171,6 +178,7 @@ export const reducer = (
       }
       case "product selected": {
         draft.selectedProductId = action.payload.productId;
+        draft.campaignCreation.type = "product";
         draft.isModalOpen = true;
         draft.lastDeletedCampaign = null;
         break;
@@ -180,7 +188,9 @@ export const reducer = (
         break;
       }
       case "promote shop button clicked": {
+        draft.selectedProductId = null;
         draft.isModalOpen = true;
+        draft.campaignCreation.type = "shop";
         break;
       }
       case "campaign retrieved": {
@@ -210,11 +220,16 @@ export const reducer = (
         draft.campaignCreation.durationDays = initialDurationDays;
         break;
       }
-      case "campaign launched": {
+      case "product campaign launched": {
         const { campaign, productId } = action.payload;
         draft.campaignIdsByProductId[productId] = campaign.campaignId;
         draft.campaignsById[campaign.campaignId] = campaign;
         draft.campaignCreation.step = "launched";
+        break;
+      }
+      case "shop campaign launched": {
+        draft.campaignCreation.step = "launched";
+        draft.shopCampaignLaunched = true;
         break;
       }
       case "edit campaign button clicked": {

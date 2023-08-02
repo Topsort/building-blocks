@@ -33,7 +33,7 @@ export type Services = {
     vendorId: string,
     campaignId: string
   ): Promise<Campaign>;
-  createCampaign(
+  createProductCampaign(
     centralServicesUrl: string,
     authToken: string,
     vendorId: string,
@@ -46,6 +46,15 @@ export type Services = {
       currencyCode: string;
     }
   ): Promise<Campaign>;
+  createShopCampaign(
+    centralServicesUrl: string,
+    authToken: string,
+    vendorId: string,
+    data: {
+      dailyBudget: number;
+      endDate: string;
+    }
+  ): Promise<void>;
   updateCampaign(
     centralServicesUrl: string,
     authToken: string,

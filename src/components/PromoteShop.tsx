@@ -14,6 +14,7 @@ export const PromoteShop: FunctionalComponent = () => {
     vendorId,
     promoteShopClassName,
     dispatch,
+    state: { shopCampaignLaunched },
   } = usePromotionContext();
   const [promoteButtonElement, setPromoteButtonElement] =
     useState<HTMLElement>();
@@ -92,7 +93,7 @@ export const PromoteShop: FunctionalComponent = () => {
               }
             }}
             status={status || "idle"}
-            hasCampaign={!!shopCampaignId}
+            hasCampaign={!!shopCampaignId || shopCampaignLaunched}
           />
         </Portal>
       )}

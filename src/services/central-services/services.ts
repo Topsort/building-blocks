@@ -160,7 +160,7 @@ async function getCampaign(
   );
 }
 
-async function createCampaign(
+async function createProductCampaign(
   centralServicesUrl: string,
   authToken: string,
   vendorId: string,
@@ -243,6 +243,32 @@ async function createCampaign(
   };
 }
 
+async function createShopCampaign(
+  centralServicesUrl: string,
+  authToken: string,
+  vendorId: string,
+  {
+    dailyBudget,
+    endDate,
+  }: {
+    dailyBudget: number;
+    endDate: string;
+  }
+): Promise<void> {
+  await api(
+    schemas.nullSchema,
+    paths.promoteMyShop(centralServicesUrl, vendorId),
+    {
+      method: "POST",
+      headers: getHeaders(authToken),
+      body: JSON.stringify({
+        budgetAmount: dailyBudget,
+        endDate,
+      }),
+    }
+  );
+}
+
 async function updateCampaign(
   centralServicesUrl: string,
   authToken: string,
@@ -311,19 +337,24 @@ async function endCampaign(
 }
 
 async function getShopCampaign(
+  // TODO (sofia):change path and remove eslint-disable when we integrate with cs
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   centralServicesUrl: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   authToken: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   vendorId: string
 ): Promise<Campaign | null> {
-  // TODO (sofia):change path when we integrate with cs
-  return await api(
-    schemas.campaignSchema,
-    paths.campaignByShop(centralServicesUrl, vendorId),
-    {
-      method: "GET",
-      headers: getHeaders(authToken),
-    }
-  );
+  return Promise.resolve(null);
+  // return await api(
+  //   schemas.campaignSchema,
+  //   paths.campaignByShop(centralServicesUrl, vendorId),
+  //   {
+  //     method: "GET",
+  //     headers: getHeaders(authToken),
+  //   }
+  // );
 }
 
 export const services: Services = {
@@ -331,8 +362,9 @@ export const services: Services = {
   getDefaultBudgetAndCpc,
   getCampaignIdsByProductId,
   getCampaign,
-  createCampaign,
+  createProductCampaign,
   updateCampaign,
   endCampaign,
   getShopCampaign,
+  createShopCampaign,
 };

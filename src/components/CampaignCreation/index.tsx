@@ -34,10 +34,10 @@ export const CampaignCreation: FunctionalComponent = () => {
     switch (step) {
       case "budget and duration": {
         return {
-          title: "Promote a product",
+          title: selectedProductId ? "Promote a product" : "Promote My Shop",
           subtitle: selectedProductId
             ? productDataById[selectedProductId].name
-            : undefined,
+            : "Get more orders from promoting your listings in search, category, and check out pages!",
           content: <BudgetAndDuration />,
         };
       }

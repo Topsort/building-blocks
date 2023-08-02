@@ -52,6 +52,23 @@ hr.ts-hr {
   padding: 1rem;
 }
 
+.ts-campaign-box {
+  background-color: var(--ts-primary-color);
+  object-fit: contain;
+  box-sizing: border-box;
+  border-radius: var(--ts-radius-md);
+  width: 4.25rem;
+  height: 4.25rem;
+  text-align: center;
+  display: flex;
+  flex: none;
+  justify-content: center;
+  align-items: center;
+  color: #FFF;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
 .ts-product-image {
   background-color: #fff;
   object-fit: contain;
