@@ -48,8 +48,7 @@ export const PromoteShop: FunctionalComponent = () => {
       try {
         const campaign = await services.getShopCampaign(
           centralServicesUrl,
-          authToken,
-          vendorId
+          authToken
         );
 
         setStatus("success");

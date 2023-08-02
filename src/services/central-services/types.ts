@@ -25,7 +25,6 @@ export type Services = {
   getShopCampaign(
     centralServicesUrl: string,
     authToken: string,
-    vendorId: string
   ): Promise<Campaign | null>;
   getCampaign(
     centralServicesUrl: string,
