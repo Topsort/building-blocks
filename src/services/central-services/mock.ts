@@ -277,5 +277,5 @@ export const services: Services = {
   createShopCampaign,
   updateCampaign,
   endCampaign,
-  getShopCampaign,
+  getShopCampaignId: getShopCampaign,
 };

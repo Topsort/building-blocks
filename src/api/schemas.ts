@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { boolean, string, z } from "zod";
 
 export const nullSchema = z.null();
 
@@ -51,6 +51,11 @@ export const campaignSchema = campaignPartialSchema.extend({
       quantity: z.number().min(0),
     }),
   }),
+});
+
+export const shopCampaignId = z.object({
+  exists: z.boolean(),
+  campaignId: z.string().uuid(),
 });
 
 export const validationSchema = z.object({

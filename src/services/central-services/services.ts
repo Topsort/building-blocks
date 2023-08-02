@@ -7,6 +7,7 @@ import type {
   DefaultBudgetAndCpc,
   PartialCampaign,
   MarketplaceDetails,
+  ShopCampaignId,
 } from "@api/types";
 
 import type { Services } from "./types";
@@ -336,13 +337,13 @@ async function endCampaign(
   );
 }
 
-async function getShopCampaign(
+async function getShopCampaignId(
   centralServicesUrl: string,
   authToken: string
-): Promise<Campaign | null> {
+): Promise<ShopCampaignId> {
   return await api(
-    schemas.campaignSchema,
-    paths.campaignByShop(centralServicesUrl),
+    schemas.shopCampaignId,
+    paths.campaignIdByShop(centralServicesUrl),
     {
       method: "GET",
       headers: getHeaders(authToken),
@@ -358,6 +359,6 @@ export const services: Services = {
   createProductCampaign,
   updateCampaign,
   endCampaign,
-  getShopCampaign,
+  getShopCampaignId,
   createShopCampaign,
 };

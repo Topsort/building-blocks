@@ -46,13 +46,18 @@ export const PromoteShop: FunctionalComponent = () => {
       setStatus("pending");
 
       try {
-        const campaign = await services.getShopCampaign(
+        const shopCampaignId = await services.getShopCampaignId(
           centralServicesUrl,
           authToken
         );
-
         setStatus("success");
-        if (campaign) {
+        if (shopCampaignId.exists) {
+          const campaign = await services.getCampaign(
+            centralServicesUrl,
+            authToken,
+            vendorId,
+            shopCampaignId.campaignId
+          );
           dispatch({
             type: "campaign retrieved",
             payload: { campaign },

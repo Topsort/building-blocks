@@ -4,6 +4,7 @@ import {
   MarketplaceDetails,
   DefaultBudgetAndCpc,
   PartialCampaign,
+  ShopCampaignId,
 } from "@api/types";
 
 export type Services = {
@@ -22,10 +23,10 @@ export type Services = {
     vendorId: string,
     productIds: string[]
   ): Promise<CampaignIdsByProductId>;
-  getShopCampaign(
+  getShopCampaignId(
     centralServicesUrl: string,
     authToken: string
-  ): Promise<Campaign | null>;
+  ): Promise<ShopCampaignId>;
   getCampaign(
     centralServicesUrl: string,
     authToken: string,
