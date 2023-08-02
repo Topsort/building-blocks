@@ -75,10 +75,10 @@
    });
    ```
 
-### Where do I get authUrl from!? 
+### Where do I get authUrl from!?
 
 ##### TL;DR
-The `authUrl` is the URL to your backend endpoint that requests the JWT from the Topsort Modal Auth API and returns its response. It acts as a proxy, enhancing security by keeping your advanced API key secure and enabling you to interact with Topsort's systems. 
+The `authUrl` is the URL to your backend endpoint that requests the JWT from the Topsort Modal Auth API and returns its response. It acts as a proxy, enhancing security by keeping your advanced API key secure and enabling you to interact with Topsort's systems.
 
 The Modal API employs JSON Web Tokens (JWT) to validate every request made to our systems. To acquire a JWT, you'll need to hit our public Modal Auth API, supplying the `vendorId` used by the library. In response, we'll provide a JWT that authorizes that specific vendor to perform tasks offered by the Modal library for a restricted time period.
 
@@ -90,13 +90,13 @@ curl --request GET \
      --header 'accept: application/json' \
      --header 'authorization: Bearer <YOUR_ADVANCED_API_KEY>'
 ```
-Note that this request mandates the use of your `ADVANCED_API_KEY` as authorization. 
+Note that this request mandates the use of your `ADVANCED_API_KEY` as authorization.
 
 ##### Protecting Your API Key
 
-Given that the API key allows campaign creation, deletion, catalog management, and more, it's crucial to prevent its exposure. We therefore advise our customers to establish an endpoint on their backend that makes this request. 
+Given that the API key allows campaign creation, deletion, catalog management, and more, it's crucial to prevent its exposure. We therefore advise our customers to establish an endpoint on their backend that makes this request.
 
-This backend endpoint should be accessible via `authUrl`. In essence, the `authUrl` is the URL to the backend endpoint that will request the JWT from the Modal Auth API. Think of it as a proxy call! 
+This backend endpoint should be accessible via `authUrl`. In essence, the `authUrl` is the URL to the backend endpoint that will request the JWT from the Modal Auth API. Think of it as a proxy call!
 
 By implementing this setup, you can safely and securely interact with Topsort's systems and manage your ad campaigns. You must set the `authUrl` during initialization. Optionally, you can pass headers for the request to your backend, as shown in the following example:
 
@@ -113,6 +113,21 @@ await tsBlocks.init({
 ##### Summary
 
 To put it simply, you need to make a request to `${authUrl}/auth/vendors/${vendorId}` on your backend, which in turn should call our Modal Auth API at `https://api.topsort.com/public/v1/modal-service/auth/vendors/${vendorId}`. Your endpoint will then return whatever response it receives from our API.
+
+### Shop Promotion Button
+
+To add a button that will create a campaign with all the vendor products, add the following HTML class to
+the element you want the button appended to:
+
+  ```html
+  <div class="ts-promote-shop></div>
+  ```
+
+Then simply call `useShopPromotion`  to have the button rendered and functional, like so:
+
+  ```javascript
+  tsBlocks.useShopPromotion();
+  ```
 
 ### Product Promotion Button and Modal (Optional)
 
