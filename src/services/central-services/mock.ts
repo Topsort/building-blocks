@@ -143,7 +143,7 @@ async function getShopCampaign(
   return delayedResponse(testCampaignsById[testMultiProductCampaignId]);
 }
 
-async function createCampaign(
+async function createProductCampaign(
   centralServicesUrl: string,
   authToken: string,
   vendorId: string,
@@ -171,6 +171,50 @@ async function createCampaign(
       amount: dailyBudget,
     },
     startDate,
+    endDate,
+  });
+  return {
+    ...response,
+    activeBidsCount: 1,
+    campaignBehaviorData: {
+      clicks: {
+        total: 0,
+        charged: 0,
+        adSpent: 0,
+      },
+      impressions: {
+        total: 0,
+        charged: 0,
+        adSpent: 0,
+      },
+      purchases: {
+        amount: 0,
+        count: 0,
+        quantity: 0,
+      },
+    },
+  };
+}
+async function createShopCampaign(
+  centralServicesUrl: string,
+  authToken: string,
+  vendorId: string,
+  {
+    dailyBudget,
+    endDate,
+  }: {
+    dailyBudget: number;
+    endDate: string;
+  }
+): Promise<Campaign> {
+  const response = await delayedResponse({
+    name: "",
+    campaignId: uuidv4(),
+    budget: {
+      type: "daily" as Campaign["budget"]["type"],
+      amount: dailyBudget,
+    },
+    startDate: "",
     endDate,
   });
   return {
@@ -250,7 +294,8 @@ export const services: Services = {
   getDefaultBudgetAndCpc,
   getCampaignIdsByProductId,
   getCampaign,
-  createCampaign,
+  createProductCampaign,
+  createShopCampaign,
   updateCampaign,
   endCampaign,
   getShopCampaign,

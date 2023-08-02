@@ -13,7 +13,7 @@ export const Confirm: FunctionalComponent = () => {
   const {
     productDataById,
     selectedProductId,
-    campaignCreation: { dailyBudget, durationDays },
+    campaignCreation: { dailyBudget, durationDays, type },
   } = state;
 
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +25,6 @@ export const Confirm: FunctionalComponent = () => {
   const launchCampaign = async () => {
     setIsLoading(true);
     setHasError(false);
-
     if (!selectedProductId) {
       logger.error("Cannot create campaign without a product selected.");
       setIsLoading(false);
@@ -41,13 +40,13 @@ export const Confirm: FunctionalComponent = () => {
     const endDate = new Date();
     endDate.setDate(startDate.getDate() + durationDays);
 
-    try {
-      const campaign = await services.createCampaign(
+    const handleCreateProductCampaign = async (productId: string) => {
+      const campaign = await services.createProductCampaign(
         centralServicesUrl,
         authToken,
         vendorId,
         {
-          productId: selectedProductId,
+          productId,
           name: `${productData?.name || selectedProductId} Campaign`,
           dailyBudget,
           startDate: startDate.toISOString(),
@@ -58,8 +57,43 @@ export const Confirm: FunctionalComponent = () => {
 
       dispatch({
         type: "campaign launched",
-        payload: { campaign, productId: selectedProductId },
+        payload: { campaign, productId },
       });
+    };
+
+    const handleCreateShopCampaign = async () => {
+      const campaign = await services.createShopCampaign(
+        centralServicesUrl,
+        authToken,
+        vendorId,
+        {
+          dailyBudget,
+          endDate: endDate.toISOString(),
+        }
+      );
+
+      dispatch({
+        type: "campaign launched",
+        payload: { campaign },
+      });
+    };
+    let createCampaign;
+    if (type === "product") {
+      if (!selectedProductId) {
+        logger.error("Cannot create campaign without a product selected.");
+        setIsLoading(false);
+        setHasError(true);
+        return;
+      }
+      createCampaign = async () => {
+        await handleCreateProductCampaign(selectedProductId);
+      };
+    } else {
+      createCampaign = handleCreateShopCampaign;
+    }
+
+    try {
+      await createCampaign();
     } catch (error) {
       logger.error("Failed to create campaign.", error);
       setHasError(true);

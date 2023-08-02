@@ -9,6 +9,8 @@ export const paths = {
     `${centralServicesUrl}/modal-service/vendors/${vendorId}/shop-campaign`,
   campaigns: (centralServicesUrl: string, vendorId: string) =>
     `${centralServicesUrl}/modal-service/vendors/${vendorId}/campaigns`,
+  promoteMyShop: (centralServicesUrl: string, vendorId: string) =>
+    `${centralServicesUrl}/modal-service/vendors/${vendorId}/promote-my-shop`,
   marketplaceDetails: (centralServicesUrl: string) =>
     `${centralServicesUrl}/modal-service/vendors/marketplace-details`,
   defaultBudget: (centralServicesUrl: string, vendorId: string) =>
