@@ -34,6 +34,7 @@ export type State = {
   };
   lastDeletedCampaign: Campaign | null;
   selectedCampaignId: string | null;
+  shopCampaignLaunched: boolean;
 };
 
 export const initialState: State = {
@@ -58,6 +59,7 @@ export const initialState: State = {
   },
   lastDeletedCampaign: null,
   selectedCampaignId: null,
+  shopCampaignLaunched: false,
 };
 
 export type Action =
@@ -227,6 +229,7 @@ export const reducer = (
       }
       case "shop campaign launched": {
         draft.campaignCreation.step = "launched";
+        draft.shopCampaignLaunched = true;
         break;
       }
       case "edit campaign button clicked": {
