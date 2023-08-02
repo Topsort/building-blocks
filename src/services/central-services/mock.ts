@@ -206,8 +206,8 @@ async function createShopCampaign(
     dailyBudget: number;
     endDate: string;
   }
-): Promise<Campaign> {
-  const response = await delayedResponse({
+): Promise<void> {
+  await delayedResponse({
     name: "",
     campaignId: uuidv4(),
     budget: {
@@ -217,27 +217,6 @@ async function createShopCampaign(
     startDate: "",
     endDate,
   });
-  return {
-    ...response,
-    activeBidsCount: 1,
-    campaignBehaviorData: {
-      clicks: {
-        total: 0,
-        charged: 0,
-        adSpent: 0,
-      },
-      impressions: {
-        total: 0,
-        charged: 0,
-        adSpent: 0,
-      },
-      purchases: {
-        amount: 0,
-        count: 0,
-        quantity: 0,
-      },
-    },
-  };
 }
 
 async function updateCampaign(

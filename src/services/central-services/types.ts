@@ -54,7 +54,7 @@ export type Services = {
       dailyBudget: number;
       endDate: string;
     }
-  ): Promise<Campaign>;
+  ): Promise<void>;
   updateCampaign(
     centralServicesUrl: string,
     authToken: string,

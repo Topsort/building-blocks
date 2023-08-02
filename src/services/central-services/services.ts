@@ -254,9 +254,9 @@ async function createShopCampaign(
     dailyBudget: number;
     endDate: string;
   }
-): Promise<Campaign> {
-  const response = await api(
-    schemas.campaignPartialSchema,
+): Promise<void> {
+  await api(
+    schemas.nullSchema,
     paths.promoteMyShop(centralServicesUrl, vendorId),
     {
       method: "POST",
@@ -267,30 +267,6 @@ async function createShopCampaign(
       }),
     }
   );
-
-  // New campaigns don't have behaviour data yet, so add it here
-  // filled with zeros for a consistent data format
-  return {
-    ...response,
-    activeBidsCount: 1,
-    campaignBehaviorData: {
-      clicks: {
-        total: 0,
-        charged: 0,
-        adSpent: 0,
-      },
-      impressions: {
-        total: 0,
-        charged: 0,
-        adSpent: 0,
-      },
-      purchases: {
-        amount: 0,
-        count: 0,
-        quantity: 0,
-      },
-    },
-  };
 }
 
 async function updateCampaign(

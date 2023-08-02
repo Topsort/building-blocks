@@ -121,11 +121,14 @@ export type Action =
       };
     }
   | {
-      type: "campaign launched";
+      type: "product campaign launched";
       payload: {
         campaign: Campaign;
-        productId?: string;
+        productId: string;
       };
+    }
+  | {
+      type: "shop campaign launched";
     }
   | {
       type: "campaign edited";
@@ -215,11 +218,14 @@ export const reducer = (
         draft.campaignCreation.durationDays = initialDurationDays;
         break;
       }
-      case "campaign launched": {
+      case "product campaign launched": {
         const { campaign, productId } = action.payload;
-        if (productId)
-          draft.campaignIdsByProductId[productId] = campaign.campaignId;
+        draft.campaignIdsByProductId[productId] = campaign.campaignId;
         draft.campaignsById[campaign.campaignId] = campaign;
+        draft.campaignCreation.step = "launched";
+        break;
+      }
+      case "shop campaign launched": {
         draft.campaignCreation.step = "launched";
         break;
       }

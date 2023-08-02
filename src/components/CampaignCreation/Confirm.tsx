@@ -25,12 +25,6 @@ export const Confirm: FunctionalComponent = () => {
   const launchCampaign = async () => {
     setIsLoading(true);
     setHasError(false);
-    if (!selectedProductId) {
-      logger.error("Cannot create campaign without a product selected.");
-      setIsLoading(false);
-      setHasError(true);
-      return;
-    }
 
     const productData = selectedProductId
       ? productDataById[selectedProductId]
@@ -56,13 +50,13 @@ export const Confirm: FunctionalComponent = () => {
       );
 
       dispatch({
-        type: "campaign launched",
+        type: "product campaign launched",
         payload: { campaign, productId },
       });
     };
 
     const handleCreateShopCampaign = async () => {
-      const campaign = await services.createShopCampaign(
+      await services.createShopCampaign(
         centralServicesUrl,
         authToken,
         vendorId,
@@ -73,8 +67,7 @@ export const Confirm: FunctionalComponent = () => {
       );
 
       dispatch({
-        type: "campaign launched",
-        payload: { campaign },
+        type: "shop campaign launched",
       });
     };
     let createCampaign;
