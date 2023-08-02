@@ -137,8 +137,7 @@ async function getCampaign(
 }
 async function getShopCampaign(
   centralServicesUrl: string,
-  authToken: string,
-  vendorId: string
+  authToken: string
 ): Promise<Campaign | null> {
   return delayedResponse(testCampaignsById[testMultiProductCampaignId]);
 }
