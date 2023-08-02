@@ -337,12 +337,16 @@ async function endCampaign(
 }
 
 async function getShopCampaign(
+  // TODO (sofia):change path and remove eslint-disable when we integrate with cs
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   centralServicesUrl: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   authToken: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   vendorId: string
 ): Promise<Campaign | null> {
   return Promise.resolve(null);
-  // TODO (sofia):change path when we integrate with cs
   // return await api(
   //   schemas.campaignSchema,
   //   paths.campaignByShop(centralServicesUrl, vendorId),
