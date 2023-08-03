@@ -14,12 +14,11 @@ export const PromoteShop: FunctionalComponent = () => {
     vendorId,
     promoteShopClassName,
     dispatch,
-    state: { shopCampaignLaunched },
+    state: { shopCampaignLaunched, shopCampaignId },
   } = usePromotionContext();
   const [promoteButtonElement, setPromoteButtonElement] =
     useState<HTMLElement>();
   const [status, setStatus] = useState<RequestStatus>("pending");
-  const [shopCampaignId, setShopCampaignId] = useState<string | null>(null);
 
   useEffect(() => {
     const promoteElements = [
@@ -53,7 +52,10 @@ export const PromoteShop: FunctionalComponent = () => {
           type: "campaign retrieved",
           payload: { campaign },
         });
-        setShopCampaignId(campaign.campaignId);
+        dispatch({
+          type: "set shop campaign id",
+          payload: { campaignId: campaign.campaignId },
+        });
       }
     } catch (error) {
       setStatus("error");
@@ -79,18 +81,17 @@ export const PromoteShop: FunctionalComponent = () => {
       {promoteButtonElement && (
         <Portal target={promoteButtonElement}>
           <PromoteButton
-            onClick={() => {
+            onClick={async () => {
               if (!shopCampaignId && shopCampaignLaunched) {
-                getShopCampaign();
+                await getShopCampaign();
               }
-              dispatch({ type: "promote shop button clicked" });
-
               if (shopCampaignId) {
                 dispatch({
                   type: "set campaign Id",
                   payload: { campaignId: shopCampaignId },
                 });
               }
+              dispatch({ type: "promote shop button clicked" });
             }}
             status={status || "idle"}
             hasCampaign={!!shopCampaignId || shopCampaignLaunched}

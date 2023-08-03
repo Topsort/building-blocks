@@ -35,6 +35,7 @@ export type State = {
   lastDeletedCampaign: Campaign | null;
   selectedCampaignId: string | null;
   shopCampaignLaunched: boolean;
+  shopCampaignId: string | null;
 };
 
 export const initialState: State = {
@@ -60,6 +61,7 @@ export const initialState: State = {
   lastDeletedCampaign: null,
   selectedCampaignId: null,
   shopCampaignLaunched: false,
+  shopCampaignId: null,
 };
 
 export type Action =
@@ -110,6 +112,7 @@ export type Action =
         campaign: Campaign;
       };
     }
+  | { type: "set shop campaign id"; payload: { campaignId: string } }
   | {
       type: "campaign creation daily budget updated";
       payload: {
@@ -142,7 +145,7 @@ export type Action =
       type: "campaign ended";
       payload: {
         campaign: Campaign;
-        productId: string;
+        productId?: string;
       };
     };
 
@@ -196,6 +199,11 @@ export const reducer = (
       case "campaign retrieved": {
         const { campaign } = action.payload;
         draft.campaignsById[campaign.campaignId] = campaign;
+        break;
+      }
+      case "set shop campaign id": {
+        const { campaignId } = action.payload;
+        draft.shopCampaignId = campaignId;
         break;
       }
       case "campaign creation daily budget updated": {
@@ -255,7 +263,13 @@ export const reducer = (
       }
       case "campaign ended": {
         const { campaign, productId } = action.payload;
-        delete draft.campaignIdsByProductId[productId];
+        if (productId) {
+          delete draft.campaignIdsByProductId[productId];
+        } else {
+          draft.shopCampaignLaunched = false;
+          draft.shopCampaignId = null;
+        }
+        draft.selectedCampaignId = null;
         delete draft.campaignsById[campaign.campaignId];
         draft.lastDeletedCampaign = campaign;
         break;
