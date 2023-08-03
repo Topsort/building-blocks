@@ -6,8 +6,8 @@ import type {
   Campaign,
   CheckVendorCampaign,
   DefaultBudgetAndCpc,
-  PartialCampaign,
   MarketplaceDetails,
+  BaseCampaign,
 } from "@api/types";
 
 import type { Services } from "./types";
@@ -296,9 +296,9 @@ async function updateCampaign(
     status?: "approved" | "pending" | "rejected" | "terminated";
     statusUpdatedBy?: string;
   }
-): Promise<PartialCampaign> {
+): Promise<BaseCampaign> {
   return await api(
-    schemas.campaignPartialSchema,
+    schemas.campaignBaseSchema,
     paths.campaign(centralServicesUrl, vendorId, campaignId),
     {
       method: "PATCH",
