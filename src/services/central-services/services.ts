@@ -4,6 +4,7 @@ import * as schemas from "@api/schemas";
 import type {
   CampaignIdsByProductId,
   Campaign,
+  CheckVendorCampaign,
   DefaultBudgetAndCpc,
   PartialCampaign,
   MarketplaceDetails,
@@ -339,9 +340,9 @@ async function endCampaign(
 async function getShopCampaign(
   centralServicesUrl: string,
   authToken: string
-): Promise<Campaign | null> {
+): Promise<CheckVendorCampaign | null> {
   return await api(
-    schemas.campaignSchema,
+    schemas.checkVendorCampaignSchema,
     paths.campaignByShop(centralServicesUrl),
     {
       method: "GET",

@@ -33,7 +33,7 @@ export const campaignPartialSchema = z.object({
 });
 
 export const campaignSchema = campaignPartialSchema.extend({
-  activeBidsCount: z.number().int().min(0),
+  activeBidsCount: z.number().int().min(0).optional(),
   campaignBehaviorData: z.object({
     clicks: z.object({
       total: z.number().min(0),
@@ -51,6 +51,11 @@ export const campaignSchema = campaignPartialSchema.extend({
       quantity: z.number().min(0),
     }),
   }),
+});
+
+export const checkVendorCampaignSchema = z.object({
+  exists: z.boolean(),
+  campaign: z.union([campaignSchema, z.null()]),
 });
 
 export const validationSchema = z.object({
