@@ -1,9 +1,4 @@
-import {
-  BaseCampaign,
-  Campaign,
-  DefaultBudgetAndCpc,
-  PartialCampaign,
-} from "@api/types";
+import { BaseCampaign, Campaign, DefaultBudgetAndCpc } from "@api/types";
 import { produce } from "immer";
 
 export const initialDurationDays = 15;

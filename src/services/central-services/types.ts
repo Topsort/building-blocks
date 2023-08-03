@@ -3,7 +3,6 @@ import {
   CampaignIdsByProductId,
   MarketplaceDetails,
   DefaultBudgetAndCpc,
-  PartialCampaign,
   CheckVendorCampaign,
   BaseCampaign,
 } from "@api/types";

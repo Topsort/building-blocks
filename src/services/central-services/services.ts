@@ -6,7 +6,6 @@ import type {
   Campaign,
   CheckVendorCampaign,
   DefaultBudgetAndCpc,
-  PartialCampaign,
   MarketplaceDetails,
   BaseCampaign,
 } from "@api/types";
