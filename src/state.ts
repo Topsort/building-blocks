@@ -1,4 +1,9 @@
-import { Campaign, DefaultBudgetAndCpc, PartialCampaign } from "@api/types";
+import {
+  BaseCampaign,
+  Campaign,
+  DefaultBudgetAndCpc,
+  PartialCampaign,
+} from "@api/types";
 import { produce } from "immer";
 
 export const initialDurationDays = 15;
@@ -138,7 +143,7 @@ export type Action =
   | {
       type: "campaign edited";
       payload: {
-        campaignUpdate: PartialCampaign;
+        campaignUpdate: BaseCampaign;
       };
     }
   | {

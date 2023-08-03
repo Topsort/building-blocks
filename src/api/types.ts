@@ -12,6 +12,7 @@ export type CampaignIdsByProductId = z.infer<
   typeof schemas.campaignIdsByProductIdSchema
 >;
 
+export type BaseCampaign = z.infer<typeof schemas.campaignBaseSchema>;
 export type PartialCampaign = z.infer<typeof schemas.campaignPartialSchema>;
 
 export type Campaign = z.infer<typeof schemas.campaignSchema>;
