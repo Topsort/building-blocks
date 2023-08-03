@@ -39,16 +39,19 @@ const campaignBehaviorData = z.object({
   }),
 });
 
-export const campaignPartialSchema = z.object({
+export const campaignBaseSchema = z.object({
   campaignId: z.string().uuid(),
   name: z.string(),
   budget: z.object({
     amount: z.number(),
     type: z.enum(["daily", "weekly", "monthly"]),
   }),
-  campaignBehaviorData,
   startDate: z.string(),
   endDate: z.string(),
+});
+
+export const campaignPartialSchema = campaignBaseSchema.extend({
+  campaignBehaviorData,
 });
 
 export const campaignSchema = campaignPartialSchema.extend({

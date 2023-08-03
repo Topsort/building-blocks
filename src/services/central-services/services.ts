@@ -182,7 +182,7 @@ async function createProductCampaign(
   }
 ): Promise<Campaign> {
   const response = await api(
-    schemas.campaignPartialSchema,
+    schemas.campaignBaseSchema,
     paths.campaigns(centralServicesUrl, vendorId),
     {
       method: "POST",
