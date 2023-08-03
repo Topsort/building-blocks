@@ -78,6 +78,7 @@
 ### Where do I get authUrl from!?
 
 ##### TL;DR
+
 The `authUrl` is the URL to your backend endpoint that requests the JWT from the Topsort Modal Auth API and returns its response. It acts as a proxy, enhancing security by keeping your advanced API key secure and enabling you to interact with Topsort's systems.
 
 The Modal API employs JSON Web Tokens (JWT) to validate every request made to our systems. To acquire a JWT, you'll need to hit our public Modal Auth API, supplying the `vendorId` used by the library. In response, we'll provide a JWT that authorizes that specific vendor to perform tasks offered by the Modal library for a restricted time period.
@@ -90,6 +91,7 @@ curl --request GET \
      --header 'accept: application/json' \
      --header 'authorization: Bearer <YOUR_ADVANCED_API_KEY>'
 ```
+
 Note that this request mandates the use of your `ADVANCED_API_KEY` as authorization.
 
 ##### Protecting Your API Key
@@ -120,7 +122,7 @@ To add a button that will create a campaign with all the vendor products, add th
 the element you want the button appended to:
 
   ```html
-  <div class="ts-promote-shop></div>
+  <div class="ts-promote-shop" data-ts-shop-name="My Shop"></div>
   ```
 
 Then simply call `useShopPromotion`  to have the button rendered and functional, like so:

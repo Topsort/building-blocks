@@ -10,7 +10,7 @@ export const CampaignSummary: FunctionalComponent<{
   startDate?: string;
 }> = ({ startDate }) => {
   const { state, isUsingShopPromotion } = usePromotionContext();
-  const { productDataById, selectedProductId } = state;
+  const { productDataById, selectedProductId, shopName } = state;
   const productData = selectedProductId
     ? productDataById[selectedProductId]
     : null;
@@ -46,9 +46,8 @@ export const CampaignSummary: FunctionalComponent<{
           className={cx("ts-campaign-box", {
             "ts-product-image--md": remaining,
           })}
-          //todo(sofia): vendor name
         >
-          Vendor Name
+          {shopName}
         </div>
       ) : (
         <img

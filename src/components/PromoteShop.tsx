@@ -29,6 +29,12 @@ export const PromoteShop: FunctionalComponent = () => {
       return;
     }
     setPromoteButtonElement(promoteElements[0]);
+    const shopName = promoteElements[0].dataset.tsShopName || "";
+    dispatch({
+      type: "set shopName",
+      payload: { shopName },
+    });
+
     /*
       NOTE (samet)
       The reason for the following eslint-disable-next-line:
