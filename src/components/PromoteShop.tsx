@@ -40,31 +40,28 @@ export const PromoteShop: FunctionalComponent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, promoteShopClassName]);
 
-  useEffect(() => {
-    const getShopCampaign = async () => {
-      if (!promoteButtonElement) return;
-      setStatus("pending");
+  const getShopCampaign = async () => {
+    if (!promoteButtonElement) return;
+    setStatus("pending");
 
-      try {
-        const res = await services.getShopCampaign(
-          centralServicesUrl,
-          authToken
-        );
-        const campaign = res?.exists ? res.campaign : null;
-        setStatus("success");
-        if (campaign) {
-          dispatch({
-            type: "campaign retrieved",
-            payload: { campaign },
-          });
-          setShopCampaignId(campaign.campaignId);
-        }
-      } catch (error) {
-        setStatus("error");
-        logger.error("Failed to get shop campaign", error);
+    try {
+      const res = await services.getShopCampaign(centralServicesUrl, authToken);
+      const campaign = res?.exists ? res.campaign : null;
+      setStatus("success");
+      if (campaign) {
+        dispatch({
+          type: "campaign retrieved",
+          payload: { campaign },
+        });
+        setShopCampaignId(campaign.campaignId);
       }
-    };
+    } catch (error) {
+      setStatus("error");
+      logger.error("Failed to get shop campaign", error);
+    }
+  };
 
+  useEffect(() => {
     getShopCampaign();
     /*
       NOTE (samet)
@@ -83,7 +80,11 @@ export const PromoteShop: FunctionalComponent = () => {
         <Portal target={promoteButtonElement}>
           <PromoteButton
             onClick={() => {
+              if (!shopCampaignId && shopCampaignLaunched) {
+                getShopCampaign();
+              }
               dispatch({ type: "promote shop button clicked" });
+
               if (shopCampaignId) {
                 dispatch({
                   type: "set campaign Id",
