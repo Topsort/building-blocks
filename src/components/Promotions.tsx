@@ -27,12 +27,7 @@ const TopsortPromotions: FunctionalComponent = () => {
     dispatch,
     isUsingProductPromotion,
     isUsingShopPromotion,
-    state: {
-      isModalOpen,
-      selectedCampaignId,
-      campaignCreation,
-      lastDeletedCampaign,
-    },
+    state: { isModalOpen, selectedCampaignId, lastDeletedCampaign },
   } = usePromotionContext();
 
   // Set up color variables for custom theming
@@ -102,7 +97,7 @@ const TopsortPromotions: FunctionalComponent = () => {
            * Don't show the Details if the campaign was just launched so that
            * the user still sees the Launched screen in the creation flow
            */
-          selectedCampaignId && campaignCreation.step !== "launched" ? (
+          selectedCampaignId ? (
             <CampaignDetails campaignId={selectedCampaignId} />
           ) : (
             <CampaignCreation />

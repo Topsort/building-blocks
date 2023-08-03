@@ -4,9 +4,10 @@ import * as schemas from "@api/schemas";
 import type {
   CampaignIdsByProductId,
   Campaign,
+  CheckVendorCampaign,
   DefaultBudgetAndCpc,
-  PartialCampaign,
   MarketplaceDetails,
+  BaseCampaign,
 } from "@api/types";
 
 import type { Services } from "./types";
@@ -181,7 +182,7 @@ async function createProductCampaign(
   }
 ): Promise<Campaign> {
   const response = await api(
-    schemas.campaignPartialSchema,
+    schemas.campaignBaseSchema,
     paths.campaigns(centralServicesUrl, vendorId),
     {
       method: "POST",
@@ -295,9 +296,9 @@ async function updateCampaign(
     status?: "approved" | "pending" | "rejected" | "terminated";
     statusUpdatedBy?: string;
   }
-): Promise<PartialCampaign> {
+): Promise<BaseCampaign> {
   return await api(
-    schemas.campaignPartialSchema,
+    schemas.campaignBaseSchema,
     paths.campaign(centralServicesUrl, vendorId, campaignId),
     {
       method: "PATCH",
@@ -337,24 +338,17 @@ async function endCampaign(
 }
 
 async function getShopCampaign(
-  // TODO (sofia):change path and remove eslint-disable when we integrate with cs
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   centralServicesUrl: string,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  authToken: string,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  vendorId: string
-): Promise<Campaign | null> {
-  return Promise.resolve(null);
-  // return await api(
-  //   schemas.campaignSchema,
-  //   paths.campaignByShop(centralServicesUrl, vendorId),
-  //   {
-  //     method: "GET",
-  //     headers: getHeaders(authToken),
-  //   }
-  // );
+  authToken: string
+): Promise<CheckVendorCampaign | null> {
+  return await api(
+    schemas.checkVendorCampaignSchema,
+    paths.campaignByShop(centralServicesUrl),
+    {
+      method: "GET",
+      headers: getHeaders(authToken),
+    }
+  );
 }
 
 export const services: Services = {

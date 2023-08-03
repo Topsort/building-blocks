@@ -5,8 +5,8 @@ export const paths = {
     campaignId: string
   ) =>
     `${centralServicesUrl}/modal-service/vendors/${vendorId}/campaigns/${campaignId}`,
-  campaignByShop: (centralServicesUrl: string, vendorId: string) =>
-    `${centralServicesUrl}/modal-service/vendors/${vendorId}/shop-campaign`,
+  campaignByShop: (centralServicesUrl: string) =>
+    `${centralServicesUrl}/modal-service/vendors/vendor-campaign`,
   campaigns: (centralServicesUrl: string, vendorId: string) =>
     `${centralServicesUrl}/modal-service/vendors/${vendorId}/campaigns`,
   promoteMyShop: (centralServicesUrl: string, vendorId: string) =>

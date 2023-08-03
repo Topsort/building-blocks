@@ -3,7 +3,8 @@ import {
   CampaignIdsByProductId,
   MarketplaceDetails,
   DefaultBudgetAndCpc,
-  PartialCampaign,
+  CheckVendorCampaign,
+  BaseCampaign,
 } from "@api/types";
 
 export type Services = {
@@ -24,9 +25,8 @@ export type Services = {
   ): Promise<CampaignIdsByProductId>;
   getShopCampaign(
     centralServicesUrl: string,
-    authToken: string,
-    vendorId: string
-  ): Promise<Campaign | null>;
+    authToken: string
+  ): Promise<CheckVendorCampaign | null>;
   getCampaign(
     centralServicesUrl: string,
     authToken: string,
@@ -71,7 +71,7 @@ export type Services = {
       status?: "approved" | "pending" | "rejected" | "terminated";
       statusUpdatedBy?: string;
     }
-  ): Promise<PartialCampaign>;
+  ): Promise<BaseCampaign>;
   endCampaign(
     centralServicesUrl: string,
     authToken: string,
