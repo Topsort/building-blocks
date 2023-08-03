@@ -10,7 +10,7 @@ const isUsingTopsortBlocks = true;
 const isUsingCustomProps = false;
 const useTopsortedProducts = true;
 const customPromoteTargetClassName = "my-custom-promote-target";
-const CENTRAL_SERVICES_URL = "https://api.topsort.com/";
+const CENTRAL_SERVICES_URL = "https://api.topsort.com";
 const AUTH_BASE_URL = "https://buildingblocks.api.topsort.ai";
 
 function getNewElement(selector) {
