@@ -36,6 +36,7 @@ export type State = {
   selectedCampaignId: string | null;
   shopCampaignLaunched: boolean;
   shopCampaignId: string | null;
+  shopName: string;
 };
 
 export const initialState: State = {
@@ -62,6 +63,7 @@ export const initialState: State = {
   selectedCampaignId: null,
   shopCampaignLaunched: false,
   shopCampaignId: null,
+  shopName: "",
 };
 
 export type Action =
@@ -81,6 +83,12 @@ export type Action =
       type: "promote targets retrieved";
       payload: {
         productDataById: Record<string, ProductData>;
+      };
+    }
+  | {
+      type: "set shopName";
+      payload: {
+        shopName: string;
       };
     }
   | {
@@ -199,6 +207,11 @@ export const reducer = (
       case "campaign retrieved": {
         const { campaign } = action.payload;
         draft.campaignsById[campaign.campaignId] = campaign;
+        break;
+      }
+      case "set shopName": {
+        const { shopName } = action.payload;
+        draft.shopName = shopName;
         break;
       }
       case "set shop campaign id": {
