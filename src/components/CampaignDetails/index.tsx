@@ -81,7 +81,7 @@ export const CampaignDetails: FunctionalComponent<{
       };
     }
 
-    if (campaign.activeBidsCount > 1) {
+    if ((campaign.activeBidsCount ?? 0) > 1) {
       return {
         title: "This product is already under an active campaign",
         content: <MultiProduct />,
@@ -124,7 +124,7 @@ export const CampaignDetails: FunctionalComponent<{
       return "8rem";
     }
 
-    if (campaign.activeBidsCount > 1) {
+    if ((campaign.activeBidsCount ?? 0) > 1) {
       return "fit-content";
     }
 

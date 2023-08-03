@@ -5,6 +5,7 @@ import type {
   DefaultBudgetAndCpc,
   PartialCampaign,
   MarketplaceDetails,
+  CheckVendorCampaign,
 } from "@api/types";
 
 import type { Services } from "./types";
@@ -22,6 +23,37 @@ function uuidv4() {
 
 const testCampaignId = uuidv4();
 const testMultiProductCampaignId = uuidv4();
+
+const testCheckVendorCampaign: CheckVendorCampaign = {
+  exists: true,
+  campaign: {
+    campaignId: testCampaignId,
+    name: "Helena Hooded Fleece Campaign",
+    budget: {
+      amount: 200,
+      type: "daily",
+    },
+    startDate: "2022-10-06T14:15:22Z",
+    endDate: "2022-10-24T14:15:22Z",
+    campaignBehaviorData: {
+      clicks: {
+        total: 208,
+        charged: 208,
+        adSpent: 208,
+      },
+      impressions: {
+        total: 302,
+        charged: 76,
+        adSpent: 109,
+      },
+      purchases: {
+        amount: 1045,
+        count: 19,
+        quantity: 19,
+      },
+    },
+  },
+};
 
 const testCampaignsById: Record<string, Campaign> = {
   [testCampaignId]: {
@@ -138,8 +170,8 @@ async function getCampaign(
 async function getShopCampaign(
   centralServicesUrl: string,
   authToken: string
-): Promise<Campaign | null> {
-  return delayedResponse(testCampaignsById[testMultiProductCampaignId]);
+): Promise<CheckVendorCampaign | null> {
+  return delayedResponse(testCheckVendorCampaign);
 }
 
 async function createProductCampaign(

@@ -21,6 +21,24 @@ export const campaignIdsByProductIdSchema = z.record(
   z.string().uuid().nullable()
 );
 
+const campaignBehaviorData = z.object({
+  clicks: z.object({
+    total: z.number().min(0),
+    charged: z.number().min(0),
+    adSpent: z.number().min(0),
+  }),
+  impressions: z.object({
+    total: z.number().min(0),
+    charged: z.number().min(0),
+    adSpent: z.number().min(0),
+  }),
+  purchases: z.object({
+    amount: z.number().min(0),
+    count: z.number().min(0),
+    quantity: z.number().min(0),
+  }),
+});
+
 export const campaignPartialSchema = z.object({
   campaignId: z.string().uuid(),
   name: z.string(),
@@ -28,34 +46,18 @@ export const campaignPartialSchema = z.object({
     amount: z.number(),
     type: z.enum(["daily", "weekly", "monthly"]),
   }),
+  campaignBehaviorData,
   startDate: z.string(),
   endDate: z.string(),
 });
 
 export const campaignSchema = campaignPartialSchema.extend({
   activeBidsCount: z.number().int().min(0).optional(),
-  campaignBehaviorData: z.object({
-    clicks: z.object({
-      total: z.number().min(0),
-      charged: z.number().min(0),
-      adSpent: z.number().min(0),
-    }),
-    impressions: z.object({
-      total: z.number().min(0),
-      charged: z.number().min(0),
-      adSpent: z.number().min(0),
-    }),
-    purchases: z.object({
-      amount: z.number().min(0),
-      count: z.number().min(0),
-      quantity: z.number().min(0),
-    }),
-  }),
 });
 
 export const checkVendorCampaignSchema = z.object({
   exists: z.boolean(),
-  campaign: z.union([campaignSchema, z.null()]),
+  campaign: campaignPartialSchema.nullable(),
 });
 
 export const validationSchema = z.object({

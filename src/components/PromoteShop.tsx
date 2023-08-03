@@ -46,11 +46,11 @@ export const PromoteShop: FunctionalComponent = () => {
       setStatus("pending");
 
       try {
-        const campaign = await services.getShopCampaign(
+        const res = await services.getShopCampaign(
           centralServicesUrl,
           authToken
         );
-
+        const campaign = res?.exists ? res.campaign : null;
         setStatus("success");
         if (campaign) {
           dispatch({
