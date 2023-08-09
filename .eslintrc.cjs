@@ -18,7 +18,6 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["@typescript-eslint", "html"],
   rules: {
     "object-shorthand": "error",
     "no-duplicate-imports": "error",

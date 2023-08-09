@@ -20,12 +20,12 @@ dependencies:
   dotenv:
     specifier: ^16.3.1
     version: 16.3.1
-  immer:
-    specifier: ^10.0.2
-    version: 10.0.2
   preact:
     specifier: ^10.16.0
     version: 10.16.0
+  structurajs:
+    specifier: ^0.11.1
+    version: 0.11.1
   zod:
     specifier: ^3.21.4
     version: 3.21.4
@@ -2472,10 +2472,6 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
-  /immer@10.0.2:
-    resolution: {integrity: sha512-Rx3CqeqQ19sxUtYV9CU911Vhy8/721wRFnJv3REVGWUmoAcIwzifTsdmJte/MV+0/XpM35LZdQMBGkRIoLPwQA==}
-    dev: false
-
   /import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -3368,6 +3364,10 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
     dev: true
+
+  /structurajs@0.11.1:
+    resolution: {integrity: sha512-QoQbX/a+sl8mAjWV/AA6KFBPW3s7lMTNSh2DNRzIH9Ftvjn+d1DHBOKk7+C0KUulPOe1B4MPxCE2h7ruBGzcZw==}
+    dev: false
 
   /supports-color@5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}

@@ -31,6 +31,5 @@ export default defineConfig({
     // Relative to the root
     outDir: "dist",
   },
-  plugins: [preact(), EnvironmentPlugin({ NODE_ENV: "production" },
-  )],
+  plugins: [preact(), EnvironmentPlugin({ NODE_ENV: "production" })],
 });
