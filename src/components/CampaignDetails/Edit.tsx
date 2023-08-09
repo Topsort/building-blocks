@@ -2,6 +2,7 @@ import { Campaign } from "@api/types";
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { Input } from "@components/Input";
+import { BudgetInput } from "@components/Input/BudgetInput";
 import { CampaignEstimation } from "@components/common";
 import { usePromotionContext } from "@context";
 import { services } from "@services/central-services";
@@ -12,72 +13,6 @@ import { dayDifference } from "@utils/datetime";
 import { logger } from "@utils/logger";
 import { h, FunctionalComponent } from "preact";
 import { useState, useMemo, useCallback } from "preact/hooks";
-
-const BudgetInput: FunctionalComponent<{
-  dailyBudget: string;
-  setDailyBudget: (budget: string) => void;
-  formatCurrencyWithoutSymbol: (value: number) => string;
-  defaultDailyBudget: number;
-}> = ({
-  dailyBudget,
-  setDailyBudget,
-  formatCurrencyWithoutSymbol,
-  defaultDailyBudget,
-}) => {
-  const { currency } = usePromotionContext();
-
-  const budgetInputFilter = (value: string) => {
-    const decimal = currency.decimalSeparator;
-    const exponent = currency.exponent;
-
-    if (decimal) {
-      const disallowedCharacters = new RegExp(`[^0-9\\${decimal}]`, "g");
-      // This regex is used to prevent more digits after the decimal than allowed
-      const afterDecimalRegex = new RegExp(
-        `(\\${decimal}[0-9]{0,${exponent}}).*`,
-        "g"
-      );
-      return value
-        .replace(disallowedCharacters, "")
-        .replace(afterDecimalRegex, "$1");
-    }
-
-    const disallowedCharacters = new RegExp(`[^0-9]`, "g");
-    return value.replace(disallowedCharacters, "");
-  };
-
-  const onBudgetBlur = (event: FocusEvent) => {
-    const target = event.target as HTMLInputElement;
-    const finalValue = cleanDailyBudget(target.value);
-    setDailyBudget(finalValue);
-  };
-
-  const cleanDailyBudget = (value: string) => {
-    let intValue = currencyStringToInt(value, currency);
-
-    if (intValue === 0) {
-      intValue = defaultDailyBudget;
-    }
-
-    return formatCurrencyWithoutSymbol(intValue / currency.divisor);
-  };
-
-  return (
-    <Input
-      {...(currency.isSymbolAtStart
-        ? { before: currency.symbol }
-        : { after: currency.symbol })}
-      value={dailyBudget}
-      inputFilter={budgetInputFilter}
-      onInput={setDailyBudget}
-      onBlur={(event) => onBudgetBlur(event as unknown as FocusEvent)}
-      required
-      placeholder={formatCurrencyWithoutSymbol(
-        defaultDailyBudget / currency.divisor
-      )}
-    />
-  );
-};
 
 const useFormatCurrencyWithoutSymbol = (
   language: string,
