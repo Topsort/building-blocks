@@ -3,6 +3,7 @@ import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { Input } from "@components/Input";
 import { BudgetInput } from "@components/Input/BudgetInput";
+import { DaysInput } from "@components/Input/DaysInput";
 import { CampaignEstimation } from "@components/common";
 import { usePromotionContext } from "@context";
 import { services } from "@services/central-services";
@@ -193,17 +194,11 @@ export const Edit: FunctionalComponent<{
         </label>
         <label class="ts-edit-form__item">
           <span>Set a duration</span>
-          <Input
-            after={durationAfterText}
-            value={durationDays}
-            inputFilter={dayInputFilter}
-            onInput={setDurationDays}
-            onBlur={(event) => onDayBlur(event as unknown as FocusEvent)}
-            min={minDurationDays}
-            max={maxDurationDays}
-            type="number"
-            required
-            placeholder={String(defaultDurationDays)}
+          <DaysInput
+            campaign={campaign}
+            durationDays={durationDays}
+            setDurationDays={setDurationDays}
+            defaultDurationDays={defaultDurationDays}
           />
         </label>
         <Button
