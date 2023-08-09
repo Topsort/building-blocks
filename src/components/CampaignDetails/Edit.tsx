@@ -6,6 +6,7 @@ import { CampaignEstimation } from "@components/common";
 import { usePromotionContext } from "@context";
 import { services } from "@services/central-services";
 import { maxDurationDays } from "@state";
+import { Currency } from "@types";
 import { currencyStringToInt } from "@utils/currency";
 import { dayDifference } from "@utils/datetime";
 import { logger } from "@utils/logger";
@@ -13,33 +14,17 @@ import { h, FunctionalComponent } from "preact";
 import { useState, useMemo, useCallback } from "preact/hooks";
 
 const BudgetInput: FunctionalComponent<{
-  campaign: Campaign;
   dailyBudget: string;
   setDailyBudget: (budget: string) => void;
-}> = ({ campaign, dailyBudget, setDailyBudget }) => {
-  const { currency, language } = usePromotionContext();
-
-  const formatCurrencyWithoutSymbol = useCallback(
-    (number: number) =>
-      number.toLocaleString(language, {
-        minimumFractionDigits: currency.exponent,
-        maximumFractionDigits: currency.exponent,
-      }),
-    [language, currency.exponent]
-  );
-
-  const defaultDailyBudget = useMemo(() => {
-    const budget = campaign.budget.amount;
-    switch (campaign.budget.type) {
-      case "daily":
-        return budget;
-      case "weekly":
-        return budget / 7;
-      default:
-        // TODO(christopherbot) do we need to handle 28, 30, 31 days depending on month?
-        return budget / 30;
-    }
-  }, [campaign.budget]);
+  formatCurrencyWithoutSymbol: (value: number) => string;
+  defaultDailyBudget: number;
+}> = ({
+  dailyBudget,
+  setDailyBudget,
+  formatCurrencyWithoutSymbol,
+  defaultDailyBudget,
+}) => {
+  const { currency } = usePromotionContext();
 
   const budgetInputFilter = (value: string) => {
     const decimal = currency.decimalSeparator;
@@ -94,6 +79,37 @@ const BudgetInput: FunctionalComponent<{
   );
 };
 
+const useFormatCurrencyWithoutSymbol = (
+  language: string,
+  currency: Currency
+) => {
+  return useCallback(
+    (number: number) =>
+      number.toLocaleString(language, {
+        minimumFractionDigits: currency.exponent,
+        maximumFractionDigits: currency.exponent,
+      }),
+    [language, currency.exponent]
+  );
+};
+
+const useDefaultDailyBudget = (budget: {
+  amount: number;
+  type: "daily" | "weekly" | "monthly";
+}) => {
+  return useMemo(() => {
+    switch (budget.type) {
+      case "daily":
+        return budget.amount;
+      case "weekly":
+        return budget.amount / 7;
+      default:
+        // TODO(christopherbot) do we need to handle 28, 30, 31 days depending on month?
+        return budget.amount / 30;
+    }
+  }, [budget]);
+};
+
 export const Edit: FunctionalComponent<{
   campaign: Campaign;
 }> = ({ campaign }) => {
@@ -109,27 +125,12 @@ export const Edit: FunctionalComponent<{
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  const formatCurrencyWithoutSymbol = useCallback(
-    (number: number) =>
-      number.toLocaleString(language, {
-        minimumFractionDigits: currency.exponent,
-        maximumFractionDigits: currency.exponent,
-      }),
-    [language, currency.exponent]
+  const formatCurrencyWithoutSymbol = useFormatCurrencyWithoutSymbol(
+    language,
+    currency
   );
 
-  const defaultDailyBudget = useMemo(() => {
-    const budget = campaign.budget.amount;
-    switch (campaign.budget.type) {
-      case "daily":
-        return budget;
-      case "weekly":
-        return budget / 7;
-      default:
-        // TODO(christopherbot) do we need to handle 28, 30, 31 days depending on month?
-        return budget / 30;
-    }
-  }, [campaign.budget]);
+  const defaultDailyBudget = useDefaultDailyBudget(campaign.budget);
 
   const defaultDurationDays = useMemo(() => {
     const startDate = new Date(campaign.startDate);
@@ -249,9 +250,10 @@ export const Edit: FunctionalComponent<{
         <label class="ts-edit-form__item">
           <span>Set a daily budget</span>
           <BudgetInput
-            campaign={campaign}
             setDailyBudget={setDailyBudget}
             dailyBudget={dailyBudget}
+            formatCurrencyWithoutSymbol={formatCurrencyWithoutSymbol}
+            defaultDailyBudget={defaultDailyBudget}
           />
         </label>
         <label class="ts-edit-form__item">
