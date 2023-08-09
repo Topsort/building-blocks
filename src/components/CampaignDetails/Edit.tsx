@@ -12,6 +12,88 @@ import { logger } from "@utils/logger";
 import { h, FunctionalComponent } from "preact";
 import { useState, useMemo, useCallback } from "preact/hooks";
 
+const BudgetInput: FunctionalComponent<{
+  campaign: Campaign;
+  dailyBudget: string;
+  setDailyBudget: (budget: string) => void;
+}> = ({ campaign, dailyBudget, setDailyBudget }) => {
+  const { currency, language } = usePromotionContext();
+
+  const formatCurrencyWithoutSymbol = useCallback(
+    (number: number) =>
+      number.toLocaleString(language, {
+        minimumFractionDigits: currency.exponent,
+        maximumFractionDigits: currency.exponent,
+      }),
+    [language, currency.exponent]
+  );
+
+  const defaultDailyBudget = useMemo(() => {
+    const budget = campaign.budget.amount;
+    switch (campaign.budget.type) {
+      case "daily":
+        return budget;
+      case "weekly":
+        return budget / 7;
+      default:
+        // TODO(christopherbot) do we need to handle 28, 30, 31 days depending on month?
+        return budget / 30;
+    }
+  }, [campaign.budget]);
+
+  const budgetInputFilter = (value: string) => {
+    const decimal = currency.decimalSeparator;
+    const exponent = currency.exponent;
+
+    if (decimal) {
+      const disallowedCharacters = new RegExp(`[^0-9\\${decimal}]`, "g");
+      // This regex is used to prevent more digits after the decimal than allowed
+      const afterDecimalRegex = new RegExp(
+        `(\\${decimal}[0-9]{0,${exponent}}).*`,
+        "g"
+      );
+      return value
+        .replace(disallowedCharacters, "")
+        .replace(afterDecimalRegex, "$1");
+    }
+
+    const disallowedCharacters = new RegExp(`[^0-9]`, "g");
+    return value.replace(disallowedCharacters, "");
+  };
+
+  const onBudgetBlur = (event: FocusEvent) => {
+    const target = event.target as HTMLInputElement;
+    const finalValue = cleanDailyBudget(target.value);
+    setDailyBudget(finalValue);
+  };
+
+  const cleanDailyBudget = (value: string) => {
+    let intValue = currencyStringToInt(value, currency);
+
+    if (intValue === 0) {
+      intValue = defaultDailyBudget;
+    }
+
+    return formatCurrencyWithoutSymbol(intValue / currency.divisor);
+  };
+
+  return (
+    <Input
+      {...(currency.isSymbolAtStart
+        ? { before: currency.symbol }
+        : { after: currency.symbol })}
+      value={dailyBudget}
+      inputFilter={budgetInputFilter}
+      onInput={setDailyBudget}
+      onBlur={(event) => onBudgetBlur(event as unknown as FocusEvent)}
+      required
+      placeholder={formatCurrencyWithoutSymbol(
+        defaultDailyBudget / currency.divisor
+      )}
+    />
+  );
+};
+
 export const Edit: FunctionalComponent<{
   campaign: Campaign;
 }> = ({ campaign }) => {
@@ -75,32 +157,6 @@ export const Edit: FunctionalComponent<{
     defaultDailyBudget !== dailyBudgetInt ||
     defaultDurationDays !== durationDaysInt;
 
-  const budgetInputFilter = (value: string) => {
-    const decimal = currency.decimalSeparator;
-    const exponent = currency.exponent;
-
-    if (decimal) {
-      const disallowedCharacters = new RegExp(`[^0-9\\${decimal}]`, "g");
-      // This regex is used to prevent more digits after the decimal than allowed
-      const afterDecimalRegex = new RegExp(
-        `(\\${decimal}[0-9]{0,${exponent}}).*`,
-        "g"
-      );
-      return value
-        .replace(disallowedCharacters, "")
-        .replace(afterDecimalRegex, "$1");
-    }
-
-    const disallowedCharacters = new RegExp(`[^0-9]`, "g");
-    return value.replace(disallowedCharacters, "");
-  };
-
-  const onBudgetBlur = (event: FocusEvent) => {
-    const target = event.target as HTMLInputElement;
-    const finalValue = cleanDailyBudget(target.value);
-    setDailyBudget(finalValue);
-  };
-
   const dayInputFilter = (value: string) => {
     const cleanedValue = value.replace(/[^0-9]/g, "").replace(/^0+/g, "");
     const intValue = Number(cleanedValue);
@@ -131,16 +187,6 @@ export const Edit: FunctionalComponent<{
     );
     setDurationDays(String(durationDaysInt));
     editCampaign(dailyBudgetInt, durationDaysInt);
-  };
-
-  const cleanDailyBudget = (value: string) => {
-    let intValue = currencyStringToInt(value, currency);
-
-    if (intValue === 0) {
-      intValue = defaultDailyBudget;
-    }
-
-    return formatCurrencyWithoutSymbol(intValue / currency.divisor);
   };
 
   const cleanDurationDays = (value: string) => {
@@ -202,18 +248,10 @@ export const Edit: FunctionalComponent<{
       >
         <label class="ts-edit-form__item">
           <span>Set a daily budget</span>
-          <Input
-            {...(currency.isSymbolAtStart
-              ? { before: currency.symbol }
-              : { after: currency.symbol })}
-            value={dailyBudget}
-            inputFilter={budgetInputFilter}
-            onInput={setDailyBudget}
-            onBlur={(event) => onBudgetBlur(event as unknown as FocusEvent)}
-            required
-            placeholder={formatCurrencyWithoutSymbol(
-              defaultDailyBudget / currency.divisor
-            )}
+          <BudgetInput
+            campaign={campaign}
+            setDailyBudget={setDailyBudget}
+            dailyBudget={dailyBudget}
           />
         </label>
         <label class="ts-edit-form__item">
