@@ -1,7 +1,6 @@
 import { Campaign } from "@api/types";
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
-import { Input } from "@components/Input";
 import { BudgetInput } from "@components/Input/BudgetInput";
 import { DaysInput } from "@components/Input/DaysInput";
 import { CampaignEstimation } from "@components/common";
@@ -75,11 +74,6 @@ export const Edit: FunctionalComponent<{
     return days < maxDurationDays ? days : maxDurationDays;
   }, [campaign.startDate, campaign.endDate]);
 
-  const minDurationDays = useMemo(() => {
-    const startDate = new Date(campaign.startDate);
-    return Math.ceil(dayDifference(startDate, new Date()));
-  }, [campaign.startDate]);
-
   const [dailyBudget, setDailyBudget] = useState(() => {
     return formatCurrencyWithoutSymbol(defaultDailyBudget / currency.divisor);
   });
@@ -93,22 +87,6 @@ export const Edit: FunctionalComponent<{
   const isChanged =
     defaultDailyBudget !== dailyBudgetInt ||
     defaultDurationDays !== durationDaysInt;
-
-  const dayInputFilter = (value: string) => {
-    const cleanedValue = value.replace(/[^0-9]/g, "").replace(/^0+/g, "");
-    const intValue = Number(cleanedValue);
-    const finalValue =
-      !cleanedValue || intValue < maxDurationDays
-        ? cleanedValue
-        : String(maxDurationDays);
-    return finalValue;
-  };
-
-  const onDayBlur = (event: FocusEvent) => {
-    const target = event.target as HTMLInputElement;
-    const finalValue = cleanDurationDays(target.value);
-    setDurationDays(finalValue);
-  };
 
   const onSave = (event: SubmitEvent) => {
     event.preventDefault();
@@ -124,16 +102,6 @@ export const Edit: FunctionalComponent<{
     );
     setDurationDays(String(durationDaysInt));
     editCampaign(dailyBudgetInt, durationDaysInt);
-  };
-
-  const cleanDurationDays = (value: string) => {
-    if (!value) {
-      return String(defaultDurationDays);
-    }
-    if (Number(value) < minDurationDays) {
-      return String(minDurationDays);
-    }
-    return value;
   };
 
   const editCampaign = async (dailyBudget: number, durationDays: number) => {
@@ -167,11 +135,6 @@ export const Edit: FunctionalComponent<{
       setIsLoading(false);
     }
   };
-
-  const durationAfterText =
-    (durationDays ? durationDaysInt : defaultDurationDays) === 1
-      ? "day"
-      : "days";
 
   return (
     <div class="ts-space-y-5">
