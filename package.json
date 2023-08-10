@@ -10,6 +10,11 @@
     "start": "vite serve",
     "preview": "vite preview"
   },
+  "packageManager": "pnpm@8.0.0",
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Topsort/building-blocks.git"
@@ -50,6 +55,7 @@
     "prettier": "^3.0.1",
     "typescript": "^5.1.6",
     "vite": "^4.4.9",
+    "vite-plugin-dts": "^3.5.1",
     "vite-plugin-html": "^3.2.0"
   },
   "dependencies": {
@@ -57,7 +63,6 @@
     "@floating-ui/react-dom": "^2.0.1",
     "@floating-ui/react-dom-interactions": "^0.13.3",
     "classnames": "^2.3.2",
-    "dotenv": "^16.3.1",
     "preact": "^10.16.0",
     "structurajs": "^0.11.1",
     "zod": "^3.21.4"

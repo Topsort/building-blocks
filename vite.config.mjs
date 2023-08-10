@@ -1,6 +1,7 @@
 import preact from "@preact/preset-vite";
 import { resolve } from "path";
 import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
   root: ".",
@@ -21,14 +22,25 @@ export default defineConfig({
     lib: {
       // Could also be a dictionary or array of multiple entry points
       entry: resolve(__dirname, "src/index.tsx"),
-      name: "building-blocks",
+      name: "TopsortBlocks",
       // the proper extensions will be added
       fileName: (format) =>
         `index.${format === "es" ? "mjs" : format === "umd" ? "js" : "js"}`,
       formats: ["es", "umd"],
     },
+    rollupOptions: {
+      output: {
+        footer: `
+          if (globalThis.TopsortBlocks) {
+            for (const key of Object.keys(globalThis.TopsortBlocks)) {
+              globalThis[key] = globalThis.TopsortBlocks[key]
+            }
+          }
+        `,
+      },
+    },
     // Relative to the root
     outDir: "dist",
   },
-  plugins: [preact()],
+  plugins: [preact(), dts()],
 });
