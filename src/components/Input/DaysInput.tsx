@@ -1,21 +1,18 @@
-import { Campaign } from "@api/types";
 import { Input } from "@components/Input";
 import { maxDurationDays } from "@state";
-import { dayDifference } from "@utils/datetime";
 import { h, FunctionalComponent } from "preact";
-import { useMemo } from "preact/hooks";
 
 export const DaysInput: FunctionalComponent<{
-  campaign: Campaign;
   durationDays: string;
   setDurationDays: (days: string) => void;
   defaultDurationDays: number;
-}> = ({ campaign, durationDays, setDurationDays, defaultDurationDays }) => {
-  const minDurationDays = useMemo(() => {
-    const startDate = new Date(campaign.startDate);
-    return Math.ceil(dayDifference(startDate, new Date()));
-  }, [campaign.startDate]);
-
+  minDurationDays?: number;
+}> = ({
+  durationDays,
+  setDurationDays,
+  defaultDurationDays,
+  minDurationDays = 1,
+}) => {
   const durationDaysInt = Number(durationDays);
 
   const dayInputFilter = (value: string) => {

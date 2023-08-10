@@ -135,6 +135,10 @@ export const Edit: FunctionalComponent<{
       setIsLoading(false);
     }
   };
+  const minDurationDays = useMemo(() => {
+    const startDate = new Date(campaign.startDate);
+    return Math.ceil(dayDifference(startDate, new Date()));
+  }, [campaign.startDate]);
 
   return (
     <div class="ts-space-y-5">
@@ -158,7 +162,7 @@ export const Edit: FunctionalComponent<{
         <label class="ts-edit-form__item">
           <span>Set a duration</span>
           <DaysInput
-            campaign={campaign}
+            minDurationDays={minDurationDays}
             durationDays={durationDays}
             setDurationDays={setDurationDays}
             defaultDurationDays={defaultDurationDays}
