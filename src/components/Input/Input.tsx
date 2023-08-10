@@ -32,6 +32,7 @@ export type InputProps = Omit<JSX.IntrinsicElements["input"], "onInput"> & {
     It is and will probably be enough for our use cases.
   */
   onInput?: (value: string) => void;
+  showArrowButtons?: boolean;
 };
 
 export const Input: FunctionalComponent<InputProps> = ({
@@ -43,6 +44,7 @@ export const Input: FunctionalComponent<InputProps> = ({
   placeholder,
   type = "text",
   value,
+  showArrowButtons = true,
   ...props
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -155,7 +157,7 @@ export const Input: FunctionalComponent<InputProps> = ({
           </span>
         )}
       </div>
-      {type === "number" && (
+      {type === "number" && showArrowButtons && (
         <div className="ts-input__button-container" ref={buttonContainerRef}>
           <Button
             type="button"
