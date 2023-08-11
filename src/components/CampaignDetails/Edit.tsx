@@ -137,7 +137,9 @@ export const Edit: FunctionalComponent<{
   };
   const minDurationDays = useMemo(() => {
     const startDate = new Date(campaign.startDate);
-    return Math.ceil(dayDifference(startDate, new Date()));
+    const pastDays = Math.ceil(dayDifference(startDate, new Date()));
+    if (!!pastDays && pastDays > 0) return pastDays;
+    return 1;
   }, [campaign.startDate]);
 
   return (
