@@ -14,6 +14,7 @@ export const DaysInput: FunctionalComponent<{
   hasBorder?: boolean;
   showArrowButtons?: boolean;
   autofocus?: boolean;
+  onEnterPress?: () => void;
 }> = ({
   durationDays,
   setDurationDays,
@@ -22,6 +23,7 @@ export const DaysInput: FunctionalComponent<{
   hasBorder = true,
   showArrowButtons = true,
   autofocus = false,
+  onEnterPress,
 }) => {
   const onDayBlur = (event: FocusEvent) => {
     const target = event.target as HTMLInputElement;
@@ -53,6 +55,11 @@ export const DaysInput: FunctionalComponent<{
       hasBorder={hasBorder}
       showArrowButtons={showArrowButtons}
       autofocus={autofocus}
+      onKeyPress={(event) => {
+        if (event.key === "Enter" && onEnterPress) {
+          onEnterPress();
+        }
+      }}
     />
   );
 };

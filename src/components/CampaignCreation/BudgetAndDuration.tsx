@@ -89,6 +89,7 @@ export const BudgetAndDuration: FunctionalComponent = () => {
           dailyBudget={tooltipInputDailyBudget}
           formatCurrencyWithoutSymbol={formatCurrencyWithoutSymbol}
           defaultDailyBudget={dailyBudget}
+          onEnterPress={() => handleSetIsEditingBudget(false)}
         />
       ) : (
         <div>{formatCurrencyWithoutSymbol(dailyBudget / currency.divisor)}</div>
@@ -107,6 +108,7 @@ export const BudgetAndDuration: FunctionalComponent = () => {
           defaultDurationDays={durationDays}
           hasBorder={false}
           showArrowButtons={false}
+          onEnterPress={() => handleSetIsEditingDays(false)}
         />
       ) : (
         <Fragment>

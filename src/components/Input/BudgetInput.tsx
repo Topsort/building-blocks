@@ -15,6 +15,7 @@ export const BudgetInput: FunctionalComponent<{
   hasborder?: boolean;
   showSymbol?: boolean;
   autofocus?: boolean;
+  onEnterPress?: () => void;
 }> = ({
   dailyBudget,
   setDailyBudget,
@@ -23,6 +24,7 @@ export const BudgetInput: FunctionalComponent<{
   hasborder = true,
   showSymbol = true,
   autofocus = false,
+  onEnterPress,
 }) => {
   const { currency } = usePromotionContext();
 
@@ -53,6 +55,11 @@ export const BudgetInput: FunctionalComponent<{
       )}
       hasBorder={hasborder}
       autofocus={autofocus}
+      onKeyPress={(event) => {
+        if (event.key === "Enter" && onEnterPress) {
+          onEnterPress();
+        }
+      }}
     />
   );
 };
