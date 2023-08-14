@@ -1,4 +1,8 @@
 import { Input } from "@components/Input";
+import {
+  cleanDurationDays,
+  dayInputFilter,
+} from "@components/Input/validations";
 import { maxDurationDays } from "@state";
 import { h, FunctionalComponent } from "preact";
 
@@ -13,36 +17,18 @@ export const DaysInput: FunctionalComponent<{
   defaultDurationDays,
   minDurationDays = 1,
 }) => {
-  const durationDaysInt = Number(durationDays);
-
-  const dayInputFilter = (value: string) => {
-    const cleanedValue = value.replace(/[^0-9]/g, "").replace(/^0+/g, "");
-    const intValue = Number(cleanedValue);
-    const finalValue =
-      !cleanedValue || intValue < maxDurationDays
-        ? cleanedValue
-        : String(maxDurationDays);
-    return finalValue;
-  };
-
   const onDayBlur = (event: FocusEvent) => {
     const target = event.target as HTMLInputElement;
-    const finalValue = cleanDurationDays(target.value);
+    const finalValue = cleanDurationDays(
+      target.value,
+      defaultDurationDays,
+      minDurationDays
+    );
     setDurationDays(finalValue);
   };
 
-  const cleanDurationDays = (value: string) => {
-    if (!value) {
-      return String(defaultDurationDays);
-    }
-    if (Number(value) < minDurationDays) {
-      return String(minDurationDays);
-    }
-    return value;
-  };
-
   const durationAfterText =
-    (durationDays ? durationDaysInt : defaultDurationDays) === 1
+    (durationDays ? Number(durationDays) : defaultDurationDays) === 1
       ? "day"
       : "days";
 
@@ -50,7 +36,7 @@ export const DaysInput: FunctionalComponent<{
     <Input
       after={durationAfterText}
       value={durationDays}
-      inputFilter={dayInputFilter}
+      inputFilter={dayInputFilter(maxDurationDays)}
       onInput={setDurationDays}
       onBlur={(event) => onDayBlur(event as unknown as FocusEvent)}
       min={minDurationDays}

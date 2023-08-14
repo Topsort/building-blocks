@@ -1,6 +1,6 @@
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
-import { RangeInputWithTooltip } from "@components/Input";
+import { RangeInputWithTooltip } from "@components/Input/RangeInput";
 import { Tooltip } from "@components/Tooltip";
 import { CampaignEstimation } from "@components/common";
 import { usePromotionContext } from "@context";
