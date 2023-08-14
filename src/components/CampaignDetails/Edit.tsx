@@ -1,16 +1,49 @@
 import { Campaign } from "@api/types";
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
-import { Input } from "@components/Input";
+import { BudgetInput } from "@components/Input/BudgetInput";
+import { DaysInput } from "@components/Input/DaysInput";
 import { CampaignEstimation } from "@components/common";
 import { usePromotionContext } from "@context";
 import { services } from "@services/central-services";
 import { maxDurationDays } from "@state";
+import { Currency } from "@types";
 import { currencyStringToInt } from "@utils/currency";
 import { dayDifference } from "@utils/datetime";
 import { logger } from "@utils/logger";
 import { h, FunctionalComponent } from "preact";
 import { useState, useMemo, useCallback } from "preact/hooks";
+
+const useFormatCurrencyWithoutSymbol = (
+  language: string,
+  currency: Currency
+) => {
+  return useCallback(
+    (number: number) =>
+      number.toLocaleString(language, {
+        minimumFractionDigits: currency.exponent,
+        maximumFractionDigits: currency.exponent,
+      }),
+    [language, currency.exponent]
+  );
+};
+
+const useDefaultDailyBudget = (budget: {
+  amount: number;
+  type: "daily" | "weekly" | "monthly";
+}) => {
+  return useMemo(() => {
+    switch (budget.type) {
+      case "daily":
+        return budget.amount;
+      case "weekly":
+        return budget.amount / 7;
+      default:
+        // TODO(christopherbot) do we need to handle 28, 30, 31 days depending on month?
+        return budget.amount / 30;
+    }
+  }, [budget]);
+};
 
 export const Edit: FunctionalComponent<{
   campaign: Campaign;
@@ -27,27 +60,12 @@ export const Edit: FunctionalComponent<{
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  const formatCurrencyWithoutSymbol = useCallback(
-    (number: number) =>
-      number.toLocaleString(language, {
-        minimumFractionDigits: currency.exponent,
-        maximumFractionDigits: currency.exponent,
-      }),
-    [language, currency.exponent]
+  const formatCurrencyWithoutSymbol = useFormatCurrencyWithoutSymbol(
+    language,
+    currency
   );
 
-  const defaultDailyBudget = useMemo(() => {
-    const budget = campaign.budget.amount;
-    switch (campaign.budget.type) {
-      case "daily":
-        return budget;
-      case "weekly":
-        return budget / 7;
-      default:
-        // TODO(christopherbot) do we need to handle 28, 30, 31 days depending on month?
-        return budget / 30;
-    }
-  }, [campaign.budget]);
+  const defaultDailyBudget = useDefaultDailyBudget(campaign.budget);
 
   const defaultDurationDays = useMemo(() => {
     const startDate = new Date(campaign.startDate);
@@ -55,11 +73,6 @@ export const Edit: FunctionalComponent<{
     const days = Math.ceil(dayDifference(startDate, endDate));
     return days < maxDurationDays ? days : maxDurationDays;
   }, [campaign.startDate, campaign.endDate]);
-
-  const minDurationDays = useMemo(() => {
-    const startDate = new Date(campaign.startDate);
-    return Math.ceil(dayDifference(startDate, new Date()));
-  }, [campaign.startDate]);
 
   const [dailyBudget, setDailyBudget] = useState(() => {
     return formatCurrencyWithoutSymbol(defaultDailyBudget / currency.divisor);
@@ -75,48 +88,6 @@ export const Edit: FunctionalComponent<{
     defaultDailyBudget !== dailyBudgetInt ||
     defaultDurationDays !== durationDaysInt;
 
-  const budgetInputFilter = (value: string) => {
-    const decimal = currency.decimalSeparator;
-    const exponent = currency.exponent;
-
-    if (decimal) {
-      const disallowedCharacters = new RegExp(`[^0-9\\${decimal}]`, "g");
-      // This regex is used to prevent more digits after the decimal than allowed
-      const afterDecimalRegex = new RegExp(
-        `(\\${decimal}[0-9]{0,${exponent}}).*`,
-        "g"
-      );
-      return value
-        .replace(disallowedCharacters, "")
-        .replace(afterDecimalRegex, "$1");
-    }
-
-    const disallowedCharacters = new RegExp(`[^0-9]`, "g");
-    return value.replace(disallowedCharacters, "");
-  };
-
-  const onBudgetBlur = (event: FocusEvent) => {
-    const target = event.target as HTMLInputElement;
-    const finalValue = cleanDailyBudget(target.value);
-    setDailyBudget(finalValue);
-  };
-
-  const dayInputFilter = (value: string) => {
-    const cleanedValue = value.replace(/[^0-9]/g, "").replace(/^0+/g, "");
-    const intValue = Number(cleanedValue);
-    const finalValue =
-      !cleanedValue || intValue < maxDurationDays
-        ? cleanedValue
-        : String(maxDurationDays);
-    return finalValue;
-  };
-
-  const onDayBlur = (event: FocusEvent) => {
-    const target = event.target as HTMLInputElement;
-    const finalValue = cleanDurationDays(target.value);
-    setDurationDays(finalValue);
-  };
-
   const onSave = (event: SubmitEvent) => {
     event.preventDefault();
 
@@ -131,26 +102,6 @@ export const Edit: FunctionalComponent<{
     );
     setDurationDays(String(durationDaysInt));
     editCampaign(dailyBudgetInt, durationDaysInt);
-  };
-
-  const cleanDailyBudget = (value: string) => {
-    let intValue = currencyStringToInt(value, currency);
-
-    if (intValue === 0) {
-      intValue = defaultDailyBudget;
-    }
-
-    return formatCurrencyWithoutSymbol(intValue / currency.divisor);
-  };
-
-  const cleanDurationDays = (value: string) => {
-    if (!value) {
-      return String(defaultDurationDays);
-    }
-    if (Number(value) < minDurationDays) {
-      return String(minDurationDays);
-    }
-    return value;
   };
 
   const editCampaign = async (dailyBudget: number, durationDays: number) => {
@@ -184,11 +135,12 @@ export const Edit: FunctionalComponent<{
       setIsLoading(false);
     }
   };
-
-  const durationAfterText =
-    (durationDays ? durationDaysInt : defaultDurationDays) === 1
-      ? "day"
-      : "days";
+  const minDurationDays = useMemo(() => {
+    const startDate = new Date(campaign.startDate);
+    const pastDays = Math.ceil(dayDifference(startDate, new Date()));
+    if (!!pastDays && pastDays > 0) return pastDays;
+    return 1;
+  }, [campaign.startDate]);
 
   return (
     <div class="ts-space-y-5">
@@ -202,33 +154,20 @@ export const Edit: FunctionalComponent<{
       >
         <label class="ts-edit-form__item">
           <span>Set a daily budget</span>
-          <Input
-            {...(currency.isSymbolAtStart
-              ? { before: currency.symbol }
-              : { after: currency.symbol })}
-            value={dailyBudget}
-            inputFilter={budgetInputFilter}
-            onInput={setDailyBudget}
-            onBlur={(event) => onBudgetBlur(event as unknown as FocusEvent)}
-            required
-            placeholder={formatCurrencyWithoutSymbol(
-              defaultDailyBudget / currency.divisor
-            )}
+          <BudgetInput
+            setDailyBudget={setDailyBudget}
+            dailyBudget={dailyBudget}
+            formatCurrencyWithoutSymbol={formatCurrencyWithoutSymbol}
+            defaultDailyBudget={defaultDailyBudget}
           />
         </label>
         <label class="ts-edit-form__item">
           <span>Set a duration</span>
-          <Input
-            after={durationAfterText}
-            value={durationDays}
-            inputFilter={dayInputFilter}
-            onInput={setDurationDays}
-            onBlur={(event) => onDayBlur(event as unknown as FocusEvent)}
-            min={minDurationDays}
-            max={maxDurationDays}
-            type="number"
-            required
-            placeholder={String(defaultDurationDays)}
+          <DaysInput
+            minDurationDays={minDurationDays}
+            durationDays={durationDays}
+            setDurationDays={setDurationDays}
+            defaultDurationDays={defaultDurationDays}
           />
         </label>
         <Button
