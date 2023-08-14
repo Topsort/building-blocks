@@ -1,3 +1,4 @@
+import { ClickAwayListener } from "@components/ClickAwayListener";
 import { Portal } from "@components/Portal";
 import { OffsetOptions, Placement } from "@floating-ui/core/src/types";
 import { computePosition, offset, autoUpdate } from "@floating-ui/dom";
@@ -14,9 +15,12 @@ export type TooltipProps = {
   // hidden has precedence over alwaysShow.
   hidden?: boolean;
   light?: boolean;
+  range?: boolean;
   style?: h.JSX.CSSProperties;
   offsetOptions?: OffsetOptions;
   placement?: Placement;
+  onClick?: () => void;
+  onClickAway?: () => void;
 };
 
 export const Tooltip: FunctionalComponent<TooltipProps> = ({
@@ -26,9 +30,14 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
   alwaysShow,
   hidden,
   light,
+  range,
   style,
   offsetOptions,
   placement = "top",
+  onClick,
+  onClickAway = () => {
+    return;
+  },
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -116,20 +125,24 @@ export const Tooltip: FunctionalComponent<TooltipProps> = ({
       <div className="ts-flex">{children}</div>
       {(isOpen || alwaysShow) && (
         <Portal target={document.body}>
-          <div
-            ref={ref}
-            className={cx("ts-tooltip", {
-              "ts-tooltip--light": light,
-              "ts-tooltip--top": placement === "top",
-              "ts-tooltip--bottom": placement === "bottom",
-            })}
-            style={{
-              ...style,
-              ...(hidden && { visibility: "hidden" }),
-            }}
-          >
-            {content}
-          </div>
+          <ClickAwayListener onClickAway={onClickAway}>
+            <div
+              onClick={onClick}
+              ref={ref}
+              className={cx("ts-tooltip", {
+                "ts-tooltip--light": light,
+                "ts-tooltip--range": range,
+                "ts-tooltip--top": placement === "top",
+                "ts-tooltip--bottom": placement === "bottom",
+              })}
+              style={{
+                ...style,
+                ...(hidden && { visibility: "hidden" }),
+              }}
+            >
+              {content}
+            </div>
+          </ClickAwayListener>
         </Portal>
       )}
     </div>

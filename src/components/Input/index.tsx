@@ -23,6 +23,7 @@ export type InputProps = Omit<JSX.IntrinsicElements["input"], "onInput"> & {
     It is and will probably be enough for our use cases.
   */
   onInput?: (value: string) => void;
+  hasBorder?: boolean;
   showArrowButtons?: boolean;
 };
 
@@ -35,6 +36,7 @@ export const Input: FunctionalComponent<InputProps> = ({
   placeholder,
   type = "text",
   value,
+  hasBorder = true,
   showArrowButtons = true,
   ...props
 }) => {
@@ -125,7 +127,12 @@ export const Input: FunctionalComponent<InputProps> = ({
   };
 
   return (
-    <div className="ts-input-wrapper">
+    <div
+      className={cx(
+        "ts-input-wrapper",
+        hasBorder && "ts-input-wrapper__border"
+      )}
+    >
       <div className="ts-input-inner-wrapper" ref={innerWrapperRef}>
         {before && (
           <span className="ts-input__before" ref={beforeRef}>

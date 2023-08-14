@@ -14,7 +14,7 @@ import { logger } from "@utils/logger";
 import { h, FunctionalComponent } from "preact";
 import { useState, useMemo, useCallback } from "preact/hooks";
 
-const useFormatCurrencyWithoutSymbol = (
+export const useFormatCurrencyWithoutSymbol = (
   language: string,
   currency: Currency
 ) => {
@@ -28,7 +28,7 @@ const useFormatCurrencyWithoutSymbol = (
   );
 };
 
-const useDefaultDailyBudget = (budget: {
+export const useDefaultDailyBudget = (budget: {
   amount: number;
   type: "daily" | "weekly" | "monthly";
 }) => {

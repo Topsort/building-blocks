@@ -26,6 +26,9 @@
 
 .ts-tooltip--light {
   --tooltip-background-color: #757575;
+}
+
+.ts-tooltip--range {
   font-size: 0.625rem;
   font-weight: 700;
 }
@@ -50,4 +53,22 @@
 .ts-tooltip--bottom::before {
   bottom: 100%;
   border-bottom-color: var(--tooltip-background-color);
+}
+
+.ts-tooltip-content {
+  display: flex;
+  flex: 1 1 auto;
+}
+
+.ts-tooltip-content .ts-input {
+  color: var(--tooltip-text-color);
+
+}
+
+.ts-tooltip-content .ts-input__before {
+  color: var(--tooltip-text-color);
+}
+
+.ts-tooltip-content .ts-input__after {
+  color: var(--tooltip-text-color);
 }

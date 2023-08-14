@@ -24,8 +24,10 @@ const RangeInput = forwardRef<HTMLInputElement, JSX.IntrinsicElements["input"]>(
 );
 
 export const RangeInputWithTooltip: FunctionalComponent<
-  JSX.IntrinsicElements["input"] & { tooltipProps: TooltipProps }
-> = ({ tooltipProps, ...props }) => {
+  JSX.IntrinsicElements["input"] & { tooltipProps: TooltipProps } & {
+    setIsEditing: (value: boolean) => void;
+  }
+> = ({ setIsEditing, tooltipProps, ...props }) => {
   const [leftOffset, setLeftOffset] = useState<number | null>(null);
   const rangeRef = useRef<HTMLInputElement | null>(null);
   const observer = useRef<ResizeObserver | null>(null);
@@ -38,9 +40,11 @@ export const RangeInputWithTooltip: FunctionalComponent<
     const max = Number(rangeRef.current.max) || 0;
     const val = Number(rangeRef.current.value) || min;
     const ratio = (val - min) / (max - min);
+    const percentage = ratio * 100;
     const thumbSize = remToPx(
       getComputedStyle(rangeRef.current).getPropertyValue("--thumb-size")
     );
+    rangeRef.current.style.backgroundSize = `${percentage}% 100%`;
     const offsetWidth = rangeRef.current.offsetWidth;
 
     const calculatedLeftOffset =
@@ -84,6 +88,10 @@ export const RangeInputWithTooltip: FunctionalComponent<
       offsetOptions={{
         ...(leftOffset !== null && { crossAxis: leftOffset }),
       }}
+      onClick={() => {
+        setIsEditing(true);
+      }}
+      onClickAway={() => setIsEditing(false)}
     >
       <RangeInput ref={ref} {...props} />
     </Tooltip>

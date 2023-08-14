@@ -12,11 +12,17 @@ export const BudgetInput: FunctionalComponent<{
   setDailyBudget: (budget: string) => void;
   formatCurrencyWithoutSymbol: (value: number) => string;
   defaultDailyBudget: number;
+  hasborder?: boolean;
+  showSymbol?: boolean;
+  autofocus?: boolean;
 }> = ({
   dailyBudget,
   setDailyBudget,
   formatCurrencyWithoutSymbol,
   defaultDailyBudget,
+  hasborder = true,
+  showSymbol = true,
+  autofocus = false,
 }) => {
   const { currency } = usePromotionContext();
 
@@ -33,9 +39,10 @@ export const BudgetInput: FunctionalComponent<{
 
   return (
     <Input
-      {...(currency.isSymbolAtStart
-        ? { before: currency.symbol }
-        : { after: currency.symbol })}
+      {...(showSymbol &&
+        (currency.isSymbolAtStart
+          ? { before: currency.symbol }
+          : { after: currency.symbol }))}
       value={dailyBudget}
       inputFilter={budgetInputFilter(currency)}
       onInput={setDailyBudget}
@@ -44,6 +51,8 @@ export const BudgetInput: FunctionalComponent<{
       placeholder={formatCurrencyWithoutSymbol(
         defaultDailyBudget / currency.divisor
       )}
+      hasBorder={hasborder}
+      autofocus={autofocus}
     />
   );
 };
