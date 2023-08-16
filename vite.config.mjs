@@ -19,6 +19,7 @@ export default defineConfig({
     },
   },
   build: {
+    emptyOutDir: true,
     lib: {
       // Could also be a dictionary or array of multiple entry points
       entry: resolve(__dirname, "src/index.tsx"),
@@ -29,6 +30,9 @@ export default defineConfig({
       formats: ["es", "umd"],
     },
     rollupOptions: {
+      input: {
+        main: "./index.html",
+      },
       output: {
         footer: `
           if (globalThis.TopsortBlocks) {
