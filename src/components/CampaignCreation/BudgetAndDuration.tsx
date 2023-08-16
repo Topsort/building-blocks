@@ -8,8 +8,9 @@ import { Tooltip } from "@components/Tooltip";
 import { CampaignEstimation } from "@components/common";
 import { usePromotionContext } from "@context";
 import { minDurationDays, maxDurationDays } from "@state";
-import { FunctionalComponent } from "preact";
-import { ChangeEvent } from "preact/compat";
+import { currencyStringToInt } from "@utils/currency";
+import { FunctionalComponent, Fragment } from "preact";
+import { ChangeEvent, useRef, useState } from "preact/compat";
 
 import { getMaxBudget } from "./utils";
 

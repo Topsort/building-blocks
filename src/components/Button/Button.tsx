@@ -1,5 +1,5 @@
 import { usePromotionContext } from "@context";
-import * as cx from "classnames";
+import cx from "classnames";
 import { FunctionalComponent, JSX } from "preact";
 
 export const Button: FunctionalComponent<

@@ -1,4 +1,4 @@
-import * as cx from "classnames";
+import cx from "classnames";
 import { FunctionalComponent, JSX } from "preact";
 
 import "./style.css";

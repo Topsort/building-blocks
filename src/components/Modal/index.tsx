@@ -1,5 +1,5 @@
 import { CloseButton } from "@components/Button";
-import * as cx from "classnames";
+import cx from "classnames";
 import { h, FunctionalComponent } from "preact";
 import { useEffect, useRef } from "preact/hooks";
 

@@ -1,5 +1,5 @@
 import { Icon } from "@components/Icon";
-import * as cx from "classnames";
+import cx from "classnames";
 import { FunctionalComponent, JSX } from "preact";
 
 import { Button } from "./Button";

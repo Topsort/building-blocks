@@ -1,6 +1,6 @@
 import { Icon } from "@components/Icon";
 import { usePromotionContext } from "@context";
-import * as cx from "classnames";
+import cx from "classnames";
 import { FunctionalComponent, JSX } from "preact";
 import { useMemo } from "preact/hooks";
 

@@ -10,7 +10,7 @@ import {
   useRole,
 } from "@floating-ui/react-dom-interactions";
 import { PropsWithChildren } from "@types";
-import * as cx from "classnames";
+import cx from "classnames";
 import { FunctionalComponent, VNode, Fragment } from "preact";
 import { MutableRef, useEffect, useRef, useState } from "preact/hooks";
 

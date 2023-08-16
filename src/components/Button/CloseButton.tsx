@@ -1,6 +1,6 @@
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
-import * as cx from "classnames";
+import cx from "classnames";
 import { FunctionalComponent, JSX } from "preact";
 
 export const CloseButton: FunctionalComponent<
