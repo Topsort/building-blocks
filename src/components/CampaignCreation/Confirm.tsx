@@ -4,7 +4,7 @@ import { CampaignBudget, CampaignSummary } from "@components/common";
 import { usePromotionContext } from "@context";
 import { services } from "@services/central-services";
 import { logger } from "@utils/logger";
-import { h, FunctionalComponent } from "preact";
+import { FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
 
 export const Confirm: FunctionalComponent = () => {

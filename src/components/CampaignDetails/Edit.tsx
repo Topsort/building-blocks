@@ -11,7 +11,7 @@ import { Currency } from "@types";
 import { currencyStringToInt } from "@utils/currency";
 import { dayDifference } from "@utils/datetime";
 import { logger } from "@utils/logger";
-import { h, FunctionalComponent } from "preact";
+import { FunctionalComponent } from "preact";
 import { useState, useMemo, useCallback } from "preact/hooks";
 
 export const useFormatCurrencyWithoutSymbol = (

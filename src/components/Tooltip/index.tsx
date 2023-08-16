@@ -2,7 +2,7 @@ import { ClickAwayListener } from "@components/ClickAwayListener";
 import { Portal } from "@components/Portal";
 import { OffsetOptions, Placement } from "@floating-ui/core/src/types";
 import { computePosition, offset, autoUpdate } from "@floating-ui/dom";
-import cx from "classnames";
+import * as cx from "classnames";
 import { h, FunctionalComponent, VNode } from "preact";
 import { useCallback, useLayoutEffect, useRef, useState } from "preact/hooks";
 

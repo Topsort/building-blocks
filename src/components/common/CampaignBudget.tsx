@@ -1,6 +1,6 @@
 import { Button } from "@components/Button";
 import { usePromotionContext } from "@context";
-import { h, FunctionalComponent } from "preact";
+import { FunctionalComponent } from "preact";
 
 export const CampaignBudget: FunctionalComponent<{
   budget: number;

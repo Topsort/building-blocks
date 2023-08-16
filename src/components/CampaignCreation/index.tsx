@@ -2,7 +2,7 @@ import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
 import { usePromotionContext } from "@context";
 import { assertNever } from "@utils/assert-never";
-import { h, FunctionalComponent, Fragment } from "preact";
+import { FunctionalComponent, Fragment } from "preact";
 import { useEffect } from "preact/hooks";
 
 import { BudgetAndDuration } from "./BudgetAndDuration";

@@ -1,6 +1,6 @@
 import { CampaignBudget, CampaignSummary } from "@components/common";
 import { usePromotionContext } from "@context";
-import { h, FunctionalComponent } from "preact";
+import { FunctionalComponent } from "preact";
 
 export const Launched: FunctionalComponent = () => {
   const { state } = usePromotionContext();

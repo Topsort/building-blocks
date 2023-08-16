@@ -2,7 +2,7 @@ import { Button } from "@components/Button";
 import { defaultText } from "@constants";
 import { usePromotionContext } from "@context";
 import { RequestStatus } from "@types";
-import { h, FunctionalComponent } from "preact";
+import { FunctionalComponent } from "preact";
 
 export const PromoteButton: FunctionalComponent<{
   onClick: () => void;

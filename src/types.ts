@@ -6,7 +6,6 @@ declare global {
   const AUTH_BASE_URL: string;
   const CENTRAL_SERVICES_BASE_URL: string;
   const USE_MOCK_SERVER: string;
-  const TopsortBlocks: any;
 }
 
 export type DocumentStyleProperty =

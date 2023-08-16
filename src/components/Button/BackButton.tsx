@@ -1,6 +1,6 @@
 import { Icon } from "@components/Icon";
-import cx from "classnames";
-import { h, FunctionalComponent, JSX } from "preact";
+import * as cx from "classnames";
+import { FunctionalComponent, JSX } from "preact";
 
 import { Button } from "./Button";
 

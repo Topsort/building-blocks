@@ -1,7 +1,7 @@
 import { Icon } from "@components/Icon";
 import { usePromotionContext } from "@context";
-import cx from "classnames";
-import { h, FunctionalComponent, JSX } from "preact";
+import * as cx from "classnames";
+import { FunctionalComponent, JSX } from "preact";
 import { useMemo } from "preact/hooks";
 
 export const CampaignEstimation: FunctionalComponent<

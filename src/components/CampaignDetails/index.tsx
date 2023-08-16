@@ -5,7 +5,7 @@ import { ModalContent, ModalHeading } from "@components/Modal";
 import { usePromotionContext } from "@context";
 import { services } from "@services/central-services";
 import { logger } from "@utils/logger";
-import { h, FunctionalComponent, Fragment } from "preact";
+import { FunctionalComponent, Fragment } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
 import { Details } from "./Details";

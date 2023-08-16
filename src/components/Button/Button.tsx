@@ -1,6 +1,6 @@
 import { usePromotionContext } from "@context";
-import cx from "classnames";
-import { h, FunctionalComponent, JSX } from "preact";
+import * as cx from "classnames";
+import { FunctionalComponent, JSX } from "preact";
 
 export const Button: FunctionalComponent<
   JSX.IntrinsicElements["button"] & {

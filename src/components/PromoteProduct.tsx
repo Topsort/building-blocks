@@ -5,7 +5,7 @@ import { services } from "@services/central-services";
 import { Action, State } from "@state";
 import { RequestStatus } from "@types";
 import { logger } from "@utils/logger";
-import { Fragment, FunctionalComponent, h } from "preact";
+import { Fragment, FunctionalComponent } from "preact";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 
 const getProductData = (

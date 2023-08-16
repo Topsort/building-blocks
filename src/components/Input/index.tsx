@@ -1,8 +1,15 @@
-import { Button } from "@components/Button";
-import { Icon } from "@components/Icon";
-import cx from "classnames";
-import { h, FunctionalComponent, JSX } from "preact";
-import { useEffect, useRef } from "preact/compat";
+
+import { Tooltip, TooltipProps } from "@components/Tooltip";
+import { remToPx } from "@utils/css-unit-converter";
+import * as cx from "classnames";
+import { FunctionalComponent, JSX } from "preact";
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "preact/compat";
 
 import "./style.css";
 import { calculateTextWidth } from "./validations";
@@ -80,9 +87,8 @@ export const Input: FunctionalComponent<InputProps> = ({
     if (!innerWrapperRef.current) {
       return;
     }
-    innerWrapperRef.current.style.maxWidth = `calc(100% - ${
-      buttonContainerRef.current?.clientWidth ?? 0
-    }px)`;
+    innerWrapperRef.current.style.maxWidth = `calc(100% - ${buttonContainerRef.current?.clientWidth ?? 0
+      }px)`;
   }, [type]);
 
   const updateWidth = () => {

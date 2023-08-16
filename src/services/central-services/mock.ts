@@ -1,4 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+// eslint-disable @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import type {
   CampaignIdsByProductId,
   Campaign,
@@ -11,8 +13,6 @@ import type {
 import type { Services } from "./types";
 
 function uuidv4() {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
     (
       c ^

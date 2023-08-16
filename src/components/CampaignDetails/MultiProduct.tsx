@@ -1,6 +1,6 @@
 import { Link } from "@components/Link";
 import { CampaignSummary } from "@components/common";
-import { h, FunctionalComponent } from "preact";
+import { FunctionalComponent } from "preact";
 
 export const MultiProduct: FunctionalComponent = () => {
   return (

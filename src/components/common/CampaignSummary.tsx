@@ -1,7 +1,7 @@
 import { MS_PER_DAY, MS_PER_HOUR, MS_PER_MIN, MS_PER_SEC } from "@constants";
 import { usePromotionContext } from "@context";
-import cx from "classnames";
-import { h, FunctionalComponent, Fragment } from "preact";
+import * as cx from "classnames";
+import { FunctionalComponent, Fragment } from "preact";
 import { useMemo } from "preact/hooks";
 
 const padTime = (num: number) => `0${num}`.slice(-2);

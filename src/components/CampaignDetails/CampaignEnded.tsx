@@ -4,7 +4,7 @@ import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
 import { CampaignSummary } from "@components/common";
 import { usePromotionContext } from "@context";
-import { h, FunctionComponent, Fragment } from "preact";
+import { FunctionComponent, Fragment } from "preact";
 
 import { Metrics } from "./Metrics";
 
