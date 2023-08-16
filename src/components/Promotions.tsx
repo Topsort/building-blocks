@@ -12,7 +12,7 @@ import {
   setDocumentStyleProperty,
 } from "@utils/custom-styles";
 import { logger } from "@utils/logger";
-import { Fragment, FunctionalComponent, h } from "preact";
+import { Fragment, FunctionalComponent } from "preact";
 import { useEffect, useReducer } from "preact/hooks";
 
 import { PromoteProduct } from "./PromoteProduct";

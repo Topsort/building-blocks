@@ -4,7 +4,7 @@ import { usePromotionContext } from "@context";
 import { services } from "@services/central-services";
 import { RequestStatus } from "@types";
 import { logger } from "@utils/logger";
-import { Fragment, FunctionalComponent, h } from "preact";
+import { Fragment, FunctionalComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
 export const PromoteShop: FunctionalComponent = () => {

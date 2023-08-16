@@ -18,7 +18,6 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["@typescript-eslint", "html"],
   rules: {
     "object-shorthand": "error",
     "no-duplicate-imports": "error",
@@ -48,11 +47,8 @@ module.exports = {
       // however we only care about marking h() as being a used variable.
       pragma: "h",
     },
-    // TODO(christopherbot) I needed to add this to get around an eslint error.
-    // Can probably remove if we install/use jest. See:
-    // https://github.com/microsoft/vscode-eslint/issues/1145
     jest: {
-      version: 26,
+      version: "latest",
     },
   },
 };

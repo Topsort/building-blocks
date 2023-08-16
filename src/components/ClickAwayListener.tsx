@@ -1,4 +1,4 @@
-import { h, FunctionalComponent } from "preact";
+import { FunctionalComponent } from "preact";
 import { useRef, useEffect } from "preact/hooks";
 
 export const useOutsideClick = (callback: () => void) => {

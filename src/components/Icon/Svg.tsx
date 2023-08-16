@@ -1,4 +1,4 @@
-import { h, FunctionalComponent, JSX } from "preact";
+import { FunctionalComponent, JSX } from "preact";
 import { useMemo } from "preact/hooks";
 
 type A11yProps = {

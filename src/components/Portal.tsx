@@ -1,4 +1,4 @@
-import { h, Fragment, FunctionalComponent } from "preact";
+import { Fragment, FunctionalComponent } from "preact";
 import { createPortal } from "preact/compat";
 import { useEffect, useState } from "preact/hooks";
 

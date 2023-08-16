@@ -1,7 +1,7 @@
 import { Tooltip, TooltipProps } from "@components/Tooltip";
 import { remToPx } from "@utils/css-unit-converter";
 import cx from "classnames";
-import { h, FunctionalComponent, JSX } from "preact";
+import { FunctionalComponent, JSX } from "preact";
 import {
   forwardRef,
   useCallback,

@@ -1,7 +1,7 @@
 import { Campaign } from "@api/types";
 import { Icon, IconName } from "@components/Icon";
 import { usePromotionContext } from "@context";
-import { h, FunctionalComponent } from "preact";
+import { FunctionalComponent } from "preact";
 
 export const Metrics: FunctionalComponent<{
   campaign: Campaign;

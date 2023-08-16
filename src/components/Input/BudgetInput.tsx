@@ -3,7 +3,7 @@ import {
   cleanDailyBudget,
 } from "@components/Input/validations";
 import { usePromotionContext } from "@context";
-import { h, FunctionalComponent } from "preact";
+import { FunctionalComponent } from "preact";
 
 import { Input } from ".";
 

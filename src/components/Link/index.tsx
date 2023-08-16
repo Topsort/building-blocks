@@ -1,5 +1,5 @@
 import cx from "classnames";
-import { h, FunctionalComponent, JSX } from "preact";
+import { FunctionalComponent, JSX } from "preact";
 
 import "./style.css";
 

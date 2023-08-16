@@ -189,7 +189,7 @@ If you decide to integrate the product promotion feature, follow these steps:
 1. Install the dependencies:
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 1. Create and set up your `.env` file:
@@ -198,10 +198,10 @@ If you decide to integrate the product promotion feature, follow these steps:
    cp .env.example .env
    ```
 
-1. Start the development server which runs the demo at [localhost:8080](http://localhost:8080):
+1. Start the development server. The console will output a clickable URL.
 
    ```bash
-   npm run start
+   pnpm run start
    ```
 
 ### Adding new environment variables

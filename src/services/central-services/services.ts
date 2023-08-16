@@ -80,77 +80,12 @@ async function getCampaignIdsByProductId(
   return response;
 }
 
-// TODO(christopherbot) remove this eventually
-// eslint-disable-next-line
-const fakeCampaignsById: Record<string, Campaign> = {
-  "00000000-0000-7000-8088-0000000001ab": {
-    campaignId: "00000000-0000-7000-8088-0000000001ab",
-    name: "Fakey McFakerson Campaign",
-    budget: {
-      amount: 200,
-      type: "daily",
-    },
-    startDate: "2019-08-22T14:15:22Z",
-    endDate: "2019-08-24T14:15:22Z",
-    activeBidsCount: 1,
-    campaignBehaviorData: {
-      clicks: {
-        total: 24,
-        charged: 24,
-        adSpent: 24,
-      },
-      impressions: {
-        total: 1341,
-        charged: 1341,
-        adSpent: 1341,
-      },
-      purchases: {
-        amount: 19,
-        count: 19,
-        quantity: 19,
-      },
-    },
-  },
-  "e86a2438-14cb-44b1-94a8-291a4a57215b": {
-    campaignId: "e86a2438-14cb-44b1-94a8-291a4a57215b",
-    name: "Totally A Real Campaign",
-    budget: {
-      amount: 990,
-      type: "daily",
-    },
-    startDate: "2019-08-11T14:15:22Z",
-    endDate: "2019-08-24T20:54:10Z",
-    activeBidsCount: 1,
-    campaignBehaviorData: {
-      clicks: {
-        total: 42,
-        charged: 42,
-        adSpent: 42,
-      },
-      impressions: {
-        total: 9001,
-        charged: 9001,
-        adSpent: 9001,
-      },
-      purchases: {
-        amount: 21,
-        count: 21,
-        quantity: 21,
-      },
-    },
-  },
-};
-
 async function getCampaign(
   centralServicesUrl: string,
   authToken: string,
   vendorId: string,
   campaignId: string
 ): Promise<Campaign> {
-  // return new Promise((res, rej) => {
-  //   setTimeout(() => res(fakeCampaignsById[campaignId]), 1000);
-  //   // setTimeout(() => rej("Error!!"), 1000);
-  // });
   return await api(
     schemas.campaignSchema,
     paths.campaign(centralServicesUrl, vendorId, campaignId),

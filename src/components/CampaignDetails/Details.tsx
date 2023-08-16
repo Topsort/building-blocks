@@ -2,7 +2,7 @@ import { Campaign } from "@api/types";
 import { CampaignBudget, CampaignSummary } from "@components/common";
 import { MS_PER_DAY } from "@constants";
 import { usePromotionContext } from "@context";
-import { h, FunctionalComponent } from "preact";
+import { FunctionalComponent } from "preact";
 import { useMemo } from "preact/hooks";
 
 import { Metrics } from "./Metrics";

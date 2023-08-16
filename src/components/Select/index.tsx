@@ -11,7 +11,7 @@ import {
 } from "@floating-ui/react-dom-interactions";
 import { PropsWithChildren } from "@types";
 import cx from "classnames";
-import { h, FunctionalComponent, VNode, Fragment } from "preact";
+import { FunctionalComponent, VNode, Fragment } from "preact";
 import { MutableRef, useEffect, useRef, useState } from "preact/hooks";
 
 import "./style.css";

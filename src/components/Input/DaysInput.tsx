@@ -4,7 +4,7 @@ import {
   dayInputFilter,
 } from "@components/Input/validations";
 import { maxDurationDays } from "@state";
-import { h, FunctionalComponent } from "preact";
+import { FunctionalComponent } from "preact";
 
 export const DaysInput: FunctionalComponent<{
   durationDays: string;

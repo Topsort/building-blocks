@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Topsort Blocks Demo</title>
+  <script type="module" src="src/index.tsx"></script>
+  <script type="module" src="/loader.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", sans-serif;
+    }
+
+    main {
+      padding: 1rem;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+
+    .title-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      position: sticky;
+      top: 0;
+      background-color: white;
+      border-bottom: 1px solid #eeeeee;
+      z-index: 1;
+      padding-top: 1rem;
+      gap: 1rem;
+      max-width: 75rem;
+    }
+
+    .search-input {
+      width: 15rem;
+      height: 1.5rem;
+      padding: 0 0.5rem;
+    }
+
+    .title-row-headers {
+      display: flex;
+      padding: 0.5rem;
+      width: 100%;
+    }
+
+    .title-row-headers span {
+      flex: 0.5;
+      text-align: center;
+    }
+
+    .title-row-headers span:nth-child(1) {
+      flex: 1;
+    }
+
+    .title-row-headers span:nth-child(4) {
+      min-width: 12rem;
+    }
+
+    .title-row-headers span:nth-child(5) {
+      text-align: end;
+    }
+
+    #product-proto {
+      display: none;
+    }
+
+    .product {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #eeeeee;
+      padding: 0.5rem;
+      max-width: 75rem;
+    }
+
+    .product:last-child {
+      border-bottom: 1px solid #eeeeee;
+    }
+
+    .product-img-name {
+      display: flex;
+      flex-direction: row;
+      flex: 1;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .product-img {
+      object-fit: contain;
+      width: 4.5rem;
+      height: 4.5rem;
+    }
+
+    .product-name-code {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-name {
+      color: #5e3bdd;
+      line-height: 1.5;
+    }
+
+    .product-code {
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+
+    .product-price {
+      flex: 0.5;
+      text-align: center;
+    }
+
+    .product-quantity {
+      flex: 0.5;
+      text-align: center;
+    }
+
+    .promote-target-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      min-width: 12rem;
+    }
+
+    .product-status {
+      flex: 0.5;
+      text-align: end;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div>promote shop <div class="ts-promote-shop" data-ts-shop-name="Demo Shop"></div>
+    </div>
+    <div class="wrapper">
+      <div class="title-row">
+        <input id="product-search" class="search-input" placeholder="Search products" />
+        <label>
+          Page:
+          <select name="page" id="page-select"></select>
+        </label>
+        <div class="title-row-headers">
+          <span>Name / Code</span>
+          <span>Price</span>
+          <span>Quantity</span>
+          <span><!-- purposely empty --></span>
+          <span>Status</span>
+        </div>
+      </div>
+      <!-- REUSABLE ELEMENTS -->
+      <div hidden id="product-proto" class="product">
+        <div class="product-img-name">
+          <img class="product-img" />
+          <div class="product-name-code">
+            <span class="product-name"></span>
+            <span class="product-code"></span>
+          </div>
+        </div>
+        <span class="product-price"></span>
+        <span class="product-quantity"></span>
+        <div class="promote-target-wrapper">
+          <div class="promote-target-placeholder"></div>
+        </div>
+        <div class="product-status"></div>
+      </div>
+      <!-- END REUSABLE ELEMENTS -->
+    </div>
+  </main>
+</body>
+
+</html>

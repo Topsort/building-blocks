@@ -1,0 +1,50 @@
+name: ci-workflows
+
+on:
+  pull_request:
+
+env:
+  lockfile: pnpm-lock.yaml
+  node_version: "18"
+  pnpm_version: "8"
+
+jobs:
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-22.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2
+        name: Install PNPM
+        id: pnpm-install
+        with:
+          version: 8
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run ESLint
+        run: pnpm run lint
+
+  actionlint:
+    name: Actionlint
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Actionlint
+        env:
+          version: "1.6.25"
+        run: curl -Ls "https://github.com/rhysd/actionlint/releases/download/v${{ env.version }}/actionlint_${{ env.version }}_linux_amd64.tar.gz" | sudo tar -x -z -C /usr/local/bin actionlint
+      - name: Run Actionlint
+        run: |
+          echo "::add-matcher::.github/matchers/actionlint.json"
+          actionlint -color

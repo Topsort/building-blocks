@@ -9,7 +9,7 @@ import { services } from "@services/central-services";
 import { validationService } from "@services/validation-service";
 import { Currency, initialParamsSchema, InitParams } from "@types";
 import { logger } from "@utils/logger";
-import { h, render } from "preact";
+import { render } from "preact";
 
 import "./app.css";
 import "./utils.css";
@@ -180,3 +180,7 @@ export default class TopsortBlocks {
     this.renderPromotions();
   }
 }
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+window.TopsortBlocks = TopsortBlocks;

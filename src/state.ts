@@ -1,5 +1,5 @@
 import { BaseCampaign, Campaign, DefaultBudgetAndCpc } from "@api/types";
-import { produce } from "immer";
+import { produce } from "structurajs";
 
 export const initialDurationDays = 15;
 export const minDurationDays = 1;

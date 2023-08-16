@@ -9,14 +9,5 @@
 # misc
 .DS_Store
 
-# debug
-npm-debug.log*
-
-# nvm
-.nvmrc
-
-# ide files
-.idea/*
-
 # eslint
 .eslintcache

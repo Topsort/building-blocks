@@ -1,38 +1,70 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
-    "baseUrl": "./",
-    "downlevelIteration": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "jsxFactory": "h",
-    "jsxFragmentFactory": "Fragment",
-    "lib": ["ES2016", "DOM", "DOM.Iterable"],
-    "module": "UMD",
-    "moduleResolution": "node",
-    "noEmit": true,
-    "paths": {
-      // `react` and `react-dom` aliases are necessary to use
-      // React libraries in Preact. See:
-      // https://github.com/preactjs/preact/issues/2150
-      "react": ["preact/compat"],
-      "react-dom": ["preact/compat"],
-      "@api/*": ["src/api/*"],
-      "@components/*": ["src/components/*"],
-      "@constants": ["src/constants"],
-      "@context": ["src/context"],
-      "@hooks/*": ["src/hooks/*"],
-      "@services/*": ["src/services/*"],
-      "@state": ["src/state"],
-      "@types": ["src/types"],
-      "@utils/*": ["src/utils/*"]
-    },
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "skipLibCheck": true,
+    "moduleResolution": "node",
+    "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "paths": {
+      "react": [
+        "./preact/compat"
+      ],
+      "react-dom": [
+        "./preact/compat"
+      ],
+      "@api/*": [
+        "./src/api/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@constants": [
+        "./src/constants"
+      ],
+      "@context": [
+        "./src/context"
+      ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@services/*": [
+        "./src/services/*"
+      ],
+      "@state": [
+        "./src/state"
+      ],
+      "@types": [
+        "./src/types"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ]
+    },
+    /* Linting */
     "strict": true,
-    "target": "es2016"
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "./dist/**/*"]
+  "include": [
+    "src"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }
