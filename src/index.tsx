@@ -180,3 +180,5 @@ export default class TopsortBlocks {
     this.renderPromotions();
   }
 }
+
+window.TopsortBlocks = TopsortBlocks;
