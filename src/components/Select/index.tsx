@@ -95,8 +95,8 @@ export const Select = <T extends boolean | number | string | Date | object>({
         {selectRenderer
           ? selectRenderer(selectedOption)
           : selectedOption === null
-            ? "None selected"
-            : JSON.stringify(selectedOption)}
+          ? "None selected"
+          : JSON.stringify(selectedOption)}
         <Icon
           name="arrow-up-1-linear"
           className={cx({
@@ -171,45 +171,45 @@ const Option: FunctionalComponent<{
   listRef,
   children,
 }) => {
-    const handleClick = () => {
-      handleSelect(index);
-    };
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        handleSelect(index);
-      } else if (event.key === " ") {
-        event.preventDefault();
-      }
-    };
-
-    const handleKeyUp = (event: KeyboardEvent) => {
-      if (event.key === " ") {
-        handleSelect(index);
-      }
-    };
-
-    return (
-      <div
-        {...getItemProps({
-          className: cx("ts-select-option", {
-            "ts-select-option--active": active,
-            "ts-select-option--selected": selected,
-          }),
-          role: "option",
-          "aria-selected": selected,
-          tabIndex: active ? 1 : 0,
-          ref: (node: HTMLDivElement | null) => (listRef.current[index] = node),
-          onClick: handleClick,
-          onKeyDown: handleKeyDown,
-          onKeyUp: handleKeyUp,
-        })}
-      >
-        {children}
-        {selected && (
-          <Icon name="checkmark" width={10} height={8} viewBox="0 0 10 8" />
-        )}
-      </div>
-    );
+  const handleClick = () => {
+    handleSelect(index);
   };
+
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleSelect(index);
+    } else if (event.key === " ") {
+      event.preventDefault();
+    }
+  };
+
+  const handleKeyUp = (event: KeyboardEvent) => {
+    if (event.key === " ") {
+      handleSelect(index);
+    }
+  };
+
+  return (
+    <div
+      {...getItemProps({
+        className: cx("ts-select-option", {
+          "ts-select-option--active": active,
+          "ts-select-option--selected": selected,
+        }),
+        role: "option",
+        "aria-selected": selected,
+        tabIndex: active ? 1 : 0,
+        ref: (node: HTMLDivElement | null) => (listRef.current[index] = node),
+        onClick: handleClick,
+        onKeyDown: handleKeyDown,
+        onKeyUp: handleKeyUp,
+      })}
+    >
+      {children}
+      {selected && (
+        <Icon name="checkmark" width={10} height={8} viewBox="0 0 10 8" />
+      )}
+    </div>
+  );
+};

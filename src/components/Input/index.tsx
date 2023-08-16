@@ -80,8 +80,9 @@ export const Input: FunctionalComponent<InputProps> = ({
     if (!innerWrapperRef.current) {
       return;
     }
-    innerWrapperRef.current.style.maxWidth = `calc(100% - ${buttonContainerRef.current?.clientWidth ?? 0
-      }px)`;
+    innerWrapperRef.current.style.maxWidth = `calc(100% - ${
+      buttonContainerRef.current?.clientWidth ?? 0
+    }px)`;
   }, [type]);
 
   const updateWidth = () => {

@@ -97,11 +97,11 @@ const TopsortPromotions: FunctionalComponent = () => {
            * Don't show the Details if the campaign was just launched so that
            * the user still sees the Launched screen in the creation flow
            */
-            selectedCampaignId ? (
-              <CampaignDetails campaignId={selectedCampaignId} />
-            ) : (
-              <CampaignCreation />
-            )}
+          selectedCampaignId ? (
+            <CampaignDetails campaignId={selectedCampaignId} />
+          ) : (
+            <CampaignCreation />
+          )}
         </Modal>
       </Portal>
     </Fragment>
@@ -139,30 +139,30 @@ export const TopsortPromotionsWithContext: FunctionalComponent<{
   promoteShopClassName,
   isUsingShopPromotion,
 }) => {
-    const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-    return (
-      <PromotionContext.Provider
-        value={{
-          centralServicesUrl,
-          authToken,
-          vendorId,
-          language,
-          currency,
-          formatNumber,
-          formatMoney,
-          promoteTargetClassName,
-          promoteShopClassName,
-          style,
-          text,
-          state,
-          dispatch,
-          counter,
-          isUsingProductPromotion,
-          isUsingShopPromotion,
-        }}
-      >
-        <TopsortPromotions />
-      </PromotionContext.Provider>
-    );
-  };
+  return (
+    <PromotionContext.Provider
+      value={{
+        centralServicesUrl,
+        authToken,
+        vendorId,
+        language,
+        currency,
+        formatNumber,
+        formatMoney,
+        promoteTargetClassName,
+        promoteShopClassName,
+        style,
+        text,
+        state,
+        dispatch,
+        counter,
+        isUsingProductPromotion,
+        isUsingShopPromotion,
+      }}
+    >
+      <TopsortPromotions />
+    </PromotionContext.Provider>
+  );
+};
