@@ -21,10 +21,8 @@ export default defineConfig({
   build: {
     emptyOutDir: true,
     lib: {
-      // Could also be a dictionary or array of multiple entry points
       entry: resolve(__dirname, "src/index.tsx"),
       name: "TopsortBlocks",
-      // the proper extensions will be added
       fileName: (format) =>
         `index.${format === "es" ? "mjs" : format === "umd" ? "js" : "js"}`,
       formats: ["es", "umd"],
@@ -32,15 +30,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: "./index.html",
-      },
-      output: {
-        footer: `
-          if (globalThis.TopsortBlocks) {
-            for (const key of Object.keys(globalThis.TopsortBlocks)) {
-              globalThis[key] = globalThis.TopsortBlocks[key]
-            }
-          }
-        `,
       },
     },
     // Relative to the root

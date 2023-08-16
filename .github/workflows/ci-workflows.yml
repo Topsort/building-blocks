@@ -2,11 +2,6 @@ name: ci-workflows
 
 on:
   pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
 
 # This is to avoid running multiple actions when a PR is updated repeatedly. See
 # https://docs.github.com/en/actions/using-jobs/using-concurrency
@@ -14,6 +9,55 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-jobs:
-  sanity:
-    uses: ./.github/workflows/sanity.yml
+  jobs:
+    prettier:
+      runs-on: ubuntu-22.04
+      name: Prettier
+      steps:
+        - name: checkout
+          uses: actions/checkout@v3
+
+        - uses: pnpm/action-setup@v2
+          name: Install PNPM
+          id: pnpm-install
+          with:
+            version: 8
+
+        - name: Set up Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: 18
+            cache: pnpm
+            cache-dependency-path: pnpm-lock.yaml
+
+        - name: Install dependencies
+          run: pnpm install
+
+        - name: Run Prettier
+          run: node_modules/.bin/prettier -c .
+
+    eslint:
+      name: ESLint
+      runs-on: ubuntu-22.04
+      steps:
+        - name: checkout
+          uses: actions/checkout@v3
+
+        - uses: pnpm/action-setup@v2
+          name: Install PNPM
+          id: pnpm-install
+          with:
+            version: 8
+
+        - name: Set up Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: 18
+            cache: pnpm
+            cache-dependency-path: pnpm-lock.yaml
+
+        - name: Install dependencies
+          run: pnpm install
+
+        - name: Run ESLint
+          run: node_modules/.bin/eslint '{src,test}/**/*.{ts,tsx}'
