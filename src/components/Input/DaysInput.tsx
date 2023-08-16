@@ -11,11 +11,19 @@ export const DaysInput: FunctionalComponent<{
   setDurationDays: (days: string) => void;
   defaultDurationDays: number;
   minDurationDays?: number;
+  hasBorder?: boolean;
+  showArrowButtons?: boolean;
+  autofocus?: boolean;
+  onEnterPress?: () => void;
 }> = ({
   durationDays,
   setDurationDays,
   defaultDurationDays,
   minDurationDays = 1,
+  hasBorder = true,
+  showArrowButtons = true,
+  autofocus = false,
+  onEnterPress,
 }) => {
   const onDayBlur = (event: FocusEvent) => {
     const target = event.target as HTMLInputElement;
@@ -29,8 +37,8 @@ export const DaysInput: FunctionalComponent<{
 
   const durationAfterText =
     (durationDays ? Number(durationDays) : defaultDurationDays) === 1
-      ? "day"
-      : "days";
+      ? "Day"
+      : "Days";
 
   return (
     <Input
@@ -44,6 +52,14 @@ export const DaysInput: FunctionalComponent<{
       type="number"
       required
       placeholder={String(defaultDurationDays)}
+      hasBorder={hasBorder}
+      showArrowButtons={showArrowButtons}
+      autofocus={autofocus}
+      onKeyPress={(event) => {
+        if (event.key === "Enter" && onEnterPress) {
+          onEnterPress();
+        }
+      }}
     />
   );
 };
