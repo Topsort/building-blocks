@@ -1,14 +1,14 @@
-import { Campaign } from "@api/types";
+import { ReportDataWithAuctions } from "@api/types";
 import { Icon, IconName } from "@components/Icon";
 import { usePromotionContext } from "@context";
 import { FunctionalComponent } from "preact";
 
 export const Metrics: FunctionalComponent<{
-  campaign: Campaign;
+  campaignReport: ReportDataWithAuctions;
   title: string;
-}> = ({ campaign, title }) => {
+}> = ({ campaignReport, title }) => {
   const { formatMoney, formatNumber } = usePromotionContext();
-  const { impressions, clicks, purchases } = campaign.campaignBehaviorData;
+  const { impressions, clicks, purchases } = campaignReport;
   return (
     <div className="ts-metrics">
       <span className="ts-metrics__title">{title}</span>
@@ -33,12 +33,12 @@ export const Metrics: FunctionalComponent<{
         <Metric
           title="Total spend"
           // TODO(christopherbot) is this right? Tomi says: "we're not charging by impressions AFAIK"
-          value={formatMoney(clicks.adSpent + impressions.adSpent)}
+          value={formatMoney(Number(clicks.adSpent + impressions.adSpent))}
           iconName="money"
         />
         <Metric
           title="Total sales"
-          value={formatMoney(purchases.amount)}
+          value={formatMoney(Number(purchases.amount))}
           iconName="message-add"
         />
         <Metric

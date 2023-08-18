@@ -1,4 +1,9 @@
-import { BaseCampaign, Campaign, DefaultBudgetAndCpc } from "@api/types";
+import {
+  BaseCampaign,
+  Campaign,
+  DefaultBudgetAndCpc,
+  ReportDataWithAuctions,
+} from "@api/types";
 import { produce } from "structurajs";
 
 export const initialDurationDays = 15;
@@ -15,13 +20,17 @@ type ProductData = {
   imgUrl: string;
 };
 
+type CampaignWithReport = Campaign & {
+  report?: ReportDataWithAuctions;
+};
+
 export type State = {
   defaultBudget: DefaultBudgetAndCpc["defaultBudget"];
   marketplaceCpc: DefaultBudgetAndCpc["cpc"];
   productDataById: Record<string, ProductData>;
   isModalOpen: boolean;
   campaignIdsByProductId: Record<string, string | null>;
-  campaignsById: Record<string, Campaign>;
+  campaignsById: Record<string, CampaignWithReport>;
   selectedProductId: string | null;
   campaignCreation: {
     step: CampaignCreationStep;
@@ -120,6 +129,13 @@ export type Action =
         campaign: Campaign;
       };
     }
+  | {
+      type: "campaign report retrieved";
+      payload: {
+        campaignId: string;
+        report: ReportDataWithAuctions;
+      };
+    }
   | { type: "set shop campaign id"; payload: { campaignId: string } }
   | {
       type: "campaign creation daily budget updated";
@@ -207,6 +223,11 @@ export const reducer = (
       case "campaign retrieved": {
         const { campaign } = action.payload;
         draft.campaignsById[campaign.campaignId] = campaign;
+        break;
+      }
+      case "campaign report retrieved": {
+        const { campaignId, report } = action.payload;
+        draft.campaignsById[campaignId].report = report;
         break;
       }
       case "set shopName": {

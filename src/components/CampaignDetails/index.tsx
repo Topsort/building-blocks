@@ -55,6 +55,30 @@ export const CampaignDetails: FunctionalComponent<{
   }, [authToken, vendorId, campaign, campaignId, dispatch, centralServicesUrl]);
 
   useEffect(() => {
+    if (campaign.report) return;
+    async function getCampaignReport() {
+      try {
+        const campaignReport = await services.getCampaignReport(
+          centralServicesUrl,
+          authToken,
+          campaignId
+        );
+        dispatch({
+          type: "campaign report retrieved",
+          payload: { campaignId, report: campaignReport },
+        });
+      } catch (error) {
+        logger.error(
+          `Failed to get campaign report (id="${campaignId}").`,
+          error
+        );
+        setHasError(true);
+      }
+    }
+    getCampaignReport();
+  }, [campaignId, campaign, authToken, dispatch, centralServicesUrl]);
+
+  useEffect(() => {
     // If the modal for a different campaign is opened,
     // reset back to the first step
     return () => {
@@ -92,7 +116,11 @@ export const CampaignDetails: FunctionalComponent<{
       case "details": {
         return {
           title: "Campaign Details",
-          content: <Details campaign={campaign} />,
+          content: campaign.report ? (
+            <Details campaign={campaign} campaignReport={campaign.report} />
+          ) : (
+            <></>
+          ),
         };
       }
       case "editing": {
@@ -113,7 +141,11 @@ export const CampaignDetails: FunctionalComponent<{
       case "ending": {
         return {
           title: "You're about to end this campaign",
-          content: <Ending campaign={campaign} />,
+          content: campaign.report ? (
+            <Ending campaign={campaign} campaignReport={campaign.report} />
+          ) : (
+            <></>
+          ),
         };
       }
     }
