@@ -5,7 +5,8 @@ async function request(url: string, config?: RequestInit) {
   if (!window.fetch) {
     throw "[fetch] Your browser does not support this function";
   }
-  const response = await window.fetch(url, config);
+  const corsConfig = (import.meta.env.DEV && "no-cors") || "cors";
+  const response = await window.fetch(url, { ...config, mode: corsConfig });
 
   if (!response.ok) {
     throw new Error(response.statusText);
