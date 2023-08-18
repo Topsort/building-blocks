@@ -252,7 +252,7 @@ export const reducer = (
       case "product campaign launched": {
         const { campaign, report, productId } = action.payload;
         draft.campaignIdsByProductId[productId] = campaign.campaignId;
-        draft.campaignsById[campaign.campaignId] = { ...campaign, report }
+        draft.campaignsById[campaign.campaignId] = { ...campaign, report };
         draft.campaignCreation.step = "launched";
         break;
       }
