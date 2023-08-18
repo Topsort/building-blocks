@@ -51,6 +51,7 @@
   },
   "homepage": "https://github.com/Topsort/building-blocks#readme",
   "devDependencies": {
+    "@floating-ui/core": "^1.4.1",
     "@preact/preset-vite": "^2.5.0",
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
