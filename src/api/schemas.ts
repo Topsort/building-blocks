@@ -21,11 +21,6 @@ export const campaignIdsByProductIdSchema = z.record(
   z.string().uuid().nullable()
 );
 
-export const scrollResponse = z.object({
-  hasMore: z.boolean(),
-  nextPage: z.string().min(1).nullable(),
-});
-
 export const reportingApiModels = (function () {
   const events = z.object({
     total: z.bigint(),
