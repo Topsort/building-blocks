@@ -2,12 +2,6 @@ import { MarketplaceDetails } from "@api/types";
 import { ComponentChildren } from "preact";
 import { z } from "zod";
 
-declare global {
-  const AUTH_BASE_URL: string;
-  const CENTRAL_SERVICES_BASE_URL: string;
-  const USE_MOCK_SERVER: string;
-}
-
 export type DocumentStyleProperty =
   | "--ts-primary-rgb"
   | "--ts-secondary-rgb"
