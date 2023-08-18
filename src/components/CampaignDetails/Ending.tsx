@@ -1,4 +1,4 @@
-import { Campaign, ReportDataWithAuctions } from "@api/types";
+import { CampaignWithReport } from "@api/types";
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { CampaignSummary } from "@components/common";
@@ -11,9 +11,8 @@ import { useState } from "preact/hooks";
 import { Metrics } from "./Metrics";
 
 export const Ending: FunctionalComponent<{
-  campaign: Campaign;
-  campaignReport: ReportDataWithAuctions;
-}> = ({ campaign, campaignReport }) => {
+  campaign: CampaignWithReport;
+}> = ({ campaign }) => {
   const { authToken, vendorId, dispatch, state, centralServicesUrl } =
     usePromotionContext();
   const { selectedProductId } = state;
@@ -54,7 +53,7 @@ export const Ending: FunctionalComponent<{
   return (
     <div className="ts-space-y-4">
       <CampaignSummary />
-      <Metrics title="Final Metrics" campaignReport={campaignReport} />
+      <Metrics title="Final Metrics" campaignReport={campaign.report} />
       <div className="ts-space-y-2-5">
         {/*
           TODO (samet) Uncomment this and the related css once we fetch email

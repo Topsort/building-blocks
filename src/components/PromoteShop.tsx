@@ -54,9 +54,14 @@ export const PromoteShop: FunctionalComponent = () => {
       const campaign = res?.exists ? res.campaign : null;
       setStatus("success");
       if (campaign) {
+        const report = await services.getCampaignReport(
+          centralServicesUrl,
+          authToken,
+          campaign.campaignId
+        );
         dispatch({
           type: "campaign retrieved",
-          payload: { campaign },
+          payload: { campaign, report },
         });
         dispatch({
           type: "set shop campaign id",

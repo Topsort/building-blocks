@@ -1,6 +1,7 @@
 import {
   BaseCampaign,
   Campaign,
+  CampaignWithReport,
   DefaultBudgetAndCpc,
   ReportDataWithAuctions,
 } from "@api/types";
@@ -20,10 +21,6 @@ type ProductData = {
   imgUrl: string;
 };
 
-type CampaignWithReport = Campaign & {
-  report?: ReportDataWithAuctions;
-};
-
 export type State = {
   defaultBudget: DefaultBudgetAndCpc["defaultBudget"];
   marketplaceCpc: DefaultBudgetAndCpc["cpc"];
@@ -41,7 +38,7 @@ export type State = {
   campaignDetails: {
     step: CampaignDetailsStep;
   };
-  lastDeletedCampaign: Campaign | null;
+  lastDeletedCampaign: CampaignWithReport | null;
   selectedCampaignId: string | null;
   shopCampaignLaunched: boolean;
   shopCampaignId: string | null;
@@ -127,12 +124,6 @@ export type Action =
       type: "campaign retrieved";
       payload: {
         campaign: Campaign;
-      };
-    }
-  | {
-      type: "campaign report retrieved";
-      payload: {
-        campaignId: string;
         report: ReportDataWithAuctions;
       };
     }
@@ -153,6 +144,7 @@ export type Action =
       type: "product campaign launched";
       payload: {
         campaign: Campaign;
+        report: ReportDataWithAuctions;
         productId: string;
       };
     }
@@ -168,7 +160,7 @@ export type Action =
   | {
       type: "campaign ended";
       payload: {
-        campaign: Campaign;
+        campaign: CampaignWithReport;
         productId?: string;
       };
     };
@@ -221,13 +213,8 @@ export const reducer = (
         break;
       }
       case "campaign retrieved": {
-        const { campaign } = action.payload;
-        draft.campaignsById[campaign.campaignId] = campaign;
-        break;
-      }
-      case "campaign report retrieved": {
-        const { campaignId, report } = action.payload;
-        draft.campaignsById[campaignId].report = report;
+        const { campaign, report } = action.payload;
+        draft.campaignsById[campaign.campaignId] = { ...campaign, report };
         break;
       }
       case "set shopName": {
@@ -263,9 +250,9 @@ export const reducer = (
         break;
       }
       case "product campaign launched": {
-        const { campaign, productId } = action.payload;
+        const { campaign, report, productId } = action.payload;
         draft.campaignIdsByProductId[productId] = campaign.campaignId;
-        draft.campaignsById[campaign.campaignId] = campaign;
+        draft.campaignsById[campaign.campaignId] = { ...campaign, report }
         draft.campaignCreation.step = "launched";
         break;
       }
