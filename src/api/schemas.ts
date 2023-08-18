@@ -50,59 +50,11 @@ export const reportingApiModels = (function () {
       lost: z.number(),
     }),
   });
-  const dailyReportData = reportData.extend({
-    date: z.date(),
-  });
-  const dailyReportResponse = scrollResponse.extend({
-    reports: z.array(dailyReportData),
-  });
-  const baseKPIs = z.object({
-    adSpend: z.number().gte(0),
-    cpc: z.number().gte(0.0),
-    ctr: z.number().gte(0.0),
-    conversionRate: z.number().gte(0.0),
-    impressions: z.number().gte(0),
-    chargedImpressions: z.number().gte(0),
-    clicks: z.number().gte(0),
-    chargedClicks: z.number().gte(0),
-    purchaseCount: z.number().gte(0),
-    purchaseRevenue: z.number().gte(0.0),
-    roas: z.number().gte(0.0),
-  });
-  const marketplaceKPIs = baseKPIs.extend({
-    activeVendors: z.number().gte(0),
-  });
-  const reportingDimensions = z.enum([
-    "impressions",
-    "charged_impressions",
-    "clicks",
-    "charged_clicks",
-    "purchases",
-    "purchase_value",
-    "adSpend",
-    "cpc",
-    "ctr",
-    "conversion_rate",
-    "roas",
-    "vendor_id",
-    "vendor_name",
-    "timegroup",
-    "campaign_name",
-    "campaign_id",
-    "campaign_status",
-    "campaign_ad_format",
-  ]);
-
   return {
     events,
     purchases,
     reportData,
     reportDataWithAuctions,
-    dailyReportData,
-    dailyReportResponse,
-    baseKPIs,
-    marketplaceKPIs,
-    reportingDimensions,
   };
 })();
 
