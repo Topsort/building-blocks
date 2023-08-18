@@ -10,8 +10,6 @@ const isUsingTopsortBlocks = true;
 const isUsingCustomProps = false;
 const useTopsortedProducts = true;
 const customPromoteTargetClassName = "my-custom-promote-target";
-const CENTRAL_SERVICES_URL = "https://api.topsort.com";
-const AUTH_BASE_URL = "https://buildingblocks.api.topsort.ai";
 
 function getNewElement(selector) {
   const proto = document.querySelector(selector);
@@ -162,14 +160,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const tsBlocks = new TopsortBlocks();
   await tsBlocks.init({
-    // This helper calls our demo marketplace backend to retrieve the authToken.
-    // You can manually set an auth token here for development purposes.
-    centralServicesUrl: `${CENTRAL_SERVICES_URL}`,
-    authUrl: `${AUTH_BASE_URL}`,
+    centralServicesUrl: `${window.CENTRAL_SERVICES_URL}`,
+    authUrl: `${window.AUTH_BASE_URL}`,
     extraAuthHeaders: {
-      Authorization: `Bearer api-key-123`,
+      Authorization: `Bearer ${window.AUTH_TOKEN}`,
     },
-    externalVendorId: "wendys",
+    externalVendorId: "1",
     ...(isUsingCustomProps && {
       promoteTargetClassName: customPromoteTargetClassName,
       style: {
