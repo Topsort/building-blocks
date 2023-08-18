@@ -1,6 +1,8 @@
 import { api } from "@api/index";
 import { paths } from "@api/paths";
 import * as schemas from "@api/schemas";
+import { version } from "../../../package.json";
+
 import type {
   CampaignIdsByProductId,
   Campaign,
@@ -15,7 +17,7 @@ import type { Services } from "./types";
 export function getAuthHeaders(extraAuthHeaders?: Record<string, string>) {
   return {
     "Content-Type": "application/json",
-    "X-User-Agent": "Topsort-Building-Blocks/v2.0.0",
+    "X-User-Agent": `Topsort-Building-Blocks/${version}`,
     ...extraAuthHeaders,
   };
 }
@@ -24,7 +26,7 @@ export function getHeaders(token: string) {
   return {
     Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
-    "X-User-Agent": "Topsort-Building-Blocks/v2.0.0",
+    "X-User-Agent": `Topsort-Building-Blocks/${version}`,
   };
 }
 
