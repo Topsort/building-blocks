@@ -64,7 +64,8 @@
     "typescript": "^5.1.6",
     "vite": "^4.4.9",
     "vite-plugin-dts": "^3.5.2",
-    "vite-plugin-html": "^3.2.0"
+    "vite-plugin-html": "^3.2.0",
+    "vite-plugin-lib-inject-css": "^1.2.1"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.5.1",
