@@ -70,6 +70,9 @@ devDependencies:
   vite-plugin-html:
     specifier: ^3.2.0
     version: 3.2.0(vite@4.4.9)
+  vite-plugin-lib-inject-css:
+    specifier: ^1.2.1
+    version: 1.2.1(vite@4.4.9)
 
 packages:
 
@@ -2749,6 +2752,13 @@ packages:
       yallist: 4.0.0
     dev: true
 
+  /magic-string@0.30.2:
+    resolution: {integrity: sha512-lNZdu7pewtq/ZvWUp9Wpf/x7WzMTsR26TWV03BRZrXFsv+BI6dy8RAiKgm1uM/kyR0rCfUcqvOlXKG66KhIGug==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@jridgewell/sourcemap-codec': 1.4.15
+    dev: true
+
   /merge-stream@2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
     dev: true
@@ -3581,6 +3591,16 @@ packages:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
+      vite: 4.4.9
+    dev: true
+
+  /vite-plugin-lib-inject-css@1.2.1(vite@4.4.9):
+    resolution: {integrity: sha512-/gbneR7OyXihmHnByC/WlLOGHXufHoFvDt4jMFaI4WTs0niiLcKwS9RKbUPJGNgB26Y5GtFtqDLNnErTvwNW4g==}
+    peerDependencies:
+      vite: '*'
+    dependencies:
+      magic-string: 0.30.2
+      picocolors: 1.0.0
       vite: 4.4.9
     dev: true
 

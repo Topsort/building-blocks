@@ -1,3 +1,4 @@
+import { libInjectCss } from "vite-plugin-lib-inject-css";
 import preact from "@preact/preset-vite";
 import { resolve } from "path";
 import { defineConfig } from "vite";
@@ -35,5 +36,5 @@ export default defineConfig({
     // Relative to the root
     outDir: "dist",
   },
-  plugins: [preact(), dts()],
+  plugins: [preact(), dts(), libInjectCss()],
 });
