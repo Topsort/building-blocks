@@ -37,7 +37,7 @@ jobs:
         with:
           node-version: ${{ env.node_version }}
           cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+          cache-dependency-path: ${{ env.lockfile }}}
 
       - name: Install dependencies
         run: pnpm install
