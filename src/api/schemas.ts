@@ -59,7 +59,7 @@ export const campaignBaseSchema = z.object({
   budget: z.object({
     amount: z.number(),
     type: z.enum(["daily", "weekly", "monthly"]),
-  }),
+  }).nullable(),
   startDate: z.string(),
   endDate: z.string(),
 });

@@ -3,8 +3,8 @@ import { usePromotionContext } from "@context";
 import { FunctionalComponent } from "preact";
 
 export const CampaignBudget: FunctionalComponent<{
-  budget: number;
   days: number | "infinite";
+  budget?: number;
   onEdit?: () => void;
   showTargetingText?: boolean;
 }> = ({ budget, days, onEdit, showTargetingText = false }) => {
@@ -24,7 +24,7 @@ export const CampaignBudget: FunctionalComponent<{
         )}
       </div>
       <div class="ts-budget-duration">
-        {formatMoney(budget)} over{" "}
+        {budget != null ? formatMoney(budget) : "-"} over{" "}
         {typeof days === "number" ? days : "infinite"}{" "}
         {days === 1 ? "day" : "days"}
         {showTargetingText ? <span>with automatic targeting.</span> : "."}
