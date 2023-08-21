@@ -3,7 +3,6 @@ name: Release
 on:
   release:
     types: [published]
-  pull_request:
 
 env:
   lockfile: pnpm-lock.yaml
@@ -57,7 +56,7 @@ jobs:
         id: publish
         run: |
           pnpm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
-          pnpm publish --access public --no-git-checks --dry-run
+          pnpm publish --access public --no-git-checks
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -70,7 +69,7 @@ jobs:
         run: rm -rf dist/src
 
       - name: Deploy
-        run: aws s3 sync --dryrun ./dist/ s3://${{ vars.S3_BUILDING_BLOCKS_BUCKET_NAME }}
+        run: aws s3 sync ./dist/ s3://${{ vars.S3_BUILDING_BLOCKS_BUCKET_NAME }}
 
       - name: Force cloudfront clean cache
         run: aws cloudfront create-invalidation --distribution-id ${{ vars.S3_BUILDING_BLOCKS_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
