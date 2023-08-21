@@ -17,6 +17,11 @@
       "types": "./dist/index.d.ts"
     }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
   "packageManager": "pnpm@8.0.0",
   "engines": {
     "node": ">=18",
