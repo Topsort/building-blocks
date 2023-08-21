@@ -56,10 +56,12 @@ export const reportingApiModels = (function () {
 export const campaignBaseSchema = z.object({
   campaignId: z.string().uuid(),
   name: z.string(),
-  budget: z.object({
-    amount: z.number(),
-    type: z.enum(["daily", "weekly", "monthly"]),
-  }),
+  budget: z
+    .object({
+      amount: z.number(),
+      type: z.enum(["daily", "weekly", "monthly"]),
+    })
+    .nullable(),
   startDate: z.string(),
   endDate: z.string(),
 });

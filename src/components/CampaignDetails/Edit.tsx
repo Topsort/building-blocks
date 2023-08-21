@@ -65,7 +65,12 @@ export const Edit: FunctionalComponent<{
     currency
   );
 
-  const defaultDailyBudget = useDefaultDailyBudget(campaign.budget);
+  const defaultDailyBudget = useDefaultDailyBudget(
+    campaign.budget ?? {
+      amount: 0,
+      type: "daily",
+    }
+  );
 
   const defaultDurationDays = useMemo(() => {
     const startDate = new Date(campaign.startDate);

@@ -27,7 +27,7 @@ export const Details: FunctionalComponent<{
     <div className="ts-space-y-3-5">
       <CampaignSummary startDate={campaign.startDate} />
       <CampaignBudget
-        budget={campaign.budget.amount}
+        budget={campaign.budget?.amount}
         days={days}
         onEdit={() => dispatch({ type: "edit campaign button clicked" })}
       />
