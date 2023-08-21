@@ -58,3 +58,19 @@ jobs:
         run: |
           pnpm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
           pnpm publish --access public --no-git-checks --dry-run
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.S3_STORYBOOK_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.S3_STORYBOOK_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: Remove unused file for demo
+        run: rm -rf dist/src
+
+      - name: Deploy
+        run: aws s3 sync --dryrun ./dist/ s3://${{ vars.S3_STORYBOOK_BUCKET_NAME }}
+
+#    - name: Force cloudfront clean cache
+#      run: aws cloudfront create-invalidation --distribution-id ${{ vars.S3_STORYBOOK_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
