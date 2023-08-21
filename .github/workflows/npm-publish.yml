@@ -13,8 +13,10 @@ env:
 jobs:
   npm-publish:
     name: Publish to NPM
-    runs-on: ubuntu-latest
-    environment: production
+    runs-on: ubuntu-22.04
+    environment:
+      name: production
+      url: "https://buildingblocks.topsort.com"
 
     env:
       VITE_CENTRAL_SERVICES_BASE_URL: ${{ vars.CENTRAL_SERVICES_BASE_URL }}
