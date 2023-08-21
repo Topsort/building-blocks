@@ -11,14 +11,14 @@ async function getValidationToken(
   externalVendorId: string,
   extraAuthHeaders?: Record<string, string>
 ): Promise<ValidationResponse> {
-  return await api(
-    schemas.validationSchema,
-    paths.validate(authUrl, externalVendorId),
-    {
+  return await api({
+    schema: schemas.validationSchema,
+    url: paths.validate(authUrl, externalVendorId),
+    config: {
       method: "GET",
       headers: getAuthHeaders(extraAuthHeaders),
-    }
-  );
+    },
+  });
 }
 
 export const validationService: ValidationService = {
