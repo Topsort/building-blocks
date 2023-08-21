@@ -19,7 +19,7 @@ jobs:
       url: "https://buildingblocks.topsort.com"
 
     env:
-      VITE_CENTRAL_SERVICES_BASE_URL: ${{ vars.CENTRAL_SERVICES_BASE_URL }}
+      VITE_CENTRAL_SERVICES_URL: ${{ vars.CENTRAL_SERVICES_BASE_URL }}
       VITE_USE_MOCK_SERVER: ${{ vars.USE_MOCK_SERVER }}
       VITE_AUTH_BASE_URL: ${{ vars.AUTH_BASE_URL }}
       VITE_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
