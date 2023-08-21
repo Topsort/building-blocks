@@ -1,4 +1,4 @@
-import { Campaign } from "@api/types";
+import { ReportDataWithAuctions } from "@api/types";
 import { Button } from "@components/Button";
 import { Icon } from "@components/Icon";
 import { ModalContent, ModalHeading } from "@components/Modal";
@@ -8,9 +8,9 @@ import { FunctionComponent, Fragment } from "preact";
 
 import { Metrics } from "./Metrics";
 
-export const CampaignEnded: FunctionComponent<{ campaign: Campaign }> = ({
-  campaign,
-}) => {
+export const CampaignEnded: FunctionComponent<{
+  campaignReport: ReportDataWithAuctions;
+}> = ({ campaignReport }) => {
   const { dispatch } = usePromotionContext();
   const title = (
     <Fragment>
@@ -24,7 +24,7 @@ export const CampaignEnded: FunctionComponent<{ campaign: Campaign }> = ({
       <ModalContent height="fit-content">
         <div className="ts-space-y-5">
           <CampaignSummary />
-          <Metrics title="Final Metrics" campaign={campaign} />
+          <Metrics title="Final Metrics" campaignReport={campaignReport} />
           <Button
             fullWidth
             variant="contained"

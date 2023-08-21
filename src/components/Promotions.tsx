@@ -92,7 +92,7 @@ const TopsortPromotions: FunctionalComponent = () => {
           isCloseButtonHidden={!!lastDeletedCampaign}
         >
           {lastDeletedCampaign ? (
-            <CampaignEnded campaign={lastDeletedCampaign} />
+            <CampaignEnded campaignReport={lastDeletedCampaign.report} />
           ) : /*
            * Don't show the Details if the campaign was just launched so that
            * the user still sees the Launched screen in the creation flow

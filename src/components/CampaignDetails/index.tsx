@@ -40,10 +40,15 @@ export const CampaignDetails: FunctionalComponent<{
           vendorId,
           campaignId
         );
+        const report = await services.getCampaignReport(
+          centralServicesUrl,
+          authToken,
+          campaignId
+        );
 
         dispatch({
           type: "campaign retrieved",
-          payload: { campaign },
+          payload: { campaign, report },
         });
       } catch (error) {
         logger.error(`Failed to get campaign (id="${campaignId}").`, error);

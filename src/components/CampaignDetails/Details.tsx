@@ -1,4 +1,4 @@
-import { Campaign } from "@api/types";
+import { CampaignWithReport } from "@api/types";
 import { CampaignBudget, CampaignSummary } from "@components/common";
 import { MS_PER_DAY } from "@constants";
 import { usePromotionContext } from "@context";
@@ -8,7 +8,7 @@ import { useMemo } from "preact/hooks";
 import { Metrics } from "./Metrics";
 
 export const Details: FunctionalComponent<{
-  campaign: Campaign;
+  campaign: CampaignWithReport;
 }> = ({ campaign }) => {
   const { dispatch } = usePromotionContext();
   const days = useMemo(() => {
@@ -32,7 +32,7 @@ export const Details: FunctionalComponent<{
         onEdit={() => dispatch({ type: "edit campaign button clicked" })}
       />
       <hr className="ts-hr" />
-      <Metrics title="Metrics" campaign={campaign} />
+      <Metrics title="Metrics" campaignReport={campaign.report} />
     </div>
   );
 };

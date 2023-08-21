@@ -10,6 +10,7 @@ import type {
   DefaultBudgetAndCpc,
   MarketplaceDetails,
   BaseCampaign,
+  ReportDataWithAuctions,
 } from "@api/types";
 
 import type { Services } from "./types";
@@ -98,6 +99,21 @@ async function getCampaign(
   );
 }
 
+async function getCampaignReport(
+  centralServicesUrl: string,
+  authToken: string,
+  campaignId: string
+): Promise<ReportDataWithAuctions> {
+  return await api(
+    schemas.reportingApiModels.reportDataWithAuctions,
+    paths.campaignReport(centralServicesUrl, campaignId),
+    {
+      method: "GET",
+      headers: getHeaders(authToken),
+    }
+  );
+}
+
 async function createProductCampaign(
   centralServicesUrl: string,
   authToken: string,
@@ -161,23 +177,6 @@ async function createProductCampaign(
   return {
     ...response,
     activeBidsCount: 1,
-    campaignBehaviorData: {
-      clicks: {
-        total: 0,
-        charged: 0,
-        adSpent: 0,
-      },
-      impressions: {
-        total: 0,
-        charged: 0,
-        adSpent: 0,
-      },
-      purchases: {
-        amount: 0,
-        count: 0,
-        quantity: 0,
-      },
-    },
   };
 }
 
@@ -293,6 +292,7 @@ export const services: Services = {
   getDefaultBudgetAndCpc,
   getCampaignIdsByProductId,
   getCampaign,
+  getCampaignReport,
   createProductCampaign,
   updateCampaign,
   endCampaign,

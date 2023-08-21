@@ -49,9 +49,15 @@ export const Confirm: FunctionalComponent = () => {
         }
       );
 
+      const report = await services.getCampaignReport(
+        centralServicesUrl,
+        authToken,
+        campaign.campaignId
+      );
+
       dispatch({
         type: "product campaign launched",
-        payload: { campaign, productId },
+        payload: { campaign, report, productId },
       });
     };
 
