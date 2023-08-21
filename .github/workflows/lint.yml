@@ -1,4 +1,4 @@
-name: ci-workflows
+name: Lint
 
 on:
   pull_request:
@@ -13,7 +13,7 @@ jobs:
     name: ESLint
     runs-on: ubuntu-22.04
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v3
 
       - uses: pnpm/action-setup@v2
@@ -39,7 +39,7 @@ jobs:
     name: Type checks
     runs-on: ubuntu-22.04
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v3
 
       - uses: pnpm/action-setup@v2
@@ -66,11 +66,14 @@ jobs:
     name: Actionlint
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Install Actionlint
         env:
           version: "1.6.25"
         run: curl -Ls "https://github.com/rhysd/actionlint/releases/download/v${{ env.version }}/actionlint_${{ env.version }}_linux_amd64.tar.gz" | sudo tar -x -z -C /usr/local/bin actionlint
+
       - name: Run Actionlint
         run: |
           echo "::add-matcher::.github/matchers/actionlint.json"
