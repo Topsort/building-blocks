@@ -150,3 +150,7 @@
 .ts-callout .ts-svg {
   color: var(--ts-secondary-color);
 }
+
+.ts-hidden {
+  display: none
+}
