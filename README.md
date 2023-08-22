@@ -1,5 +1,11 @@
 # @topsort/building-blocks
 
+![version](https://img.shields.io/npm/v/@topsort/building-blocks)
+![downloads](https://img.shields.io/npm/dw/@topsort/building-blocks)
+![license](https://img.shields.io/github/license/topsort/building-blocks)
+![GitHub Repo stars](https://img.shields.io/github/stars/topsort/building-blocks?style=social)
+
+
 > Topsort's JS library for building individual and easily integratable widgets.
 
 ## Table of Contents
