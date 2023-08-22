@@ -14,11 +14,14 @@
     ".": {
       "import": "./dist/index.mjs",
       "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/src/index.d.ts"
     }
   },
   "files": [
-    "dist",
+    "dist/index.js",
+    "dist/index.mjs",
+    "dist/index.css",
+    "dist/src",
     "README.md",
     "package.json"
   ],

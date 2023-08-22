@@ -1,0 +1,75 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+env:
+  lockfile: pnpm-lock.yaml
+  node_version: "18"
+  pnpm_version: "8"
+
+jobs:
+  npm-publish:
+    name: Publish to NPM
+    runs-on: ubuntu-22.04
+    environment:
+      name: production
+      url: "https://buildingblocks.topsort.com"
+
+    env:
+      VITE_CENTRAL_SERVICES_URL: ${{ vars.CENTRAL_SERVICES_BASE_URL }}
+      VITE_USE_MOCK_SERVER: ${{ vars.USE_MOCK_SERVER }}
+      VITE_AUTH_BASE_URL: ${{ vars.AUTH_BASE_URL }}
+      VITE_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2
+        name: Install PNPM
+        id: pnpm-install
+        with:
+          version: ${{ env.pnpm_version }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.node_version }}
+          cache: pnpm
+          cache-dependency-path: ${{ env.lockfile }}
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run ESLint
+        run: pnpm run lint
+
+      - name: Run tsc
+        run: node_modules/.bin/tsc
+
+      - name: Build dist
+        run: pnpm run build
+
+      - name: Publish to npm
+        id: publish
+        run: |
+          pnpm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+          pnpm publish --access public --no-git-checks
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.S3_BUILDING_BLOCKS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.S3_BUILDING_BLOCKS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: Remove unused file for demo
+        run: rm -rf dist/src
+
+      - name: Deploy
+        run: aws s3 sync ./dist/ s3://${{ vars.S3_BUILDING_BLOCKS_BUCKET_NAME }}
+
+      - name: Force cloudfront clean cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ vars.S3_BUILDING_BLOCKS_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
