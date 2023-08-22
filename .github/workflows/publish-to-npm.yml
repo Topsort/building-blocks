@@ -55,8 +55,8 @@ jobs:
       - name: Publish to npm
         id: publish
         run: |
-          npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
-          npm publish --access public --no-git-checks
+          pnpm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+          pnpm publish --access public --no-git-checks
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
