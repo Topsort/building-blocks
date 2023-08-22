@@ -35,14 +35,14 @@ async function getMarketplaceDetails(
   centralServicesUrl: string,
   authToken: string
 ): Promise<MarketplaceDetails> {
-  return await api(
-    schemas.marketplaceDetailsSchema,
-    paths.marketplaceDetails(centralServicesUrl),
-    {
+  return await api({
+    schema: schemas.marketplaceDetailsSchema,
+    url: paths.marketplaceDetails(centralServicesUrl),
+    config: {
       method: "GET",
       headers: getHeaders(authToken),
-    }
-  );
+    },
+  });
 }
 
 async function getDefaultBudgetAndCpc(
@@ -50,14 +50,14 @@ async function getDefaultBudgetAndCpc(
   authToken: string,
   vendorId: string
 ): Promise<DefaultBudgetAndCpc> {
-  return await api(
-    schemas.defaultBudgetAndCpcSchema,
-    paths.defaultBudget(centralServicesUrl, vendorId),
-    {
+  return await api({
+    schema: schemas.defaultBudgetAndCpcSchema,
+    url: paths.defaultBudget(centralServicesUrl, vendorId),
+    config: {
       method: "GET",
       headers: getHeaders(authToken),
-    }
-  );
+    },
+  });
 }
 
 async function getCampaignIdsByProductId(
@@ -66,15 +66,15 @@ async function getCampaignIdsByProductId(
   vendorId: string,
   productIds: string[]
 ): Promise<CampaignIdsByProductId> {
-  const response = await api(
-    schemas.campaignIdsByProductIdSchema,
-    paths.products(centralServicesUrl, vendorId),
-    {
+  const response = await api({
+    schema: schemas.campaignIdsByProductIdSchema,
+    url: paths.products(centralServicesUrl, vendorId),
+    config: {
       method: "POST",
       headers: getHeaders(authToken),
       body: JSON.stringify(productIds),
-    }
-  );
+    },
+  });
   // TODO(christopherbot) remove this temp code eventually
   // a real campaignId that belongs to Balboa
   response["product-1"] = "e86a2438-14cb-44b1-94a8-291a4a57215b";
@@ -89,29 +89,41 @@ async function getCampaign(
   vendorId: string,
   campaignId: string
 ): Promise<Campaign> {
-  return await api(
-    schemas.campaignSchema,
-    paths.campaign(centralServicesUrl, vendorId, campaignId),
-    {
+  return await api({
+    schema: schemas.campaignSchema,
+    url: paths.campaign(centralServicesUrl, vendorId, campaignId),
+    config: {
       method: "GET",
       headers: getHeaders(authToken),
-    }
-  );
+    },
+  });
 }
 
 async function getCampaignReport(
   centralServicesUrl: string,
   authToken: string,
-  campaignId: string
+  campaignId: string,
+  startDate?: Date,
+  endDate?: Date
 ): Promise<ReportDataWithAuctions> {
-  return await api(
-    schemas.reportingApiModels.reportDataWithAuctions,
-    paths.campaignReport(centralServicesUrl, campaignId),
-    {
+  const requestEndDate = endDate ?? new Date();
+  const dateOffset = 24 * 60 * 60 * 1000 * 8;
+  const requestStartDate =
+    startDate ?? new Date(requestEndDate.getTime() - dateOffset);
+
+  const urlSearchParamas = new URLSearchParams({
+    start_date: requestStartDate.toISOString().split("T")[0],
+    end_date: requestEndDate.toISOString().split("T")[0],
+  });
+  return await api({
+    schema: schemas.reportingApiModels.reportDataWithAuctions,
+    url: paths.campaignReport(centralServicesUrl, campaignId),
+    urlSearchParamas,
+    config: {
       method: "GET",
       headers: getHeaders(authToken),
-    }
-  );
+    },
+  });
 }
 
 async function createProductCampaign(
@@ -134,10 +146,10 @@ async function createProductCampaign(
     currencyCode: string;
   }
 ): Promise<Campaign> {
-  const response = await api(
-    schemas.campaignBaseSchema,
-    paths.campaigns(centralServicesUrl, vendorId),
-    {
+  const response = await api({
+    schema: schemas.campaignBaseSchema,
+    url: paths.campaigns(centralServicesUrl, vendorId),
+    config: {
       method: "POST",
       headers: getHeaders(authToken),
       body: JSON.stringify({
@@ -169,8 +181,8 @@ async function createProductCampaign(
         ],
         currencyCode,
       }),
-    }
-  );
+    },
+  });
 
   // New campaigns don't have behaviour data yet, so add it here
   // filled with zeros for a consistent data format
@@ -192,18 +204,18 @@ async function createShopCampaign(
     endDate: string;
   }
 ): Promise<void> {
-  await api(
-    schemas.nullSchema,
-    paths.promoteMyShop(centralServicesUrl, vendorId),
-    {
+  await api({
+    schema: schemas.nullSchema,
+    url: paths.promoteMyShop(centralServicesUrl, vendorId),
+    config: {
       method: "POST",
       headers: getHeaders(authToken),
       body: JSON.stringify({
         budgetAmount: dailyBudget,
         endDate,
       }),
-    }
-  );
+    },
+  });
 }
 
 async function updateCampaign(
@@ -233,10 +245,10 @@ async function updateCampaign(
     statusUpdatedBy?: string;
   }
 ): Promise<BaseCampaign> {
-  return await api(
-    schemas.campaignBaseSchema,
-    paths.campaign(centralServicesUrl, vendorId, campaignId),
-    {
+  return await api({
+    schema: schemas.campaignBaseSchema,
+    url: paths.campaign(centralServicesUrl, vendorId, campaignId),
+    config: {
       method: "PATCH",
       headers: getHeaders(authToken),
       body: JSON.stringify({
@@ -253,8 +265,8 @@ async function updateCampaign(
         status,
         statusUpdatedBy,
       }),
-    }
-  );
+    },
+  });
 }
 
 async function endCampaign(
@@ -263,28 +275,28 @@ async function endCampaign(
   vendorId: string,
   campaignId: string
 ): Promise<null> {
-  return await api(
-    schemas.nullSchema,
-    paths.campaign(centralServicesUrl, vendorId, campaignId),
-    {
+  return await api({
+    schema: schemas.nullSchema,
+    url: paths.campaign(centralServicesUrl, vendorId, campaignId),
+    config: {
       method: "DELETE",
       headers: getHeaders(authToken),
-    }
-  );
+    },
+  });
 }
 
 async function getShopCampaign(
   centralServicesUrl: string,
   authToken: string
 ): Promise<CheckVendorCampaign | null> {
-  return await api(
-    schemas.checkVendorCampaignSchema,
-    paths.campaignByShop(centralServicesUrl),
-    {
+  return await api({
+    schema: schemas.checkVendorCampaignSchema,
+    url: paths.campaignByShop(centralServicesUrl),
+    config: {
       method: "GET",
       headers: getHeaders(authToken),
-    }
-  );
+    },
+  });
 }
 
 export const services: Services = {

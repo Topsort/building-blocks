@@ -1,7 +1,7 @@
 import { ZodType } from "zod";
 
 // eslint-disable-next-line no-undef
-async function request(url: string, config?: RequestInit) {
+async function request(url: URL, config?: RequestInit) {
   if (!window.fetch) {
     throw "[fetch] Your browser does not support this function";
   }
@@ -14,11 +14,15 @@ async function request(url: string, config?: RequestInit) {
   return response.json();
 }
 
-export async function api<T>(
-  schema: ZodType<T>,
-  url: string,
+export async function api<T>(apiParams: {
+  schema: ZodType<T>;
+  url: string;
   // eslint-disable-next-line no-undef
-  config?: RequestInit
-): Promise<T> {
-  return schema.parse(await request(url, config));
+  config?: RequestInit;
+  urlSearchParamas?: URLSearchParams;
+}): Promise<T> {
+  const requestURL = new URL(apiParams.url);
+  if (apiParams.urlSearchParamas)
+    requestURL.search = apiParams.urlSearchParamas?.toString();
+  return apiParams.schema.parse(await request(requestURL, apiParams.config));
 }

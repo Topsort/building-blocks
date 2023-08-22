@@ -20,5 +20,5 @@ export const paths = {
   validate: (authUrl: string, vendorId: string) =>
     `${authUrl}/auth/vendors/${vendorId}`,
   campaignReport: (centralServicesUrl: string, campaignId: string) =>
-    `${centralServicesUrl}/reporting-modal-service/campaigns/${campaignId}`,
+    `${centralServicesUrl}/modal-service/reporting-modal-service/campaigns/${campaignId}`,
 };

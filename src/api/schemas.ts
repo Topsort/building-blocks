@@ -23,15 +23,15 @@ export const campaignIdsByProductIdSchema = z.record(
 
 export const reportingApiModels = (function () {
   const events = z.object({
-    total: z.bigint(),
-    charged: z.bigint(),
-    adSpent: z.bigint(),
+    total: z.number(),
+    charged: z.number(),
+    adSpent: z.number(),
   });
   const purchases = z.object({
-    amount: z.bigint(),
-    count: z.bigint(),
-    quantity: z.bigint(),
-    countByProduct: z.record(z.string(), z.bigint()),
+    amount: z.number(),
+    count: z.number(),
+    quantity: z.number(),
+    countByProduct: z.record(z.string(), z.number()).nullable(),
   });
   const reportData = z.object({
     impressions: events,
