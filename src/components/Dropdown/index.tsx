@@ -54,7 +54,7 @@ export function Dropdown<T>({
               setDropdownOpen(!dropdownOpen);
             }
           }}
-          className={classnames("ts-space-x-1", buttonClassname)}
+          className={classnames("ts-space-x-2", buttonClassname)}
         >
           <span>{selectedOption.label}</span>
           <Icon

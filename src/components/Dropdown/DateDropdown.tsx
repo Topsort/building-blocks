@@ -70,6 +70,8 @@ export const DateDropdown: FunctionalComponent<{
 
   return (
     <Dropdown
+      buttonClassname="ts-date-dropdown-button"
+      optionsClassname="ts-date-dropdown-options"
       defaultOption={last7daysOption}
       options={options}
       onOptionSelected={(option) => {

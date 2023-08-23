@@ -11,6 +11,7 @@
     display: flex;
     flex-direction: column;
     background-color: rgb(255 255 255);
+    border-radius: var(--ts-radius-sm);
     overflow: hidden;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
     right: 0px;
@@ -18,4 +19,33 @@
     top: calc(100% + 0.25rem);
     z-index: 10;
     min-width: max-content;
+}
+
+.ts-date-dropdown-button {
+    padding: 0.5rem 0.75rem;
+    color: black;
+    font-size: 12px;
+    font-weight: 700;
+    border-color: var(--ts-font-color-40);
+}
+
+.ts-date-dropdown-button:not([disabled]):hover {
+    background-color: var(--ts-secondary-color-5)
+}
+
+.ts-date-dropdown-button svg {
+    width: 0.7rem;
+}
+
+.ts-date-dropdown-button path {
+    stroke-width: 0.25rem;
+}
+
+
+.ts-date-dropdown-options{
+    color: black;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 0.5rem 0.75rem;
+    
 }
