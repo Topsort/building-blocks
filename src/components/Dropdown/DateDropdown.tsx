@@ -3,52 +3,19 @@ import { FunctionalComponent } from "preact";
 import { Dropdown } from ".";
 import "./style.css";
 
-type DateRangeOption =
-  | "today"
-  | "last-7-days"
-  | "last-30-days"
-  | "last-60-days";
-
-const getOptionDuration = (option: DateRangeOption) => {
-  switch (option) {
-    case "today": {
-      return 1;
-    }
-    case "last-7-days": {
-      return 7;
-    }
-    case "last-30-days": {
-      return 30;
-    }
-    case "last-60-days": {
-      return 60;
-    }
-  }
+const dateOptionsDict = {
+  today: { label: "Today", duration: 1 },
+  "last-7-days": { label: "Last 7 days", duration: 7 },
+  "last-30-days": { label: "Last 30 days", duration: 30 },
+  "last-60-days": { label: "Last 60 days", duration: 60 },
 };
 
-const getOptionLabel = (option: DateRangeOption) => {
-  switch (option) {
-    case "today":
-      return "Today";
-    case "last-7-days":
-      return "Last 7 days";
-    case "last-30-days":
-      return "Last 30 days";
-    case "last-60-days":
-      return "Last 60 days";
-  }
-};
-
-const dateRangeOptionsList: DateRangeOption[] = [
-  "today",
-  "last-7-days",
-  "last-30-days",
-  "last-60-days",
-];
+type DateRangeOption = keyof typeof dateOptionsDict;
 
 function getOptionDates(option: DateRangeOption) {
   const today = new Date();
-  const dateOffset = 24 * 60 * 60 * 1000 * (getOptionDuration(option) + 1);
+  const dateOffset =
+    24 * 60 * 60 * 1000 * (dateOptionsDict[option].duration + 1);
   const startDate = new Date(today.getTime() - dateOffset);
   return { startDate, endDate: today };
 }
@@ -61,8 +28,8 @@ export const DateDropdown: FunctionalComponent<{
     onOptionSelected(selectedDates.startDate, selectedDates.endDate);
   };
 
-  const options = dateRangeOptionsList.map((option) => {
-    return { value: option, label: getOptionLabel(option) };
+  const options = Object.entries(dateOptionsDict).map(([key, option]) => {
+    return { value: key as DateRangeOption, label: option.label };
   });
   const last7daysOption = options.find(
     (option) => option.value === "last-7-days"
