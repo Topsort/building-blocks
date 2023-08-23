@@ -2,23 +2,11 @@ import { FunctionalComponent } from "preact";
 
 import { Dropdown } from ".";
 import "./style.css";
-
-const dateOptionsDict = {
-  today: { label: "Today", duration: 1 },
-  "last-7-days": { label: "Last 7 days", duration: 7 },
-  "last-30-days": { label: "Last 30 days", duration: 30 },
-  "last-60-days": { label: "Last 60 days", duration: 60 },
-};
-
-type DateRangeOption = keyof typeof dateOptionsDict;
-
-function getOptionDates(option: DateRangeOption) {
-  const today = new Date();
-  const dateOffset =
-    24 * 60 * 60 * 1000 * (dateOptionsDict[option].duration + 1);
-  const startDate = new Date(today.getTime() - dateOffset);
-  return { startDate, endDate: today };
-}
+import {
+  DateRangeOption,
+  getOptionDates,
+  dateOptionsDict,
+} from "@utils/datetime";
 
 export const DateDropdown: FunctionalComponent<{
   onOptionSelected: (startDate: Date, endDate: Date) => void;
