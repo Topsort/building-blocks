@@ -6,6 +6,7 @@ import {
   CheckVendorCampaign,
   BaseCampaign,
   ReportDataWithAuctions,
+  DailyReportData,
 } from "@api/types";
 
 export type Services = {
@@ -39,6 +40,13 @@ export type Services = {
     authToken: string,
     campaignId: string
   ): Promise<ReportDataWithAuctions>;
+  getCampaignDailyReport(
+    centralServicesUrl: string,
+    authToken: string,
+    campaignId: string,
+    startDate?: Date,
+    endDate?: Date
+  ): Promise<DailyReportData>;
   createProductCampaign(
     centralServicesUrl: string,
     authToken: string,

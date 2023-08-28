@@ -11,9 +11,12 @@ import type {
   MarketplaceDetails,
   BaseCampaign,
   ReportDataWithAuctions,
+  DailyReportData,
 } from "@api/types";
 
 import type { Services } from "./types";
+import { formatToISODate } from "@utils/datetime";
+import { MS_PER_DAY } from "@constants";
 
 export function getAuthHeaders(extraAuthHeaders?: Record<string, string>) {
   return {
@@ -107,17 +110,44 @@ async function getCampaignReport(
   endDate?: Date
 ): Promise<ReportDataWithAuctions> {
   const requestEndDate = endDate ?? new Date();
-  const dateOffset = 24 * 60 * 60 * 1000 * 8;
+  const dateOffset = MS_PER_DAY * 8;
   const requestStartDate =
     startDate ?? new Date(requestEndDate.getTime() - dateOffset);
 
   const urlSearchParamas = new URLSearchParams({
-    start_date: requestStartDate.toISOString().split("T")[0],
-    end_date: requestEndDate.toISOString().split("T")[0],
+    start_date: formatToISODate(requestStartDate),
+    end_date: formatToISODate(requestEndDate),
   });
   return await api({
     schema: schemas.reportingApiModels.reportDataWithAuctions,
     url: paths.campaignReport(centralServicesUrl, campaignId),
+    urlSearchParamas,
+    config: {
+      method: "GET",
+      headers: getHeaders(authToken),
+    },
+  });
+}
+
+async function getCampaignDailyReport(
+  centralServicesUrl: string,
+  authToken: string,
+  campaignId: string,
+  startDate?: Date,
+  endDate?: Date
+): Promise<DailyReportData> {
+  const requestEndDate = endDate ?? new Date();
+  const dateOffset = MS_PER_DAY * 60;
+  const requestStartDate =
+    startDate ?? new Date(requestEndDate.getTime() - dateOffset);
+
+  const urlSearchParamas = new URLSearchParams({
+    start_date: formatToISODate(requestStartDate),
+    end_date: formatToISODate(requestEndDate),
+  });
+  return await api({
+    schema: schemas.reportingApiModels.dailyReportData,
+    url: paths.campaignDailyReport(centralServicesUrl, campaignId),
     urlSearchParamas,
     config: {
       method: "GET",
@@ -305,6 +335,7 @@ export const services: Services = {
   getCampaignIdsByProductId,
   getCampaign,
   getCampaignReport,
+  getCampaignDailyReport,
   createProductCampaign,
   updateCampaign,
   endCampaign,

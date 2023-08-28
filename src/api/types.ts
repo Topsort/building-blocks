@@ -25,5 +25,8 @@ export type ValidationResponse = z.infer<typeof schemas.validationSchema>;
 export type ReportDataWithAuctions = z.infer<
   typeof schemas.reportingApiModels.reportDataWithAuctions
 >;
+export type DailyReportData = z.infer<
+  typeof schemas.reportingApiModels.dailyReportData
+>;
 
 export type CampaignWithReport = Campaign & { report: ReportDataWithAuctions };
