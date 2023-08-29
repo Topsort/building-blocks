@@ -25,8 +25,8 @@ import {
 import { MS_PER_DAY } from "@constants";
 import { usePromotionContext } from "@context";
 import { services } from "@services/central-services";
+import { ReportData } from "@api/types";
 
-type DataType = TimeSeriesDataType;
 type Colors = "blue" | "green";
 
 ChartJS.register(
@@ -66,7 +66,7 @@ const COLORS: Record<Colors, ColorValues> = {
 };
 
 function getDataTypeAxisType(
-  dataType: DataType,
+  dataType: TimeSeriesDataType,
   isBlueMetric: boolean
 ): "countBlue" | "countGreen" | "moneyBlue" | "moneyGreen" {
   switch (dataType) {
@@ -86,7 +86,7 @@ function getDataTypeAxisType(
   }
 }
 
-function getDataTypeLabel(dataType: DataType): string {
+function getDataTypeLabel(dataType: TimeSeriesDataType): string {
   switch (dataType) {
     case "spend":
     case "adSpentImpressions":
@@ -112,7 +112,7 @@ function getDataTypeLabel(dataType: DataType): string {
 }
 
 function generateDataset(
-  dataType: DataType,
+  dataType: TimeSeriesDataType,
   data: DataPoint[],
   context: CanvasRenderingContext2D,
   label: string,
@@ -326,9 +326,35 @@ interface ReportTimeSeries {
   data: { x: string; y: number }[];
 }
 
-export const CampaignChart: FunctionalComponent<{
+export const SalesClicksChart: FunctionalComponent<{
   campaignId: string;
 }> = ({ campaignId }) => {
+  const chartDataTypes = [
+    {
+      dataType: "sales" as TimeSeriesDataType,
+      reportPath: (report: ReportData) => {
+        return report.purchases.amount;
+      },
+    },
+    {
+      dataType: "clicks" as TimeSeriesDataType,
+      reportPath: (report: ReportData) => {
+        return report.clicks.total;
+      },
+    },
+  ];
+  return (
+    <CampaignChart campaignId={campaignId} chartDataTypes={chartDataTypes} />
+  );
+};
+
+const CampaignChart: FunctionalComponent<{
+  campaignId: string;
+  chartDataTypes: {
+    dataType: TimeSeriesDataType;
+    reportPath: (report: ReportData) => number;
+  }[];
+}> = ({ campaignId, chartDataTypes }) => {
   const { authToken, centralServicesUrl } = usePromotionContext();
   const [dateRange, setDataFrame] = useState<DateRange>(
     getOptionDates("last-7-days")
@@ -338,7 +364,7 @@ export const CampaignChart: FunctionalComponent<{
   );
 
   useEffect(() => {
-    const getcosas = async () => {
+    const setChartData = async () => {
       const reports = await services.getCampaignDailyReport(
         centralServicesUrl,
         authToken,
@@ -353,23 +379,32 @@ export const CampaignChart: FunctionalComponent<{
       const dictionary = Object.fromEntries(
         reports.reports.map(({ date, ...rest }) => [date, rest])
       );
-
-      const data = datesBetweeen.map((date) => {
-        const strDate = formatToISODate(date);
-        const dateReport = dictionary[strDate];
-        return { x: strDate, y: dateReport ? dateReport.clicks.total : 0 };
+      chartDataTypes.forEach((chartType) => {
+        const data = datesBetweeen.map((date) => {
+          const strDate = formatToISODate(date);
+          const dateReport = dictionary[strDate];
+          return {
+            x: strDate,
+            y: dateReport ? chartType.reportPath(dateReport) : 0,
+          };
+        });
+        setReportTimeSeries((prevState) => [
+          ...prevState.filter((data) => data.type !== chartType.dataType),
+          { type: chartType.dataType, data },
+        ]);
       });
-      setReportTimeSeries([{ type: "clicks", data }]);
     };
-    getcosas();
+    setChartData();
   }, [
     authToken,
     campaignId,
     centralServicesUrl,
+    chartDataTypes,
     dateRange.endDate,
     dateRange.startDate,
   ]);
-  const blueMetric: TimeSeriesDataType = "clicks";
+  const blueMetric = chartDataTypes[0].dataType;
+  const greenMetric = chartDataTypes[1]?.dataType;
 
   return (
     <MetricsChart
@@ -377,11 +412,12 @@ export const CampaignChart: FunctionalComponent<{
       dateRange={dateRange}
       setDataFrame={setDataFrame}
       blueMetric={blueMetric}
+      greenMetric={greenMetric}
     />
   );
 };
 
-export const MetricsChart: FunctionalComponent<{
+const MetricsChart: FunctionalComponent<{
   reportTimeSeries: ReportTimeSeries[];
   dateRange: DateRange;
   setDataFrame: (dateRange: DateRange) => void;
