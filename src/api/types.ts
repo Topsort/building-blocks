@@ -28,5 +28,6 @@ export type ReportDataWithAuctions = z.infer<
 export type DailyReportData = z.infer<
   typeof schemas.reportingApiModels.dailyReportData
 >;
+export type ReportData = z.infer<typeof schemas.reportingApiModels.reportData>;
 
 export type CampaignWithReport = Campaign & { report: ReportDataWithAuctions };
