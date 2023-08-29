@@ -46,21 +46,20 @@ interface ColorValues {
 
 const COLORS: Record<Colors, ColorValues> = {
   blue: {
-    solid: "rgb(63, 100, 232)",
+    solid: "rgb(94, 59, 221)",
     gradient: (context: CanvasRenderingContext2D) => {
-      const gradient = context.createLinearGradient(0, 0, 0, 250);
-      gradient.addColorStop(0, "rgba(85, 119, 239, 0.3)");
-      gradient.addColorStop(1, "rgba(85, 119, 239, 0)");
+      const gradient = context.createLinearGradient(0, 0, 0, 180);
+      gradient.addColorStop(0, "rgba(94, 59, 221, 0.3)");
+      gradient.addColorStop(1, "rgba(217, 217, 217, 0)");
       return gradient;
     },
   },
   green: {
     solid: "rgb(44, 216, 197)",
     gradient: (context: CanvasRenderingContext2D) => {
-      const gradient = context.createLinearGradient(0, 0, 0, 250);
-      gradient.addColorStop(0, "rgba(44, 216, 197, 0.2)");
-      gradient.addColorStop(0.8, "rgba(44, 216, 197, 0.2)");
-      gradient.addColorStop(1, "rgba(44, 216, 197, 0)");
+      const gradient = context.createLinearGradient(0, 0, 0, 180);
+      gradient.addColorStop(0, "rgba(44, 216, 197, 0.3)");
+      gradient.addColorStop(1, "rgba(217, 217, 217, 0)");
       return gradient;
     },
   },
@@ -235,7 +234,7 @@ function generateOptions(
     scales.countBlue = countWithPosition("left", true);
   }
 
-  if (yAxisIds[1].includes("money")) {
+  if (yAxisIds[1] && yAxisIds[1].includes("money")) {
     scales.moneyGreen = moneyWithPosition("right", false);
   } else {
     scales.countGreen = countWithPosition("right", false);
@@ -334,7 +333,7 @@ export const CampaignChart: FunctionalComponent<{
   const [dateRange, setDataFrame] = useState<DateRange>(
     getOptionDates("last-7-days")
   );
-  const [remoteTimeSeries, setRemoteTimeSeries] = useState<ReportTimeSeries[]>(
+  const [reportTimeSeries, setReportTimeSeries] = useState<ReportTimeSeries[]>(
     []
   );
 
@@ -360,7 +359,7 @@ export const CampaignChart: FunctionalComponent<{
         const dateReport = dictionary[strDate];
         return { x: strDate, y: dateReport ? dateReport.clicks.total : 0 };
       });
-      setRemoteTimeSeries([{ type: "clicks", data }]);
+      setReportTimeSeries([{ type: "clicks", data }]);
     };
     getcosas();
   }, [
@@ -370,22 +369,31 @@ export const CampaignChart: FunctionalComponent<{
     dateRange.endDate,
     dateRange.startDate,
   ]);
+  const blueMetric: TimeSeriesDataType = "clicks";
 
   return (
-    <CampaignChart0
-      remoteTimeSeries={remoteTimeSeries}
+    <MetricsChart
+      reportTimeSeries={reportTimeSeries}
       dateRange={dateRange}
       setDataFrame={setDataFrame}
+      blueMetric={blueMetric}
     />
   );
 };
 
-export const CampaignChart0: FunctionalComponent<{
-  remoteTimeSeries: ReportTimeSeries[];
-  hasEnoughData?: boolean;
+export const MetricsChart: FunctionalComponent<{
+  reportTimeSeries: ReportTimeSeries[];
   dateRange: DateRange;
   setDataFrame: (dateRange: DateRange) => void;
-}> = ({ remoteTimeSeries, hasEnoughData = true, dateRange, setDataFrame }) => {
+  blueMetric: TimeSeriesDataType;
+  greenMetric?: TimeSeriesDataType;
+}> = ({
+  reportTimeSeries,
+  dateRange,
+  setDataFrame,
+  blueMetric,
+  greenMetric,
+}) => {
   const { formatMoney } = usePromotionContext();
 
   const chartRef = useRef<any>(undefined);
@@ -395,16 +403,13 @@ export const CampaignChart0: FunctionalComponent<{
     datasets: [],
   });
 
-  const blueMetric: TimeSeriesDataType = "sales";
-  const greenMetric: TimeSeriesDataType = "clicks";
-
   useEffect(() => {
-    if (remoteTimeSeries) {
+    if (reportTimeSeries) {
       setChartData(
-        generateData(chartRef.current, remoteTimeSeries, blueMetric)
+        generateData(chartRef.current, reportTimeSeries, blueMetric)
       );
     }
-  }, [remoteTimeSeries]);
+  }, [blueMetric, reportTimeSeries]);
 
   const daysOffset =
     (dateRange.endDate.getTime() - dateRange.startDate.getTime()) / MS_PER_DAY;
@@ -420,7 +425,6 @@ export const CampaignChart0: FunctionalComponent<{
           />
         </div>
       </div>
-      {!hasEnoughData && <div>Advertising-metrics-may-take</div>}
       <div className="flex-1">
         <Line
           ref={chartRef}
@@ -430,7 +434,7 @@ export const CampaignChart0: FunctionalComponent<{
             formatMoney,
             [
               getDataTypeAxisType(blueMetric, true),
-              getDataTypeAxisType(greenMetric, false),
+              ...(greenMetric ? [getDataTypeAxisType(greenMetric, false)] : []),
             ]
           )}
         />
