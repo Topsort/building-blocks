@@ -17,13 +17,14 @@ import { ChartJSOrUndefined } from "react-chartjs-2/dist/types";
 import { FunctionalComponent, h } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { DateDropdown } from "./Dropdown/DateDropdown";
-import { formatToISODate, getOptionDates } from "@utils/datetime";
+import {
+  formatToISODate,
+  getDatesBetween,
+  getOptionDates,
+} from "@utils/datetime";
 import { MS_PER_DAY } from "@constants";
-import { Currency } from "@types";
 import { usePromotionContext } from "@context";
 import { services } from "@services/central-services";
-import { Campaign } from "@api/types";
-import "chartjs-adapter-moment";
 
 type DataType = TimeSeriesDataType;
 type Colors = "blue" | "green";
@@ -325,26 +326,67 @@ interface ReportTimeSeries {
   type: TimeSeriesDataType;
   data: { x: string; y: number }[];
 }
-interface ReportTimeSeriesParams {
-  startDate: string;
-  endDate?: string;
-  dataset: TimeSeriesDataType[];
-}
 
 export const CampaignChart: FunctionalComponent<{
-  getTimeSeries: (
-    getParams: ReportTimeSeriesParams
-  ) => Promise<ReportTimeSeries[]>;
-  timeSeriesRequestKey: string;
+  campaignId: string;
+}> = ({ campaignId }) => {
+  const { authToken, centralServicesUrl } = usePromotionContext();
+  const [dateRange, setDataFrame] = useState<DateRange>(
+    getOptionDates("last-7-days")
+  );
+  const [remoteTimeSeries, setRemoteTimeSeries] = useState<ReportTimeSeries[]>(
+    []
+  );
+
+  useEffect(() => {
+    const getcosas = async () => {
+      const reports = await services.getCampaignDailyReport(
+        centralServicesUrl,
+        authToken,
+        campaignId,
+        dateRange.startDate,
+        dateRange.endDate
+      );
+      const datesBetweeen = getDatesBetween(
+        dateRange.startDate,
+        dateRange.endDate
+      );
+      const dictionary = Object.fromEntries(
+        reports.reports.map(({ date, ...rest }) => [date, rest])
+      );
+
+      const data = datesBetweeen.map((date) => {
+        const strDate = formatToISODate(date);
+        const dateReport = dictionary[strDate];
+        return { x: strDate, y: dateReport ? dateReport.clicks.total : 0 };
+      });
+      setRemoteTimeSeries([{ type: "clicks", data }]);
+    };
+    getcosas();
+  }, [
+    authToken,
+    campaignId,
+    centralServicesUrl,
+    dateRange.endDate,
+    dateRange.startDate,
+  ]);
+
+  return (
+    <CampaignChart0
+      remoteTimeSeries={remoteTimeSeries}
+      dateRange={dateRange}
+      setDataFrame={setDataFrame}
+    />
+  );
+};
+
+export const CampaignChart0: FunctionalComponent<{
+  remoteTimeSeries: ReportTimeSeries[];
   hasEnoughData?: boolean;
-  campaignId: Campaign["campaignId"];
-}> = ({
-  campaignId,
-  getTimeSeries,
-  timeSeriesRequestKey,
-  hasEnoughData = true,
-}) => {
-  const { centralServicesUrl, authToken, formatMoney } = usePromotionContext();
+  dateRange: DateRange;
+  setDataFrame: (dateRange: DateRange) => void;
+}> = ({ remoteTimeSeries, hasEnoughData = true, dateRange, setDataFrame }) => {
+  const { formatMoney } = usePromotionContext();
 
   const chartRef = useRef<any>(undefined);
   const [chartData, setChartData] = useState<{
@@ -353,40 +395,16 @@ export const CampaignChart: FunctionalComponent<{
     datasets: [],
   });
 
-  const blueMetric: TimeSeriesDataType = "spend";
+  const blueMetric: TimeSeriesDataType = "sales";
   const greenMetric: TimeSeriesDataType = "clicks";
 
-  const [dateRange, setDataFrame] = useState<DateRange>(
-    getOptionDates("last-7-days")
-  );
-
-  const params = {
-    startDate: dateRange.startDate,
-    endDate: dateRange.endDate,
-    dataset: [blueMetric, greenMetric],
-  };
-  const getChartData = () => {
-    const dailyreport = services.getCampaignDailyReport(
-      centralServicesUrl,
-      authToken,
-      campaignId,
-      params.startDate,
-      params.endDate
-    );
-    console.log(dailyreport);
-  };
-
   useEffect(() => {
-    getChartData();
-  }, []);
-
-  // useEffect(() => {
-  //   if (remoteTimeSeries.tag === "success") {
-  //     setChartData(
-  //       generateData(chartRef.current, remoteTimeSeries.value, blueMetric)
-  //     );
-  //   }
-  // }, [remoteTimeSeries.tag]);
+    if (remoteTimeSeries) {
+      setChartData(
+        generateData(chartRef.current, remoteTimeSeries, blueMetric)
+      );
+    }
+  }, [remoteTimeSeries]);
 
   const daysOffset =
     (dateRange.endDate.getTime() - dateRange.startDate.getTime()) / MS_PER_DAY;
