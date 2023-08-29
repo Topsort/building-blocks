@@ -21,7 +21,7 @@ import { MS_PER_DAY } from "@constants";
 export function getAuthHeaders(extraAuthHeaders?: Record<string, string>) {
   return {
     "Content-Type": "application/json",
-    "X-User-Agent": `Topsort-Building-Blocks/${version}`,
+    "X-UA": `Topsort-Building-Blocks/${version}`,
     ...extraAuthHeaders,
   };
 }
@@ -30,7 +30,7 @@ export function getHeaders(token: string) {
   return {
     Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
-    "X-User-Agent": `Topsort-Building-Blocks/${version}`,
+    "X-UA": `Topsort-Building-Blocks/${version}`,
   };
 }
 
