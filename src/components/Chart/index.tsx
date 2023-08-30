@@ -14,7 +14,7 @@ import {
 import "chartjs-adapter-luxon";
 import { Line } from "react-chartjs-2";
 import { ChartJSOrUndefined } from "react-chartjs-2/dist/types";
-import { FunctionalComponent, h } from "preact";
+import { FunctionalComponent } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { DateDropdown } from "../Dropdown/DateDropdown";
 import {
