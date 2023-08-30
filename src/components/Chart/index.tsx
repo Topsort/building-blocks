@@ -16,7 +16,7 @@ import { Line } from "react-chartjs-2";
 import { ChartJSOrUndefined } from "react-chartjs-2/dist/types";
 import { FunctionalComponent, h } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
-import { DateDropdown } from "./Dropdown/DateDropdown";
+import { DateDropdown } from "../Dropdown/DateDropdown";
 import {
   formatToISODate,
   getDatesBetween,
@@ -26,6 +26,7 @@ import { MS_PER_DAY } from "@constants";
 import { usePromotionContext } from "@context";
 import { services } from "@services/central-services";
 import { ReportData } from "@api/types";
+import "./style.css";
 
 type Colors = "blue" | "green";
 
@@ -451,17 +452,15 @@ const MetricsChart: FunctionalComponent<{
     (dateRange.endDate.getTime() - dateRange.startDate.getTime()) / MS_PER_DAY;
 
   return (
-    <div className="relative flex h-117.5 flex-col space-y-3.5 pl-5 pr-6 pt-5 pb-3 bg-white rounded-xl shadow-card">
-      <div className="flex flex-shrink-0 items-center justify-end px-2">
-        <div className="h-8">
-          <DateDropdown
-            onOptionSelected={(startDate, endDate) =>
-              setDataFrame({ startDate, endDate })
-            }
-          />
-        </div>
+    <div className="ts-metrics-chart-wrapper">
+      <div className="ts-chart-date-dropdown">
+        <DateDropdown
+          onOptionSelected={(startDate, endDate) =>
+            setDataFrame({ startDate, endDate })
+          }
+        />
       </div>
-      <div className="flex-1">
+      <div>
         <Line
           ref={chartRef}
           data={chartData}
