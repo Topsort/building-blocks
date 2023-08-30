@@ -6,7 +6,6 @@ import { RequestStatus } from "@types";
 import { logger } from "@utils/logger";
 import { Fragment, FunctionalComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { CampaignChart } from "./Chart";
 
 export const PromoteShop: FunctionalComponent = () => {
   const {
@@ -108,10 +107,6 @@ export const PromoteShop: FunctionalComponent = () => {
             status={status || "idle"}
             hasCampaign={!!shopCampaignId || shopCampaignLaunched}
           />
-          <div className={"ts-m-2"}>
-            kl
-            <CampaignChart campaignId="aab02198-a8eb-466e-a261-33d72fe86db9" />
-          </div>
         </Portal>
       )}
     </Fragment>
