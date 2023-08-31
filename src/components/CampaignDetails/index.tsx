@@ -23,10 +23,12 @@ export const CampaignDetails: FunctionalComponent<{
     usePromotionContext();
   const {
     campaignsById,
+    shopCampaignId,
     campaignDetails: { step },
   } = state;
 
   const campaign = campaignsById[campaignId];
+  const isShopCampaign = campaignId === shopCampaignId;
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
@@ -95,9 +97,15 @@ export const CampaignDetails: FunctionalComponent<{
 
     switch (step) {
       case "details": {
+        if (!isShopCampaign) {
+          return {
+            title: "Campaign Details",
+            content: <Details campaign={campaign} />,
+          };
+        }
         return {
-          title: "Campaign Details",
-          content: <Details campaign={campaign} />,
+          title: "Reporting",
+          content: <Details campaign={campaign} isShopCampaign />,
         };
       }
       case "editing": {

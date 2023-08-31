@@ -22,6 +22,10 @@
   display: none;
 }
 
+.ts-modal--wider {
+  width: 31rem;
+}
+
 .ts-modal-heading {
   padding: 1.875rem;
   padding-bottom: 1rem;

@@ -33,7 +33,14 @@ export const Modal: FunctionalComponent<{
   onClose: () => void;
   isOpen: boolean;
   isCloseButtonHidden?: boolean;
-}> = ({ children, onClose, isOpen, isCloseButtonHidden = false }) => {
+  wider?: boolean;
+}> = ({
+  children,
+  onClose,
+  isOpen,
+  isCloseButtonHidden = false,
+  wider = false,
+}) => {
   const focusRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     // Bring focus into the modal upon opening it
@@ -61,6 +68,7 @@ export const Modal: FunctionalComponent<{
       role="dialog"
       aria-modal
       className={cx("ts-modal", {
+        "ts-modal--wider": wider,
         "ts-modal--hide": !isOpen,
         "ts-modal--show": isOpen,
       })}

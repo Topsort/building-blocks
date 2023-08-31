@@ -54,14 +54,54 @@ export const Metrics: FunctionalComponent<{
   );
 };
 
+export const ShopMetrics: FunctionalComponent<{
+  campaignReport: ReportDataWithAuctions;
+}> = ({ campaignReport }) => {
+  const { formatMoney, formatNumber } = usePromotionContext();
+  const { impressions, clicks, purchases } = campaignReport;
+  return (
+    <div className="ts-metrics ts-shop-metrics">
+      <div class="ts-metrics__grid ts-shop-metrics__grid">
+        <Metric
+          title="Total sales"
+          value={formatMoney(Number(purchases.amount))}
+          iconName="message-add"
+          iconSize={18}
+        />
+        <Metric
+          title="Impressions"
+          value={formatNumber(impressions.total)}
+          iconName="eye"
+          iconSize={18}
+        />
+        <Metric
+          title="Clicks"
+          value={formatNumber(clicks.total)}
+          iconName="mouse-square"
+          iconSize={18}
+        />
+        <Metric
+          title="Purchases"
+          // TODO(christophber) should this be `purchases.quantity` or `purchases.count`?
+          // e.g. 6 coca colas being 6 or 1. This is a product decision.
+          value={formatNumber(purchases.quantity)}
+          iconName="bag"
+          iconSize={18}
+        />
+      </div>
+    </div>
+  );
+};
+
 const Metric: FunctionalComponent<{
   title: string;
   value: number | string;
   iconName: IconName;
-}> = ({ title, value, iconName }) => {
+  iconSize?: number;
+}> = ({ title, value, iconName, iconSize }) => {
   return (
     <div className="ts-metric">
-      <Icon name={iconName} title={title} />
+      <Icon name={iconName} title={title} size={iconSize} />
       <div className="ts-metric__content">
         <span className="ts-metric__title">{title}</span>
         <span className="ts-metric__value">{value}</span>
