@@ -45,10 +45,13 @@ export const reportingApiModels = (function () {
       lost: z.number(),
     }),
   });
+  const reportDataWithDate = reportData.extend({ date: z.string() });
+  const dailyReportData = z.object({ reports: z.array(reportDataWithDate) });
   return {
     events,
     purchases,
     reportData,
+    dailyReportData,
     reportDataWithAuctions,
   };
 })();

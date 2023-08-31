@@ -19,3 +19,17 @@ export function getOptionDates(option: DateRangeOption) {
   const startDate = new Date(today.getTime() - dateOffset);
   return { startDate, endDate: today };
 }
+
+export const formatToISODate = (date: Date) => {
+  return date.toISOString().split("T")[0];
+};
+
+export const getDatesBetween = (startDate: Date, endDate: Date) => {
+  const currentDate = new Date(startDate.getTime());
+  const dates = [];
+  while (currentDate <= endDate) {
+    dates.push(new Date(currentDate));
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+  return dates;
+};

@@ -21,4 +21,6 @@ export const paths = {
     `${authUrl}/auth/vendors/${vendorId}`,
   campaignReport: (centralServicesUrl: string, campaignId: string) =>
     `${centralServicesUrl}/modal-service/reporting/campaigns/${campaignId}`,
+  campaignDailyReport: (centralServicesUrl: string, campaignId: string) =>
+    `${centralServicesUrl}/modal-service/reporting/campaigns/${campaignId}/daily`,
 };
