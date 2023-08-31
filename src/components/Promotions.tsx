@@ -27,7 +27,12 @@ const TopsortPromotions: FunctionalComponent = () => {
     dispatch,
     isUsingProductPromotion,
     isUsingShopPromotion,
-    state: { isModalOpen, selectedCampaignId, lastDeletedCampaign },
+    state: {
+      isModalOpen,
+      selectedCampaignId,
+      lastDeletedCampaign,
+      shopCampaignId,
+    },
   } = usePromotionContext();
 
   // Set up color variables for custom theming
@@ -80,6 +85,8 @@ const TopsortPromotions: FunctionalComponent = () => {
 
     getDefaultBudgetAndCpc();
   }, [dispatch, authToken, vendorId, centralServicesUrl]);
+  const isShopPromotionDetails =
+    !!selectedCampaignId && selectedCampaignId === shopCampaignId;
 
   return (
     <Fragment>
@@ -90,6 +97,7 @@ const TopsortPromotions: FunctionalComponent = () => {
           onClose={() => dispatch({ type: "modal close button clicked" })}
           isOpen={isModalOpen}
           isCloseButtonHidden={!!lastDeletedCampaign}
+          wider={isShopPromotionDetails}
         >
           {lastDeletedCampaign ? (
             <CampaignEnded campaignReport={lastDeletedCampaign.report} />

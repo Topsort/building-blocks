@@ -1,7 +1,13 @@
 .ts-metrics {
   display: flex;
   flex-direction: column;
-  font-weight: 500;
+  font-weight: 700;
+}
+
+.ts-shop-metrics {
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: var(--ts-radius-md);
+  padding: 0.5rem;
 }
 
 .ts-metrics__title {
@@ -12,6 +18,12 @@
 .ts-metrics__grid {
   display: grid;
   grid-template-columns: auto auto auto;
+  row-gap: 0.625rem;
+}
+
+.ts-shop-metrics__grid {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
   row-gap: 0.625rem;
 }
 
