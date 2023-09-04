@@ -6,6 +6,32 @@ The format is loosely based on [Keep a Changelog](https://keepachangelog.com/en/
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 We follow the format used by [Open Telemetry](https://github.com/open-telemetry/opentelemetry-python/blob/main/CHANGELOG.md).
 
+#### Version 2.1.0 (2023-09-04)
+
+##### Build System / Dependencies
+
+* **deps:**  bump aws-actions/configure-aws-credentials from 2 to 3 ([17e1f53b](https://github.com/Topsort/building-blocks/commit/17e1f53bd551f2e080ff756080ed20a10e678c74))
+* **deps-dev:**
+  *  bump the lint group with 3 updates ([236d11de](https://github.com/Topsort/building-blocks/commit/236d11debc1e928bb848e892db1f5ee05ba16a8e))
+  *  bump typescript from 5.1.6 to 5.2.2 ([95b9c445](https://github.com/Topsort/building-blocks/commit/95b9c4454173dab58b374a31b7a1c70926b05c95))
+
+##### Chores
+
+*  switch user-agent key ([d528d2af](https://github.com/Topsort/building-blocks/commit/d528d2afd91b062230e6e45f1f8406df4c754dd8))
+
+##### New Features
+
+*  create chart component ([#162](https://github.com/Topsort/building-blocks/pull/162)) ([ea32f4bf](https://github.com/Topsort/building-blocks/commit/ea32f4bf9e4d792adca08a00d4b4e226e11a53c7))
+*  date dropdown component ([#158](https://github.com/Topsort/building-blocks/pull/158)) ([223fc198](https://github.com/Topsort/building-blocks/commit/223fc198feba1115edf035b134c15d5781e8d818))
+
+##### Bug Fixes
+
+*  switch to npm for publishing ([44f34c36](https://github.com/Topsort/building-blocks/commit/44f34c3601f7e544fad625533c5673c8d2b39140))
+
+##### Other Changes
+
+*  switch to npm for publishing ([deaccd91](https://github.com/Topsort/building-blocks/commit/deaccd91a6238e679d62718d36bf599dacfe9865))
+
 ## Version 2.1.0-beta2 (2023-08-22)
 
 ### Added
