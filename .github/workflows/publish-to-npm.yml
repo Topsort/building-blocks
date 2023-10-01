@@ -59,7 +59,7 @@ jobs:
           pnpm publish --access public --no-git-checks
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v3
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.S3_BUILDING_BLOCKS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.S3_BUILDING_BLOCKS_SECRET_ACCESS_KEY }}
