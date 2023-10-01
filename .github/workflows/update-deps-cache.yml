@@ -14,7 +14,7 @@ jobs:
     name: Node.js
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Check if cache key exists
         uses: actions/cache/restore@v3
