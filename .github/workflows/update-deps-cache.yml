@@ -24,7 +24,7 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-node-deps-${{ hashFiles(env.lockfile) }}
 
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v4
         name: Install PNPM
         id: pnpm-install
         with:
