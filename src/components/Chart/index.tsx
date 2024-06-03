@@ -147,14 +147,14 @@ function generateData(
     datasets:
       rawDataSets.length > 0
         ? rawDataSets.map(({ type, data }) =>
-            generateDataset(
-              type,
-              data,
-              chart.ctx,
-              getDataTypeLabel(type),
-              type == blueMetric
-            )
+          generateDataset(
+            type,
+            data,
+            chart.ctx,
+            getDataTypeLabel(type),
+            type == blueMetric
           )
+        )
         : [],
   };
 }
@@ -251,8 +251,8 @@ function generateOptions(
         titleColor: "rgba(255, 255, 255, 0.7)",
         mode: "index",
         intersect: false,
-        titleFont: { weight: "500", size: 10 },
-        bodyFont: { weight: "500", size: 10 },
+        titleFont: { weight: "500" as any, size: 10 }, // TODO: type this
+        bodyFont: { weight: "500" as any, size: 10 }, // TODO: type this
         bodyAlign: "left",
         bodySpacing: 8,
         backgroundColor: "rgba(39, 42, 71, 1)",
@@ -431,49 +431,49 @@ const MetricsChart: FunctionalComponent<{
   blueMetric,
   greenMetric,
 }) => {
-  const { formatMoney } = usePromotionContext();
+    const { formatMoney } = usePromotionContext();
 
-  const chartRef = useRef<any>(undefined);
-  const [chartData, setChartData] = useState<{
-    datasets: ChartDataset<"line", ScatterDataPoint[] | number[] | null[]>[];
-  }>({
-    datasets: [],
-  });
+    const chartRef = useRef<any>(undefined);
+    const [chartData, setChartData] = useState<{
+      datasets: ChartDataset<"line", ScatterDataPoint[] | number[] | null[]>[];
+    }>({
+      datasets: [],
+    });
 
-  useEffect(() => {
-    if (reportTimeSeries) {
-      setChartData(
-        generateData(chartRef.current, reportTimeSeries, blueMetric)
-      );
-    }
-  }, [blueMetric, reportTimeSeries]);
+    useEffect(() => {
+      if (reportTimeSeries) {
+        setChartData(
+          generateData(chartRef.current, reportTimeSeries, blueMetric)
+        );
+      }
+    }, [blueMetric, reportTimeSeries]);
 
-  const daysOffset =
-    (dateRange.endDate.getTime() - dateRange.startDate.getTime()) / MS_PER_DAY;
+    const daysOffset =
+      (dateRange.endDate.getTime() - dateRange.startDate.getTime()) / MS_PER_DAY;
 
-  return (
-    <div className="ts-metrics-chart-wrapper">
-      <div className="ts-chart-date-dropdown">
-        <DateDropdown
-          onOptionSelected={(startDate, endDate) =>
-            setDataFrame({ startDate, endDate })
-          }
-        />
+    return (
+      <div className="ts-metrics-chart-wrapper">
+        <div className="ts-chart-date-dropdown">
+          <DateDropdown
+            onOptionSelected={(startDate, endDate) =>
+              setDataFrame({ startDate, endDate })
+            }
+          />
+        </div>
+        <div>
+          <Line
+            ref={chartRef}
+            data={chartData}
+            options={generateOptions(
+              getXLabelFromDataFrame(dateRange?.endDate, daysOffset),
+              formatMoney,
+              [
+                getDataTypeAxisType(blueMetric, true),
+                ...(greenMetric ? [getDataTypeAxisType(greenMetric, false)] : []),
+              ]
+            )}
+          />
+        </div>
       </div>
-      <div>
-        <Line
-          ref={chartRef}
-          data={chartData}
-          options={generateOptions(
-            getXLabelFromDataFrame(dateRange?.endDate, daysOffset),
-            formatMoney,
-            [
-              getDataTypeAxisType(blueMetric, true),
-              ...(greenMetric ? [getDataTypeAxisType(greenMetric, false)] : []),
-            ]
-          )}
-        />
-      </div>
-    </div>
-  );
-};
+    );
+  };
