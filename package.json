@@ -25,7 +25,7 @@
     "README.md",
     "package.json"
   ],
-  "packageManager": "pnpm@9.0.1",
+  "packageManager": "pnpm@9.1.4",
   "engines": {
     "node": ">=18",
     "pnpm": ">=9"
