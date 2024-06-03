@@ -14,24 +14,24 @@ jobs:
     name: Node.js
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Check if cache key exists
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v4
         id: cache_exists
         with:
           lookup-only: true
           path: node_modules
           key: ${{ runner.os }}-node-deps-${{ hashFiles(env.lockfile) }}
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
         name: Install PNPM
         id: pnpm-install
         with:
           version: ${{ env.pnpm_version }}
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         if: steps.cache_exists.outputs.cache-hit != 'true'
         with:
           node-version: ${{ env.node_version }}
@@ -41,7 +41,7 @@ jobs:
         run: pnpm install
 
       - name: Store dependencies in cache
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v4
         if: steps.cache_exists.outputs.cache-hit != 'true'
         with:
           path: node_modules

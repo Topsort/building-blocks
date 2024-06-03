@@ -25,16 +25,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
         name: Install PNPM
         id: pnpm-install
         with:
           version: ${{ env.pnpm_version }}
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.node_version }}
           cache: pnpm
@@ -59,7 +59,7 @@ jobs:
           pnpm publish --access public --no-git-checks
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v3
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.S3_BUILDING_BLOCKS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.S3_BUILDING_BLOCKS_SECRET_ACCESS_KEY }}
