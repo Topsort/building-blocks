@@ -6,7 +6,7 @@ on:
 env:
   lockfile: pnpm-lock.yaml
   node_version: "18"
-  pnpm_version: "8"
+  pnpm_version: "9"
 
 jobs:
   eslint:

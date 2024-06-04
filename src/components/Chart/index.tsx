@@ -251,8 +251,8 @@ function generateOptions(
         titleColor: "rgba(255, 255, 255, 0.7)",
         mode: "index",
         intersect: false,
-        titleFont: { weight: "500", size: 10 },
-        bodyFont: { weight: "500", size: 10 },
+        titleFont: { weight: "500" as any, size: 10 }, // TODO: type this
+        bodyFont: { weight: "500" as any, size: 10 }, // TODO: type this
         bodyAlign: "left",
         bodySpacing: 8,
         backgroundColor: "rgba(39, 42, 71, 1)",
