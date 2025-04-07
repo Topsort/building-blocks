@@ -85,7 +85,7 @@
     "luxon": "^3.4.2",
     "preact": "^10.17.0",
     "react-chartjs-2": "^5.2.0",
-    "structurajs": "^0.11.1",
+    "structurajs": "^0.12.6",
     "zod": "^3.22.1"
   },
   "overrides": {
